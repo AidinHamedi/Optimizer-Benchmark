@@ -27,7 +27,7 @@ def langermann(
     Returns:
         torch.Tensor: A scalar tensor representing the Langermann function value.
     """
-    x_expanded = x.unsqueeze(0).expand(m, -1)
+    x_expanded = x.unsqueeze(0).expand(m, -1)  # type: ignore
     diff_sq = (x_expanded - a) ** 2
     inner = torch.sum(diff_sq, dim=1)
     terms = c * torch.exp(-inner / torch.pi) * torch.cos(torch.pi * inner)
