@@ -27,19 +27,31 @@ from .styblinski_tang import START_POS as STYBLINSKI_TANG_START_POS
 from .styblinski_tang import stybtang
 
 FUNC_DICT: dict = {
-    "Ackley": {"func": ackley, "size": ACKLEY_EVAL_SIZE, "pos": ACKLEY_START_POS},
+    "Ackley": {
+        "func": ackley,
+        "size": ACKLEY_EVAL_SIZE,
+        "pos": ACKLEY_START_POS,
+    },
     "Cross-in-Tray": {
         "func": cross_in_tray,
         "size": CROSS_EVAL_SIZE,
         "pos": CROSS_START_POS,
     },
-    "EggHolder": {"func": eggholder, "size": EGG_EVAL_SIZE, "pos": EGG_START_POS},
+    "EggHolder": {
+        "func": eggholder,
+        "size": EGG_EVAL_SIZE,
+        "pos": EGG_START_POS,
+    },
     "Langermann": {
         "func": langermann,
         "size": LANGERMANN_EVAL_SIZE,
         "pos": LANGERMANN_START_POS,
     },
-    "Levy": {"func": levy, "size": LEVY_EVAL_SIZE, "pos": LEVY_START_POS},
+    "Levy": {
+        "func": levy,
+        "size": LEVY_EVAL_SIZE,
+        "pos": LEVY_START_POS,
+    },
     "Rastrigin": {
         "func": rastrigin,
         "size": RASTRIGIN_EVAL_SIZE,
@@ -50,7 +62,11 @@ FUNC_DICT: dict = {
         "size": SCHAFFER2_EVAL_SIZE,
         "pos": SCHAFFER2_START_POS,
     },
-    "Shubert": {"func": shubert, "size": SHUBERT_EVAL_SIZE, "pos": SHUBERT_START_POS},
+    "Shubert": {
+        "func": shubert,
+        "size": SHUBERT_EVAL_SIZE,
+        "pos": SHUBERT_START_POS,
+    },
     "Styblinski-Tang": {
         "func": stybtang,
         "size": STYBLINSKI_TANG_EVAL_SIZE,
