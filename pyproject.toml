@@ -5,5 +5,40 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "pillow>=11.3.0",
+    "numpy>=2.3.2",
+    "torch>=2.7.0",
+    "torchvision>=0.22.0",
+    "matplotlib>=3.10.5",
+]
+
+[dependency-groups]
+docs = [
     "mkdocs-material>=9.6.16",
 ]
+
+[project.optional-dependencies]
+webVis = [
+    "plotly>=6.0.0"
+]
+
+[[tool.uv.index]]
+name = "pytorch-cu128"
+url = "https://download.pytorch.org/whl/cu128"
+explicit = true
+
+[tool.uv.sources]
+torch = [
+  { index = "pytorch-cu128", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+]
+torchvision = [
+  { index = "pytorch-cu128", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+]
+
+[tool.pyright]
+pythonVersion = "3.11"
+pythonPlatform = "Linux"
+
+reportArgumentType = "none"
+reportPossiblyUnboundVariable = "none"
+reportCallIssue = "none"
