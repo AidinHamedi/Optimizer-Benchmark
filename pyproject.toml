@@ -23,22 +23,22 @@ webVis = [
 ]
 
 [[tool.uv.index]]
-name = "pytorch-cu128"
-url = "https://download.pytorch.org/whl/cu128"
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
 explicit = true
 
 [tool.uv.sources]
 torch = [
-  { index = "pytorch-cu128", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+  { index = "pytorch-cpu" },
 ]
 torchvision = [
-  { index = "pytorch-cu128", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+    { index = "pytorch-cpu" },
 ]
 
 [tool.pyright]
 pythonVersion = "3.11"
 pythonPlatform = "Linux"
 
-reportArgumentType = "none"
-reportPossiblyUnboundVariable = "none"
-reportCallIssue = "none"
+# reportArgumentType = "none"
+# reportPossiblyUnboundVariable = "none"
+# reportCallIssue = "none"
