@@ -18,7 +18,7 @@ def langermann(
     a: torch.Tensor = LANGERMANN_A,
 ) -> torch.Tensor:
     """
-    Computes the Langermann function using predefined constants.
+    Computes the Langermann function.
 
     Args:
         x (torch.Tensor): A 1D tensor of shape (d,) representing the input vector.

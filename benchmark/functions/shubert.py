@@ -28,7 +28,7 @@ GLOBAL_MINIMUM_LOC = torch.tensor(
 
 @torch.jit.script
 def shubert(x: torch.Tensor) -> torch.Tensor:
-    """Computes the Shubert.
+    """Computes the Shubert function.
 
     Args:
         x (torch.Tensor): Input tensor with last dimension 2 representing [x1, x2].
