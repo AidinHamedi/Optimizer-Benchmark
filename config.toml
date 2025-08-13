@@ -1,0 +1,4 @@
+[EvalConfigs]
+
+[HyprSearchSpaces.default]
+lr = [0, 2]

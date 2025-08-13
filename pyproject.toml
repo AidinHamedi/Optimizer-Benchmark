@@ -10,6 +10,9 @@ dependencies = [
     "torch>=2.7.0",
     "torchvision>=0.22.0",
     "matplotlib>=3.10.5",
+    "pytorch-optimizer>=3.8.0",
+    "tqdm>=4.67.1",
+    "optuna>=4.4.0",
 ]
 
 [dependency-groups]
