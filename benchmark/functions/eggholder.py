@@ -1,7 +1,7 @@
 import torch
 
 START_POS = torch.tensor([47.59, 47.59])
-EVAL_SIZE = (512, 512)
+EVAL_SIZE = ((-512, 512), (-512, 512))
 GLOBAL_MINIMUM_LOC = torch.tensor([[512.0, 404.2319]])
 
 

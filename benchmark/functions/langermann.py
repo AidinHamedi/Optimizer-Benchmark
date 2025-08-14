@@ -1,7 +1,7 @@
 import torch
 
 START_POS = torch.tensor([4.6, 6.7])
-EVAL_SIZE = (0, 10)
+EVAL_SIZE = ((0, 10), (0, 10))
 LANGERMANN_M = torch.tensor(5)
 LANGERMANN_C = torch.tensor([1.0, 2.0, 5.0, 2.0, 3.0])
 LANGERMANN_A = torch.tensor(

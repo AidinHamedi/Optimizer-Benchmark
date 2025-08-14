@@ -1,11 +1,11 @@
 import torch
 
 START_POS = torch.tensor([7.44, 7.44])
-EVAL_SIZE = (10, 10)
+EVAL_SIZE = ((-10, 10), (-10, 10))
 ACKLEY_A = torch.tensor(10.0)
 ACKLEY_B = torch.tensor(0.1)
 ACKLEY_C = torch.tensor(2 * torch.pi)
-GLOBAL_MINIMUM_LOC = torch.tensor([[0.0]])
+GLOBAL_MINIMUM_LOC = torch.tensor([[0.0, 0.0]])
 
 
 @torch.jit.script

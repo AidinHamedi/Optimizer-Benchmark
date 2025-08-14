@@ -1,8 +1,8 @@
 import torch
 
 START_POS = torch.tensor([-8.2, 7.7])
-EVAL_SIZE = (10, 10)
-GLOBAL_MINIMUM_LOC = torch.tensor([[0.0]])
+EVAL_SIZE = ((-10, 10), (-10, 10))
+GLOBAL_MINIMUM_LOC = torch.tensor([[0.0, 0.0]])
 
 
 @torch.jit.script
