@@ -37,7 +37,7 @@ def execute_steps(
                 optimizer.zero_grad()
 
                 loss = model()
-                loss.backward()
+                loss.backward(create_graph=use_graph)
 
                 if grad_clip:
                     nn.utils.clip_grad_norm_(model.parameters(), grad_clip_value)

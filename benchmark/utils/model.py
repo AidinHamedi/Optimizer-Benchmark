@@ -9,7 +9,7 @@ class Pos2D(nn.Module):
     Simple 2D optimization model.
     """
 
-    def __init__(self, func: Callable, start_pos: Tuple[float, float]) -> None:
+    def __init__(self, func: Callable, start_pos: torch.Tensor) -> None:
         """
         Args:
             func: Mathematical function to optimize.
@@ -18,7 +18,8 @@ class Pos2D(nn.Module):
         super().__init__()
         self.func = func
         self.cords: torch.Tensor = nn.Parameter(
-            torch.tensor(start_pos, dtype=torch.float32, requires_grad=True)
+            start_pos.to(dtype=torch.float32, non_blocking=True, copy=True),
+            requires_grad=True,
         )
 
     def forward(self) -> torch.Tensor:
