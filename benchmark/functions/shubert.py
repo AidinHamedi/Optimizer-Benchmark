@@ -1,5 +1,7 @@
 import torch
 
+from .norm import normalize
+
 START_POS = torch.tensor([1.81, 1.82])
 EVAL_SIZE = ((-10, 10), (-10, 10))
 GLOBAL_MINIMUM_LOC = torch.tensor(
@@ -26,6 +28,7 @@ GLOBAL_MINIMUM_LOC = torch.tensor(
 )
 
 
+@normalize(-186.6189, 210.2482)
 @torch.jit.script
 def shubert(x: torch.Tensor) -> torch.Tensor:
     """Computes the Shubert function.

@@ -11,3 +11,6 @@ wheels/
 
 # Temp folder for testing
 temp/
+
+# Cache folder
+cache/

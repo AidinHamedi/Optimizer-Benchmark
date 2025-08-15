@@ -1,5 +1,7 @@
 import torch
 
+from .norm import normalize
+
 START_POS = torch.tensor([4.6, 6.7])
 EVAL_SIZE = ((0, 10), (0, 10))
 LANGERMANN_M = torch.tensor(5)
@@ -10,6 +12,7 @@ LANGERMANN_A = torch.tensor(
 GLOBAL_MINIMUM_LOC = torch.tensor([[2.7927, 1.6016]])
 
 
+@normalize(-4.1293, 5.1617)
 @torch.jit.script
 def langermann(
     x: torch.Tensor,

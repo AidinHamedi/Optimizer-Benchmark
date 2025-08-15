@@ -5,25 +5,32 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "pillow>=11.3.0",
-    "numpy>=2.3.2",
-    "torch>=2.7.0",
-    "torchvision>=0.22.0",
-    "matplotlib>=3.10.5",
-    "pytorch-optimizer>=3.8.0",
-    "tqdm>=4.67.1",
-    "optuna>=4.4.0",
-]
-
-[dependency-groups]
-docs = [
-    "mkdocs-material>=9.6.16",
+  "matplotlib>=3.10.5",
+  "numpy>=2.3.2",
+  "optuna>=4.4.0",
+  "pillow>=11.3.0",
+  "pytorch-optimizer>=3.8.0",
+  "torch>=2.7.0",
+  "torchvision>=0.22.0",
+  "tqdm>=4.67.1",
+  # "plotly>=6.0.0",
+  # "kaleido>=1.0.0",
 ]
 
 [project.optional-dependencies]
-webVis = [
-    "plotly>=6.0.0"
+
+[dependency-groups]
+docs = [
+  "mkdocs-material>=9.6.16",
 ]
+
+[tool.pyright]
+pythonVersion = "3.11"
+pythonPlatform = "Linux"
+
+# reportArgumentType = "none"
+# reportPossiblyUnboundVariable = "none"
+# reportCallIssue = "none"
 
 [[tool.uv.index]]
 name = "pytorch-cpu"
@@ -35,13 +42,5 @@ torch = [
   { index = "pytorch-cpu" },
 ]
 torchvision = [
-    { index = "pytorch-cpu" },
+  { index = "pytorch-cpu" },
 ]
-
-[tool.pyright]
-pythonVersion = "3.11"
-pythonPlatform = "Linux"
-
-# reportArgumentType = "none"
-# reportPossiblyUnboundVariable = "none"
-# reportCallIssue = "none"

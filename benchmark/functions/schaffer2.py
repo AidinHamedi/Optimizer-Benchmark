@@ -1,10 +1,13 @@
 import torch
 
-START_POS = torch.tensor([41, 41])
+from .norm import normalize
+
+START_POS = torch.tensor([41, 42])
 EVAL_SIZE = ((-50, 50), (-50, 50))
 GLOBAL_MINIMUM_LOC = torch.tensor([[0.0, 0.0]])
 
 
+@normalize(8.0585e-05, 0.9961)
 @torch.jit.script
 def schaffer2(x: torch.Tensor) -> torch.Tensor:
     """

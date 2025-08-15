@@ -1,10 +1,13 @@
 import torch
 
-START_POS = torch.tensor([47.59, 47.59])
+from .norm import normalize
+
+START_POS = torch.tensor([47.59, 48.59])
 EVAL_SIZE = ((-512, 512), (-512, 512))
 GLOBAL_MINIMUM_LOC = torch.tensor([[512.0, 404.2319]])
 
 
+@normalize(-1092.7841, 1199.1733)
 @torch.jit.script
 def eggholder(x: torch.Tensor) -> torch.Tensor:
     """

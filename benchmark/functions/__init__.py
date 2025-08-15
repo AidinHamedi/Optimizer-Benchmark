@@ -1,3 +1,5 @@
+from typing import Tuple
+
 from .ackley import EVAL_SIZE as ACKLEY_EVAL_SIZE
 from .ackley import GLOBAL_MINIMUM_LOC as ACKLEY_GLOBAL_MINIMUM_LOC
 from .ackley import START_POS as ACKLEY_START_POS
@@ -91,3 +93,13 @@ FUNC_DICT: dict = {
         "gm_pos": STYBLINSKI_TANG_GLOBAL_MINIMUM_LOC,
     },
 }
+
+
+def scale_eval_size(
+    eval_size: Tuple[Tuple[int, int], Tuple[int, int]], scale: float
+) -> Tuple[Tuple[int, int], Tuple[int, int]]:
+    """Scale the evaluation size by a given factor."""
+    return (
+        (int(eval_size[0][0] * scale), int(eval_size[0][1] * scale)),
+        (int(eval_size[1][0] * scale), int(eval_size[1][1] * scale)),
+    )

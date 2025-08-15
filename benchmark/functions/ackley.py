@@ -1,6 +1,8 @@
 import torch
 
-START_POS = torch.tensor([7.44, 7.44])
+from .norm import normalize
+
+START_POS = torch.tensor([7.6, 8.4])
 EVAL_SIZE = ((-10, 10), (-10, 10))
 ACKLEY_A = torch.tensor(10.0)
 ACKLEY_B = torch.tensor(0.1)
@@ -8,6 +10,7 @@ ACKLEY_C = torch.tensor(2 * torch.pi)
 GLOBAL_MINIMUM_LOC = torch.tensor([[0.0, 0.0]])
 
 
+@normalize(-0.1247, 9.1874)
 @torch.jit.script
 def ackley(
     x: torch.Tensor,
