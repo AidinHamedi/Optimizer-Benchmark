@@ -1,4 +1,70 @@
-[EvalConfigs]
+# General benchmark settings.
+[benchmark]
+seed = 42
+hypertune_trials = 500
+ignore_optimizers = [
+  "lomo",
+  "adalomo",
+  "demo",
+  "a2grad",
+  "muon",
+  "alice",
+  "adamc",
+  "adamwsn",
+  "adamuon",
+  "splus",
+]
 
-[HyprSearchSpaces.default]
-lr = [0, 2]
+# Number of iterations for each benchmark function.
+[function_iterations]
+Ackley = 200
+"Cross-in-Tray" = 200
+EggHolder = 200
+Langermann = 200
+Levy = 200
+Rastrigin = 200
+"Schaffer 2" = 300
+Shubert = 200
+"Styblinski-Tang" = 200
+
+# Hyperparameter search spaces for optimizers.
+# If an optimizer is not listed here, the 'default' space is used.
+[hyperparameters]
+default = { lr = [0, 4] }
+adafactor = { lr = [0.0, 10.0] }
+adams = { lr = [0.0, 10.0] }
+dadaptadagrad = { lr = [0.0, 10.0] }
+dadaptlion = { lr = [0.0, 10.0] }
+padam = { lr = [0.0, 10.0] }
+dadaptadam = { lr = [0.0, 10.0] }
+adahessian = { lr = [0.0, 800.0] }
+sophiah = { lr = [0.0, 60.0] }
+pid = { lr = [0.0, 0.5], derivative = [2.0, 14.0], integral = [1.0, 10.0], momentum = [
+  0.0,
+  0.99,
+] }
+sgdp = { lr = [0.0, 0.8], momentum = [0.0, 0.99] }
+accsgd = { lr = [0.0, 0.8], momentum = [0.0, 0.99], kappa = [1, 1000] }
+sgdw = { lr = [0.0, 0.8], momentum = [0.0, 0.99] }
+signsgd = { lr = [0.0, 0.8], momentum = [0.0, 0.99] }
+sgdsai = { lr = [0.0, 0.8], momentum = [0.0, 0.99] }
+sgd = { lr = [0.0, 0.8], momentum = [0.0, 0.99] }
+alig = { max_lr = [0.0, 0.8], momentum = [0.0, 0.99] }
+asgd = { lr = [0.0, 0.8], amplifier = [0.0, 0.5] }
+amos = { lr = [0.0, 0.8], momentum = [0.0, 0.99] }
+schedulefreesgd = { lr = [0.0, 3.0], momentum = [0.0, 0.99] }
+schedulefreeradam = { lr = [1.0, 10.0] }
+kron = { lr = [0.0, 0.8], momentum = [0.0, 0.99] }
+scion = { lr = [0.0, 1.0], scale = [1.0, 1000.0] }
+scionlight = { lr = [0.0, 1.0], scale = [1.0, 1000.0] }
+
+# Example for a specific optimizer:
+# adam = { lr = [0.0, 0.1], betas = [[0.8, 0.99], [0.9, 0.999]] }
+
+# Special evaluation arguments for specific optimizers.
+# These are passed to the `execute_steps` function.
+[optimizer_eval_args]
+alig = { use_closure = true }
+bsam = { use_closure = true }
+adahessian = { use_graph = true }
+sophiah = { use_graph = true }

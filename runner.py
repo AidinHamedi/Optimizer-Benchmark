@@ -18,7 +18,7 @@ def read_toml_config(path: Path) -> dict:
         return tomllib.load(f)
 
 
-def get_hypr_search_space(name: str, config: dict) -> dict:
+def get_hyperparameter_search_space(name: str, config: dict) -> dict:
     """Return the hyperparameter search space for a given optimizer name."""
     return config.get(name, config["default"])
 
@@ -26,11 +26,21 @@ def get_hypr_search_space(name: str, config: dict) -> dict:
 def main():
     """The entry point of the app."""
     configs = read_toml_config(CONFIG_DIR)
-    optimizers = get_supported_optimizers()
+    optimizers = [
+        opt
+        for opt in get_supported_optimizers()
+        if opt not in configs["benchmark"]["ignore_optimizers"]
+    ]
+
+    eval_configs = {
+        "num_iters": configs["function_iterations"],
+        **configs["benchmark"],
+    }
+    eval_args = configs.get("optimizer_eval_args", {})
 
     for i, optimizer_name in enumerate(optimizers, start=1):
-        search_space = get_hypr_search_space(
-            optimizer_name, configs["HyprSearchSpaces"]
+        search_space = get_hyperparameter_search_space(
+            optimizer_name, configs["hyperparameters"]
         )
         print(
             f"({i}/{len(optimizers)}) Processing {optimizer_name}... (Params to tune: {', '.join(search_space.keys())})"
@@ -44,7 +54,8 @@ def main():
             optimizer_name,
             OUTPUT_DIR,
             search_space,
-            configs["EvalConfigs"],
+            eval_configs,
+            eval_args,
         )
 
     print("Done!")
