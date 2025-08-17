@@ -3,7 +3,7 @@
 A benchmarking suite for evaluating and comparing **PyTorch optimization algorithms** on 2D mathematical functions.
 This project uses **[pytorch-optimizer](https://github.com/jettify/pytorch-optimizer)** and **Optuna** for hyperparameter tuning, and generates visualizations of optimizer trajectories across optimization test functions.
 
-## 🚀 Features
+## 🌶️ Features
 
 * Benchmarks **all supported optimizers** in `pytorch-optimizer`.
 * Hyperparameter search with **Optuna (TPE sampler)**.
@@ -21,6 +21,27 @@ This project uses **[pytorch-optimizer](https://github.com/jettify/pytorch-optim
   * Styblinski–Tang
 * Configurable **search spaces**, **iteration counts**, **ignored optimizers** and... via `config.toml`.
 * Saves results and plots for later analysis.
+
+## 🚀 Installation & Usage
+
+```bash
+# Clone repository
+git clone https://github.com/AidinHamedi/ML-Optimizer-Benchmark.git
+cd ML-Optimizer-Benchmark
+
+# Install dependencies
+uv sync
+
+# Run the benchmark
+python runner.py
+```
+
+The script will:
+
+1. Load settings from `config.toml`.
+2. Iterate through available optimizers.
+3. Run hyperparameter tuning with Optuna.
+4. Save results and visualizations under `./results/`.
 
 ## 🤝 Contributing
 
