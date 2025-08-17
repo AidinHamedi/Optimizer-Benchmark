@@ -24,6 +24,10 @@ from .rastrigin import EVAL_SIZE as RASTRIGIN_EVAL_SIZE
 from .rastrigin import GLOBAL_MINIMUM_LOC as RASTRIGIN_GLOBAL_MINIMUM_LOC
 from .rastrigin import START_POS as RASTRIGIN_START_POS
 from .rastrigin import rastrigin
+from .rosenbrock import EVAL_SIZE as ROSENBROCK_EVAL_SIZE
+from .rosenbrock import GLOBAL_MINIMUM_LOC as ROSENBROCK_GLOBAL_MINIMUM_LOC
+from .rosenbrock import START_POS as ROSENBROCK_START_POS
+from .rosenbrock import rosenbrock
 from .schaffer2 import EVAL_SIZE as SCHAFFER2_EVAL_SIZE
 from .schaffer2 import GLOBAL_MINIMUM_LOC as SCHAFFER2_GLOBAL_MINIMUM_LOC
 from .schaffer2 import START_POS as SCHAFFER2_START_POS
@@ -73,6 +77,12 @@ FUNC_DICT: dict = {
         "size": RASTRIGIN_EVAL_SIZE,
         "pos": RASTRIGIN_START_POS,
         "gm_pos": RASTRIGIN_GLOBAL_MINIMUM_LOC,
+    },
+    "Rosenbrock": {
+        "func": rosenbrock,
+        "size": ROSENBROCK_EVAL_SIZE,
+        "pos": ROSENBROCK_START_POS,
+        "gm_pos": ROSENBROCK_GLOBAL_MINIMUM_LOC,
     },
     "Schaffer 2": {
         "func": schaffer2,

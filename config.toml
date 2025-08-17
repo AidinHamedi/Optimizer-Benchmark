@@ -23,6 +23,7 @@ EggHolder = 200
 Langermann = 200
 Levy = 200
 Rastrigin = 200
+Rosenbrock = 400
 "Schaffer 2" = 300
 Shubert = 200
 "Styblinski-Tang" = 200
@@ -31,7 +32,8 @@ Shubert = 200
 # If an optimizer is not listed here, the 'default' space is used.
 [hyperparameters]
 default = { lr = [0, 4] }
-adafactor = { lr = [0.0, 10.0] }
+adadelta = { lr = [0.0, 600.0] }
+adafactor = { lr = [0.0, 600.0] }
 adams = { lr = [0.0, 10.0] }
 dadaptadagrad = { lr = [0.0, 10.0] }
 dadaptlion = { lr = [0.0, 10.0] }
