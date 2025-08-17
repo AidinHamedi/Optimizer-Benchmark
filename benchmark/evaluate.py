@@ -24,8 +24,6 @@ def benchmark_optimizer(
     hyper_search_spaces: dict,
     config: dict,
     eval_args: dict = {},
-    exist_pass: bool = False,
-    img_format: str = ".png",
 ) -> None:
     """
     Benchmarks a given optimizer across multiple test functions with hyperparameter tuning.
@@ -37,8 +35,6 @@ def benchmark_optimizer(
         hyper_search_spaces (dict): Dictionary defining the hyperparameter search space for the optimizer.
         config (dict): Configuration dictionary containing tuning parameters like number of iterations and trials.
         eval_args (dict, optional): Additional arguments for evaluation, keyed by optimizer name. Defaults to {}.
-        exist_pass (bool, optional): If True, skips benchmarking if results already exist. Defaults to False.
-        img_format (str, optional): Format for saving output images (e.g., ".png"). Defaults to ".png".
 
     Returns:
         None
@@ -46,7 +42,7 @@ def benchmark_optimizer(
     results_dir = os.path.join(output_dir, optimizer_name)
 
     if os.path.exists(results_dir):
-        if exist_pass:
+        if config["exist_pass"]:
             return None
         shutil.rmtree(results_dir)
 
@@ -108,7 +104,7 @@ def benchmark_optimizer(
                 config["num_iters"][func_name],
                 **eval_args.get(optimizer_name, {}),
             ),
-            os.path.join(results_dir, func_name + img_format),
+            os.path.join(results_dir, func_name + config["img_format"]),
             optimizer_name,
             study.best_params,
             gm_pos,

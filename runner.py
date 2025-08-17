@@ -56,7 +56,6 @@ def main():
             search_space,
             eval_configs,
             eval_args,
-            exist_pass=True,
         )
 
     print("Done!")

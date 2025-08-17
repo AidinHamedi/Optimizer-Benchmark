@@ -56,7 +56,4 @@ def compute_surface(
     if cache:
         torch.save(surface_tensor, cache_file)
 
-    print(torch.max(Z))
-    print(torch.min(Z))
-
     return surface_tensor

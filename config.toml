@@ -1,6 +1,8 @@
 # General benchmark settings.
 [benchmark]
 seed = 42
+exist_pass = true
+img_format = ".jpg"
 hypertune_trials = 500
 ignore_optimizers = [
   "lomo",
