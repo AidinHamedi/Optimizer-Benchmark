@@ -2,8 +2,8 @@ import torch
 
 from .norm import normalize
 
-START_POS = torch.tensor([41, 42])
-EVAL_SIZE = ((-50, 50), (-50, 50))
+START_POS = torch.tensor([8.2, 8.4])
+EVAL_SIZE = ((-10, 10), (-10, 10))
 GLOBAL_MINIMUM_LOC = torch.tensor([[0.0, 0.0]])
 
 
@@ -20,8 +20,9 @@ def schaffer2(x: torch.Tensor) -> torch.Tensor:
         torch.Tensor: A scalar tensor representing the value of the Schaffer function
             for the given input 'x'.
     """
-    x1 = x[0]
-    x2 = x[1]
+    # To make the eval size smaller
+    x1 = x[0] * 5
+    x2 = x[1] * 5
 
     fact1 = torch.sin(x1**2 - x2**2) ** 2 - 0.5
     fact2 = (1 + 0.001 * (x1**2 + x2**2)) ** 2
