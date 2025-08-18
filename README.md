@@ -26,7 +26,7 @@ This project uses **[pytorch-optimizer](https://github.com/jettify/pytorch-optim
 
 ```bash
 # Clone repository
-git clone https://github.com/AidinHamedi/ML-Optimizer-Benchmark.git
+git clone --depth 1 https://github.com/AidinHamedi/ML-Optimizer-Benchmark.git
 cd ML-Optimizer-Benchmark
 
 # Install dependencies
