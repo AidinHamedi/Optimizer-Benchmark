@@ -15,7 +15,7 @@ def objective(
     bounds: Tuple[Tuple[int, int], Tuple[int, int]],
     num_iters: int,
     boundary_penalty: bool = True,
-    average_distance_factor: float = 1.8,
+    average_distance_factor: float = 1.0,
     **eval_args,
 ) -> float:
     """
@@ -30,7 +30,7 @@ def objective(
         bounds (Tuple[Tuple[int, int], Tuple[int, int]]): Allowed range for x and y coordinates.
         num_iters (int): Number of optimization steps to perform.
         boundary_penalty (bool, optional): If True, penalize positions outside the bounds. Defaults to True.
-        average_distance_factor (float, optional): Weight for the average distance penalty. Defaults to 1.8.
+        average_distance_factor (float, optional): Weight for the average distance penalty. Defaults to 1.0.
         **eval_args: Additional arguments passed to the step execution function.
 
     Returns:

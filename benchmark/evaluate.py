@@ -38,7 +38,7 @@ def benchmark_optimizer(
         None
     """
     results_dir = Path(os.path.join(output_dir, optimizer_name))
-    results_json_dir = Path(os.path.join(results_dir, "results.json"))
+    results_json_dir = Path(os.path.join(output_dir, "results.json"))
 
     if results_dir.exists():
         if config["exist_pass"]:
