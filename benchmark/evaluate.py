@@ -1,12 +1,10 @@
+import json
 import os
 import shutil
-import time
 from pathlib import Path
 from typing import Callable
 
 import optuna
-import torch
-from torch import nn
 
 from .functions import FUNC_DICT
 from .hypertune import objective
@@ -48,8 +46,10 @@ def benchmark_optimizer(
 
     os.makedirs(results_dir)
 
+    error_rates = {}
+
     for func_name, consts in FUNC_DICT.items():
-        print(f" - Evaluating {func_name}...")
+        print(f" - Evaluating On {func_name}...")
         func = consts["func"]
         eval_size = consts["size"]
         start_pos = consts["pos"]
@@ -93,6 +93,8 @@ def benchmark_optimizer(
             show_progress_bar=True,
             n_jobs=2,
         )
+
+        error_rates.update({func_name: study.best_value})
 
         pos = Pos2D(func, start_pos)
         plot_function(

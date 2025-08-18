@@ -1,7 +1,13 @@
+import warnings
+
 import torch
 from torch import nn
 
 from .model import Pos2D
+
+warnings.filterwarnings(
+    "ignore", category=UserWarning, module=r"torch\.autograd\.graph"
+)
 
 
 def execute_steps(
@@ -48,8 +54,6 @@ def execute_steps(
 
             cords[:, i] = model.cords.detach()
         else:
-            optimizer.zero_grad()
-
             loss = model()
             loss.backward(create_graph=use_graph)
 
@@ -57,6 +61,8 @@ def execute_steps(
                 nn.utils.clip_grad_norm_(model.parameters(), grad_clip_value)
 
             optimizer.step()
+
+            optimizer.zero_grad()
 
             cords[:, i] = model.cords.detach()
 

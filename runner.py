@@ -28,7 +28,7 @@ def main():
     configs = read_toml_config(CONFIG_DIR)
     optimizers = [
         opt
-        for opt in get_supported_optimizers()
+        for opt in get_supported_optimizers("sophiah")
         if opt not in configs["benchmark"]["ignore_optimizers"]
     ]
 

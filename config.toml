@@ -1,7 +1,7 @@
 # General benchmark settings.
 [benchmark]
 seed = 42
-exist_pass = true
+exist_pass = false
 img_format = ".jpg"
 hypertune_trials = 500
 ignore_optimizers = [
@@ -15,6 +15,8 @@ ignore_optimizers = [
   "adamwsn",
   "adamuon",
   "splus",
+  "alig",
+  "bsam",
 ]
 
 # Number of iterations for each benchmark function.
@@ -53,7 +55,7 @@ sgdw = { lr = [0.0, 0.8], momentum = [0.0, 0.99] }
 signsgd = { lr = [0.0, 0.8], momentum = [0.0, 0.99] }
 sgdsai = { lr = [0.0, 0.8], momentum = [0.0, 0.99] }
 sgd = { lr = [0.0, 0.8], momentum = [0.0, 0.99] }
-alig = { max_lr = [0.0, 0.8], momentum = [0.0, 0.99] }
+alig = { lr = [0.0, 0.8], momentum = [0.0, 0.99] }
 asgd = { lr = [0.0, 0.8], amplifier = [0.0, 0.5] }
 amos = { lr = [0.0, 0.8], momentum = [0.0, 0.99] }
 schedulefreesgd = { lr = [0.0, 3.0], momentum = [0.0, 0.99] }
