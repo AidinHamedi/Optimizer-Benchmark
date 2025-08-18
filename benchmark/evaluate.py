@@ -37,9 +37,10 @@ def benchmark_optimizer(
     Returns:
         None
     """
-    results_dir = os.path.join(output_dir, optimizer_name)
+    results_dir = Path(os.path.join(output_dir, optimizer_name))
+    results_json_dir = Path(os.path.join(results_dir, "results.json"))
 
-    if os.path.exists(results_dir):
+    if results_dir.exists():
         if config["exist_pass"]:
             return None
         shutil.rmtree(results_dir)
@@ -94,7 +95,7 @@ def benchmark_optimizer(
             n_jobs=2,
         )
 
-        error_rates.update({func_name: study.best_value})
+        error_rates[func_name] = study.best_value
 
         pos = Pos2D(func, start_pos)
         plot_function(
@@ -112,3 +113,20 @@ def benchmark_optimizer(
             gm_pos,
             eval_size,
         )
+
+    if results_json_dir.exists():
+        try:
+            with results_json_dir.open("r", encoding="utf-8") as f:
+                data = json.load(f)
+        except json.JSONDecodeError:
+            data = {"optimizers": {}}
+    else:
+        data = {"optimizers": {}}
+
+    data["optimizers"][optimizer_name] = {
+        "error_rates": error_rates,
+        "avg_error_rate": sum(error_rates.values()) / len(error_rates),
+    }
+
+    with results_json_dir.open("w", encoding="utf-8") as f:
+        json.dump(data, f, indent=4, ensure_ascii=False)
