@@ -5,7 +5,7 @@ This project uses **[pytorch-optimizer](https://github.com/jettify/pytorch-optim
 
 ## 🌶️ Features
 
-* Benchmarks **all supported optimizers** in `pytorch-optimizer`.
+* Benchmarks **most of the supported optimizers** in `pytorch-optimizer`.
 * Hyperparameter search with **Optuna (TPE sampler)**.
 * Visualization of optimization trajectories on:
 

@@ -17,6 +17,7 @@ ignore_optimizers = [
   "splus",
   "alig",
   "bsam",
+  "distributedmuon",
 ]
 
 # Number of iterations for each benchmark function.
@@ -40,7 +41,7 @@ adadelta = { lr = [0.0, 600.0] }
 adafactor = { lr = [0.0, 600.0] }
 adamg = { lr = [0.0, 20.0], p = [0, 1], q = [0, 1] }
 adams = { lr = [0.0, 10.0] }
-dadaptadagrad = { lr = [0.0, 10.0] }
+dadaptadagrad = { lr = [0.0, 20.0] }
 dadaptlion = { lr = [0.0, 10.0] }
 padam = { lr = [0.0, 10.0] }
 dadaptadam = { lr = [0.0, 10.0] }
