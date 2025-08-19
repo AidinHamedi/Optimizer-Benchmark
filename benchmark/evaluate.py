@@ -37,12 +37,10 @@ def benchmark_optimizer(
     Returns:
         None
     """
-    results_dir = Path(os.path.join(output_dir, optimizer_name))
-    results_json_dir = Path(os.path.join(output_dir, "results.json"))
+    results_dir = output_dir.joinpath(optimizer_name)
+    results_json_dir = output_dir.joinpath("results.json")
 
-    if results_dir.exists():
-        if config["exist_pass"]:
-            return None
+    if results_dir.exists() and not config["exist_pass"]:
         shutil.rmtree(results_dir)
 
     os.makedirs(results_dir)
@@ -50,6 +48,11 @@ def benchmark_optimizer(
     error_rates = {}
 
     for func_name, consts in FUNC_DICT.items():
+        vis_file = results_dir.joinpath(func_name + config["img_format"])
+
+        if vis_file.exists() and config["exist_pass"]:
+            continue
+
         print(f" - Evaluating On {func_name}...")
         func = consts["func"]
         eval_size = consts["size"]
