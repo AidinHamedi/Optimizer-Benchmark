@@ -1,9 +1,10 @@
 # General benchmark settings.
 [benchmark]
 seed = 42
-exist_pass = true
+deterministic = true # Can slow down the process
+exist_pass = false
 img_format = ".jpg"
-hypertune_trials = 500
+hypertune_trials = 700
 ignore_optimizers = [
   "lomo",
   "adalomo",
@@ -36,7 +37,7 @@ Shubert = 200
 # Hyperparameter search spaces for optimizers.
 # If an optimizer is not listed here, the 'default' space is used.
 [hyperparameters]
-default = { lr = [0, 4] }
+default = { lr = [0.0, 4.0] }
 adadelta = { lr = [0.0, 600.0] }
 adafactor = { lr = [0.0, 600.0] }
 adamg = { lr = [0.0, 20.0], p = [0, 1], q = [0, 1] }
@@ -51,23 +52,23 @@ pid = { lr = [0.0, 0.5], derivative = [2.0, 14.0], integral = [1.0, 10.0], momen
   0.0,
   0.99,
 ] }
-sgdp = { lr = [0.0, 0.8], momentum = [0.0, 0.99] }
-accsgd = { lr = [0.0, 0.8], momentum = [0.0, 0.99], kappa = [1, 1000] }
-sgdw = { lr = [0.0, 0.8], momentum = [0.0, 0.99] }
-signsgd = { lr = [0.0, 0.8], momentum = [0.0, 0.99] }
-sgdsai = { lr = [0.0, 0.8], momentum = [0.0, 0.99] }
-sgd = { lr = [0.0, 0.8], momentum = [0.0, 0.99] }
-alig = { lr = [0.0, 0.8], momentum = [0.0, 0.99] }
-asgd = { lr = [0.0, 0.8], amplifier = [0.0, 0.5] }
-amos = { lr = [0.0, 0.8], momentum = [0.0, 0.99] }
+sgdp = { lr = [0.0, 2.0], momentum = [0.0, 0.99] }
+accsgd = { lr = [0.0, 2.0], momentum = [0.0, 0.99], kappa = [1, 1000] }
+sgdw = { lr = [0.0, 2.0], momentum = [0.0, 0.99] }
+signsgd = { lr = [0.0, 2.0], momentum = [0.0, 0.99] }
+sgdsai = { lr = [0.0, 2.0], momentum = [0.0, 0.99] }
+sgd = { lr = [0.0, 2.0], momentum = [0.0, 0.99] }
+alig = { lr = [0.0, 2.0], momentum = [0.0, 0.99] }
+asgd = { lr = [0.0, 2.0], amplifier = [0.0, 0.5] }
+amos = { lr = [0.0, 2.0], momentum = [0.0, 0.99] }
 schedulefreesgd = { lr = [0.0, 3.0], momentum = [0.0, 0.99] }
 schedulefreeradam = { lr = [1.0, 10.0] }
-kron = { lr = [0.0, 0.8], momentum = [0.0, 0.99] }
+kron = { lr = [0.0, 2.0], momentum = [0.0, 0.99] }
 scion = { lr = [0.0, 1.0], scale = [1.0, 1000.0] }
 scionlight = { lr = [0.0, 1.0], scale = [1.0, 1000.0] }
 
 # Example for a specific optimizer:
-# adam = { lr = [0.0, 0.1], betas = [[0.8, 0.99], [0.9, 0.999]] }
+# adam = { lr = [0.0, 0.1], betas = [[2.0, 0.99], [0.9, 0.999]] }
 
 # Special evaluation arguments for specific optimizers.
 # These are passed to the `execute_steps` function.

@@ -37,13 +37,14 @@ def benchmark_optimizer(
     Returns:
         None
     """
+
     results_dir = output_dir.joinpath(optimizer_name)
     results_json_dir = output_dir.joinpath("results.json")
 
     if results_dir.exists() and not config["exist_pass"]:
         shutil.rmtree(results_dir)
 
-    os.makedirs(results_dir)
+    os.makedirs(results_dir, exist_ok=True)
 
     error_rates = {}
 
@@ -66,6 +67,13 @@ def benchmark_optimizer(
                     optimizer_params[name] = trial.suggest_float(
                         name, space[0], space[1]
                     )
+                elif isinstance(space, list) and len(space) == 3:
+                    if space[2] == "int":
+                        optimizer_params[name] = trial.suggest_int(
+                            name, space[0], space[1]
+                        )
+                    else:
+                        raise ValueError("Invalid hyperparameter space")
                 elif space == "bool":
                     optimizer_params[name] = trial.suggest_categorical(
                         name, [True, False]
@@ -95,7 +103,7 @@ def benchmark_optimizer(
             optuna_objective,
             n_trials=config["hypertune_trials"],
             show_progress_bar=True,
-            n_jobs=2,
+            n_jobs=1 if config["deterministic"] else 2,
         )
 
         error_rates[func_name] = study.best_value
@@ -120,16 +128,26 @@ def benchmark_optimizer(
     if results_json_dir.exists():
         try:
             with results_json_dir.open("r", encoding="utf-8") as f:
-                data = json.load(f)
-        except json.JSONDecodeError:
-            data = {"optimizers": {}}
-    else:
-        data = {"optimizers": {}}
+                results = json.load(f)
 
-    data["optimizers"][optimizer_name] = {
+                prev_error_rates = (
+                    results.get("optimizers", {})
+                    .get(optimizer_name, {})
+                    .get("error_rates", {})
+                )
+
+                for func_name, error_rate in prev_error_rates.items():
+                    error_rates.setdefault(func_name, error_rate)
+
+        except json.JSONDecodeError:
+            results = {"optimizers": {}}
+    else:
+        results = {"optimizers": {}}
+
+    results["optimizers"][optimizer_name] = {
         "error_rates": error_rates,
         "avg_error_rate": sum(error_rates.values()) / len(error_rates),
     }
 
     with results_json_dir.open("w", encoding="utf-8") as f:
-        json.dump(data, f, indent=4, ensure_ascii=False)
+        json.dump(results, f, indent=4, ensure_ascii=False)
