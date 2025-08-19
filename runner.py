@@ -47,6 +47,8 @@ def main():
         )
 
         def get_optimizer(model, optimizer_config):
+            if optimizer_name == "adashift":
+                optimizer_config["keep_num"] = 1
             return create_optimizer(model, optimizer_name, **optimizer_config)
 
         benchmark_optimizer(
