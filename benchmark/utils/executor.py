@@ -48,7 +48,7 @@ def execute_steps(
                 if grad_clip:
                     nn.utils.clip_grad_norm_(model.parameters(), grad_clip_value)
 
-                return loss
+                return loss.detach()
 
             optimizer.step(closure)
 
