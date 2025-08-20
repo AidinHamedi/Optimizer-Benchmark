@@ -103,6 +103,7 @@ def benchmark_optimizer(
             optuna_objective,
             n_trials=config["hypertune_trials"],
             show_progress_bar=True,
+            catch=RuntimeError,
             n_jobs=1 if config["deterministic"] else 2,
         )
 
