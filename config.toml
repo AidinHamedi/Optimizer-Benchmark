@@ -6,6 +6,7 @@ exist_pass = true
 img_format = ".jpg"
 hypertune_trials = 700
 ignore_optimizers = [
+  "msvag",
   "lbfgs",
   "lomo",
   "adalomo",
