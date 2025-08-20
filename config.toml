@@ -6,6 +6,7 @@ exist_pass = true
 img_format = ".jpg"
 hypertune_trials = 700
 ignore_optimizers = [
+  "lbfgs",
   "lomo",
   "adalomo",
   "demo",
@@ -38,6 +39,7 @@ Shubert = 200
 # If an optimizer is not listed here, the 'default' space is used.
 [hyperparameters]
 default = { lr = [0.0, 4.0] }
+lbfgs = { lr = [0.0, 4.0], history_size = [1, 200, "int"] }
 adadelta = { lr = [0.0, 600.0] }
 adafactor = { lr = [0.0, 600.0] }
 adamg = { lr = [0.0, 20.0], p = [0, 1], q = [0, 1] }
@@ -75,5 +77,6 @@ scionlight = { lr = [0.0, 1.0], scale = [1.0, 1000.0] }
 [optimizer_eval_args]
 alig = { use_closure = true }
 bsam = { use_closure = true }
+lbfgs = { use_closure = true }
 adahessian = { use_graph = true }
 sophiah = { use_graph = true }
