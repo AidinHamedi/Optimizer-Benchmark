@@ -115,7 +115,7 @@ def benchmark_optimizer(
             func_name,
             execute_steps(
                 pos,
-                optimizer_maker(pos, study.best_params),
+                optimizer_maker(pos, study.best_params, config["num_iters"][func_name]),
                 config["num_iters"][func_name],
                 **eval_args.get(optimizer_name, {}),
             ),
