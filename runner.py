@@ -46,9 +46,13 @@ def main():
             f"({i}/{len(optimizers)}) Processing {optimizer_name}... (Params to tune: {', '.join(search_space.keys())})"
         )
 
-        def get_optimizer(model, optimizer_config):
+        def get_optimizer(model, optimizer_config, num_iters):
             if optimizer_name == "adashift":
                 optimizer_config["keep_num"] = 1
+            elif optimizer_name == "ranger21":
+                optimizer_config["num_iterations"] = num_iters
+            elif optimizer_name == "ranger25":
+                optimizer_config["orthograd"] = False
             return create_optimizer(model, optimizer_name, **optimizer_config)
 
         benchmark_optimizer(

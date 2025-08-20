@@ -43,7 +43,7 @@ def objective(
         float: Total error, combining multiple metrics. Lower is better.
     """
     cords = Pos2D(criterion, start_pos)
-    optimizer = optimizer_maker(cords, optimizer_conf)
+    optimizer = optimizer_maker(cords, optimizer_conf, num_iters)
     steps = execute_steps(cords, optimizer, num_iters, **eval_args)
 
     error: float = 0.0
