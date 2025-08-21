@@ -43,6 +43,10 @@ The script will:
 3. Run hyperparameter tuning with Optuna.
 4. Save results and visualizations under `./results/`.
 
+## 📦 Visualizations
+> ### Newest release 📃
+> #### [Go to newest release](https://github.com/Aidinhamedi/ML-Optimizer-Benchmark/releases/latest)
+
 ## 🤝 Contributing
 
 Contributions are welcome! Please feel free to submit a pull request or open an issue.
