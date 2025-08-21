@@ -1,0 +1,1534 @@
+{
+    "optimizers": {
+        "accsgd": {
+            "error_rates": {
+                "Ackley": 2.331992155313492,
+                "Cross-in-Tray": 32.59472793579116,
+                "EggHolder": 18.187301445007325,
+                "Langermann": 4.919557162863066,
+                "Levy": 14.835001945495605,
+                "Rastrigin": 1.6180705428123474,
+                "Rosenbrock": 0.02877301040571183,
+                "Schaffer 2": 6.325107908248901,
+                "Shubert": 5.019863510131836,
+                "Styblinski-Tang": 9.0958984375
+            },
+            "avg_error_rate": 9.495629405356945
+        },
+        "adabelief": {
+            "error_rates": {
+                "Ackley": 0.35637173652648924,
+                "Cross-in-Tray": 15.253587379455713,
+                "EggHolder": 7.2002276420593265,
+                "Langermann": 0.2543054845788193,
+                "Levy": 0.3585505230439594,
+                "Rastrigin": 0.5737162502860883,
+                "Rosenbrock": 0.06747907428016334,
+                "Schaffer 2": 9.07790367909838,
+                "Shubert": 0.25242376923561094,
+                "Styblinski-Tang": 0.13612319782259874
+            },
+            "avg_error_rate": 3.3530688736387146
+        },
+        "adabound": {
+            "error_rates": {
+                "Ackley": 0.20980245592072605,
+                "Cross-in-Tray": 30.907571640014794,
+                "EggHolder": 15.804321098327637,
+                "Langermann": 0.16346946951321356,
+                "Levy": 12.757242488861085,
+                "Rastrigin": 5.230806350708008,
+                "Rosenbrock": 0.045661437777607713,
+                "Schaffer 2": 1.1896953395096714,
+                "Shubert": 4.523782634735108,
+                "Styblinski-Tang": 9.161236763000488
+            },
+            "avg_error_rate": 7.999358967836834
+        },
+        "adadelta": {
+            "error_rates": {
+                "Ackley": 1.9768394768238067,
+                "Cross-in-Tray": 11.922524729801808,
+                "EggHolder": 10.721616046582493,
+                "Langermann": 2.2569063067436215,
+                "Levy": 2.2335173368453978,
+                "Rastrigin": 2.6171103000640867,
+                "Rosenbrock": 1.6078958239779808,
+                "Schaffer 2": 18.60578727722168,
+                "Shubert": 2.8160679221153258,
+                "Styblinski-Tang": 9.073826217651368
+            },
+            "avg_error_rate": 6.383209143782756
+        },
+        "adafactor": {
+            "error_rates": {
+                "Ackley": 18.095051574707032,
+                "Cross-in-Tray": 40.775307693481594,
+                "EggHolder": 16.212782096862792,
+                "Langermann": 8.50766134262085,
+                "Levy": 19.83348731994629,
+                "Rastrigin": 18.0092342376709,
+                "Rosenbrock": 4.610287141799927,
+                "Schaffer 2": 18.777560424804687,
+                "Shubert": 5.892816066741943,
+                "Styblinski-Tang": 10.306654453277588
+            },
+            "avg_error_rate": 16.102084235191363
+        },
+        "adagc": {
+            "error_rates": {
+                "Ackley": 0.1626404460519552,
+                "Cross-in-Tray": 1.0559532532097364,
+                "EggHolder": 7.364114665985108,
+                "Langermann": 2.2751760721206664,
+                "Levy": 0.8338172972202301,
+                "Rastrigin": 0.13172343354672195,
+                "Rosenbrock": 2.0525782346725463,
+                "Schaffer 2": 0.14667708277702332,
+                "Shubert": 0.761389821767807,
+                "Styblinski-Tang": 0.1850153490900993
+            },
+            "avg_error_rate": 1.4969085656441894
+        },
+        "adahessian": {
+            "error_rates": {
+                "Ackley": 2.983612990379333,
+                "Cross-in-Tray": 2.7568911933900377,
+                "EggHolder": 7.13918628692627,
+                "Langermann": 2.0844998121261598,
+                "Levy": 0.5928476717032026,
+                "Rastrigin": 1.7616501331329344,
+                "Rosenbrock": 0.23963437060956494,
+                "Schaffer 2": 17.753990173339844,
+                "Shubert": 0.2671469375491142,
+                "Styblinski-Tang": 0.136830536043999
+            },
+            "avg_error_rate": 3.571629010520046
+        },
+        "adai": {
+            "error_rates": {
+                "Ackley": 11.714137268066406,
+                "Cross-in-Tray": 40.04905227661148,
+                "EggHolder": 18.187412452697753,
+                "Langermann": 0.8412747740745544,
+                "Levy": 19.480194282531738,
+                "Rastrigin": 12.771271228790283,
+                "Rosenbrock": 1.594229447841644,
+                "Schaffer 2": 2.186282048001158,
+                "Shubert": 5.614883756637573,
+                "Styblinski-Tang": 9.203908824920655
+            },
+            "avg_error_rate": 12.164264636017325
+        },
+        "adalite": {
+            "error_rates": {
+                "Ackley": 0.35116513710052005,
+                "Cross-in-Tray": 35.65208457946792,
+                "EggHolder": 11.921093654632568,
+                "Langermann": 0.5307956974664132,
+                "Levy": 14.280352783203124,
+                "Rastrigin": 0.27537946701135324,
+                "Rosenbrock": 0.35102829411625863,
+                "Schaffer 2": 0.2711888194084468,
+                "Shubert": 0.3024072378873825,
+                "Styblinski-Tang": 7.846023941040039
+            },
+            "avg_error_rate": 7.178151961133402
+        },
+        "adam": {
+            "error_rates": {
+                "Ackley": 0.44483777433633803,
+                "Cross-in-Tray": 1.1930195666303915,
+                "EggHolder": 6.126966115034338,
+                "Langermann": 0.1636293531217268,
+                "Levy": 0.3605127622751752,
+                "Rastrigin": 1.714757151625963,
+                "Rosenbrock": 0.06592413884404777,
+                "Schaffer 2": 10.55390625,
+                "Shubert": 0.2334164038300514,
+                "Styblinski-Tang": 0.13533868589838674
+            },
+            "avg_error_rate": 2.099230820159642
+        },
+        "adamax": {
+            "error_rates": {
+                "Ackley": 1.86731415145332,
+                "Cross-in-Tray": 6.095339717865135,
+                "EggHolder": 8.326118703230895,
+                "Langermann": 0.25411398410797115,
+                "Levy": 0.25562961428659037,
+                "Rastrigin": 1.89233638048172,
+                "Rosenbrock": 0.6305548898372308,
+                "Schaffer 2": 9.484077703736876,
+                "Shubert": 0.17570962905883789,
+                "Styblinski-Tang": 0.10411214606301655
+            },
+            "avg_error_rate": 2.9085306920121594
+        },
+        "adamg": {
+            "error_rates": {
+                "Ackley": 18.003981018066405,
+                "Cross-in-Tray": 40.12079147338882,
+                "EggHolder": 15.834561347961426,
+                "Langermann": 8.502588272094727,
+                "Levy": 19.53251724243164,
+                "Rastrigin": 17.928933334350585,
+                "Rosenbrock": 4.050671672821045,
+                "Schaffer 2": 18.548480606079103,
+                "Shubert": 5.621575212478637,
+                "Styblinski-Tang": 9.117676925659179
+            },
+            "avg_error_rate": 15.726177710533156
+        },
+        "adammini": {
+            "error_rates": {
+                "Ackley": 0.24229603856801987,
+                "Cross-in-Tray": 1.1029579402507808,
+                "EggHolder": 7.345479679107665,
+                "Langermann": 0.09157736795023083,
+                "Levy": 1.0433407187461854,
+                "Rastrigin": 0.30544792413711547,
+                "Rosenbrock": 2.002550983428955,
+                "Schaffer 2": 0.1806004464626312,
+                "Shubert": 0.22426183223724366,
+                "Styblinski-Tang": 0.2559496760368347
+            },
+            "avg_error_rate": 1.2794462606925663
+        },
+        "adamod": {
+            "error_rates": {
+                "Ackley": 18.09372272491455,
+                "Cross-in-Tray": 40.36751388549819,
+                "EggHolder": 16.015692520141602,
+                "Langermann": 8.507085037231445,
+                "Levy": 19.667030906677248,
+                "Rastrigin": 17.997145462036134,
+                "Rosenbrock": 4.382470607757568,
+                "Schaffer 2": 17.86394214630127,
+                "Shubert": 5.857561111450195,
+                "Styblinski-Tang": 9.405676555633544
+            },
+            "avg_error_rate": 15.815784095764176
+        },
+        "adamp": {
+            "error_rates": {
+                "Ackley": 0.4842210188508034,
+                "Cross-in-Tray": 1.3010969899572955,
+                "EggHolder": 8.2404278755188,
+                "Langermann": 0.16790559208020567,
+                "Levy": 0.3605127086426364,
+                "Rastrigin": 1.6846775307531061,
+                "Rosenbrock": 0.06592067074026317,
+                "Schaffer 2": 11.548206774855498,
+                "Shubert": 0.24962705373764038,
+                "Styblinski-Tang": 0.1353389530788263
+            },
+            "avg_error_rate": 2.4237935168215072
+        },
+        "adams": {
+            "error_rates": {
+                "Ackley": 18.03841190338135,
+                "Cross-in-Tray": 18.495508232116844,
+                "EggHolder": 9.611205577850342,
+                "Langermann": 2.977116107940674,
+                "Levy": 2.058286118507385,
+                "Rastrigin": 17.975220489501954,
+                "Rosenbrock": 4.509108712411989,
+                "Schaffer 2": 18.780419540405273,
+                "Shubert": 0.059672066196799274,
+                "Styblinski-Tang": 3.942495818313364
+            },
+            "avg_error_rate": 9.644744456662597
+        },
+        "adamw": {
+            "error_rates": {
+                "Ackley": 0.39351665079593656,
+                "Cross-in-Tray": 1.162198524139967,
+                "EggHolder": 5.886929675393185,
+                "Langermann": 0.2541968491299153,
+                "Levy": 0.36704179272055626,
+                "Rastrigin": 2.585113793137862,
+                "Rosenbrock": 1.2238595616529437,
+                "Schaffer 2": 2.035870045796037,
+                "Shubert": 0.2389195129275322,
+                "Styblinski-Tang": 0.13155488576740026
+            },
+            "avg_error_rate": 1.4279201291461336
+        },
+        "adan": {
+            "error_rates": {
+                "Ackley": 1.8022502422332765,
+                "Cross-in-Tray": 1.1654604152870889,
+                "EggHolder": 8.481909942626952,
+                "Langermann": 0.5455225050449372,
+                "Levy": 4.556038570404053,
+                "Rastrigin": 2.0147975845124164,
+                "Rosenbrock": 0.47600663396683557,
+                "Schaffer 2": 13.776755428314209,
+                "Shubert": 0.24059041142463683,
+                "Styblinski-Tang": 8.779394435882569
+            },
+            "avg_error_rate": 4.183872616969698
+        },
+        "adanorm": {
+            "error_rates": {
+                "Ackley": 0.4276894859969616,
+                "Cross-in-Tray": 1.3946310275445284,
+                "EggHolder": 8.23201322555542,
+                "Langermann": 0.24755898197986068,
+                "Levy": 0.3687586550251581,
+                "Rastrigin": 1.8609902175609023,
+                "Rosenbrock": 0.06700795750316502,
+                "Schaffer 2": 12.648481778419955,
+                "Shubert": 0.21279875189065933,
+                "Styblinski-Tang": 0.13588658742955886
+            },
+            "avg_error_rate": 2.5595816668906166
+        },
+        "adapnm": {
+            "error_rates": {
+                "Ackley": 1.360326486825943,
+                "Cross-in-Tray": 3.503549900055077,
+                "EggHolder": 8.164672002932639,
+                "Langermann": 1.9110204696655273,
+                "Levy": 0.259674216248095,
+                "Rastrigin": 1.7330573678016663,
+                "Rosenbrock": 1.7990959980985735,
+                "Schaffer 2": 6.520881930013456,
+                "Shubert": 1.6346784353256225,
+                "Styblinski-Tang": 3.430579733848572
+            },
+            "avg_error_rate": 3.031753654081517
+        },
+        "adashift": {
+            "error_rates": {
+                "Ackley": 0.9210813403129577,
+                "Cross-in-Tray": 31.034074249267725,
+                "EggHolder": 7.522030830383301,
+                "Langermann": 0.6524150252342225,
+                "Levy": 0.8334902565809897,
+                "Rastrigin": 0.6142797499895096,
+                "Rosenbrock": 0.0973317736395984,
+                "Schaffer 2": 5.513773816683715,
+                "Shubert": 0.33462620079517363,
+                "Styblinski-Tang": 0.3239032685843995
+            },
+            "avg_error_rate": 4.784700651147159
+        },
+        "adasmooth": {
+            "error_rates": {
+                "Ackley": 1.566432738304138,
+                "Cross-in-Tray": 3.7052384281159902,
+                "EggHolder": 8.308805079816375,
+                "Langermann": 0.6245801448822021,
+                "Levy": 0.701359748840332,
+                "Rastrigin": 1.9363237668463626,
+                "Rosenbrock": 1.2250688127418925,
+                "Schaffer 2": 17.548339513243445,
+                "Shubert": 0.5139846801757812,
+                "Styblinski-Tang": 1.3703709340125443
+            },
+            "avg_error_rate": 3.7500503846979063
+        },
+        "adatam": {
+            "error_rates": {
+                "Ackley": 3.2286949682893464,
+                "Cross-in-Tray": 6.020672597885277,
+                "EggHolder": 8.034212453025976,
+                "Langermann": 2.2872623443603515,
+                "Levy": 0.4870197615935467,
+                "Rastrigin": 0.544821512906492,
+                "Rosenbrock": 0.5415470510721206,
+                "Schaffer 2": 17.880755769871758,
+                "Shubert": 1.6434319496154783,
+                "Styblinski-Tang": 0.16284840659354813
+            },
+            "avg_error_rate": 4.08312668152139
+        },
+        "ademamix": {
+            "error_rates": {
+                "Ackley": 0.3641695372760296,
+                "Cross-in-Tray": 6.019595756530907,
+                "EggHolder": 7.187036800384521,
+                "Langermann": 0.4427039563655853,
+                "Levy": 0.37563686445355415,
+                "Rastrigin": 0.3243882571254289,
+                "Rosenbrock": 0.2861197580803946,
+                "Schaffer 2": 8.553663988565678,
+                "Shubert": 0.23674518316984178,
+                "Styblinski-Tang": 0.13639481434365733
+            },
+            "avg_error_rate": 2.3926454916295596
+        },
+        "adopt": {
+            "error_rates": {
+                "Ackley": 2.3937783420085905,
+                "Cross-in-Tray": 40.07904914855972,
+                "EggHolder": 2.4269282698631285,
+                "Langermann": 8.35269374847412,
+                "Levy": 14.866810989379882,
+                "Rastrigin": 12.894626998901366,
+                "Rosenbrock": 0.693508118391037,
+                "Schaffer 2": 8.919608347878238,
+                "Shubert": 0.7043734312057495,
+                "Styblinski-Tang": 0.600690385892085
+            },
+            "avg_error_rate": 9.193206778055393
+        },
+        "aggmo": {
+            "error_rates": {
+                "Ackley": 8.585651770802361,
+                "Cross-in-Tray": 39.81103805542007,
+                "EggHolder": 18.188797760009766,
+                "Langermann": 8.348395442962646,
+                "Levy": 19.383249282836914,
+                "Rastrigin": 10.89735381000446,
+                "Rosenbrock": 0.3090973883867264,
+                "Schaffer 2": 5.851889872550964,
+                "Shubert": 4.680514097213745,
+                "Styblinski-Tang": 0.3523701453115791
+            },
+            "avg_error_rate": 11.640835762549923
+        },
+        "aida": {
+            "error_rates": {
+                "Ackley": 1.9439181208610534,
+                "Cross-in-Tray": 1.433681012152374,
+                "EggHolder": 5.966951146189967,
+                "Langermann": 0.2131354503297589,
+                "Levy": 0.35668254966440144,
+                "Rastrigin": 1.8990674257278441,
+                "Rosenbrock": 0.060589627829767775,
+                "Schaffer 2": 6.467643103376941,
+                "Shubert": 0.28920561373233794,
+                "Styblinski-Tang": 0.13109164328197948
+            },
+            "avg_error_rate": 1.8761965693146425
+        },
+        "amos": {
+            "error_rates": {
+                "Ackley": 0.038647410951671186,
+                "Cross-in-Tray": 0.8915451469634718,
+                "EggHolder": 16.195812606811522,
+                "Langermann": 0.3139598519541323,
+                "Levy": 0.08473645454505459,
+                "Rastrigin": 0.0390443354845047,
+                "Rosenbrock": 0.6187146365642547,
+                "Schaffer 2": 0.026030204283212652,
+                "Shubert": 0.05346023812890053,
+                "Styblinski-Tang": 2.214654016494751
+            },
+            "avg_error_rate": 2.0476604902181474
+        },
+        "apollo": {
+            "error_rates": {
+                "Ackley": 0.4849032491445541,
+                "Cross-in-Tray": 1.2887029454381262,
+                "EggHolder": 5.854406239523087,
+                "Langermann": 0.22625619670674357,
+                "Levy": 0.36055128449806945,
+                "Rastrigin": 0.379934671765659,
+                "Rosenbrock": 0.06651232615208755,
+                "Schaffer 2": 9.457236151722645,
+                "Shubert": 0.22964328825473784,
+                "Styblinski-Tang": 0.13312443456088657
+            },
+            "avg_error_rate": 1.8481270787766597
+        },
+        "apollodqn": {
+            "error_rates": {
+                "Ackley": 6.8785927295684814,
+                "Cross-in-Tray": 40.07940162658706,
+                "EggHolder": 16.579976081848145,
+                "Langermann": 4.512433505058288,
+                "Levy": 12.852529621124267,
+                "Rastrigin": 13.560137653350829,
+                "Rosenbrock": 0.1186758209427353,
+                "Schaffer 2": 4.457932969138528,
+                "Shubert": 5.616784477233887,
+                "Styblinski-Tang": 9.060218334197998
+            },
+            "avg_error_rate": 11.371668281905022
+        },
+        "asgd": {
+            "error_rates": {
+                "Ackley": 2.0302245020866394,
+                "Cross-in-Tray": 3.7220243633550125,
+                "EggHolder": 1.3412637114794053,
+                "Langermann": 2.6648812532424926,
+                "Levy": 1.5757726192474364,
+                "Rastrigin": 0.8710120439529419,
+                "Rosenbrock": 1.6036615903036022,
+                "Schaffer 2": 8.360546195039216,
+                "Shubert": 1.2857520699501037,
+                "Styblinski-Tang": 9.104187107086181
+            },
+            "avg_error_rate": 3.2559325455743027
+        },
+        "avagrad": {
+            "error_rates": {
+                "Ackley": 0.6508027555420994,
+                "Cross-in-Tray": 40.07133277893081,
+                "EggHolder": 18.212362861633302,
+                "Langermann": 3.6145018504982978,
+                "Levy": 19.48792095184326,
+                "Rastrigin": 14.30038070678711,
+                "Rosenbrock": 2.407737898826599,
+                "Schaffer 2": 8.74216599414358,
+                "Shubert": 5.616964769363403,
+                "Styblinski-Tang": 9.160990905761718
+            },
+            "avg_error_rate": 12.226516147333019
+        },
+        "came": {
+            "error_rates": {
+                "Ackley": 18.032278060913086,
+                "Cross-in-Tray": 40.08611091613784,
+                "EggHolder": 15.811806106567381,
+                "Langermann": 8.45649585723877,
+                "Levy": 19.52010269165039,
+                "Rastrigin": 17.951077461242676,
+                "Rosenbrock": 1.0353267252445222,
+                "Schaffer 2": 18.414453666049848,
+                "Shubert": 5.56769585609436,
+                "Styblinski-Tang": 9.080346775054931
+            },
+            "avg_error_rate": 15.39556941161938
+        },
+        "dadaptadagrad": {
+            "error_rates": {
+                "Ackley": 4.70301376947118,
+                "Cross-in-Tray": 26.692649497985983,
+                "EggHolder": 8.562612553930375,
+                "Langermann": 6.220091342926025,
+                "Levy": 0.6037065982818604,
+                "Rastrigin": 5.278609800338745,
+                "Rosenbrock": 0.46294099202955297,
+                "Schaffer 2": 16.07729479426871,
+                "Shubert": 3.316070175170898,
+                "Styblinski-Tang": 9.155538749694824
+            },
+            "avg_error_rate": 8.107252827409814
+        },
+        "dadaptadam": {
+            "error_rates": {
+                "Ackley": 18.12389221191406,
+                "Cross-in-Tray": 42.6197256469728,
+                "EggHolder": 18.187290382385253,
+                "Langermann": 8.642445087432861,
+                "Levy": 21.803513336181638,
+                "Rastrigin": 17.997282028198242,
+                "Rosenbrock": 5.049952173233033,
+                "Schaffer 2": 18.781965827941896,
+                "Shubert": 6.176852560043335,
+                "Styblinski-Tang": 12.714309024810792
+            },
+            "avg_error_rate": 17.009722827911393
+        },
+        "dadaptadan": {
+            "error_rates": {
+                "Ackley": 8.280638122558594,
+                "Cross-in-Tray": 17.5264771842958,
+                "EggHolder": 1.4370804960373789,
+                "Langermann": 2.180818644391448,
+                "Levy": 5.533660507202148,
+                "Rastrigin": 3.2630975008010865,
+                "Rosenbrock": 0.9734209523516256,
+                "Schaffer 2": 11.586535214918875,
+                "Shubert": 0.2502561420202255,
+                "Styblinski-Tang": 1.2295674464834518
+            },
+            "avg_error_rate": 5.226155221106064
+        },
+        "dadaptlion": {
+            "error_rates": {
+                "Ackley": 8.520407772064209,
+                "Cross-in-Tray": 24.36045697663503,
+                "EggHolder": 8.066413879394531,
+                "Langermann": 8.447318172454834,
+                "Levy": 5.262908554077148,
+                "Rastrigin": 8.323733901977539,
+                "Rosenbrock": 1.4234025359880091,
+                "Schaffer 2": 6.715391080608242,
+                "Shubert": 1.1108890414237975,
+                "Styblinski-Tang": 2.1403753072127527
+            },
+            "avg_error_rate": 7.437129722183609
+        },
+        "dadaptsgd": {
+            "error_rates": {
+                "Ackley": 3.7250513195991517,
+                "Cross-in-Tray": 40.140862121582174,
+                "EggHolder": 18.1737060546875,
+                "Langermann": 8.505436325073243,
+                "Levy": 15.084512519836426,
+                "Rastrigin": 17.90461311340332,
+                "Rosenbrock": 1.059913420677185,
+                "Schaffer 2": 17.218204498291016,
+                "Shubert": 4.696650171279908,
+                "Styblinski-Tang": 9.14705867767334
+            },
+            "avg_error_rate": 13.565600822210325
+        },
+        "diffgrad": {
+            "error_rates": {
+                "Ackley": 1.8417930108174914,
+                "Cross-in-Tray": 1.0622390113574511,
+                "EggHolder": 6.182029520054494,
+                "Langermann": 0.08717141272500158,
+                "Levy": 0.2488076047593495,
+                "Rastrigin": 6.9497907727645725,
+                "Rosenbrock": 1.3408219663511431,
+                "Schaffer 2": 9.173249868361745,
+                "Shubert": 0.2469813346862793,
+                "Styblinski-Tang": 0.10350255017219752
+            },
+            "avg_error_rate": 2.7236387052049724
+        },
+        "emofact": {
+            "error_rates": {
+                "Ackley": 1.7909151792526243,
+                "Cross-in-Tray": 1.370418962426629,
+                "EggHolder": 6.285405677850941,
+                "Langermann": 0.41737369215115905,
+                "Levy": 0.4429925810545683,
+                "Rastrigin": 0.3267344240499369,
+                "Rosenbrock": 0.7858309805393219,
+                "Schaffer 2": 1.464347674638941,
+                "Shubert": 0.2554071873426437,
+                "Styblinski-Tang": 0.1423572559840977
+            },
+            "avg_error_rate": 1.3281783615290863
+        },
+        "emolynx": {
+            "error_rates": {
+                "Ackley": 1.2460197925567627,
+                "Cross-in-Tray": 3.076484754085686,
+                "EggHolder": 9.40217046737671,
+                "Langermann": 1.439611655473709,
+                "Levy": 1.6269465863704682,
+                "Rastrigin": 1.2935261130332947,
+                "Rosenbrock": 0.7582770824432372,
+                "Schaffer 2": 2.762988634748035,
+                "Shubert": 1.5089990139007567,
+                "Styblinski-Tang": 0.42338352035731075
+            },
+            "avg_error_rate": 2.353840762034597
+        },
+        "emonavi": {
+            "error_rates": {
+                "Ackley": 0.2830312443897128,
+                "Cross-in-Tray": 1.3704188551382686,
+                "EggHolder": 6.2905342298365206,
+                "Langermann": 0.23409500513225792,
+                "Levy": 0.4429908651858568,
+                "Rastrigin": 0.30050138715268987,
+                "Rosenbrock": 0.7858308255672455,
+                "Schaffer 2": 1.148617165437043,
+                "Shubert": 0.2554076164960861,
+                "Styblinski-Tang": 0.1423574488610029
+            },
+            "avg_error_rate": 1.1253784643196685
+        },
+        "emoneco": {
+            "error_rates": {
+                "Ackley": 1.2317477345466612,
+                "Cross-in-Tray": 3.266821297407296,
+                "EggHolder": 8.915596224051114,
+                "Langermann": 1.1835449457168579,
+                "Levy": 1.285534518957138,
+                "Rastrigin": 1.2759896874427796,
+                "Rosenbrock": 1.0086192548274995,
+                "Schaffer 2": 4.927037453651428,
+                "Shubert": 1.469861990213394,
+                "Styblinski-Tang": 2.055074234950007
+            },
+            "avg_error_rate": 2.6619827341764175
+        },
+        "emozeal": {
+            "error_rates": {
+                "Ackley": 1.7909151792526243,
+                "Cross-in-Tray": 1.370418962426629,
+                "EggHolder": 6.285405677850941,
+                "Langermann": 0.41737369215115905,
+                "Levy": 0.4429925810545683,
+                "Rastrigin": 0.3267344240499369,
+                "Rosenbrock": 0.7858309805393219,
+                "Schaffer 2": 1.464347674638941,
+                "Shubert": 0.2554071873426437,
+                "Styblinski-Tang": 0.1423572559840977
+            },
+            "avg_error_rate": 1.3281783615290863
+        },
+        "exadam": {
+            "error_rates": {
+                "Ackley": 3.2789349079132077,
+                "Cross-in-Tray": 10.331945600509789,
+                "EggHolder": 11.465094275904267,
+                "Langermann": 1.0810557548931636,
+                "Levy": 0.11573223939103343,
+                "Rastrigin": 3.0020695984363557,
+                "Rosenbrock": 1.6797940969467162,
+                "Schaffer 2": 9.326253192788135,
+                "Shubert": 2.552121567726135,
+                "Styblinski-Tang": 2.2003241683627492
+            },
+            "avg_error_rate": 4.503332540287156
+        },
+        "fadam": {
+            "error_rates": {
+                "Ackley": 0.5765496060252189,
+                "Cross-in-Tray": 39.98631195068374,
+                "EggHolder": 14.13761749267578,
+                "Langermann": 1.2212989032268524,
+                "Levy": 14.807057952880859,
+                "Rastrigin": 0.6669406473636627,
+                "Rosenbrock": 2.0328580141067505,
+                "Schaffer 2": 0.5218774437904358,
+                "Shubert": 0.458356973528862,
+                "Styblinski-Tang": 8.915376472473145
+            },
+            "avg_error_rate": 8.332424545675531
+        },
+        "fira": {
+            "error_rates": {
+                "Ackley": 0.4849032491445541,
+                "Cross-in-Tray": 1.2887029454381262,
+                "EggHolder": 5.854406239523087,
+                "Langermann": 0.22625619670674357,
+                "Levy": 0.36055128449806945,
+                "Rastrigin": 0.379934671765659,
+                "Rosenbrock": 0.06651232615208755,
+                "Schaffer 2": 9.457236151722645,
+                "Shubert": 0.22964328825473784,
+                "Styblinski-Tang": 0.13312443456088657
+            },
+            "avg_error_rate": 1.8481270787766597
+        },
+        "focus": {
+            "error_rates": {
+                "Ackley": 1.414283949136734,
+                "Cross-in-Tray": 7.488644049502909,
+                "EggHolder": 9.279404805278318,
+                "Langermann": 4.4637551546096805,
+                "Levy": 0.9826446935534476,
+                "Rastrigin": 0.7601839870214462,
+                "Rosenbrock": 0.7997324600815773,
+                "Schaffer 2": 4.770056723116431,
+                "Shubert": 2.046255028247833,
+                "Styblinski-Tang": 0.6136737152934074
+            },
+            "avg_error_rate": 3.261863456584179
+        },
+        "fromage": {
+            "error_rates": {
+                "Ackley": 1.7757363379505477,
+                "Cross-in-Tray": 1.301427047848847,
+                "EggHolder": 18.18883228302002,
+                "Langermann": 0.6532781302928925,
+                "Levy": 0.40603341460227965,
+                "Rastrigin": 0.06220934092998504,
+                "Rosenbrock": 1.2522243082523346,
+                "Schaffer 2": 0.21847707176129916,
+                "Shubert": 1.1501360416412352,
+                "Styblinski-Tang": 1.304633478820324
+            },
+            "avg_error_rate": 2.6312987455119763
+        },
+        "ftrl": {
+            "error_rates": {
+                "Ackley": 0.7744744060322774,
+                "Cross-in-Tray": 20.910318412780907,
+                "EggHolder": 5.862992010825291,
+                "Langermann": 0.2287333443760872,
+                "Levy": 10.4215012550354,
+                "Rastrigin": 1.7265084071696037,
+                "Rosenbrock": 1.2407474517007357,
+                "Schaffer 2": 16.779412343624426,
+                "Shubert": 0.2762067258358002,
+                "Styblinski-Tang": 9.034231376647949
+            },
+            "avg_error_rate": 6.725512573402848
+        },
+        "galore": {
+            "error_rates": {
+                "Ackley": 0.4849032491445541,
+                "Cross-in-Tray": 1.2887029454381262,
+                "EggHolder": 5.854406239523087,
+                "Langermann": 0.22625619670674357,
+                "Levy": 0.36055128449806945,
+                "Rastrigin": 0.379934671765659,
+                "Rosenbrock": 0.06651232615208755,
+                "Schaffer 2": 9.457236151722645,
+                "Shubert": 0.22964328825473784,
+                "Styblinski-Tang": 0.13312443456088657
+            },
+            "avg_error_rate": 1.8481270787766597
+        },
+        "grams": {
+            "error_rates": {
+                "Ackley": 11.008539215244856,
+                "Cross-in-Tray": 0.922953528425569,
+                "EggHolder": 5.837319707870483,
+                "Langermann": 0.5559882581233978,
+                "Levy": 0.0624723578448993,
+                "Rastrigin": 13.475743984066685,
+                "Rosenbrock": 3.938448107371232,
+                "Schaffer 2": 18.716677093505858,
+                "Shubert": 1.0956671714782715,
+                "Styblinski-Tang": 0.05230106988660736
+            },
+            "avg_error_rate": 5.566611049381786
+        },
+        "gravity": {
+            "error_rates": {
+                "Ackley": 9.47581844329834,
+                "Cross-in-Tray": 40.07317070007339,
+                "EggHolder": 15.847653579711913,
+                "Langermann": 8.501293849945068,
+                "Levy": 19.50408515930176,
+                "Rastrigin": 17.84734535217285,
+                "Rosenbrock": 3.283905553817749,
+                "Schaffer 2": 17.22657602320778,
+                "Shubert": 5.616003084182739,
+                "Styblinski-Tang": 9.14116153717041
+            },
+            "avg_error_rate": 14.651701328288201
+        },
+        "grokfastadamw": {
+            "error_rates": {
+                "Ackley": 3.1053547501564025,
+                "Cross-in-Tray": 31.085311355590967,
+                "EggHolder": 6.4233832924313905,
+                "Langermann": 3.305120038986206,
+                "Levy": 4.084214282035827,
+                "Rastrigin": 14.012855911254881,
+                "Rosenbrock": 0.37841463227582606,
+                "Schaffer 2": 14.05676172157182,
+                "Shubert": 0.2359245091676712,
+                "Styblinski-Tang": 0.620255763689056
+            },
+            "avg_error_rate": 7.730759625716004
+        },
+        "kate": {
+            "error_rates": {
+                "Ackley": 11.297966116164208,
+                "Cross-in-Tray": 20.83128608703628,
+                "EggHolder": 3.2624177973726547,
+                "Langermann": 0.04115682328119874,
+                "Levy": 14.80458984375,
+                "Rastrigin": 7.717430902938941,
+                "Rosenbrock": 4.698472844286391,
+                "Schaffer 2": 18.577996253967285,
+                "Shubert": 2.4986831903457642,
+                "Styblinski-Tang": 11.53914670944214
+            },
+            "avg_error_rate": 9.526914656858485
+        },
+        "kron": {
+            "error_rates": {
+                "Ackley": 2.4499961018562315,
+                "Cross-in-Tray": 7.784670176506188,
+                "EggHolder": 8.289927548154992,
+                "Langermann": 1.1486374855041503,
+                "Levy": 1.4288283109664917,
+                "Rastrigin": 2.416365122795105,
+                "Rosenbrock": 0.8074591264128684,
+                "Schaffer 2": 14.428182123248735,
+                "Shubert": 1.036060979962349,
+                "Styblinski-Tang": 1.3231276236474514
+            },
+            "avg_error_rate": 4.111325459905457
+        },
+        "lamb": {
+            "error_rates": {
+                "Ackley": 6.3385266963894535,
+                "Cross-in-Tray": 1.2105162480474974,
+                "EggHolder": 10.271479511260985,
+                "Langermann": 0.9885962963104248,
+                "Levy": 0.2849958481267095,
+                "Rastrigin": 6.228101378106658,
+                "Rosenbrock": 0.9381473850604379,
+                "Schaffer 2": 4.519981586223912,
+                "Shubert": 1.6361222743988035,
+                "Styblinski-Tang": 0.3061243809759617
+            },
+            "avg_error_rate": 3.2722591604900844
+        },
+        "laprop": {
+            "error_rates": {
+                "Ackley": 0.5003783121705054,
+                "Cross-in-Tray": 1.3945755554632342,
+                "EggHolder": 5.8955803943194045,
+                "Langermann": 0.20396531459776615,
+                "Levy": 0.2228351972233213,
+                "Rastrigin": 0.4095904080531909,
+                "Rosenbrock": 0.18610894562294789,
+                "Schaffer 2": 10.162715856069735,
+                "Shubert": 0.2202395647764206,
+                "Styblinski-Tang": 0.08377536260086345
+            },
+            "avg_error_rate": 1.9279764910897388
+        },
+        "lars": {
+            "error_rates": {
+                "Ackley": 2.5038546562194823,
+                "Cross-in-Tray": 30.914378585815577,
+                "EggHolder": 7.067971774900798,
+                "Langermann": 8.501750278472901,
+                "Levy": 0.5684113078219525,
+                "Rastrigin": 0.6108487340039573,
+                "Rosenbrock": 0.08372492868220434,
+                "Schaffer 2": 7.253659123613033,
+                "Shubert": 3.646823787689209,
+                "Styblinski-Tang": 0.28045783474808555
+            },
+            "avg_error_rate": 6.14318810119672
+        },
+        "lion": {
+            "error_rates": {
+                "Ackley": 3.893608164787292,
+                "Cross-in-Tray": 3.726040091514733,
+                "EggHolder": 6.518860487067286,
+                "Langermann": 3.5392510414123537,
+                "Levy": 3.479380798339844,
+                "Rastrigin": 3.7570045471191404,
+                "Rosenbrock": 0.5562767028808593,
+                "Schaffer 2": 5.3664768695831295,
+                "Shubert": 1.3509129881858826,
+                "Styblinski-Tang": 0.4448485516011715
+            },
+            "avg_error_rate": 3.2632660242491696
+        },
+        "madgrad": {
+            "error_rates": {
+                "Ackley": 1.4950938031077385,
+                "Cross-in-Tray": 40.07967552185073,
+                "EggHolder": 18.201151847839355,
+                "Langermann": 4.760922091287821,
+                "Levy": 19.509287452697755,
+                "Rastrigin": 17.933589935302734,
+                "Rosenbrock": 0.6199686855077743,
+                "Schaffer 2": 8.88746198095614,
+                "Shubert": 5.574777269363404,
+                "Styblinski-Tang": 9.056979370117187
+            },
+            "avg_error_rate": 12.611890795803065
+        },
+        "mars": {
+            "error_rates": {
+                "Ackley": 18.096567344665527,
+                "Cross-in-Tray": 41.59609321594253,
+                "EggHolder": 17.418110847473145,
+                "Langermann": 8.510821342468262,
+                "Levy": 20.738641357421876,
+                "Rastrigin": 18.00754871368408,
+                "Rosenbrock": 4.458652496337891,
+                "Schaffer 2": 18.781493759155275,
+                "Shubert": 5.742451286315918,
+                "Styblinski-Tang": 11.718098258972168
+            },
+            "avg_error_rate": 16.506847862243667
+        },
+        "nadam": {
+            "error_rates": {
+                "Ackley": 1.6091015592217446,
+                "Cross-in-Tray": 10.63374837754818,
+                "EggHolder": 9.868239918351174,
+                "Langermann": 0.7398420751094817,
+                "Levy": 0.47117996430802406,
+                "Rastrigin": 1.1998564898967743,
+                "Rosenbrock": 1.484648597240448,
+                "Schaffer 2": 15.359602323659963,
+                "Shubert": 0.28755591511726375,
+                "Styblinski-Tang": 2.2169375658035277
+            },
+            "avg_error_rate": 4.387071278625658
+        },
+        "nero": {
+            "error_rates": {
+                "Ackley": 2.119538056850433,
+                "Cross-in-Tray": 15.014923858168913,
+                "EggHolder": 8.98249426880866,
+                "Langermann": 4.14501690864563,
+                "Levy": 0.1678603893124091,
+                "Rastrigin": 1.642149493098259,
+                "Rosenbrock": 1.760608695892972,
+                "Schaffer 2": 9.375805850325287,
+                "Shubert": 2.361872124671936,
+                "Styblinski-Tang": 2.881174202559714
+            },
+            "avg_error_rate": 4.8451443848334215
+        },
+        "novograd": {
+            "error_rates": {
+                "Ackley": 1.445224791765213,
+                "Cross-in-Tray": 30.859170761108544,
+                "EggHolder": 6.277697537931999,
+                "Langermann": 2.6043670177459717,
+                "Levy": 0.9898801367729901,
+                "Rastrigin": 1.039026380339783,
+                "Rosenbrock": 0.12858685796090866,
+                "Schaffer 2": 15.533268736922764,
+                "Shubert": 0.30722807347774506,
+                "Styblinski-Tang": 0.358544028038159
+            },
+            "avg_error_rate": 5.954299432206407
+        },
+        "padam": {
+            "error_rates": {
+                "Ackley": 1.9753491044044493,
+                "Cross-in-Tray": 40.07046569824233,
+                "EggHolder": 18.163070297241212,
+                "Langermann": 2.502521514892578,
+                "Levy": 19.49833450317383,
+                "Rastrigin": 0.4181403488590149,
+                "Rosenbrock": 0.06106845967588015,
+                "Schaffer 2": 8.283408358290945,
+                "Shubert": 2.2840990304946898,
+                "Styblinski-Tang": 9.023609638214111
+            },
+            "avg_error_rate": 10.228006695348904
+        },
+        "pid": {
+            "error_rates": {
+                "Ackley": 2.135315409302711,
+                "Cross-in-Tray": 40.06938880920425,
+                "EggHolder": 16.82186583034927,
+                "Langermann": 2.6569651322215577,
+                "Levy": 0.44731155528315864,
+                "Rastrigin": 1.0699485689401627,
+                "Rosenbrock": 0.07135073021054267,
+                "Schaffer 2": 14.57499372054881,
+                "Shubert": 2.0676018389269304,
+                "Styblinski-Tang": 0.26317332784037717
+            },
+            "avg_error_rate": 8.017791492282777
+        },
+        "pnm": {
+            "error_rates": {
+                "Ackley": 2.9036882773041723,
+                "Cross-in-Tray": 40.102854003906394,
+                "EggHolder": 18.187341499328614,
+                "Langermann": 4.571000576019287,
+                "Levy": 19.524464988708495,
+                "Rastrigin": 8.22428331375122,
+                "Rosenbrock": 3.9794079303741454,
+                "Schaffer 2": 10.485955142974852,
+                "Shubert": 5.316961860656738,
+                "Styblinski-Tang": 9.361822891235352
+            },
+            "avg_error_rate": 12.265778048425927
+        },
+        "prodigy": {
+            "error_rates": {
+                "Ackley": 3.1889415979385376,
+                "Cross-in-Tray": 26.8008574896121,
+                "EggHolder": 6.4990048573738015,
+                "Langermann": 3.9209434032440185,
+                "Levy": 0.7780142403789796,
+                "Rastrigin": 6.307525364976026,
+                "Rosenbrock": 0.10853705099234502,
+                "Schaffer 2": 8.710488050861748,
+                "Shubert": 1.3139336109161377,
+                "Styblinski-Tang": 0.43062075605266725
+            },
+            "avg_error_rate": 5.805886642234636
+        },
+        "qhadam": {
+            "error_rates": {
+                "Ackley": 17.00775890350342,
+                "Cross-in-Tray": 40.06048072814956,
+                "EggHolder": 18.187314987182617,
+                "Langermann": 2.622709488868713,
+                "Levy": 19.49085388183594,
+                "Rastrigin": 15.029507064819335,
+                "Rosenbrock": 2.6876256465911865,
+                "Schaffer 2": 3.112205416238612,
+                "Shubert": 5.615915012359618,
+                "Styblinski-Tang": 10.07281560897827
+            },
+            "avg_error_rate": 13.388718673852727
+        },
+        "qhm": {
+            "error_rates": {
+                "Ackley": 1.6845303744077682,
+                "Cross-in-Tray": 40.08153823852554,
+                "EggHolder": 18.187412452697753,
+                "Langermann": 4.522593834784895,
+                "Levy": 19.511743545532227,
+                "Rastrigin": 0.9331148572266101,
+                "Rosenbrock": 3.6277028083801266,
+                "Schaffer 2": 6.874435381043622,
+                "Shubert": 5.46894941329956,
+                "Styblinski-Tang": 9.167676544189453
+            },
+            "avg_error_rate": 11.005969745008755
+        },
+        "racs": {
+            "error_rates": {
+                "Ackley": 15.280612564086914,
+                "Cross-in-Tray": 40.07291320800796,
+                "EggHolder": 14.692158508300782,
+                "Langermann": 6.222259950637817,
+                "Levy": 19.105697250366212,
+                "Rastrigin": 5.345212626457214,
+                "Rosenbrock": 2.215884804725647,
+                "Schaffer 2": 16.743081665039064,
+                "Shubert": 0.23278779983520506,
+                "Styblinski-Tang": 9.06015853881836
+            },
+            "avg_error_rate": 12.897076691627518
+        },
+        "radam": {
+            "error_rates": {
+                "Ackley": 18.02162437438965,
+                "Cross-in-Tray": 40.09912132263198,
+                "EggHolder": 15.783271789550781,
+                "Langermann": 5.057831835746764,
+                "Levy": 15.115966606140137,
+                "Rastrigin": 15.97540740966797,
+                "Rosenbrock": 1.1327712059020996,
+                "Schaffer 2": 11.314275145287137,
+                "Shubert": 5.529849290847778,
+                "Styblinski-Tang": 9.052429485321046
+            },
+            "avg_error_rate": 13.708254846548533
+        },
+        "ranger": {
+            "error_rates": {
+                "Ackley": 16.92730770111084,
+                "Cross-in-Tray": 40.40063582511211,
+                "EggHolder": 15.84715232849121,
+                "Langermann": 7.716828632354736,
+                "Levy": 19.783056875030162,
+                "Rastrigin": 14.064622167497873,
+                "Rosenbrock": 4.777689816142993,
+                "Schaffer 2": 16.693843259083952,
+                "Shubert": 5.6226921558380125,
+                "Styblinski-Tang": 9.264410121496848
+            },
+            "avg_error_rate": 15.109823888215875
+        },
+        "ranger21": {
+            "error_rates": {
+                "Ackley": 1.1303774851374329,
+                "Cross-in-Tray": 12.924135248540551,
+                "EggHolder": 9.85509762763977,
+                "Langermann": 1.4789263784885407,
+                "Levy": 4.580043979219772,
+                "Rastrigin": 1.1499391430290415,
+                "Rosenbrock": 2.1019617957274024,
+                "Schaffer 2": 7.930137777328491,
+                "Shubert": 0.9369488418102264,
+                "Styblinski-Tang": 8.870363235473633
+            },
+            "avg_error_rate": 5.095793151239485
+        },
+        "ranger25": {
+            "error_rates": {
+                "Ackley": 1.1690139859914779,
+                "Cross-in-Tray": 4.416340413093712,
+                "EggHolder": 5.847713909131744,
+                "Langermann": 2.148810386657715,
+                "Levy": 8.69916820526123,
+                "Rastrigin": 1.2894515440799295,
+                "Rosenbrock": 0.9636880624343234,
+                "Schaffer 2": 13.258536427273064,
+                "Shubert": 0.2727561444044113,
+                "Styblinski-Tang": 9.09529390335083
+            },
+            "avg_error_rate": 4.7160772981678445
+        },
+        "rmsprop": {
+            "error_rates": {
+                "Ackley": 1.0837348959403243,
+                "Cross-in-Tray": 0.9725707205747313,
+                "EggHolder": 5.604580897624873,
+                "Langermann": 0.6499614179134369,
+                "Levy": 0.05629449039697647,
+                "Rastrigin": 2.064108717308591,
+                "Rosenbrock": 2.4307255727568644,
+                "Schaffer 2": 8.951725334918592,
+                "Shubert": 0.3239928692579269,
+                "Styblinski-Tang": 0.11069802045822143
+            },
+            "avg_error_rate": 2.224839293715054
+        },
+        "scalableshampoo": {
+            "error_rates": {
+                "Ackley": 1.9623280940586483,
+                "Cross-in-Tray": 30.914278640747213,
+                "EggHolder": 9.088909429861815,
+                "Langermann": 7.701551055908203,
+                "Levy": 0.40573568381587394,
+                "Rastrigin": 2.3455778658390045,
+                "Rosenbrock": 0.19129189980154704,
+                "Schaffer 2": 6.022513287758921,
+                "Shubert": 4.540764808654785,
+                "Styblinski-Tang": 9.022358989715576
+            },
+            "avg_error_rate": 7.219530975616159
+        },
+        "schedulefreeadamw": {
+            "error_rates": {
+                "Ackley": 0.7748039593432622,
+                "Cross-in-Tray": 28.073100318908836,
+                "EggHolder": 7.205053043365478,
+                "Langermann": 0.6070998668670654,
+                "Levy": 8.383005237579345,
+                "Rastrigin": 2.2221413009052413,
+                "Rosenbrock": 0.9339598383305656,
+                "Schaffer 2": 10.189020427218384,
+                "Shubert": 0.1916978970170021,
+                "Styblinski-Tang": 9.02505407333374
+            },
+            "avg_error_rate": 6.760493596286892
+        },
+        "schedulefreeradam": {
+            "error_rates": {
+                "Ackley": 17.997548866271973,
+                "Cross-in-Tray": 40.32825798034683,
+                "EggHolder": 15.99224624633789,
+                "Langermann": 8.381981945037841,
+                "Levy": 19.67599411010742,
+                "Rastrigin": 18.007969856262207,
+                "Rosenbrock": 3.7026587963104247,
+                "Schaffer 2": 10.366437601328107,
+                "Shubert": 5.760769176483154,
+                "Styblinski-Tang": 9.374076843261719
+            },
+            "avg_error_rate": 14.958794142174757
+        },
+        "schedulefreesgd": {
+            "error_rates": {
+                "Ackley": 2.097224390506744,
+                "Cross-in-Tray": 40.02486061096206,
+                "EggHolder": 18.187297439575197,
+                "Langermann": 2.9267359256744383,
+                "Levy": 19.502284240722656,
+                "Rastrigin": 8.58548994064331,
+                "Rosenbrock": 3.8983255863189696,
+                "Schaffer 2": 4.045325009618864,
+                "Shubert": 5.490026998519897,
+                "Styblinski-Tang": 9.208903312683105
+            },
+            "avg_error_rate": 11.396647345522524
+        },
+        "scion": {
+            "error_rates": {
+                "Ackley": 15.010885047912598,
+                "Cross-in-Tray": 15767.560216119944,
+                "EggHolder": 6.485093975067138,
+                "Langermann": 3.367565417289734,
+                "Levy": 9.81507511138916,
+                "Rastrigin": 9.623705577850341,
+                "Rosenbrock": 2.2581994091067825,
+                "Schaffer 2": 13.803296528418468,
+                "Shubert": 3.3886906147003173,
+                "Styblinski-Tang": 5.8952004432678216
+            },
+            "avg_error_rate": 1583.7207928244948
+        },
+        "scionlight": {
+            "error_rates": {
+                "Ackley": 1.6582870423793792,
+                "Cross-in-Tray": 7.309774341583397,
+                "EggHolder": 9.978335507137853,
+                "Langermann": 1.1218535184860228,
+                "Levy": 1.6569416284561156,
+                "Rastrigin": 1.826263403892517,
+                "Rosenbrock": 1.263172730988063,
+                "Schaffer 2": 8.354410669014943,
+                "Shubert": 0.784719830751419,
+                "Styblinski-Tang": 2.7412890244565005
+            },
+            "avg_error_rate": 3.669504769714621
+        },
+        "sgd": {
+            "error_rates": {
+                "Ackley": 1.542583817243576,
+                "Cross-in-Tray": 30.951142730713038,
+                "EggHolder": 7.336079179681837,
+                "Langermann": 4.6356360912323,
+                "Levy": 0.7328200546558946,
+                "Rastrigin": 2.3143237709999083,
+                "Rosenbrock": 0.14614890948869289,
+                "Schaffer 2": 12.743209649946403,
+                "Shubert": 2.360034871101379,
+                "Styblinski-Tang": 0.46891677724197506
+            },
+            "avg_error_rate": 6.3230895852305
+        },
+        "sgdp": {
+            "error_rates": {
+                "Ackley": 1.542583817243576,
+                "Cross-in-Tray": 30.951142730713038,
+                "EggHolder": 7.336079179681837,
+                "Langermann": 4.6356360912323,
+                "Levy": 0.7328200546558946,
+                "Rastrigin": 2.3143237709999083,
+                "Rosenbrock": 0.14614890948869289,
+                "Schaffer 2": 12.743209649946403,
+                "Shubert": 2.360034871101379,
+                "Styblinski-Tang": 0.46891677724197506
+            },
+            "avg_error_rate": 6.3230895852305
+        },
+        "sgdsai": {
+            "error_rates": {
+                "Ackley": 1.599558541830629,
+                "Cross-in-Tray": 4.2381308639050985,
+                "EggHolder": 18.187313842773438,
+                "Langermann": 1.4431697726249695,
+                "Levy": 3.259257936477661,
+                "Rastrigin": 3.000870394706726,
+                "Rosenbrock": 2.288438892364502,
+                "Schaffer 2": 1.3193521745173111,
+                "Shubert": 3.1337558746337892,
+                "Styblinski-Tang": 7.147187042236328
+            },
+            "avg_error_rate": 4.561703533607045
+        },
+        "sgdw": {
+            "error_rates": {
+                "Ackley": 0.8889830082654953,
+                "Cross-in-Tray": 0.9203596177314466,
+                "EggHolder": 8.624798759692931,
+                "Langermann": 0.12640483817085624,
+                "Levy": 0.1416638531954959,
+                "Rastrigin": 0.053835229575634004,
+                "Rosenbrock": 1.0107065081596374,
+                "Schaffer 2": 2.1716217517852785,
+                "Shubert": 1.650788927078247,
+                "Styblinski-Tang": 0.2441993000025775
+            },
+            "avg_error_rate": 1.58333617936576
+        },
+        "shampoo": {
+            "error_rates": {
+                "Ackley": 0.3275190097025188,
+                "Cross-in-Tray": 23.31514228820815,
+                "EggHolder": 5.854763507843018,
+                "Langermann": 0.0419887195341289,
+                "Levy": 14.814070701599121,
+                "Rastrigin": 0.12710910738723588,
+                "Rosenbrock": 11.62845811379616,
+                "Schaffer 2": 0.030254553451413813,
+                "Shubert": 0.2267257824540138,
+                "Styblinski-Tang": 9.284074306488037
+            },
+            "avg_error_rate": 6.56501060904638
+        },
+        "signsgd": {
+            "error_rates": {
+                "Ackley": 1.0095010727643965,
+                "Cross-in-Tray": 2.281151320934441,
+                "EggHolder": 9.797890949249268,
+                "Langermann": 2.0728516340255734,
+                "Levy": 0.8760171003639697,
+                "Rastrigin": 0.7283325791358948,
+                "Rosenbrock": 0.896330863237381,
+                "Schaffer 2": 10.605574499711839,
+                "Shubert": 1.4275090456008912,
+                "Styblinski-Tang": 0.512704686075449
+            },
+            "avg_error_rate": 3.0207863751099104
+        },
+        "simplifiedademamix": {
+            "error_rates": {
+                "Ackley": 1.766431665420532,
+                "Cross-in-Tray": 39.35832160949722,
+                "EggHolder": 12.17160768508911,
+                "Langermann": 1.4729754805564879,
+                "Levy": 15.430131912231445,
+                "Rastrigin": 1.3830057248473167,
+                "Rosenbrock": 0.6512194365262985,
+                "Schaffer 2": 9.605052565002733,
+                "Shubert": 0.16871459744870662,
+                "Styblinski-Tang": 1.0168696761131286
+            },
+            "avg_error_rate": 8.302433035273298
+        },
+        "sm3": {
+            "error_rates": {
+                "Ackley": 0.7294878193322801,
+                "Cross-in-Tray": 20.910317268371728,
+                "EggHolder": 5.866415691375732,
+                "Langermann": 0.23520384430885313,
+                "Levy": 10.4215012550354,
+                "Rastrigin": 0.6221775776977665,
+                "Rosenbrock": 1.2407433270447654,
+                "Schaffer 2": 16.61712095425464,
+                "Shubert": 0.2588070750236511,
+                "Styblinski-Tang": 9.034231376647949
+            },
+            "avg_error_rate": 6.593600618909276
+        },
+        "soap": {
+            "error_rates": {
+                "Ackley": 0.4582097914069891,
+                "Cross-in-Tray": 1.5449378162251377,
+                "EggHolder": 7.2010420799255375,
+                "Langermann": 1.0856585704335588,
+                "Levy": 0.5132301416015252,
+                "Rastrigin": 0.3712675541639328,
+                "Rosenbrock": 0.4973473697900772,
+                "Schaffer 2": 2.8821539282798767,
+                "Shubert": 0.262257519364357,
+                "Styblinski-Tang": 0.20555970026180148
+            },
+            "avg_error_rate": 1.5021664471452794
+        },
+        "sophiah": {
+            "error_rates": {
+                "Ackley": 1.2040655314922333,
+                "Cross-in-Tray": 4.919935478657862,
+                "EggHolder": 9.723439121246336,
+                "Langermann": 6.161002063751221,
+                "Levy": 1.4444414952769875,
+                "Rastrigin": 1.1186716131865977,
+                "Rosenbrock": 0.3598128203302622,
+                "Schaffer 2": 5.630244660377502,
+                "Shubert": 0.8511898040771484,
+                "Styblinski-Tang": 0.6738109156489372
+            },
+            "avg_error_rate": 3.208661350404509
+        },
+        "spam": {
+            "error_rates": {
+                "Ackley": 0.601501838862896,
+                "Cross-in-Tray": 1.2041286024126747,
+                "EggHolder": 5.092302973572259,
+                "Langermann": 0.41710429883701183,
+                "Levy": 0.3605513202608563,
+                "Rastrigin": 0.3802840411502984,
+                "Rosenbrock": 0.06651256155550982,
+                "Schaffer 2": 13.25733588048315,
+                "Shubert": 0.26157737374305723,
+                "Styblinski-Tang": 0.13312434272811516
+            },
+            "avg_error_rate": 2.177442323360583
+        },
+        "srmm": {
+            "error_rates": {
+                "Ackley": 1.3589005351066588,
+                "Cross-in-Tray": 20.8692243957521,
+                "EggHolder": 18.802454566955568,
+                "Langermann": 1.5469914436340333,
+                "Levy": 12.636102581024169,
+                "Rastrigin": 11.492982196807862,
+                "Rosenbrock": 1.9974273681640624,
+                "Schaffer 2": 1.8843138770986114,
+                "Shubert": 5.157040166854858,
+                "Styblinski-Tang": 9.135785007476807
+            },
+            "avg_error_rate": 8.488122213887474
+        },
+        "stableadamw": {
+            "error_rates": {
+                "Ackley": 0.34059575013816357,
+                "Cross-in-Tray": 1.1879602711276676,
+                "EggHolder": 7.816654300689697,
+                "Langermann": 0.9984617233276367,
+                "Levy": 0.34258451126515865,
+                "Rastrigin": 0.7128336515655974,
+                "Rosenbrock": 0.8005944363767867,
+                "Schaffer 2": 1.7269805499835342,
+                "Shubert": 0.20880952030420302,
+                "Styblinski-Tang": 0.1182566680945456
+            },
+            "avg_error_rate": 1.425373138287299
+        },
+        "stablespam": {
+            "error_rates": {
+                "Ackley": 0.5608843195188455,
+                "Cross-in-Tray": 1.629127524197247,
+                "EggHolder": 6.435950073033018,
+                "Langermann": 0.6206635057926178,
+                "Levy": 0.5823649197816849,
+                "Rastrigin": 0.5616101946019625,
+                "Rosenbrock": 0.34534319415688514,
+                "Schaffer 2": 8.945246622571721,
+                "Shubert": 0.20409588068723677,
+                "Styblinski-Tang": 0.33323105722665786
+            },
+            "avg_error_rate": 2.0218517291567877
+        },
+        "swats": {
+            "error_rates": {
+                "Ackley": 0.4693891644477844,
+                "Cross-in-Tray": 1.286202323067846,
+                "EggHolder": 6.25477129289302,
+                "Langermann": 0.6458941478231337,
+                "Levy": 0.36055139178643003,
+                "Rastrigin": 1.8797090172767639,
+                "Rosenbrock": 0.06651273980482983,
+                "Schaffer 2": 11.704487229083316,
+                "Shubert": 0.20945318937301635,
+                "Styblinski-Tang": 0.13312440773879644
+            },
+            "avg_error_rate": 2.301009490329494
+        },
+        "tam": {
+            "error_rates": {
+                "Ackley": 2.301018869876861,
+                "Cross-in-Tray": 30.913869323730616,
+                "EggHolder": 7.730404472351074,
+                "Langermann": 5.440311002731323,
+                "Levy": 0.7063922751229256,
+                "Rastrigin": 0.4864417326811235,
+                "Rosenbrock": 1.22848312120027,
+                "Schaffer 2": 7.661198751130724,
+                "Shubert": 2.643341135978699,
+                "Styblinski-Tang": 0.36949517827597445
+            },
+            "avg_error_rate": 5.948095586307959
+        },
+        "tiger": {
+            "error_rates": {
+                "Ackley": 1.5398102939128875,
+                "Cross-in-Tray": 8.861442570146755,
+                "EggHolder": 7.111345055707534,
+                "Langermann": 3.2599311995098597,
+                "Levy": 1.7188312709331512,
+                "Rastrigin": 1.1430836960673332,
+                "Rosenbrock": 0.8258538767695427,
+                "Schaffer 2": 6.12857973575592,
+                "Shubert": 1.5595215559005737,
+                "Styblinski-Tang": 0.708316034823656
+            },
+            "avg_error_rate": 3.2856715289527214
+        },
+        "vsgd": {
+            "error_rates": {
+                "Ackley": 18.1087984085083,
+                "Cross-in-Tray": 30.798590316772604,
+                "EggHolder": 7.12809419631958,
+                "Langermann": 1.847602493740303,
+                "Levy": 0.7732938085766363,
+                "Rastrigin": 2.2953748047351836,
+                "Rosenbrock": 0.23798930272459984,
+                "Schaffer 2": 18.78052978515625,
+                "Shubert": 0.42215852737426757,
+                "Styblinski-Tang": 0.6600600004196167
+            },
+            "avg_error_rate": 8.105249164432735
+        },
+        "yogi": {
+            "error_rates": {
+                "Ackley": 0.5055213302373887,
+                "Cross-in-Tray": 1.3014022276889592,
+                "EggHolder": 7.206055450439453,
+                "Langermann": 0.18201315551954048,
+                "Levy": 0.45949095791438593,
+                "Rastrigin": 0.35252179335602707,
+                "Rosenbrock": 0.059703896017163055,
+                "Schaffer 2": 11.565396384945235,
+                "Shubert": 0.24808233380317687,
+                "Styblinski-Tang": 0.15018195530865341
+            },
+            "avg_error_rate": 2.2030369485229984
+        }
+    }
+}

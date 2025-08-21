@@ -14,3 +14,7 @@ temp/
 
 # Cache folder
 cache/
+
+# Results folder
+results/*
+!results/results.json
