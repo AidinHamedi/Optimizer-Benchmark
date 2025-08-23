@@ -18,3 +18,6 @@ cache/
 # Results folder
 results/*
 !results/results.json
+
+# Compressed results
+results.tar.gz
