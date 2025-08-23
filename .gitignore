@@ -21,3 +21,6 @@ results/*
 
 # Compressed results
 results.tar.gz
+
+# Jekyll
+docs/_site/
