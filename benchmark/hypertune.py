@@ -16,8 +16,8 @@ def objective(
     num_iters: int,
     boundary_penalty: bool = True,
     average_distance_factor: float = 0.6,
-    convergence_factor: float = 0.0,  # 0.1
-    oscillation_factor: float = 0.0,  # 0.1
+    convergence_factor: float = 0.1,
+    oscillation_factor: float = 0.1,
     convergence_tol: float = 1e-2,
     **eval_args,
 ) -> float:
