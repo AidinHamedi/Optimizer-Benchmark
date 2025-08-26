@@ -39,3 +39,4 @@
 ## Styblinski-Tang
 
 ![Styblinski-Tang](https://github.com/AidinHamedi/ML-Optimizer-Benchmark/raw/vis-ref/results/sm3/Styblinski-Tang.jpg)
+

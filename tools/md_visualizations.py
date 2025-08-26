@@ -33,8 +33,7 @@ def main():
             markdown += f"![{function}]({path})\n\n"
 
         DOCS_SAVE_PATH.mkdir(parents=True, exist_ok=True)
-        with (DOCS_SAVE_PATH / f"{optimizer}.md").open("w", encoding="utf-8") as f:
-            f.write(markdown)
+        DOCS_SAVE_PATH.joinpath(f"{optimizer}.md").write_text(markdown)
 
     print("Done.")
 

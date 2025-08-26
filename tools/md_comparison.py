@@ -42,7 +42,9 @@ def main():
         tablefmt="github",
     )
 
-    print(markdown_table)
+    DOC_SAVE_PATH.write_text(markdown_table)
+
+    print("Done.")
 
 
 if __name__ == "__main__":
