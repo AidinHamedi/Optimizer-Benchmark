@@ -3,7 +3,9 @@ from pathlib import Path
 
 RESULTS_FILE = Path("./results/results.json")
 DOCS_SAVE_PATH = Path("./docs/vis")
-VIS_URL = "https://github.com/AidinHamedi/ML-Optimizer-Benchmark/raw/vis-ref/results"
+VIS_BASE_URL = (
+    "https://github.com/AidinHamedi/ML-Optimizer-Benchmark/raw/vis-ref/results"
+)
 FILE_FORMAT = ".jpg"
 
 
@@ -23,9 +25,9 @@ def main():
         print(f" - Generating visualizations for {optimizer}...")
         markdown = f"# {optimizer}\n\n"
         for function in results["optimizers"][optimizer]["error_rates"]:
-            path = (VIS_URL + "/" + optimizer + "/" + function + FILE_FORMAT).replace(
-                " ", "%20"
-            )
+            path = (
+                VIS_BASE_URL + "/" + optimizer + "/" + function + FILE_FORMAT
+            ).replace(" ", "%20")
             print(f"    - {function} (url: {path})")
             markdown += f"## {function}\n\n"
             markdown += f"![{function}]({path})\n\n"
