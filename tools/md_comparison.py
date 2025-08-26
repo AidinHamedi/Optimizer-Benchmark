@@ -4,7 +4,7 @@ from pathlib import Path
 from tabulate import tabulate
 
 RESULTS_FILE = Path("./results/results.json")
-DOC_SAVE_PATH = Path("./docs/comparison.md")
+DOC_SAVE_PATH = Path("./docs-common/includes/comparison.md")
 VIS_BASE_DOCS_URL = "https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/"
 
 
@@ -42,6 +42,7 @@ def main():
         tablefmt="github",
     )
 
+    DOC_SAVE_PATH.parents[0].mkdir(parents=True, exist_ok=True)
     DOC_SAVE_PATH.write_text(markdown_table)
 
     print("Done.")

@@ -1,5 +1,5 @@
 sync_docs:
-	cp README.md docs/README.md
+	python tools/sync_docs.py
 
 gen_docs:
 	python tools/md_comparison.py
