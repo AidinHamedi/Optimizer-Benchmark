@@ -3,6 +3,10 @@
 A benchmarking suite for evaluating and comparing **PyTorch optimization algorithms** on 2D mathematical functions.
 This project uses **[pytorch_optimizer](https://github.com/kozistr/pytorch_optimizer)** and **Optuna** for hyperparameter tuning, and generates visualizations of optimizer trajectories across optimization test functions.
 
+> [!WARNING]
+> **Important Limitations**: These benchmark results are based on synthetic 2D functions and may not reflect real-world performance when training actual neural networks. The rankings should only be used as a reference, not as definitive guidance for choosing optimizers in practical applications.
+
+
 ## 🌶️ Features
 
 * Benchmarks **most of the supported optimizers** in `pytorch-optimizer`.
@@ -22,7 +26,7 @@ This project uses **[pytorch_optimizer](https://github.com/kozistr/pytorch_optim
 * Configurable **search spaces**, **iteration counts**, **ignored optimizers** and... via `config.toml`.
 * Saves results and plots for later analysis.
 
-## 🚀 Installation & Usage
+## 🚀 Quick Start
 
 ```bash
 # Clone repository
@@ -43,8 +47,8 @@ The script will:
 3. Run hyperparameter tuning with Optuna.
 4. Save results and visualizations under `./results/`.
 
-## 📦 Visualizations
-> ### Newest release 📃
+## 📊 Visualizations
+> ### Newest release 📦
 > #### [Go to newest release](https://github.com/Aidinhamedi/ML-Optimizer-Benchmark/releases/latest)
 
 |   Rank | Optimizer          |   Average Error Rate | Vis                                                                                 |

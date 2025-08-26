@@ -19,7 +19,7 @@ def main():
 
     print("Writing the gh-pages README file...")
     GH_PAGES_DIR.joinpath(README_FILE).write_text(readme_content)
-    shutil.copytree(INCLUDE_DIR, GH_PAGES_DIR.joinpath("_includes"))
+    shutil.copytree(INCLUDE_DIR, GH_PAGES_DIR.joinpath("_includes"), dirs_exist_ok=True)
 
     print("Resolving markdown includes...")
     for match in INCLUDE_RE.finditer(readme_content):
