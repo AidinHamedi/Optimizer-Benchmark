@@ -4,7 +4,7 @@ seed = 42
 deterministic = true # Can slow down the process
 exist_pass = true
 img_format = ".jpg"
-hypertune_trials = 1
+hypertune_trials = 700
 ignore_optimizers = [
   "msvag",
   "lbfgs",
