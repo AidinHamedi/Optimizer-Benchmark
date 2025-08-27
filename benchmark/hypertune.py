@@ -16,8 +16,8 @@ def objective(
     num_iters: int,
     boundary_penalty: bool = True,
     average_distance_factor: float = 0.6,
-    convergence_factor: float = 0.0,
-    oscillation_factor: float = 0.0,
+    convergence_factor: float = 0.05,
+    oscillation_factor: float = 0.1,
     convergence_tol: float = 1e-2,
     **eval_args,
 ) -> float:
@@ -84,8 +84,17 @@ def objective(
 
     # 5. Oscillation penalty (optional)
     if oscillation_factor > 0.0:
-        step_deltas = torch.norm(steps[:, 1:] - steps[:, :-1], dim=0)
-        oscillation = step_deltas.mean().item()
-        error += oscillation * oscillation_factor
+        step_vecs = steps[:, 1:] - steps[:, :-1]
+        norms = torch.norm(step_vecs, dim=0, keepdim=True) + 1e-8
+        unit_vecs = step_vecs / norms
+
+        dots = (unit_vecs[:, 1:] * unit_vecs[:, :-1]).sum(dim=0)
+
+        sharp_turns = torch.clamp(-dots, min=0.0)  # only penalize turns past 90°
+
+        avg_step_size = torch.norm(step_vecs, dim=0).mean().item()
+
+        oscillation_penalty = sharp_turns.mean().item() * avg_step_size
+        error += oscillation_penalty * oscillation_factor
 
     return error
