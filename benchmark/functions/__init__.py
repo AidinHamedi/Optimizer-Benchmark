@@ -8,6 +8,10 @@ from .cross_in_tray import EVAL_SIZE as CROSS_EVAL_SIZE
 from .cross_in_tray import GLOBAL_MINIMUM_LOC as CROSS_GLOBAL_MINIMUM_LOC
 from .cross_in_tray import START_POS as CROSS_START_POS
 from .cross_in_tray import cross_in_tray
+from .drop_wave import EVAL_SIZE as DROPWAVE_EVAL_SIZE
+from .drop_wave import GLOBAL_MINIMUM_LOC as DROPWAVE_GLOBAL_MINIMUM_LOC
+from .drop_wave import START_POS as DROPWAVE_START_POS
+from .drop_wave import drop_wave
 from .eggholder import EVAL_SIZE as EGG_EVAL_SIZE
 from .eggholder import GLOBAL_MINIMUM_LOC as EGG_GLOBAL_MINIMUM_LOC
 from .eggholder import START_POS as EGG_START_POS
@@ -53,6 +57,12 @@ FUNC_DICT: dict = {
         "size": CROSS_EVAL_SIZE,
         "pos": CROSS_START_POS,
         "gm_pos": CROSS_GLOBAL_MINIMUM_LOC,
+    },
+    "Drop-Wave": {
+        "func": drop_wave,
+        "size": DROPWAVE_EVAL_SIZE,
+        "pos": DROPWAVE_START_POS,
+        "gm_pos": DROPWAVE_GLOBAL_MINIMUM_LOC,
     },
     "EggHolder": {
         "func": eggholder,

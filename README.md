@@ -14,6 +14,7 @@ This project uses **[pytorch_optimizer](https://github.com/kozistr/pytorch_optim
 * Visualization of optimization trajectories on:
   * Ackley
   * Cross-in-Tray
+  * Drop-Wave
   * Eggholder
   * Langermann
   * Lévy
