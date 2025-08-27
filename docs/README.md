@@ -9,7 +9,7 @@ This project uses **[pytorch_optimizer](https://github.com/kozistr/pytorch_optim
 
 ## 🌶️ Features
 
-* Benchmarks **most of the supported optimizers** in `pytorch-optimizer`.
+* Benchmarks **most of the supported optimizers** in `pytorch_optimizer`.
 * Hyperparameter search with **Optuna (TPE sampler)**.
 * Visualization of optimization trajectories on:
 
