@@ -16,6 +16,10 @@ from .eggholder import EVAL_SIZE as EGG_EVAL_SIZE
 from .eggholder import GLOBAL_MINIMUM_LOC as EGG_GLOBAL_MINIMUM_LOC
 from .eggholder import START_POS as EGG_START_POS
 from .eggholder import eggholder
+from .griewank import EVAL_SIZE as GRIEWANK_EVAL_SIZE
+from .griewank import GLOBAL_MINIMUM_LOC as GRIEWANK_GLOBAL_MINIMUM_LOC
+from .griewank import START_POS as GRIEWANK_START_POS
+from .griewank import griewank
 from .langermann import EVAL_SIZE as LANGERMANN_EVAL_SIZE
 from .langermann import GLOBAL_MINIMUM_LOC as LANGERMANN_GLOBAL_MINIMUM_LOC
 from .langermann import START_POS as LANGERMANN_START_POS
@@ -69,6 +73,12 @@ FUNC_DICT: dict = {
         "size": EGG_EVAL_SIZE,
         "pos": EGG_START_POS,
         "gm_pos": EGG_GLOBAL_MINIMUM_LOC,
+    },
+    "Griewank": {
+        "func": griewank,
+        "size": GRIEWANK_EVAL_SIZE,
+        "pos": GRIEWANK_START_POS,
+        "gm_pos": GRIEWANK_GLOBAL_MINIMUM_LOC,
     },
     "Langermann": {
         "func": langermann,

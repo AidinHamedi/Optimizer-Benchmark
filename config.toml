@@ -28,6 +28,7 @@ ignore_optimizers = [
 Ackley = 200
 "Cross-in-Tray" = 200
 EggHolder = 200
+Griewank = 200
 Langermann = 200
 Levy = 200
 Rastrigin = 200
