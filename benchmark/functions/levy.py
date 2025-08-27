@@ -13,12 +13,10 @@ def levy(x: torch.Tensor) -> torch.Tensor:
     """Computes the Lévy function.
 
     Args:
-        x (torch.Tensor): A tensor representing the input vector [x1, x2, ..., xd].
-            - If shape is (d,), returns a 0-D scalar.
-            - If shape is (..., d), computes elementwise over leading batch dims.
+        x (torch.Tensor): A tensor representing the input vector.
 
     Returns:
-        torch.Tensor: The Lévy function value(s). Scalar for (d,), or shape (...) for (..., d).
+        torch.Tensor: Scalar tensor with the Lévy function value.
     """
     w = 1.0 + (x - 1.0) / 4.0
     term1 = torch.sin(torch.pi * w[..., 0]) ** 2

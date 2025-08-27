@@ -12,7 +12,6 @@ This project uses **[pytorch_optimizer](https://github.com/kozistr/pytorch_optim
 * Benchmarks **most of the supported optimizers** in `pytorch_optimizer`.
 * Hyperparameter search with **Optuna (TPE sampler)**.
 * Visualization of optimization trajectories on:
-
   * Ackley
   * Cross-in-Tray
   * Eggholder

@@ -14,11 +14,10 @@ def schaffer2(x: torch.Tensor) -> torch.Tensor:
     Computes the Schaffer function N. 2.
 
     Args:
-        x (torch.Tensor): A 1D tensor with two elements representing the input vector [x1, x2].
+        x (torch.Tensor): A 1D tensor with two elements representing [x, y].
 
     Returns:
-        torch.Tensor: A scalar tensor representing the value of the Schaffer function
-            for the given input 'x'.
+        torch.Tensor: Scalar tensor with the Schaffer function value.
     """
     # To make the eval size smaller
     x1 = x[0] * 5

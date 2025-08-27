@@ -24,11 +24,11 @@ def langermann(
     Computes the Langermann function.
 
     Args:
-        x (torch.Tensor): A 1D tensor of shape (d,) representing the input vector.
-        a, b, c (torch.Tensor): Constant
+        x (torch.Tensor): A 1D tensor with two elements representing [x, y].
+        m, c, a (torch.Tensor): Constants for the Langermann function.
 
     Returns:
-        torch.Tensor: A scalar tensor representing the Langermann function value.
+        torch.Tensor: Scalar tensor with the Langermann function value.
     """
     x_expanded = x.unsqueeze(0).expand(m, -1)  # type: ignore
     diff_sq = (x_expanded - a) ** 2

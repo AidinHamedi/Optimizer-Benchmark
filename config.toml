@@ -4,7 +4,7 @@ seed = 42
 deterministic = true # Can slow down the process
 exist_pass = true
 img_format = ".jpg"
-hypertune_trials = 700
+hypertune_trials = 1
 ignore_optimizers = [
   "msvag",
   "lbfgs",
@@ -34,6 +34,7 @@ Rastrigin = 200
 Rosenbrock = 400
 "Schaffer 2" = 500
 Shubert = 200
+"Drop-Wave" = 200
 "Styblinski-Tang" = 200
 
 # Hyperparameter search spaces for optimizers.

@@ -15,12 +15,10 @@ def cross_in_tray(x: torch.Tensor) -> torch.Tensor:
     """Computes the Cross-in-tray function.
 
     Args:
-        x (torch.Tensor): A tensor whose last dimension has size 2, representing [x1, x2].
-            Supports arbitrary leading batch dimensions.
+        x (torch.Tensor): A tensor with last dimension size 2, representing [x1, x2].
 
     Returns:
-        torch.Tensor: The function value(s). If x has shape (2,), returns a 0-D scalar tensor.
-            For batched inputs (..., 2), returns a tensor of shape (...).
+        torch.Tensor: Scalar tensor with the Cross-in-tray function value.
     """
     x1 = x[..., 0].type(torch.float64, non_blocking=True)
     x2 = x[..., 1].type(torch.float64, non_blocking=True)

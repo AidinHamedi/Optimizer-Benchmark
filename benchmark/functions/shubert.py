@@ -34,12 +34,10 @@ def shubert(x: torch.Tensor) -> torch.Tensor:
     """Computes the Shubert function.
 
     Args:
-        x (torch.Tensor): Input tensor with last dimension 2 representing [x1, x2].
-            - If shape is (2,), returns a 0-D scalar.
-            - If shape is (..., 2), computes elementwise over leading batch dims.
+        x (torch.Tensor): A tensor with last dimension size 2, representing [x1, x2].
 
     Returns:
-        torch.Tensor: Shubert function value(s). Scalar for (2,), or shape (...) for (..., 2).
+        torch.Tensor: Scalar tensor with the Shubert function value.
     """
     i = torch.arange(1, 6, dtype=x.dtype, device=x.device)
 

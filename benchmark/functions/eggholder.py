@@ -16,11 +16,10 @@ def eggholder(x: torch.Tensor) -> torch.Tensor:
     Computes the Eggholder function.
 
     Args:
-        x (torch.Tensor): A 1D tensor with two elements representing the input vector [x1, x2].
+        x (torch.Tensor): A 1D tensor with two elements representing [x, y].
 
     Returns:
-        torch.Tensor: A scalar tensor representing the value of the Eggholder function
-            for the given input 'x'.
+        torch.Tensor: Scalar tensor with the Eggholder function value.
     """
     # To make the eval size smaller
     x1 = x[0] * 51.2

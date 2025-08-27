@@ -22,13 +22,11 @@ def ackley(
     Computes the Ackley function.
 
     Args:
-        x (torch.Tensor): A tensor of shape (..., d) representing the input vector(s),
-            where 'd' is the number of dimensions.
-        a, b, c (torch.Tensor): Constant
+        x (torch.Tensor): A 1D tensor representing the input vector.
+        a, b, c (torch.Tensor): Constants for the Ackley function.
 
     Returns:
-        torch.Tensor: A scalar tensor representing the value of the Ackley function
-            for the given input 'x'.
+        torch.Tensor: Scalar tensor with the Ackley function value.
     """
     d = x.numel()
     sum1 = torch.sum(x**2)

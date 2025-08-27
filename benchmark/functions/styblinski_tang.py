@@ -14,11 +14,10 @@ def stybtang(x: torch.Tensor) -> torch.Tensor:
     Computes the Styblinski–Tang function.
 
     Args:
-        x (torch.Tensor): A 1D tensor of arbitrary dimension representing the input vector [x1, x2, ..., xd].
+        x (torch.Tensor): A tensor representing the input vector.
 
     Returns:
-        torch.Tensor: A scalar tensor representing the value of the Styblinski–Tang function
-            for the given input 'x'.
+        torch.Tensor: Scalar tensor with the Styblinski–Tang function value.
     """
     sum_terms = torch.sum(x**4 - 16 * x**2 + 5 * x)
     y = sum_terms / 2.0

@@ -14,12 +14,10 @@ def rastrigin(x: torch.Tensor) -> torch.Tensor:
     Computes the Rastrigin function.
 
     Args:
-        x (torch.Tensor): A tensor of shape (..., d) representing the input vector(s),
-            where 'd' is the number of dimensions.
+        x (torch.Tensor): A tensor representing the input vector.
 
     Returns:
-        torch.Tensor: A scalar tensor representing the value of the Rastrigin function
-            for the given input 'x'.
+        torch.Tensor: Scalar tensor with the Rastrigin function value.
     """
     return 10.0 * x.shape[-1] + (x.pow(2) - 10.0 * torch.cos(2.0 * torch.pi * x)).sum(
         dim=-1
