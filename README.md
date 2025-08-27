@@ -1,4 +1,4 @@
-# Optimizer Benchmark
+# Optimizer Benchmark [WIP]
 
 A benchmarking suite for evaluating and comparing **PyTorch optimization algorithms** on 2D mathematical functions.
 This project uses **[pytorch_optimizer](https://github.com/kozistr/pytorch_optimizer)** and **Optuna** for hyperparameter tuning, and generates visualizations of optimizer trajectories across optimization test functions.
