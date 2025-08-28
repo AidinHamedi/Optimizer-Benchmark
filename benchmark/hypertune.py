@@ -17,7 +17,9 @@ def objective(
     boundary_penalty: bool = True,
     average_distance_factor: float = 0.6,
     convergence_factor: float = 0.05,
-    oscillation_factor: float = 0.1,
+    oscillation_factor: float = 1.2,
+    lucky_jump_factor: float = 2.6,
+    lucky_jump_threshold: float = 0.1,
     convergence_tol: float = 1e-2,
     **eval_args,
 ) -> float:
@@ -32,10 +34,12 @@ def objective(
         global_min_pos (torch.Tensor): Tensor of one or more known global minima (shape: [N, 2]).
         bounds (Tuple[Tuple[int, int], Tuple[int, int]]): Allowed range for x and y coordinates.
         num_iters (int): Number of optimization steps to perform.
-        boundary_penalty (bool, optional): Penalize positions outside the bounds. Defaults to True.
+        boundary_penalty (bool, optional): Penalize positions outside the bounds.
         average_distance_factor (float, optional): Weight for the average distance penalty.
         convergence_factor (float, optional): Weight for convergence speed penalty. 0 disables it.
         oscillation_factor (float, optional): Weight for oscillation penalty. 0 disables it.
+        lucky_jump_factor (float, optional): Weight for penalizing very large steps. 0 disables it.
+        lucky_jump_threshold (float, optional): Fraction of problem size considered too large.
         convergence_tol (float, optional): Distance threshold for considering a point "converged".
         **eval_args: Additional arguments passed to the step execution function.
 
@@ -82,19 +86,38 @@ def objective(
         normalized_hit = first_hit / num_iters
         error += normalized_hit * convergence_factor
 
-    # 5. Oscillation penalty (optional)
+    # 5. Oscillation penalty for sharp turns (> 90°) (optional)
     if oscillation_factor > 0.0:
         step_vecs = steps[:, 1:] - steps[:, :-1]
-        norms = torch.norm(step_vecs, dim=0, keepdim=True) + 1e-8
-        unit_vecs = step_vecs / norms
+        unit_vecs = step_vecs / (torch.norm(step_vecs, dim=0, keepdim=True) + 1e-8)
+        sharp_turns = torch.clamp(
+            -(unit_vecs[:, 1:] * unit_vecs[:, :-1]).sum(0), min=0.0
+        )
+        penalty = sharp_turns.mean().item() * torch.norm(step_vecs, dim=0).mean().item()
+        error += penalty * oscillation_factor
 
-        dots = (unit_vecs[:, 1:] * unit_vecs[:, :-1]).sum(dim=0)
+    # 6. Large step penalty (optional)
+    if lucky_jump_factor > 0.0:
+        largest_step = torch.norm(steps[:, 1:] - steps[:, :-1], dim=0).max().item()
 
-        sharp_turns = torch.clamp(-dots, min=0.0)  # only penalize turns past 90°
+        ranges = torch.tensor(
+            [bounds[0][1] - bounds[0][0], bounds[1][1] - bounds[1][0]],
+            dtype=torch.float32,
+        )
 
-        avg_step_size = torch.norm(step_vecs, dim=0).mean().item()
+        max_side = ranges.max().item()
+        diag = torch.norm(ranges).item()
+        observed_span = (steps.max(1).values - steps.min(1).values).max().item()
 
-        oscillation_penalty = sharp_turns.mean().item() * avg_step_size
-        error += oscillation_penalty * oscillation_factor
+        eps = 1e-12
+        rel_step = max(
+            largest_step / (max_side + eps),
+            largest_step / (diag + eps),
+            largest_step / (observed_span + eps),
+        )
+
+        if rel_step > lucky_jump_threshold:
+            delta = (rel_step - lucky_jump_threshold) / lucky_jump_threshold
+            error += (delta**2) * lucky_jump_factor
 
     return error
