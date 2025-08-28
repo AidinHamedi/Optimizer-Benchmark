@@ -21,6 +21,7 @@ ignore_optimizers = [
   "alig",
   "bsam",
   "distributedmuon",
+  "sgdw", # Very similar to the normal SGD
 ]
 
 # Number of iterations for each benchmark function.
