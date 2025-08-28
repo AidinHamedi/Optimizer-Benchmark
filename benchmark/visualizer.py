@@ -40,7 +40,7 @@ def plot_function(
     xs = cords[0].numpy()
     ys = cords[1].numpy()
 
-    ax.plot(xs, ys, color="black", linewidth=2, alpha=0.5, marker="x", label="path")
+    ax.plot(xs, ys, color="black", linewidth=2, alpha=0.8, marker="x", label="path")
     ax.scatter(
         xs[0],
         ys[0],
@@ -96,5 +96,5 @@ def plot_function(
     by_label = dict(zip(labels, handles))
     ax.legend(by_label.values(), by_label.keys(), loc="best")
 
-    plt.savefig(output_file, bbox_inches="tight", dpi=150)
+    plt.savefig(output_file, bbox_inches="tight", dpi=120)
     plt.close()
