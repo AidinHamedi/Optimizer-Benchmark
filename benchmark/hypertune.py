@@ -19,7 +19,7 @@ def objective(
     convergence_factor: float = 0.05,
     oscillation_factor: float = 1.2,
     lucky_jump_factor: float = 2.6,
-    lucky_jump_threshold: float = 0.1,
+    lucky_jump_threshold: float = 0.16,
     convergence_tol: float = 1e-2,
     **eval_args,
 ) -> float:
