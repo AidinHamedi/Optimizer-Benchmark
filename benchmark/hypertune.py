@@ -24,7 +24,7 @@ def objective(
     final_distance_factor: float = 1.0,
     final_value_factor: float = 0.8,
     min_movement_factor: float = 0.6,
-    min_movement_threshold: float = 0.2,
+    min_movement_threshold: float = 0.5,
     final_proximity_factor: float = 8.0,
     final_proximity_threshold: float = 0.1,
     **eval_args,
