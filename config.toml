@@ -22,6 +22,7 @@ ignore_optimizers = [
   "bsam",
   "distributedmuon",
   "sgdw",  # Very similar to the normal SGD
+  "adamw", # Very similar to Adam
   "dadaptadam",  # Does not work for some unknown reason
 ]
 
