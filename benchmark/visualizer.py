@@ -13,6 +13,7 @@ def plot_function(
     output_file: str,
     optimizer_name: str,
     optimizer_params: dict,
+    error_rate: float,
     global_minimums: torch.Tensor,
     eval_size: Tuple[Tuple[int, int], Tuple[int, int]],
     res: Union[int, str] = "auto",
@@ -86,7 +87,9 @@ def plot_function(
 
     iterations = max(0, len(xs) - 1)
     ax.set_title(
-        f"{func_name} func: {optimizer_name} with {iterations} iterations\n{config}"
+        f"{func_name} | {optimizer_name}\n"
+        f"Iterations: {iterations}, Error: {error_rate:.4f}\n"
+        f"Config: {config}"
     )
     ax.set_xlabel("x")
     ax.set_ylabel("y")
