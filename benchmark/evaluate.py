@@ -122,6 +122,7 @@ def benchmark_optimizer(
             os.path.join(results_dir, func_name + config["img_format"]),
             optimizer_name,
             study.best_params,
+            study.best_value,
             gm_pos,
             eval_size,
         )
