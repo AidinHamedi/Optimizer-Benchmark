@@ -8,9 +8,17 @@
 
 ![Cross-in-Tray](https://github.com/AidinHamedi/ML-Optimizer-Benchmark/raw/vis-ref/results/adahessian/Cross-in-Tray.jpg)
 
+## Drop-Wave
+
+![Drop-Wave](https://github.com/AidinHamedi/ML-Optimizer-Benchmark/raw/vis-ref/results/adahessian/Drop-Wave.jpg)
+
 ## EggHolder
 
 ![EggHolder](https://github.com/AidinHamedi/ML-Optimizer-Benchmark/raw/vis-ref/results/adahessian/EggHolder.jpg)
+
+## Griewank
+
+![Griewank](https://github.com/AidinHamedi/ML-Optimizer-Benchmark/raw/vis-ref/results/adahessian/Griewank.jpg)
 
 ## Langermann
 

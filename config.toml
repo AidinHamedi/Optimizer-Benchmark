@@ -1,7 +1,7 @@
 # General benchmark settings.
 [benchmark]
 seed = 42
-deterministic = true # Can slow down the process
+deterministic = true  # Can slow down the process
 exist_pass = true
 img_format = ".jpg"
 hypertune_trials = 700
@@ -21,60 +21,60 @@ ignore_optimizers = [
   "alig",
   "bsam",
   "distributedmuon",
-  "sgdw", # Very similar to the normal SGD
+  "sgdw",  # Very similar to the normal SGD
+  "dadaptadam",  # Does not work for some unknown reason
 ]
 
 # Number of iterations for each benchmark function.
 [function_iterations]
-Ackley = 200
-"Cross-in-Tray" = 200
-EggHolder = 200
+Ackley = 150
+"Cross-in-Tray" = 150
+EggHolder = 150
 Griewank = 200
-Langermann = 200
-Levy = 200
-Rastrigin = 200
+Langermann = 150
+Levy = 150
+Rastrigin = 150
 Rosenbrock = 400
 "Schaffer 2" = 500
-Shubert = 200
-"Drop-Wave" = 200
-"Styblinski-Tang" = 200
+Shubert = 150
+"Drop-Wave" = 150
+"Styblinski-Tang" = 150
 
 # Hyperparameter search spaces for optimizers.
 # If an optimizer is not listed here, the 'default' space is used.
 [hyperparameters]
-default = { lr = [0.0, 4.0] }
-lbfgs = { lr = [0.0, 4.0], history_size = [1, 200, "int"] }
-adadelta = { lr = [0.0, 600.0] }
-adafactor = { lr = [0.0, 600.0] }
-adamg = { lr = [0.0, 20.0], p = [0, 1], q = [0, 1] }
-adams = { lr = [0.0, 10.0] }
-dadaptadagrad = { lr = [0.0, 20.0] }
-dadaptlion = { lr = [0.0, 10.0] }
-padam = { lr = [0.0, 10.0] }
-dadaptadam = { lr = [0.0, 10.0] }
-adahessian = { lr = [0.0, 800.0] }
-sophiah = { lr = [0.0, 60.0] }
-pid = { lr = [0.0, 0.5], derivative = [2.0, 14.0], integral = [1.0, 10.0], momentum = [
+default = { lr = [0.0001, 4.0] }
+lbfgs = { lr = [0.0001, 4.0], history_size = [1, 200, "int"] }
+adadelta = { lr = [0.0001, 600.0] }
+adafactor = { lr = [0.0001, 600.0] }
+adamg = { lr = [0.0001, 20.0], p = [0, 1], q = [0, 1] }
+adams = { lr = [0.0001, 10.0] }
+dadaptadagrad = { lr = [0.0001, 20.0] }
+dadaptlion = { lr = [0.0001, 10.0] }
+padam = { lr = [0.0001, 10.0] }
+adahessian = { lr = [0.0001, 800.0] }
+sophiah = { lr = [0.0001, 60.0] }
+pid = { lr = [0.0001, 0.5], derivative = [2.0, 14.0], integral = [1.0, 10.0], momentum = [
   0.0,
   0.99,
 ] }
-sgdp = { lr = [0.0, 2.0], momentum = [0.0, 0.99] }
-accsgd = { lr = [0.0, 2.0], momentum = [0.0, 0.99], kappa = [1, 1000] }
-sgdw = { lr = [0.0, 2.0], momentum = [0.0, 0.99] }
-signsgd = { lr = [0.0, 2.0], momentum = [0.0, 0.99] }
-sgdsai = { lr = [0.0, 2.0], momentum = [0.0, 0.99] }
-sgd = { lr = [0.0, 2.0], momentum = [0.0, 0.99] }
-alig = { lr = [0.0, 2.0], momentum = [0.0, 0.99] }
-asgd = { lr = [0.0, 2.0], amplifier = [0.0, 0.5] }
-amos = { lr = [0.0, 2.0], momentum = [0.0, 0.99] }
-schedulefreesgd = { lr = [0.0, 3.0], momentum = [0.0, 0.99] }
+sgdp = { lr = [0.0001, 2.0], momentum = [0.0001, 0.99] }
+accsgd = { lr = [0.0001, 2.0], momentum = [0.0001, 0.99] }
+sgdw = { lr = [0.0001, 2.0], momentum = [0.0001, 0.99] }
+signsgd = { lr = [0.0001, 2.0], momentum = [0.0001, 0.99] }
+sgdsai = { lr = [0.0001, 2.0], momentum = [0.0001, 0.99] }
+sgd = { lr = [0.0001, 2.0], momentum = [0.0001, 0.99] }
+alig = { lr = [0.0001, 2.0], momentum = [0.0001, 0.99] }
+asgd = { lr = [0.0001, 2.0], amplifier = [0.0001, 0.5] }
+amos = { lr = [0.0001, 2.0], momentum = [0.0001, 0.99] }
+schedulefreesgd = { lr = [0.0001, 3.0], momentum = [0.0001, 0.99] }
 schedulefreeradam = { lr = [1.0, 10.0] }
-kron = { lr = [0.0, 2.0], momentum = [0.0, 0.99] }
-scion = { lr = [0.0, 1.0], scale = [1.0, 1000.0] }
-scionlight = { lr = [0.0, 1.0], scale = [1.0, 1000.0] }
+kron = { lr = [0.0001, 2.0], momentum = [0.0001, 0.99] }
+scion = { lr = [0.0001, 1.0], scale = [1.0, 1000.0] }
+scionlight = { lr = [0.0001, 1.0], scale = [1.0, 1000.0] }
 
 # Example for a specific optimizer:
-# adam = { lr = [0.0, 0.1], betas = [[2.0, 0.99], [0.9, 0.999]] }
+# adam = { lr = [0.0001, 0.1], betas = [[2.0, 0.99], [0.9, 0.999]] }
 
 # Special evaluation arguments for specific optimizers.
 # These are passed to the `execute_steps` function.
