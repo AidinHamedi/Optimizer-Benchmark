@@ -1,7 +1,11 @@
 import tomllib
 from pathlib import Path
 
-from pytorch_optimizer import create_optimizer, get_supported_optimizers
+from pytorch_optimizer import (
+    get_optimizer_parameters,
+    get_supported_optimizers,
+    load_optimizer,
+)
 
 from benchmark.evaluate import benchmark_optimizer
 
@@ -53,7 +57,41 @@ def main():
                 optimizer_config["num_iterations"] = num_iters
             elif optimizer_name == "ranger25":
                 optimizer_config["orthograd"] = False
-            return create_optimizer(model, optimizer_name, **optimizer_config)
+
+            optimizer_class = load_optimizer(optimizer_name)
+
+            if optimizer_name == "adammini":
+                optimizer = optimizer_class(model, weight_decay=0.0, **optimizer_config)  # type: ignore
+            elif optimizer_name in [
+                "adagc",
+                "adalite",
+                "adammini",
+                "adams",
+                "bsam",
+                "emofact",
+                "emolynx",
+                "emonavi",
+                "emoneco",
+                "emozeal",
+                "fadam",
+                "ranger21",
+                "sgdsai",
+                "soap",
+                "splus",
+                "tiger",
+            ]:
+                optimizer = optimizer_class(
+                    get_optimizer_parameters(model, 0, []),  # type: ignore
+                    weight_decay=0.0,  # type: ignore
+                    **optimizer_config,
+                )
+            else:
+                optimizer = optimizer_class(
+                    get_optimizer_parameters(model, 0, []),  # type: ignore
+                    **optimizer_config,
+                )
+
+            return optimizer
 
         benchmark_optimizer(
             get_optimizer,
