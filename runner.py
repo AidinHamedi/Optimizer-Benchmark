@@ -2,7 +2,6 @@ import tomllib
 from pathlib import Path
 
 from pytorch_optimizer import (
-    get_optimizer_parameters,
     get_supported_optimizers,
     load_optimizer,
 )
@@ -81,13 +80,13 @@ def main():
                 "tiger",
             ]:
                 optimizer = optimizer_class(
-                    get_optimizer_parameters(model, 0, []),  # type: ignore
+                    model.parameters(),  # type: ignore
                     weight_decay=0.0,  # type: ignore
                     **optimizer_config,
                 )
             else:
                 optimizer = optimizer_class(
-                    get_optimizer_parameters(model, 0, []),  # type: ignore
+                    model.parameters(),  # type: ignore
                     **optimizer_config,
                 )
 
