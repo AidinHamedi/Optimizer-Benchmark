@@ -1,3 +1,4 @@
+import math
 from typing import Callable, Tuple
 
 import torch
@@ -169,4 +170,4 @@ def objective(
             exp_penalty = (torch.exp(torch.tensor(delta * 10.0)) - 1.0).item()
             error += exp_penalty * final_proximity_factor
 
-    return error
+    return float("inf") if math.isnan(error) else error
