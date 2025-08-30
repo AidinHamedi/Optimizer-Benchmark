@@ -25,6 +25,7 @@ ignore_optimizers = [
   "adamw",
   "stableadamw",
   "dadaptadam",
+  "amos",
 ]
 
 # Number of iterations for each benchmark function.
