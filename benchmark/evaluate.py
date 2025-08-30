@@ -5,6 +5,7 @@ from pathlib import Path
 from typing import Callable
 
 import optuna
+from tqdm import tqdm
 
 from .functions import FUNC_DICT
 from .hypertune import objective
@@ -12,7 +13,25 @@ from .utils.executor import execute_steps
 from .utils.model import Pos2D
 from .visualizer import plot_function
 
-optuna.logging.set_verbosity(optuna.logging.WARNING)
+optuna.logging.set_verbosity(optuna.logging.ERROR)
+
+
+def _progress_bar_callback(total_trials: int):
+    pbar = tqdm(total=total_trials, desc=" └ Hyper Optimization")
+
+    def callback(study: optuna.Study, trial: optuna.Trial):
+        pbar.update(1)
+        pbar.set_postfix(
+            {
+                "Best Value": f"{study.best_value:.4f}",
+                "Best Trial": study.best_trial.number,
+            }
+        )
+
+        if len(study.trials) >= total_trials:
+            pbar.close()
+
+    return callback
 
 
 def benchmark_optimizer(
@@ -54,7 +73,7 @@ def benchmark_optimizer(
         if vis_file.exists() and config["exist_pass"]:
             continue
 
-        print(f" - Evaluating On {func_name}...")
+        print(f" ┌ Evaluating On {func_name}...")
         func = consts["func"]
         eval_size = consts["size"]
         start_pos = consts["pos"]
@@ -99,12 +118,14 @@ def benchmark_optimizer(
             direction="minimize",
             sampler=optuna.samplers.TPESampler(seed=config["seed"]),
         )
+
         study.optimize(
             optuna_objective,
             n_trials=config["hypertune_trials"],
-            show_progress_bar=True,
-            catch=RuntimeError,
+            show_progress_bar=False,
+            catch=(RuntimeError,),
             n_jobs=1 if config["deterministic"] else 2,
+            callbacks=[_progress_bar_callback(config["hypertune_trials"])],  # type: ignore
         )
 
         error_rates[func_name] = study.best_value
