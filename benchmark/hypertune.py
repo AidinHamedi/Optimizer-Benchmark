@@ -77,7 +77,7 @@ def objective(
     error: float = 0.0
 
     # 0. Function value at final position (scaled)
-    final_value = criterion(final_pos).item()
+    final_value = max(criterion(final_pos).item(), 0)
     error += final_value * final_value_factor
 
     # 1. Boundary penalty
