@@ -21,9 +21,10 @@ ignore_optimizers = [
   "alig",
   "bsam",
   "distributedmuon",
-  "sgdw",  # Very similar to the normal SGD
-  "adamw", # Very similar to Adam
-  "dadaptadam",  # Does not work for some unknown reason
+  "sgdw",
+  "adamw",
+  "stableadamw",
+  "dadaptadam",
 ]
 
 # Number of iterations for each benchmark function.
