@@ -152,7 +152,6 @@ The script will:
 |     96 | srmm               |             39.6709  | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/srmm)               |
 |     97 | adams              |            125.205   | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/adams)              |
 
-
 ## 🤝 Contributing
 
 Contributions are welcome! Please feel free to submit a pull request or open an issue.
@@ -163,6 +162,9 @@ Contributions are welcome! Please feel free to submit a pull request or open an 
   Source: Simon Fraser University
   [https://www.sfu.ca/~ssurjano/optimization.html](https://www.sfu.ca/~ssurjano/optimization.html)
   Curated by Derek Bingham — For inquiries: dbingham@stat.sfu.ca
+
+- Kim, H. (2021). *pytorch_optimizer: optimizer & lr scheduler & loss function collections in PyTorch* (Version 2.12.0) [Computer software].
+  https://github.com/kozistr/pytorch_optimizer
 
 
 ## 📝 License

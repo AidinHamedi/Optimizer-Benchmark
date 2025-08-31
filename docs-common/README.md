@@ -65,6 +65,9 @@ Contributions are welcome! Please feel free to submit a pull request or open an 
   [https://www.sfu.ca/~ssurjano/optimization.html](https://www.sfu.ca/~ssurjano/optimization.html)
   Curated by Derek Bingham — For inquiries: dbingham@stat.sfu.ca
 
+- Kim, H. (2021). *pytorch_optimizer: optimizer & lr scheduler & loss function collections in PyTorch* (Version 2.12.0) [Computer software].
+  https://github.com/kozistr/pytorch_optimizer
+
 
 ## 📝 License
 
