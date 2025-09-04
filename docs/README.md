@@ -18,6 +18,7 @@ This project uses **[pytorch_optimizer](https://github.com/kozistr/pytorch_optim
   * Eggholder
   * Gramacy & Lee (2D) (Not yet added to the results)
   * Griewank
+  * Holder Table (Not yet added to the results)
   * Langermann
   * Lévy
   * Rastrigin

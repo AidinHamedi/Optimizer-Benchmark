@@ -24,6 +24,10 @@ from .griewank import EVAL_SIZE as GRIEWANK_EVAL_SIZE
 from .griewank import GLOBAL_MINIMUM_LOC as GRIEWANK_GLOBAL_MINIMUM_LOC
 from .griewank import START_POS as GRIEWANK_START_POS
 from .griewank import griewank
+from .holder_table import EVAL_SIZE as HOLDER_TABLE_EVAL_SIZE
+from .holder_table import GLOBAL_MINIMUM_LOC as HOLDER_TABLE_GLOBAL_MINIMUM_LOC
+from .holder_table import START_POS as HOLDER_TABLE_START_POS
+from .holder_table import holder_table
 from .langermann import EVAL_SIZE as LANGERMANN_EVAL_SIZE
 from .langermann import GLOBAL_MINIMUM_LOC as LANGERMANN_GLOBAL_MINIMUM_LOC
 from .langermann import START_POS as LANGERMANN_START_POS
@@ -89,6 +93,12 @@ FUNC_DICT: dict = {
         "size": GRIEWANK_EVAL_SIZE,
         "pos": GRIEWANK_START_POS,
         "gm_pos": GRIEWANK_GLOBAL_MINIMUM_LOC,
+    },
+    "Holder Table": {
+        "func": holder_table,
+        "size": HOLDER_TABLE_EVAL_SIZE,
+        "pos": HOLDER_TABLE_START_POS,
+        "gm_pos": HOLDER_TABLE_GLOBAL_MINIMUM_LOC,
     },
     "Langermann": {
         "func": langermann,
