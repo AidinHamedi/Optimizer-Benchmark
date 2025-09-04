@@ -8,21 +8,22 @@ import torch
 def compute_surface(
     func: Callable,
     func_name: str,
-    eval_size: Tuple[Tuple[int, int], Tuple[int, int]],
+    eval_size: Tuple[Tuple[float, float], Tuple[float, float]],
     res: Union[int, str] = "auto",
     cache: bool = True,
     cache_dir: str = "./cache",
+    debug: bool = False,
 ) -> torch.Tensor:
     """
     Computes the surface of a 2D function and returns it as a tensor.
 
     Args:
         func (Callable): The function to evaluate.
-        eval_size (Tuple[Tuple[int, int], Tuple[int, int]]): The evaluation range ((x_min, x_max), (y_min, y_max)).
+        eval_size (Tuple[Tuple[float, float], Tuple[float, float]]): The evaluation range ((x_min, x_max), (y_min, y_max)).
         res (Union[int, str], optional): The resolution for the grid. Defaults to "auto".
         cache (bool, optional): Whether to cache the resulting tensor. Defaults to True.
         cache_dir (str, optional): The directory to store cached tensors. Defaults to "./cache".
-
+        debug (bool, optional): Whether to print debug information (disables cache loading). Defaults to False.
     Returns:
         torch.Tensor: A tensor of shape (3, res, res) containing X, Y, and Z coordinates.
     """
@@ -30,7 +31,7 @@ def compute_surface(
     cache_path.mkdir(parents=True, exist_ok=True)
     cache_file = cache_path / f"{func_name}.pt"
 
-    if cache and cache_file.exists():
+    if cache and cache_file.exists() and not debug:
         return torch.load(cache_file)
 
     if res == "auto":
@@ -39,8 +40,8 @@ def compute_surface(
         num_points = int(res)
 
     x_bounds, y_bounds = eval_size
-    x = torch.linspace(x_bounds[0] * 1.2, x_bounds[1] * 1.2, num_points)
-    y = torch.linspace(y_bounds[0] * 1.2, y_bounds[1] * 1.2, num_points)
+    x = torch.linspace(x_bounds[0], x_bounds[1], num_points)
+    y = torch.linspace(y_bounds[0], y_bounds[1], num_points)
     X, Y = torch.meshgrid(x, y, indexing="xy")
     grid_points = torch.stack([X.flatten(), Y.flatten()], dim=1)
 
@@ -55,5 +56,17 @@ def compute_surface(
 
     if cache:
         torch.save(surface_tensor, cache_file)
+
+    if debug:
+        idx_flat = int(torch.argmin(Z).item())
+        iy, ix = divmod(idx_flat, num_points)
+        print(f"[Surface] Surface bounds: {x_bounds}, {y_bounds}")
+        print(
+            f"[Surface] Generated surface tensor with shape {tuple(surface_tensor.shape)}"
+        )
+        print(f"[Surface] Z bounds: ({Z.min().item()}, {Z.max().item()})")
+        print(
+            f"[Surface] Z min at (x={X[iy, ix].item()}, y={Y[iy, ix].item()}) → {Z[iy, ix].item()}"
+        )
 
     return surface_tensor
