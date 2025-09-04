@@ -16,6 +16,7 @@ This project uses **[pytorch_optimizer](https://github.com/kozistr/pytorch_optim
   * Cross-in-Tray
   * Drop-Wave
   * Eggholder
+  * Gramacy & Lee (2D) (Not yet added to the results)
   * Griewank
   * Langermann
   * Lévy

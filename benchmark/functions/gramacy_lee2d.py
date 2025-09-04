@@ -28,7 +28,7 @@ def _gramacy_lee_1d(val: torch.Tensor) -> torch.Tensor:
     return term1 + term2
 
 
-@normalize(-1.7335622310638428, 10.124999046325684)
+@normalize(-1.7305631637573242, 32.0)
 @torch.jit.script
 def gl2d(x: torch.Tensor) -> torch.Tensor:
     """
