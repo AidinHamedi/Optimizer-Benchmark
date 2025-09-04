@@ -16,6 +16,10 @@ from .eggholder import EVAL_SIZE as EGG_EVAL_SIZE
 from .eggholder import GLOBAL_MINIMUM_LOC as EGG_GLOBAL_MINIMUM_LOC
 from .eggholder import START_POS as EGG_START_POS
 from .eggholder import eggholder
+from .gramacy_lee2d import EVAL_SIZE as GRAMACYLEE2D_EVAL_SIZE
+from .gramacy_lee2d import GLOBAL_MINIMUM_LOC as GRAMACYLEE2D_GLOBAL_MINIMUM_LOC
+from .gramacy_lee2d import START_POS as GRAMACYLEE2D_START_POS
+from .gramacy_lee2d import gl2d
 from .griewank import EVAL_SIZE as GRIEWANK_EVAL_SIZE
 from .griewank import GLOBAL_MINIMUM_LOC as GRIEWANK_GLOBAL_MINIMUM_LOC
 from .griewank import START_POS as GRIEWANK_START_POS
@@ -74,6 +78,12 @@ FUNC_DICT: dict = {
         "pos": EGG_START_POS,
         "gm_pos": EGG_GLOBAL_MINIMUM_LOC,
     },
+    "Gramacy-Lee 2D": {
+        "func": gl2d,
+        "size": GRAMACYLEE2D_EVAL_SIZE,
+        "pos": GRAMACYLEE2D_START_POS,
+        "gm_pos": GRAMACYLEE2D_GLOBAL_MINIMUM_LOC,
+    },
     "Griewank": {
         "func": griewank,
         "size": GRIEWANK_EVAL_SIZE,
@@ -127,9 +137,9 @@ FUNC_DICT: dict = {
 
 def scale_eval_size(
     eval_size: Tuple[Tuple[int, int], Tuple[int, int]], scale: float
-) -> Tuple[Tuple[int, int], Tuple[int, int]]:
+) -> Tuple[Tuple[float, float], Tuple[float, float]]:
     """Scale the evaluation size by a given factor."""
     return (
-        (int(eval_size[0][0] * scale), int(eval_size[0][1] * scale)),
-        (int(eval_size[1][0] * scale), int(eval_size[1][1] * scale)),
+        (eval_size[0][0] * scale, eval_size[0][1] * scale),
+        (eval_size[1][0] * scale, eval_size[1][1] * scale),
     )
