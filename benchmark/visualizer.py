@@ -33,7 +33,7 @@ def plot_function(
         eval_size: Tuple defining the x and y axis ranges
         res: Resolution of the surface plot (points per axis)
     """
-    X, Y, Z = compute_surface(func, func_name, scale_eval_size(eval_size, 1), res)
+    X, Y, Z = compute_surface(func, func_name, scale_eval_size(eval_size, 1.1), res)
 
     fig, ax = plt.subplots(figsize=(14, 14))
     cs = ax.contour(X.numpy(), Y.numpy(), Z.numpy(), levels=20, cmap="jet")

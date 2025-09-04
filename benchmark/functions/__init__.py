@@ -48,6 +48,10 @@ from .schaffer2 import EVAL_SIZE as SCHAFFER2_EVAL_SIZE
 from .schaffer2 import GLOBAL_MINIMUM_LOC as SCHAFFER2_GLOBAL_MINIMUM_LOC
 from .schaffer2 import START_POS as SCHAFFER2_START_POS
 from .schaffer2 import schaffer2
+from .schaffer4 import EVAL_SIZE as SCHAFFER4_EVAL_SIZE
+from .schaffer4 import GLOBAL_MINIMUM_LOC as SCHAFFER4_GLOBAL_MINIMUM_LOC
+from .schaffer4 import START_POS as SCHAFFER4_START_POS
+from .schaffer4 import schaffer4
 from .shubert import EVAL_SIZE as SHUBERT_EVAL_SIZE
 from .shubert import GLOBAL_MINIMUM_LOC as SHUBERT_GLOBAL_MINIMUM_LOC
 from .shubert import START_POS as SHUBERT_START_POS
@@ -129,6 +133,12 @@ FUNC_DICT: dict = {
         "size": SCHAFFER2_EVAL_SIZE,
         "pos": SCHAFFER2_START_POS,
         "gm_pos": SCHAFFER2_GLOBAL_MINIMUM_LOC,
+    },
+    "Schaffer 4": {
+        "func": schaffer4,
+        "size": SCHAFFER4_EVAL_SIZE,
+        "pos": SCHAFFER4_START_POS,
+        "gm_pos": SCHAFFER4_GLOBAL_MINIMUM_LOC,
     },
     "Shubert": {
         "func": shubert,

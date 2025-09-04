@@ -24,6 +24,7 @@ This project uses **[pytorch_optimizer](https://github.com/kozistr/pytorch_optim
   * Rastrigin
   * Rosenbrock
   * Schaffer 2
+  * Schaffer 4 (Not yet added to the results)
   * Shubert
   * Styblinski–Tang
 * Configurable **search spaces**, **iteration counts**, **ignored optimizers** and... via `config.toml`.

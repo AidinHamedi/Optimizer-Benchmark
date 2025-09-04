@@ -41,6 +41,7 @@ Levy = 150
 Rastrigin = 150
 Rosenbrock = 400
 "Schaffer 2" = 500
+"Schaffer 4" = 500
 Shubert = 150
 "Drop-Wave" = 150
 "Styblinski-Tang" = 150
