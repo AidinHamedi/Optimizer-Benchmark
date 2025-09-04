@@ -3,7 +3,7 @@ import torch
 from .norm import normalize
 
 START_POS = torch.tensor([0.9294921875, 0.9490234375])
-EVAL_SIZE = ((-10, 10), (-10, 10))
+EVAL_SIZE = ((-13, 13), (-13, 13))
 GLOBAL_MINIMUM_LOC = torch.tensor(
     [[10.0, 7.8], [10.4, -11.9], [-11.5, -12.0], [-11.5, 4.8]]
 )
