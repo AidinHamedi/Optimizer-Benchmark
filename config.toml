@@ -33,6 +33,7 @@ ignore_optimizers = [
 Ackley = 150
 "Cross-in-Tray" = 150
 EggHolder = 150
+"Gramacy-Lee 2D" = 100
 Griewank = 200
 Langermann = 150
 Levy = 150
