@@ -136,10 +136,26 @@ FUNC_DICT: dict = {
 
 
 def scale_eval_size(
-    eval_size: Tuple[Tuple[int, int], Tuple[int, int]], scale: float
+    eval_size: Tuple[Tuple[float, float], Tuple[float, float]], scale: float
 ) -> Tuple[Tuple[float, float], Tuple[float, float]]:
     """Scale the evaluation size by a given factor."""
+
+    def adjust_pair(first: float, second: float, factor: float) -> Tuple[float, float]:
+        if first == -second:
+            return first * factor, second * factor
+
+        sign = 1 if first >= 0 else -1
+        abs_first = abs(first)
+        abs_second_scaled = abs(second * factor)
+
+        if factor > 1:
+            new_mag = abs_first / factor
+        else:
+            new_mag = min(abs_first / factor, abs_second_scaled)
+
+        return sign * new_mag, second * factor
+
     return (
-        (eval_size[0][0] * scale, eval_size[0][1] * scale),
-        (eval_size[1][0] * scale, eval_size[1][1] * scale),
+        adjust_pair(eval_size[0][0], eval_size[0][1], scale),
+        adjust_pair(eval_size[1][0], eval_size[1][1], scale),
     )
