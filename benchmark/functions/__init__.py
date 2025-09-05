@@ -36,6 +36,10 @@ from .levy import EVAL_SIZE as LEVY_EVAL_SIZE
 from .levy import GLOBAL_MINIMUM_LOC as LEVY_GLOBAL_MINIMUM_LOC
 from .levy import START_POS as LEVY_START_POS
 from .levy import levy
+from .levy13 import EVAL_SIZE as LEVY13_EVAL_SIZE
+from .levy13 import GLOBAL_MINIMUM_LOC as LEVY13_GLOBAL_MINIMUM_LOC
+from .levy13 import START_POS as LEVY13_START_POS
+from .levy13 import levy13
 from .rastrigin import EVAL_SIZE as RASTRIGIN_EVAL_SIZE
 from .rastrigin import GLOBAL_MINIMUM_LOC as RASTRIGIN_GLOBAL_MINIMUM_LOC
 from .rastrigin import START_POS as RASTRIGIN_START_POS
@@ -115,6 +119,12 @@ FUNC_DICT: dict = {
         "size": LEVY_EVAL_SIZE,
         "pos": LEVY_START_POS,
         "gm_pos": LEVY_GLOBAL_MINIMUM_LOC,
+    },
+    "Levy 13": {
+        "func": levy13,
+        "size": LEVY13_EVAL_SIZE,
+        "pos": LEVY13_START_POS,
+        "gm_pos": LEVY13_GLOBAL_MINIMUM_LOC,
     },
     "Rastrigin": {
         "func": rastrigin,

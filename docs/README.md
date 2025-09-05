@@ -16,15 +16,16 @@ This project uses **[pytorch_optimizer](https://github.com/kozistr/pytorch_optim
   * Cross-in-Tray
   * Drop-Wave
   * Eggholder
-  * Gramacy & Lee (2D) (Not yet added to the results)
+  * Gramacy & Lee (2D) *(Not yet added to the results)*
   * Griewank
-  * Holder Table (Not yet added to the results)
+  * Holder Table *(Not yet added to the results)*
   * Langermann
   * Lévy
+  * Lévy 13 *(Not yet added to the results)*
   * Rastrigin
   * Rosenbrock
   * Schaffer 2
-  * Schaffer 4 (Not yet added to the results)
+  * Schaffer 4 *(Not yet added to the results)*
   * Shubert
   * Styblinski–Tang
 * Configurable **search spaces**, **iteration counts**, **ignored optimizers** and... via `config.toml`.
