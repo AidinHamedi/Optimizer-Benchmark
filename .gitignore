@@ -24,3 +24,6 @@ results.tar.gz
 
 # Jekyll
 docs/_site/
+
+# Git digest
+digest.txt
