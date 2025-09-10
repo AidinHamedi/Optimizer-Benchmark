@@ -3,8 +3,8 @@ import torch
 from .norm import normalize
 
 START_POS = torch.tensor([2.2, 2.45])
-EVAL_SIZE = ((0.5, 2.5), (0.5, 2.5))
-GLOBAL_MINIMUM_LOC = torch.tensor([[0.55, 0.55]])
+EVAL_SIZE = ((0, 2.5), (0, 2.5))
+GLOBAL_MINIMUM_LOC = torch.tensor([[0.14166, 0.14166]])
 
 
 @torch.jit.script
@@ -28,7 +28,7 @@ def _gramacy_lee_1d(val: torch.Tensor) -> torch.Tensor:
     return term1 + term2
 
 
-@normalize(-1.7305631637573242, 32.0)
+@normalize(-5.7327399253845215, 32.99244689941406)
 @torch.jit.script
 def gl2d(x: torch.Tensor) -> torch.Tensor:
     """
