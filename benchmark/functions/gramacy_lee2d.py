@@ -3,8 +3,15 @@ import torch
 from .norm import normalize
 
 START_POS = torch.tensor([2.2, 2.45])
-EVAL_SIZE = ((0, 2.5), (0, 2.5))
-GLOBAL_MINIMUM_LOC = torch.tensor([[0.14166, 0.14166]])
+EVAL_SIZE = ((-0.8, 2.5), (-0.8, 2.5))
+GLOBAL_MINIMUM_LOC = torch.tensor(
+    [
+        [0.14166, 0.14166],
+        # [-0.14166, 0.14166],
+        # [0.14166, -0.14166],
+        # [-0.14166, -0.14166],
+    ]
+)
 
 
 @torch.jit.script
