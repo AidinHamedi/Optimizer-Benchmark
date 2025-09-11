@@ -3,13 +3,18 @@ import torch
 from .norm import normalize
 
 START_POS = torch.tensor([-0.001, 0.001])
-EVAL_SIZE = ((-10, 10), (-10, 10))
+EVAL_SIZE = ((-14, 14), (-12, 12))
 GLOBAL_MINIMUM_LOC = torch.tensor(
-    [[8.05502, 9.66459], [8.05502, -9.66459], [-8.05502, 9.66459], [-8.05502, -9.66459]]
+    [
+        [-14.3772, -12.76168],
+        [-14.3772, 12.76168],
+        [14.3772, -12.76168],
+        [14.3772, 12.76168],
+    ]
 )
 
 
-@normalize(-56.49380874633789, -1.8016504327533767e-05)
+@normalize(-159.3212127685547, -4.803488263860345e-05)
 @torch.jit.script
 def holder_table(x: torch.Tensor) -> torch.Tensor:
     """
