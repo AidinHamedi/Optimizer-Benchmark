@@ -167,9 +167,18 @@ def benchmark_optimizer(
     else:
         results = {"optimizers": {}}
 
+    # Apply weights to error rates for weighted average calculation
+    weights = config.get("error_weights", {})
+    weighted_errors = {
+        func_name: error_rate * weights.get(func_name, 1.0)
+        for func_name, error_rate in error_rates.items()
+    }
+
     results["optimizers"][optimizer_name] = {
         "error_rates": error_rates,
+        "weighted_error_rates": weighted_errors,
         "avg_error_rate": sum(error_rates.values()) / len(error_rates),
+        "weighted_avg_error_rate": sum(weighted_errors.values()) / len(weighted_errors),
     }
 
     with results_json_dir.open("w", encoding="utf-8") as f:

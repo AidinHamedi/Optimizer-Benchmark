@@ -25,7 +25,7 @@ def main():
         [
             (
                 optimizer,
-                results["optimizers"][optimizer]["avg_error_rate"],
+                results["optimizers"][optimizer]["weighted_avg_error_rate"],
                 f"[Open]({VIS_BASE_DOCS_URL + optimizer})",
             )
             for optimizer in results["optimizers"]
@@ -35,8 +35,8 @@ def main():
 
     markdown_table = tabulate(
         [
-            (i + 1, opt, rate, link)
-            for i, (opt, rate, link) in enumerate(avg_error_rates)
+            (i, opt, rate if rate != float("inf") else "Failed ⚠️", link)
+            for i, (opt, rate, link) in enumerate(avg_error_rates, start=1)
         ],
         headers=["Rank", "Optimizer", "Average Error Rate", "Vis"],
         tablefmt="github",

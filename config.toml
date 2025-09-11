@@ -4,7 +4,7 @@ seed = 42
 deterministic = true  # Can slow down the process
 exist_pass = true
 img_format = ".jpg"
-hypertune_trials = 500
+hypertune_trials = 700
 ignore_optimizers = [
   "msvag",
   "lbfgs",
@@ -28,30 +28,75 @@ ignore_optimizers = [
   "amos",
 ]
 
-# Number of iterations for each benchmark function.
-[function_iterations]
-Ackley = 150
-"Cross-in-Tray" = 150
-EggHolder = 150
-"Gramacy-Lee 2D" = 100
-Griewank = 200
-"Holder Table" = 150
-Langermann = 150
-Levy = 150
-"Levy 13" = 150
-Rastrigin = 150
-Rosenbrock = 400
-"Schaffer 2" = 500
-"Schaffer 4" = 500
-Shubert = 150
-"Drop-Wave" = 150
-"Styblinski-Tang" = 150
+# Configuration for each benchmark function, including iterations and error weight.
+[functions.Ackley]
+iterations = 150
+error_weight = 1.0
+
+[functions."Cross-in-Tray"]
+iterations = 150
+error_weight = 1.0
+
+[functions.EggHolder]
+iterations = 150
+error_weight = 1.0
+
+[functions."Gramacy-Lee 2D"]
+iterations = 100
+error_weight = 2.5
+
+[functions.Griewank]
+iterations = 200
+error_weight = 1.0
+
+[functions."Holder Table"]
+iterations = 150
+error_weight = 1.5
+
+[functions.Langermann]
+iterations = 150
+error_weight = 1.0
+
+[functions.Levy]
+iterations = 150
+error_weight = 1.0
+
+[functions."Levy 13"]
+iterations = 150
+error_weight = 1.0
+
+[functions.Rastrigin]
+iterations = 150
+error_weight = 1.0
+
+[functions.Rosenbrock]
+iterations = 400
+error_weight = 1.0
+
+[functions."Schaffer 2"]
+iterations = 500
+error_weight = 1.8
+
+[functions."Schaffer 4"]
+iterations = 500
+error_weight = 1.8
+
+[functions.Shubert]
+iterations = 150
+error_weight = 1.0
+
+[functions."Drop-Wave"]
+iterations = 150
+error_weight = 1.0
+
+[functions."Styblinski-Tang"]
+iterations = 150
+error_weight = 1.0
 
 # Hyperparameter search spaces for optimizers.
 # If an optimizer is not listed here, the 'default' space is used.
 [hyperparameters]
-default = { lr = [0.0001, 4.0] }
-lbfgs = { lr = [0.0001, 4.0], history_size = [1, 200, "int"] }
+default = { lr = [0.0001, 2.0] }
 adadelta = { lr = [0.0001, 600.0] }
 adafactor = { lr = [0.0001, 600.0] }
 adamg = { lr = [0.0001, 20.0], p = [0, 1], q = [0, 1] }
@@ -59,7 +104,7 @@ adams = { lr = [0.0001, 10.0] }
 dadaptadagrad = { lr = [0.0001, 20.0] }
 dadaptlion = { lr = [0.0001, 10.0] }
 padam = { lr = [0.0001, 10.0] }
-adahessian = { lr = [0.0001, 800.0] }
+adahessian = { lr = [0.0001, 100.0] }
 sophiah = { lr = [0.0001, 60.0] }
 pid = { lr = [0.0001, 0.5], derivative = [2.0, 14.0], integral = [1.0, 10.0], momentum = [
   0.0,
