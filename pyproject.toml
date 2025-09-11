@@ -19,7 +19,6 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-
 # [dependency-groups]
 # docs = [
 #   "mkdocs-material>=9.6.16",
