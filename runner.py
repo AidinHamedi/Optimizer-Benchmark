@@ -35,8 +35,17 @@ def main():
         if opt not in configs["benchmark"]["ignore_optimizers"]
     ]
 
+    function_iterations = {
+        func_name: func_config["iterations"]
+        for func_name, func_config in configs["functions"].items()
+    }
+
     eval_configs = {
-        "num_iters": configs["function_iterations"],
+        "num_iters": function_iterations,
+        "error_weights": {
+            func_name: func_config["error_weight"]
+            for func_name, func_config in configs["functions"].items()
+        },
         **configs["benchmark"],
     }
     eval_args = configs.get("optimizer_eval_args", {})
