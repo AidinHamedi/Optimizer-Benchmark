@@ -7,8 +7,8 @@ from typing import Callable
 import optuna
 from tqdm import tqdm
 
+from .criterion import objective
 from .functions import FUNC_DICT
-from .hypertune import objective
 from .utils.executor import execute_steps
 from .utils.model import Pos2D
 from .visualizer import plot_function
