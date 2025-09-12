@@ -35,7 +35,7 @@ error_weight = 1.0
 
 [functions."Cross-in-Tray"]
 iterations = 150
-error_weight = 1.0
+error_weight = 0.5
 
 [functions.EggHolder]
 iterations = 150
