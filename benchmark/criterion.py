@@ -1,5 +1,5 @@
 import math
-from typing import Callable, Tuple
+from typing import Callable, Dict, Tuple
 
 import torch
 
@@ -20,14 +20,15 @@ def objective(
     convergence_factor: float = 0.2,
     convergence_tol: float = 0.1,
     oscillation_factor: float = 1.0,
-    lucky_jump_factor: float = 2.0,
-    lucky_jump_threshold: float = 0.1,
+    lucky_jump_factor: float = 1.0,
+    lucky_jump_threshold: float = 0.18,
     final_distance_factor: float = 1.5,
     final_value_factor: float = 0.8,
     min_movement_factor: float = 0.6,
     min_movement_threshold: float = 0.5,
     final_proximity_factor: float = 8.0,
     final_proximity_threshold: float = 0.1,
+    debug: bool = False,
     **eval_args,
 ) -> float:
     """
@@ -65,6 +66,7 @@ def objective(
         min_movement_threshold (float, optional): Fraction of max side considered too small movement.
         final_proximity_factor (float, optional): Weight for final-position-close-to-start penalty. 0 disables.
         final_proximity_threshold (float, optional): Fraction of max side considered too close.
+        debug (bool, optional): Print debug information.
         **eval_args: Extra arguments for the step execution function.
 
     Returns:
@@ -76,10 +78,14 @@ def objective(
     final_pos = steps[:, -1]
 
     error: float = 0.0
+    debug_info: Dict[str, float] = {}
 
     # 0. Function value at final position (scaled)
     final_value = max(criterion(final_pos).item(), 0)
-    error += final_value * final_value_factor
+    contrib = final_value * final_value_factor
+    error += contrib
+    if debug:
+        debug_info["final_value"] = contrib
 
     # 1. Boundary penalty
     if boundary_penalty:
@@ -89,15 +95,24 @@ def objective(
             + torch.clamp(bounds[1][0] - steps[1], min=0).max()
             + torch.clamp(steps[1] - bounds[1][1], min=0).max()
         )
-        error += violation.item() ** 2
+        contrib = violation.item() ** 2
+        error += contrib
+        if debug:
+            debug_info["boundary"] = contrib
 
     # 2. Final distance to global minimum
     final_dist = torch.min(torch.norm(global_min_pos - final_pos, dim=1)).item()
-    error += final_dist * final_distance_factor
+    contrib = final_dist * final_distance_factor
+    error += contrib
+    if debug:
+        debug_info["final_distance"] = contrib
 
     # 3. Average trajectory distance
     avg_dist = torch.norm(steps.T - final_pos[None, :], dim=1).mean().item()
-    error += avg_dist * average_distance_factor
+    contrib = avg_dist * average_distance_factor
+    error += contrib
+    if debug:
+        debug_info["average_distance"] = contrib
 
     # 4. Convergence speed (optional)
     if convergence_factor > 0.0:
@@ -107,7 +122,10 @@ def objective(
         hits = torch.nonzero(dists < convergence_tol, as_tuple=True)[0]
         first_hit = hits[0].item() if len(hits) > 0 else num_iters
         normalized_hit = first_hit / num_iters
-        error += normalized_hit * convergence_factor
+        contrib = normalized_hit * convergence_factor
+        error += contrib
+        if debug:
+            debug_info["convergence"] = contrib
 
     # 5. Oscillation penalty (optional)
     if oscillation_factor > 0.0:
@@ -117,7 +135,10 @@ def objective(
             -(unit_vecs[:, 1:] * unit_vecs[:, :-1]).sum(0), min=0.0
         )
         penalty = sharp_turns.mean().item() * torch.norm(step_vecs, dim=0).mean().item()
-        error += penalty * oscillation_factor
+        contrib = penalty * oscillation_factor
+        error += contrib
+        if debug:
+            debug_info["oscillation"] = contrib
 
     # 6. Large step penalty (optional)
     if lucky_jump_factor > 0.0:
@@ -139,7 +160,10 @@ def objective(
 
         if rel_step > lucky_jump_threshold:
             delta = (rel_step - lucky_jump_threshold) / lucky_jump_threshold
-            error += (delta**2) * lucky_jump_factor
+            contrib = (delta**2) * lucky_jump_factor
+            error += contrib
+            if debug:
+                debug_info["lucky_jump"] = contrib
 
     # 7. Insufficient movement penalty (optional)
     if min_movement_factor > 0.0:
@@ -153,7 +177,10 @@ def objective(
             delta = (min_movement_threshold * max_side - max_displacement) / (
                 max_side + 1e-12
             )
-            error += (delta**2) * min_movement_factor
+            contrib = (delta**2) * min_movement_factor
+            error += contrib
+            if debug:
+                debug_info["min_movement"] = contrib
 
     # 8. Final position too close to start penalty (optional)
     if final_proximity_factor > 0.0:
@@ -168,6 +195,12 @@ def objective(
                 max_side + 1e-12
             )
             exp_penalty = (torch.exp(torch.tensor(delta * 10.0)) - 1.0).item()
-            error += exp_penalty * final_proximity_factor
+            contrib = exp_penalty * final_proximity_factor
+            error += contrib
+            if debug:
+                debug_info["final_proximity"] = contrib
+
+    if debug:
+        print("[objective] contributions:", debug_info, "=> total:", error)
 
     return float("inf") if math.isnan(error) else error
