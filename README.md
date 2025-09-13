@@ -16,16 +16,16 @@ This project uses **[pytorch_optimizer](https://github.com/kozistr/pytorch_optim
   * Cross-in-Tray
   * Drop-Wave
   * Eggholder
-  * Gramacy & Lee (2D) *(Not yet added to the results)*
+  * Gramacy & Lee (2D)
   * Griewank
-  * Holder Table *(Not yet added to the results)*
+  * Holder Table
   * Langermann
   * Lévy
-  * Lévy 13 *(Not yet added to the results)*
+  * Lévy 13
   * Rastrigin
   * Rosenbrock
   * Schaffer 2
-  * Schaffer 4 *(Not yet added to the results)*
+  * Schaffer 4
   * Shubert
   * Styblinski–Tang
 * Configurable **search spaces**, **iteration counts**, **ignored optimizers** and... via `config.toml`.
@@ -56,109 +56,112 @@ The script will:
 > ### Newest release 📦
 > #### [Go to newest release](https://github.com/Aidinhamedi/ML-Optimizer-Benchmark/releases/latest)
 
-|   Rank | Optimizer          |   Average Error Rate | Vis                                                                                 |
+|   Rank | Optimizer          | Average Error Rate   | Vis                                                                                 |
 |--------|--------------------|----------------------|-------------------------------------------------------------------------------------|
-|      1 | emonavi            |              2.57147 | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/emonavi)            |
-|      2 | emofact            |              2.8488  | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/emofact)            |
-|      3 | emozeal            |              2.8488  | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/emozeal)            |
-|      4 | yogi               |              2.97492 | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/yogi)               |
-|      5 | signsgd            |              3.04044 | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/signsgd)            |
-|      6 | sophiah            |              3.0733  | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/sophiah)            |
-|      7 | focus              |              3.08895 | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/focus)              |
-|      8 | tiger              |              3.10801 | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/tiger)              |
-|      9 | stablespam         |              3.60424 | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/stablespam)         |
-|     10 | soap               |              3.69787 | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/soap)               |
-|     11 | apollo             |              3.70088 | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/apollo)             |
-|     12 | fira               |              3.70088 | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/fira)               |
-|     13 | galore             |              3.70088 | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/galore)             |
-|     14 | adam               |              4.03249 | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/adam)               |
-|     15 | adanorm            |              4.1164  | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/adanorm)            |
-|     16 | adamp              |              4.18049 | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/adamp)              |
-|     17 | adagc              |              4.24922 | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/adagc)              |
-|     18 | kron               |              4.34267 | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/kron)               |
-|     19 | aida               |              4.38717 | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/aida)               |
-|     20 | swats              |              4.40458 | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/swats)              |
-|     21 | spam               |              4.48192 | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/spam)               |
-|     22 | ademamix           |              4.61658 | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/ademamix)           |
-|     23 | emolynx            |              4.62471 | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/emolynx)            |
-|     24 | lion               |              4.62471 | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/lion)               |
-|     25 | adatam             |              4.80643 | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/adatam)             |
-|     26 | adashift           |              5.12098 | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/adashift)           |
-|     27 | nadam              |              5.13738 | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/nadam)              |
-|     28 | adammini           |              5.14225 | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/adammini)           |
-|     29 | fromage            |              5.19338 | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/fromage)            |
-|     30 | ranger25           |              5.34414 | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/ranger25)           |
-|     31 | novograd           |              5.36078 | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/novograd)           |
-|     32 | adadelta           |              5.4427  | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/adadelta)           |
-|     33 | adabelief          |              5.46737 | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/adabelief)          |
-|     34 | adalite            |              5.69652 | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/adalite)            |
-|     35 | adasmooth          |              5.71434 | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/adasmooth)          |
-|     36 | exadam             |              5.98366 | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/exadam)             |
-|     37 | nero               |              6.13398 | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/nero)               |
-|     38 | fadam              |              6.3439  | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/fadam)              |
-|     39 | adahessian         |              6.50315 | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/adahessian)         |
-|     40 | laprop             |              6.54265 | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/laprop)             |
-|     41 | adapnm             |              6.66368 | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/adapnm)             |
-|     42 | scionlight         |              6.67052 | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/scionlight)         |
-|     43 | dadaptadan         |              6.7595  | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/dadaptadan)         |
-|     44 | ranger21           |              7.04377 | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/ranger21)           |
-|     45 | rmsprop            |              7.14312 | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/rmsprop)            |
-|     46 | vsgd               |              7.28179 | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/vsgd)               |
-|     47 | adopt              |              7.40785 | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/adopt)              |
-|     48 | adamax             |              7.6868  | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/adamax)             |
-|     49 | simplifiedademamix |              7.81188 | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/simplifiedademamix) |
-|     50 | sm3                |              8.17468 | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/sm3)                |
-|     51 | ftrl               |              8.18237 | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/ftrl)               |
-|     52 | schedulefreeadamw  |              8.27146 | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/schedulefreeadamw)  |
-|     53 | asgd               |              8.47956 | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/asgd)               |
-|     54 | came               |              8.70882 | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/came)               |
-|     55 | lamb               |              8.77041 | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/lamb)               |
-|     56 | tam                |              8.94983 | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/tam)                |
-|     57 | adan               |              9.30751 | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/adan)               |
-|     58 | emoneco            |              9.58197 | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/emoneco)            |
-|     59 | apollodqn          |              9.63575 | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/apollodqn)          |
-|     60 | padam              |             10.4026  | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/padam)              |
-|     61 | diffgrad           |             10.7386  | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/diffgrad)           |
-|     62 | grokfastadamw      |             10.9842  | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/grokfastadamw)      |
-|     63 | lars               |             12.0577  | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/lars)               |
-|     64 | racs               |             12.0613  | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/racs)               |
-|     65 | sgd                |             12.6166  | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/sgd)                |
-|     66 | sgdp               |             12.6166  | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/sgdp)               |
-|     67 | prodigy            |             13.0301  | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/prodigy)            |
-|     68 | pid                |             13.1682  | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/pid)                |
-|     69 | scion              |             13.769   | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/scion)              |
-|     70 | scalableshampoo    |             13.9738  | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/scalableshampoo)    |
-|     71 | dadaptlion         |             14.0853  | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/dadaptlion)         |
-|     72 | radam              |             14.4628  | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/radam)              |
-|     73 | adabound           |             14.5819  | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/adabound)           |
-|     74 | avagrad            |             15.9035  | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/avagrad)            |
-|     75 | qhm                |             16.0966  | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/qhm)                |
-|     76 | ranger             |             16.7279  | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/ranger)             |
-|     77 | pnm                |             16.8118  | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/pnm)                |
-|     78 | aggmo              |             16.8834  | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/aggmo)              |
-|     79 | schedulefreesgd    |             17.2629  | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/schedulefreesgd)    |
-|     80 | adai               |             17.3909  | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/adai)               |
-|     81 | accsgd             |             17.5586  | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/accsgd)             |
-|     82 | madgrad            |             17.8124  | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/madgrad)            |
-|     83 | dadaptadagrad      |             18.0346  | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/dadaptadagrad)      |
-|     84 | qhadam             |             18.6783  | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/qhadam)             |
-|     85 | dadaptsgd          |             18.9387  | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/dadaptsgd)          |
-|     86 | gravity            |             19.0526  | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/gravity)            |
-|     87 | schedulefreeradam  |             20.9976  | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/schedulefreeradam)  |
-|     88 | kate               |             21.4434  | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/kate)               |
-|     89 | adamg              |             21.4805  | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/adamg)              |
-|     90 | adamod             |             21.6752  | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/adamod)             |
-|     91 | grams              |             21.7464  | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/grams)              |
-|     92 | sgdsai             |             21.7469  | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/sgdsai)             |
-|     93 | adafactor          |             22.9181  | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/adafactor)          |
-|     94 | mars               |             26.4904  | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/mars)               |
-|     95 | shampoo            |             28.3101  | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/shampoo)            |
-|     96 | srmm               |             39.6709  | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/srmm)               |
-|     97 | adams              |            125.205   | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/adams)              |
+|      1 | adatam             | 3.3905598596663444   | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/adatam)             |
+|      2 | emonavi            | 3.456243243689613    | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/emonavi)            |
+|      3 | emofact            | 3.4753099123863618   | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/emofact)            |
+|      4 | emozeal            | 3.4753099123863618   | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/emozeal)            |
+|      5 | tiger              | 3.996864585300058    | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/tiger)              |
+|      6 | signsgd            | 4.29239686557126     | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/signsgd)            |
+|      7 | sophiah            | 4.722971452762395    | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/sophiah)            |
+|      8 | emolynx            | 5.137335244502393    | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/emolynx)            |
+|      9 | lion               | 5.137335244502393    | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/lion)               |
+|     10 | focus              | 5.308673315510358    | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/focus)              |
+|     11 | kron               | 6.027417078603403    | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/kron)               |
+|     12 | adabelief          | 6.466153337437385    | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/adabelief)          |
+|     13 | novograd           | 6.5473109597895816   | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/novograd)           |
+|     14 | exadam             | 6.749680337206845    | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/exadam)             |
+|     15 | fromage            | 7.09913424221185     | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/fromage)            |
+|     16 | lamb               | 7.531194909675117    | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/lamb)               |
+|     17 | ademamix           | 7.948002589077858    | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/ademamix)           |
+|     18 | adammini           | 8.132840269451364    | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/adammini)           |
+|     19 | adadelta           | 8.248553861525567    | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/adadelta)           |
+|     20 | adagc              | 8.410399729128866    | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/adagc)              |
+|     21 | apollo             | 8.446932669386275    | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/apollo)             |
+|     22 | fira               | 8.446932669386275    | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/fira)               |
+|     23 | galore             | 8.446932669386275    | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/galore)             |
+|     24 | adapnm             | 8.56284595984261     | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/adapnm)             |
+|     25 | scionlight         | 8.649066390512182    | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/scionlight)         |
+|     26 | adalite            | 8.707086100359124    | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/adalite)            |
+|     27 | emoneco            | 8.769939680491406    | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/emoneco)            |
+|     28 | stablespam         | 8.77511672220191     | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/stablespam)         |
+|     29 | adam               | 8.89053728978454     | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/adam)               |
+|     30 | soap               | 8.91257313023917     | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/soap)               |
+|     31 | nadam              | 9.241699931931542    | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/nadam)              |
+|     32 | adamp              | 9.586478336408236    | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/adamp)              |
+|     33 | adanorm            | 9.72225044303652     | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/adanorm)            |
+|     34 | rmsprop            | 9.73575060171312     | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/rmsprop)            |
+|     35 | aida               | 9.784383376459648    | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/aida)               |
+|     36 | nero               | 9.80532688705322     | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/nero)               |
+|     37 | diffgrad           | 9.823452939686513    | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/diffgrad)           |
+|     38 | laprop             | 10.026622333813874   | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/laprop)             |
+|     39 | spam               | 10.043809397379295   | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/spam)               |
+|     40 | adasmooth          | 10.158032435942266   | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/adasmooth)          |
+|     41 | tam                | 10.403885644754501   | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/tam)                |
+|     42 | swats              | 10.55975578199698    | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/swats)              |
+|     43 | asgd               | 10.81737546877951    | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/asgd)               |
+|     44 | came               | 10.98543631251686    | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/came)               |
+|     45 | adahessian         | 11.106593054681856   | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/adahessian)         |
+|     46 | schedulefreeadamw  | 12.111476864481459   | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/schedulefreeadamw)  |
+|     47 | adashift           | 12.75040809207088    | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/adashift)           |
+|     48 | adamax             | 12.872084864887135   | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/adamax)             |
+|     49 | yogi               | 12.936106463776117   | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/yogi)               |
+|     50 | vsgd               | 12.951089378355153   | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/vsgd)               |
+|     51 | adan               | 13.008872438921655   | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/adan)               |
+|     52 | schedulefreesgd    | 13.060242000499459   | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/schedulefreesgd)    |
+|     53 | fadam              | 13.07287998089505    | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/fadam)              |
+|     54 | adopt              | 13.473169146333587   | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/adopt)              |
+|     55 | padam              | 14.024804089443117   | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/padam)              |
+|     56 | dadaptadan         | 14.45750374811352    | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/dadaptadan)         |
+|     57 | grokfastadamw      | 15.04056202384057    | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/grokfastadamw)      |
+|     58 | dadaptadagrad      | 15.203355129936064   | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/dadaptadagrad)      |
+|     59 | simplifiedademamix | 15.719240107103646   | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/simplifiedademamix) |
+|     60 | ranger21           | 16.017694726703233   | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/ranger21)           |
+|     61 | scion              | 16.119049488237437   | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/scion)              |
+|     62 | sgd                | 16.698595869071447   | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/sgd)                |
+|     63 | sgdp               | 16.698595869071447   | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/sgdp)               |
+|     64 | ftrl               | 17.63518112431012    | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/ftrl)               |
+|     65 | sm3                | 17.748677507685073   | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/sm3)                |
+|     66 | adabound           | 18.791508905345236   | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/adabound)           |
+|     67 | pid                | 18.955512843612734   | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/pid)                |
+|     68 | kate               | 19.69370230987526    | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/kate)               |
+|     69 | apollodqn          | 19.78239620893336    | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/apollodqn)          |
+|     70 | dadaptlion         | 20.251930099264392   | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/dadaptlion)         |
+|     71 | lars               | 20.313525810217936   | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/lars)               |
+|     72 | prodigy            | 20.66088320770057    | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/prodigy)            |
+|     73 | grams              | 20.800811248303535   | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/grams)              |
+|     74 | scalableshampoo    | 21.118831843894153   | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/scalableshampoo)    |
+|     75 | shampoo            | 21.684175545559135   | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/shampoo)            |
+|     76 | accsgd             | 23.130272999337365   | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/accsgd)             |
+|     77 | qhm                | 23.528356518973407   | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/qhm)                |
+|     78 | ranger             | 23.632585027041696   | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/ranger)             |
+|     79 | racs               | 23.928249068465554   | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/racs)               |
+|     80 | adai               | 23.98933380957253    | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/adai)               |
+|     81 | srmm               | 24.272186968126448   | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/srmm)               |
+|     82 | aggmo              | 24.27603580573693    | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/aggmo)              |
+|     83 | pnm                | 25.159536365515915   | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/pnm)                |
+|     84 | madgrad            | 26.02347473142455    | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/madgrad)            |
+|     85 | schedulefreeradam  | 26.418020959927116   | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/schedulefreeradam)  |
+|     86 | adamg              | 26.50436359656981    | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/adamg)              |
+|     87 | gravity            | 27.190580721867043   | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/gravity)            |
+|     88 | radam              | 27.328493660506165   | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/radam)              |
+|     89 | avagrad            | 27.36004382930151    | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/avagrad)            |
+|     90 | sgdsai             | 28.255868517523833   | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/sgdsai)             |
+|     91 | dadaptsgd          | 28.484597129728094   | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/dadaptsgd)          |
+|     92 | adamod             | 29.263096149711185   | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/adamod)             |
+|     93 | adafactor          | 32.33359478813455    | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/adafactor)          |
+|     94 | mars               | 38.09666655338796    | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/mars)               |
+|     95 | adams              | 56.90711866955175    | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/adams)              |
+|     96 | qhadam             | 386.1081283111517    | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/qhadam)             |
+|     97 | ranger25           | Failed ⚠️            | [Open](https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/ranger25)           |
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please feel free to submit a pull request or open an issue.
+Contributions are welcome!
+In particular, I’m looking for help improving and expanding the **web page**
+
+If you’d like to contribute, please feel free to submit a pull request or open an issue to discuss your ideas.
 
 ## 📚 References
 
