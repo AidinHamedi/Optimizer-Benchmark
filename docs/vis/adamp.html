@@ -1,313 +1,272 @@
-<!-- This file was auto-generated. Do not edit manually. -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>adamp Results</title>
-  <style>
-    body {
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-      background: #f5f5f5;
-      color: #222;
-      margin: 0;
-      padding: 2rem;
-    }
-    h1 {
-      text-align: center;
-      margin-bottom: 3.5rem;
-      font-size: 2rem;
-      font-weight: 600;
-    }
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1.5rem;
-    }
-    @media (max-width: 1024px) {
-      .gallery {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-    @media (max-width: 640px) {
-      .gallery {
-        grid-template-columns: 1fr;
-      }
-    }
-    .card {
-      background: #fff;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      position: relative;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-    .card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-    }
-    .image-wrapper {
-      position: relative;
-      width: 100%;
-      aspect-ratio: 1 / 1;
-      background: #eee;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
-    .image-wrapper img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-    .fallback {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      background: #f0f0f0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1rem;
-      font-weight: 500;
-      color: #888;
-      text-align: center;
-    }
-    .enlarge-btn {
-      position: absolute;
-      top: 8px;
-      right: 8px;
-      background: rgba(255,255,255,0.8);
-      border: none;
-      border-radius: 50%;
-      width: 32px;
-      height: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      font-size: 18px;
-      transition: background 0.2s ease;
-    }
-    .enlarge-btn:hover {
-      background: rgba(255,255,255,1);
-    }
-    .card p {
-      margin: 0;
-      padding: 0.75rem;
-      font-weight: 500;
-      font-size: 0.95rem;
-      color: #333;
-      background: #fafafa;
-      border-top: 1px solid #eee;
-    }
-    .modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.7);
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-    }
-    .modal.active {
-      display: flex;
-    }
-    .modal-content {
-      position: relative;
-      background: white;
-      padding: 1rem;
-      border-radius: 8px;
-      max-width: 90%;
-      max-height: 90%;
-    }
-    .modal-content img {
-      max-width: 100%;
-      max-height: 80vh;
-      display: block;
-    }
-    .close-btn {
-      position: absolute;
-      top: 8px;
-      right: 8px;
-      background: rgba(0,0,0,0.6);
-      color: white;
-      border: none;
-      border-radius: 50%;
-      width: 32px;
-      height: 32px;
-      font-size: 18px;
-      cursor: pointer;
-    }
-    .close-btn:hover {
-      background: rgba(0,0,0,0.8);
-    }
-    footer {
-      margin-top: 4rem;
-      text-align: center;
-      font-size: 0.9rem;
-      color: #555;
-    }
-    footer a {
-      color: #0077cc;
-      text-decoration: none;
-    }
-    footer a:hover {
-      text-decoration: underline;
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <h1>adamp Benchmark Results</h1>
 
+  <div class="summary">
+    <h2>Overall Performance</h2>
+    <div class="summary-stats">
+      <div class="stat-item">
+        <div class="stat-value">32</div>
+        <div class="stat-label">Overall Rank</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">9.5865</div>
+        <div class="stat-label">Avg Error Rate</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">16</div>
+        <div class="stat-label">Functions Tested</div>
+      </div>
+    </div>
+  </div>
+
   <div class="gallery">
-    
-<div class="card">
+    <div class="card">
   <div class="image-wrapper">
     <img src="https://github.com/AidinHamedi/ML-Optimizer-Benchmark/raw/vis-ref/results/adamp/Styblinski-Tang.jpg" alt="Styblinski-Tang"
          onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'">
+    <div class="rank-badge">Rank #13</div>
     <button class="enlarge-btn" onclick="openModal('https://github.com/AidinHamedi/ML-Optimizer-Benchmark/raw/vis-ref/results/adamp/Styblinski-Tang.jpg')">🔍</button>
   </div>
-  <p>Styblinski-Tang</p>
+  <div class="card-content">
+    <h3 class="function-name">Styblinski-Tang</h3>
+    <p class="function-stats">
+      Error Rate: 0.6407<br>
+      Rank: 13 of 97
+    </p>
+  </div>
 </div>
-
 <div class="card">
   <div class="image-wrapper">
     <img src="https://github.com/AidinHamedi/ML-Optimizer-Benchmark/raw/vis-ref/results/adamp/Ackley.jpg" alt="Ackley"
          onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'">
+    <div class="rank-badge">Rank #13</div>
     <button class="enlarge-btn" onclick="openModal('https://github.com/AidinHamedi/ML-Optimizer-Benchmark/raw/vis-ref/results/adamp/Ackley.jpg')">🔍</button>
   </div>
-  <p>Ackley</p>
+  <div class="card-content">
+    <h3 class="function-name">Ackley</h3>
+    <p class="function-stats">
+      Error Rate: 0.7998<br>
+      Rank: 13 of 97
+    </p>
+  </div>
 </div>
-
 <div class="card">
   <div class="image-wrapper">
     <img src="https://github.com/AidinHamedi/ML-Optimizer-Benchmark/raw/vis-ref/results/adamp/Cross-in-Tray.jpg" alt="Cross-in-Tray"
          onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'">
+    <div class="rank-badge">Rank #69</div>
     <button class="enlarge-btn" onclick="openModal('https://github.com/AidinHamedi/ML-Optimizer-Benchmark/raw/vis-ref/results/adamp/Cross-in-Tray.jpg')">🔍</button>
   </div>
-  <p>Cross-in-Tray</p>
+  <div class="card-content">
+    <h3 class="function-name">Cross-in-Tray</h3>
+    <p class="function-stats">
+      Error Rate: 46.2004<br>
+      Rank: 69 of 97
+    </p>
+  </div>
 </div>
-
 <div class="card">
   <div class="image-wrapper">
     <img src="https://github.com/AidinHamedi/ML-Optimizer-Benchmark/raw/vis-ref/results/adamp/Drop-Wave.jpg" alt="Drop-Wave"
          onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'">
+    <div class="rank-badge">Rank #20</div>
     <button class="enlarge-btn" onclick="openModal('https://github.com/AidinHamedi/ML-Optimizer-Benchmark/raw/vis-ref/results/adamp/Drop-Wave.jpg')">🔍</button>
   </div>
-  <p>Drop-Wave</p>
+  <div class="card-content">
+    <h3 class="function-name">Drop-Wave</h3>
+    <p class="function-stats">
+      Error Rate: 2.1664<br>
+      Rank: 20 of 97
+    </p>
+  </div>
 </div>
-
 <div class="card">
   <div class="image-wrapper">
     <img src="https://github.com/AidinHamedi/ML-Optimizer-Benchmark/raw/vis-ref/results/adamp/EggHolder.jpg" alt="EggHolder"
          onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'">
+    <div class="rank-badge">Rank #54</div>
     <button class="enlarge-btn" onclick="openModal('https://github.com/AidinHamedi/ML-Optimizer-Benchmark/raw/vis-ref/results/adamp/EggHolder.jpg')">🔍</button>
   </div>
-  <p>EggHolder</p>
+  <div class="card-content">
+    <h3 class="function-name">EggHolder</h3>
+    <p class="function-stats">
+      Error Rate: 15.7897<br>
+      Rank: 54 of 97
+    </p>
+  </div>
 </div>
-
 <div class="card">
   <div class="image-wrapper">
     <img src="https://github.com/AidinHamedi/ML-Optimizer-Benchmark/raw/vis-ref/results/adamp/Gramacy-Lee%202D.jpg" alt="Gramacy-Lee 2D"
          onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'">
+    <div class="rank-badge">Rank #21</div>
     <button class="enlarge-btn" onclick="openModal('https://github.com/AidinHamedi/ML-Optimizer-Benchmark/raw/vis-ref/results/adamp/Gramacy-Lee%202D.jpg')">🔍</button>
   </div>
-  <p>Gramacy-Lee 2D</p>
+  <div class="card-content">
+    <h3 class="function-name">Gramacy-Lee 2D</h3>
+    <p class="function-stats">
+      Error Rate: 0.6194<br>
+      Rank: 21 of 97
+    </p>
+  </div>
 </div>
-
 <div class="card">
   <div class="image-wrapper">
     <img src="https://github.com/AidinHamedi/ML-Optimizer-Benchmark/raw/vis-ref/results/adamp/Griewank.jpg" alt="Griewank"
          onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'">
+    <div class="rank-badge">Rank #54</div>
     <button class="enlarge-btn" onclick="openModal('https://github.com/AidinHamedi/ML-Optimizer-Benchmark/raw/vis-ref/results/adamp/Griewank.jpg')">🔍</button>
   </div>
-  <p>Griewank</p>
+  <div class="card-content">
+    <h3 class="function-name">Griewank</h3>
+    <p class="function-stats">
+      Error Rate: 41.5695<br>
+      Rank: 54 of 97
+    </p>
+  </div>
 </div>
-
 <div class="card">
   <div class="image-wrapper">
     <img src="https://github.com/AidinHamedi/ML-Optimizer-Benchmark/raw/vis-ref/results/adamp/Holder%20Table.jpg" alt="Holder Table"
          onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'">
+    <div class="rank-badge">Rank #27</div>
     <button class="enlarge-btn" onclick="openModal('https://github.com/AidinHamedi/ML-Optimizer-Benchmark/raw/vis-ref/results/adamp/Holder%20Table.jpg')">🔍</button>
   </div>
-  <p>Holder Table</p>
+  <div class="card-content">
+    <h3 class="function-name">Holder Table</h3>
+    <p class="function-stats">
+      Error Rate: 18.6583<br>
+      Rank: 27 of 97
+    </p>
+  </div>
 </div>
-
 <div class="card">
   <div class="image-wrapper">
     <img src="https://github.com/AidinHamedi/ML-Optimizer-Benchmark/raw/vis-ref/results/adamp/Langermann.jpg" alt="Langermann"
          onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'">
+    <div class="rank-badge">Rank #11</div>
     <button class="enlarge-btn" onclick="openModal('https://github.com/AidinHamedi/ML-Optimizer-Benchmark/raw/vis-ref/results/adamp/Langermann.jpg')">🔍</button>
   </div>
-  <p>Langermann</p>
+  <div class="card-content">
+    <h3 class="function-name">Langermann</h3>
+    <p class="function-stats">
+      Error Rate: 0.2051<br>
+      Rank: 11 of 97
+    </p>
+  </div>
 </div>
-
 <div class="card">
   <div class="image-wrapper">
     <img src="https://github.com/AidinHamedi/ML-Optimizer-Benchmark/raw/vis-ref/results/adamp/Levy.jpg" alt="Levy"
          onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'">
+    <div class="rank-badge">Rank #50</div>
     <button class="enlarge-btn" onclick="openModal('https://github.com/AidinHamedi/ML-Optimizer-Benchmark/raw/vis-ref/results/adamp/Levy.jpg')">🔍</button>
   </div>
-  <p>Levy</p>
+  <div class="card-content">
+    <h3 class="function-name">Levy</h3>
+    <p class="function-stats">
+      Error Rate: 14.3544<br>
+      Rank: 50 of 97
+    </p>
+  </div>
 </div>
-
 <div class="card">
   <div class="image-wrapper">
     <img src="https://github.com/AidinHamedi/ML-Optimizer-Benchmark/raw/vis-ref/results/adamp/Levy%2013.jpg" alt="Levy 13"
          onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'">
+    <div class="rank-badge">Rank #10</div>
     <button class="enlarge-btn" onclick="openModal('https://github.com/AidinHamedi/ML-Optimizer-Benchmark/raw/vis-ref/results/adamp/Levy%2013.jpg')">🔍</button>
   </div>
-  <p>Levy 13</p>
+  <div class="card-content">
+    <h3 class="function-name">Levy 13</h3>
+    <p class="function-stats">
+      Error Rate: 0.4807<br>
+      Rank: 10 of 97
+    </p>
+  </div>
 </div>
-
 <div class="card">
   <div class="image-wrapper">
     <img src="https://github.com/AidinHamedi/ML-Optimizer-Benchmark/raw/vis-ref/results/adamp/Rastrigin.jpg" alt="Rastrigin"
          onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'">
+    <div class="rank-badge">Rank #26</div>
     <button class="enlarge-btn" onclick="openModal('https://github.com/AidinHamedi/ML-Optimizer-Benchmark/raw/vis-ref/results/adamp/Rastrigin.jpg')">🔍</button>
   </div>
-  <p>Rastrigin</p>
+  <div class="card-content">
+    <h3 class="function-name">Rastrigin</h3>
+    <p class="function-stats">
+      Error Rate: 2.0422<br>
+      Rank: 26 of 97
+    </p>
+  </div>
 </div>
-
 <div class="card">
   <div class="image-wrapper">
     <img src="https://github.com/AidinHamedi/ML-Optimizer-Benchmark/raw/vis-ref/results/adamp/Rosenbrock.jpg" alt="Rosenbrock"
          onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'">
+    <div class="rank-badge">Rank #47</div>
     <button class="enlarge-btn" onclick="openModal('https://github.com/AidinHamedi/ML-Optimizer-Benchmark/raw/vis-ref/results/adamp/Rosenbrock.jpg')">🔍</button>
   </div>
-  <p>Rosenbrock</p>
+  <div class="card-content">
+    <h3 class="function-name">Rosenbrock</h3>
+    <p class="function-stats">
+      Error Rate: 1.5696<br>
+      Rank: 47 of 97
+    </p>
+  </div>
 </div>
-
 <div class="card">
   <div class="image-wrapper">
     <img src="https://github.com/AidinHamedi/ML-Optimizer-Benchmark/raw/vis-ref/results/adamp/Schaffer%202.jpg" alt="Schaffer 2"
          onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'">
+    <div class="rank-badge">Rank #25</div>
     <button class="enlarge-btn" onclick="openModal('https://github.com/AidinHamedi/ML-Optimizer-Benchmark/raw/vis-ref/results/adamp/Schaffer%202.jpg')">🔍</button>
   </div>
-  <p>Schaffer 2</p>
+  <div class="card-content">
+    <h3 class="function-name">Schaffer 2</h3>
+    <p class="function-stats">
+      Error Rate: 6.9306<br>
+      Rank: 25 of 97
+    </p>
+  </div>
 </div>
-
 <div class="card">
   <div class="image-wrapper">
     <img src="https://github.com/AidinHamedi/ML-Optimizer-Benchmark/raw/vis-ref/results/adamp/Schaffer%204.jpg" alt="Schaffer 4"
          onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'">
+    <div class="rank-badge">Rank #13</div>
     <button class="enlarge-btn" onclick="openModal('https://github.com/AidinHamedi/ML-Optimizer-Benchmark/raw/vis-ref/results/adamp/Schaffer%204.jpg')">🔍</button>
   </div>
-  <p>Schaffer 4</p>
+  <div class="card-content">
+    <h3 class="function-name">Schaffer 4</h3>
+    <p class="function-stats">
+      Error Rate: 4.6211<br>
+      Rank: 13 of 97
+    </p>
+  </div>
 </div>
-
 <div class="card">
   <div class="image-wrapper">
     <img src="https://github.com/AidinHamedi/ML-Optimizer-Benchmark/raw/vis-ref/results/adamp/Shubert.jpg" alt="Shubert"
          onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'">
+    <div class="rank-badge">Rank #11</div>
     <button class="enlarge-btn" onclick="openModal('https://github.com/AidinHamedi/ML-Optimizer-Benchmark/raw/vis-ref/results/adamp/Shubert.jpg')">🔍</button>
   </div>
-  <p>Shubert</p>
+  <div class="card-content">
+    <h3 class="function-name">Shubert</h3>
+    <p class="function-stats">
+      Error Rate: 0.3361<br>
+      Rank: 11 of 97
+    </p>
+  </div>
 </div>
 
   </div>
@@ -325,17 +284,6 @@
     <em>This page was automatically generated. Changes may be overwritten.</em>
   </footer>
 
-  <script>
-    function openModal(src) {
-      const modal = document.getElementById('imageModal');
-      const modalImg = document.getElementById('modalImage');
-      modalImg.src = src;
-      modal.classList.add('active');
-    }
-    function closeModal() {
-      const modal = document.getElementById('imageModal');
-      modal.classList.remove('active');
-    }
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
