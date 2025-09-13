@@ -35,7 +35,7 @@ def main():
 
     markdown_table = tabulate(
         [
-            (i, opt, rate if rate != float("inf") else "Failed ⚠️", link)
+            (i, opt, round(rate, 4) if rate != float("inf") else "Failed ⚠️", link)
             for i, (opt, rate, link) in enumerate(avg_error_rates, start=1)
         ],
         headers=["Rank", "Optimizer", "Average Error Rate", "Vis"],
