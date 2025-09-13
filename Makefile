@@ -3,7 +3,7 @@ sync_docs:
 
 gen_docs:
 	python tools/md_comparison.py
-	python tools/md_visualizations.py
+	python tools/doc_visualizations.py
 
 comp_vis:
 	tar -czf results.tar.gz results/
