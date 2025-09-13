@@ -1,6 +1,6 @@
 import json
 from pathlib import Path
-from typing import Any, Dict, List, Tuple
+from typing import Any, Dict, Tuple
 
 RESULTS_FILE = Path("./results/results.json")
 DOCS_SAVE_PATH = Path("./docs/vis")
@@ -13,18 +13,13 @@ FILE_FORMAT = ".jpg"
 
 def load_template(template_name: str, templates_path: Path = TEMPLATES_PATH) -> str:
     """Load and cache templates from filesystem."""
-    if not hasattr(load_template, "_cache"):
-        load_template._cache = {}
+    template_file = templates_path / f"{template_name}.html"
+    if not template_file.exists():
+        raise FileNotFoundError(
+            f"Template {template_name}.html not found at {template_file}"
+        )
 
-    if template_name not in load_template._cache:
-        template_file = templates_path / f"{template_name}.html"
-        if not template_file.exists():
-            raise FileNotFoundError(
-                f"Template {template_name}.html not found at {template_file}"
-            )
-        load_template._cache[template_name] = template_file.read_text(encoding="utf-8")
-
-    return load_template._cache[template_name]
+    return template_file.read_text(encoding="utf-8")
 
 
 def render_template(template_name: str, **kwargs) -> str:
@@ -155,7 +150,6 @@ def generate_visualizations(verbose: bool = True):
             )
 
         optimizer_data = results["optimizers"][optimizer]
-        total_optimizers = len(results["optimizers"])
 
         cards_html = ""
         for function_name, error_rate in optimizer_data["error_rates"].items():
@@ -166,8 +160,6 @@ def generate_visualizations(verbose: bool = True):
                 url=generate_image_url(optimizer, function_name),
                 name=function_name,
                 function_rank=function_rank,
-                total_optimizers=total_optimizers,
-                error_rate=round(error_rate, 4),
             )
             cards_html += card_html
 

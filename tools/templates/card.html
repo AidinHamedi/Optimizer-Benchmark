@@ -1,15 +1,14 @@
 <div class="card">
-  <div class="image-wrapper">
-    <img src="{url}" alt="{name}"
-         onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'">
-    <div class="rank-badge">Rank #{function_rank}</div>
-    <button class="enlarge-btn" onclick="openModal('{url}')">🔍</button>
-  </div>
-  <div class="card-content">
-    <h3 class="function-name">{name}</h3>
-    <p class="function-stats">
-      Error Rate: {error_rate}<br>
-      Rank: {function_rank} of {total_optimizers}
-    </p>
-  </div>
+    <div class="image-wrapper">
+        <img
+            src="{url}"
+            alt="{name}"
+            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
+        />
+        <div class="rank-badge">Rank #{function_rank}</div>
+        <button class="enlarge-btn" onclick="openModal('{url}')">🔍</button>
+    </div>
+    <div class="card-content">
+        <h3 class="function-name">{name}</h3>
+    </div>
 </div>
