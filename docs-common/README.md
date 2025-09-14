@@ -35,8 +35,8 @@ This project uses **[pytorch_optimizer](https://github.com/kozistr/pytorch_optim
 
 ```bash
 # Clone repository
-git clone --depth 1 https://github.com/AidinHamedi/ML-Optimizer-Benchmark.git
-cd ML-Optimizer-Benchmark
+git clone --depth 1 https://github.com/AidinHamedi/Optimizer-Benchmark.git
+cd Optimizer-Benchmark
 
 # Install dependencies
 uv sync
@@ -54,7 +54,7 @@ The script will:
 
 ## 📊 Visualizations
 > ### Newest release 📦
-> #### [Go to newest release](https://github.com/Aidinhamedi/ML-Optimizer-Benchmark/releases/latest)
+> #### [Go to newest release](https://github.com/Aidinhamedi/Optimizer-Benchmark/releases/latest)
 
 {% include comparison.md %}
 
