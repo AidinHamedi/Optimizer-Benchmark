@@ -5,9 +5,7 @@ from typing import Any, Dict, Tuple
 RESULTS_FILE = Path("./results/results.json")
 DOCS_SAVE_PATH = Path("./docs/vis")
 TEMPLATES_PATH = Path("./tools/templates")
-VIS_BASE_URL = (
-    "https://github.com/AidinHamedi/ML-Optimizer-Benchmark/raw/vis-ref/results"
-)
+VIS_BASE_URL = "https://github.com/AidinHamedi/Optimizer-Benchmark/raw/vis-ref/results"
 FILE_FORMAT = ".jpg"
 
 

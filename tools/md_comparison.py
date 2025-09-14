@@ -5,7 +5,7 @@ from tabulate import tabulate
 
 RESULTS_FILE = Path("./results/results.json")
 DOC_SAVE_PATH = Path("./docs-common/includes/comparison.md")
-VIS_BASE_DOCS_URL = "https://aidinhamedi.github.io/ML-Optimizer-Benchmark/vis/"
+VIS_BASE_DOCS_URL = "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/"
 
 
 def main():
