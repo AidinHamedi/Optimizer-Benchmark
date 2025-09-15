@@ -1,9 +1,13 @@
+.PHONY: all clear run gen_docs sync_docs comp_vis
+
 PYTHON := python
 SCRIPT := runner.py
-PROCS ?= 2
+PROCS ?= 4
+
+all: clear run gen_docs sync_docs comp_vis
 
 clear:
-	@rm -r cache/
+	@rm -r cache/ || true
 
 run:
 	@if ! command -v tmux >/dev/null 2>&1; then \
