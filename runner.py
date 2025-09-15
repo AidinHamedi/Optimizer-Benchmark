@@ -1,6 +1,7 @@
 import tomllib
 from pathlib import Path
 
+import click
 from pytorch_optimizer import (
     get_supported_optimizers,
     load_optimizer,
@@ -8,7 +9,7 @@ from pytorch_optimizer import (
 
 from benchmark.evaluate import benchmark_optimizer
 
-CONFIG_DIR = Path("./config.toml")
+CONFIG_PATH = Path("./config.toml")
 OUTPUT_DIR = Path("./results")
 
 
@@ -26,14 +27,71 @@ def get_hyperparameter_search_space(name: str, config: dict) -> dict:
     return config.get(name, config["default"])
 
 
-def main():
+@click.command()
+@click.option(
+    "--debug",
+    is_flag=True,
+    help="Enable debug mode",
+)
+@click.option(
+    "--get_num",
+    is_flag=True,
+    help="Get the number of optimizers",
+)
+@click.option(
+    "--range",
+    nargs=2,
+    type=int,
+    default=[0, -1],
+    help="Range of optimizer indices to benchmark (start end). Default: 0 -1 (all)",
+)
+@click.option(
+    "--filter",
+    default=None,
+    multiple=True,
+    help="Filter optimizers by name. Can be used multiple times",
+)
+@click.option(
+    "--functions",
+    default=None,
+    multiple=True,
+    help="Functions to benchmark. Can be used multiple times",
+)
+@click.option(
+    "--results_dir",
+    default=OUTPUT_DIR,
+    help=f"Output directory for results. Default: {OUTPUT_DIR}",
+    type=Path,
+)
+@click.option(
+    "--config_path",
+    default=CONFIG_PATH,
+    help=f"Path to config file. Default: {CONFIG_PATH}",
+    type=Path,
+)
+def main(
+    debug: bool,
+    get_num: bool,
+    range: list,
+    filter: str,
+    functions: list,
+    results_dir: Path,
+    config_path: Path,
+):
     """The entry point of the app."""
-    configs = read_toml_config(CONFIG_DIR)
+    configs = read_toml_config(config_path)
     optimizers = [
         opt
-        for opt in get_supported_optimizers()
+        for opt in get_supported_optimizers(filter or None)
         if opt not in configs["benchmark"]["ignore_optimizers"]
-    ]
+    ][range[0] : range[1]]
+
+    if debug:
+        print(f"Optimizers: {optimizers}")
+
+    if get_num:
+        print(len(optimizers))
+        return
 
     function_iterations = {
         func_name: func_config["iterations"]
@@ -104,10 +162,12 @@ def main():
         benchmark_optimizer(
             get_optimizer,
             optimizer_name,
-            OUTPUT_DIR,
+            results_dir,
             search_space,
             eval_configs,
-            eval_args,
+            eval_args=eval_args,
+            functions=functions or None,
+            debug=debug,
         )
 
     print("Done!")
