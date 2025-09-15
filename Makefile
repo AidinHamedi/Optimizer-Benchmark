@@ -22,6 +22,7 @@ run:
 	echo "Total optimizers: $$TOTAL"; \
 	CHUNK_SIZE=$$(( ($$TOTAL + $(PROCS) - 1) / $(PROCS) )); \
 	echo "Running in $(PROCS) tmux panes, chunk size: $$CHUNK_SIZE"; \
+	sleep 5; \
 	tmux new-session -d "$(PYTHON) $(SCRIPT) --range 0 $$CHUNK_SIZE"; \
 	START=$$CHUNK_SIZE; \
 	for i in $$(seq 2 $(PROCS)); do \
