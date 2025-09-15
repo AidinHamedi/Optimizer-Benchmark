@@ -47,11 +47,11 @@ error_weight = 2.5
 
 [functions.Griewank]
 iterations = 200
-error_weight = 1.0
+error_weight = 0.5
 
 [functions."Holder Table"]
 iterations = 150
-error_weight = 1.5
+error_weight = 0.7
 
 [functions.Langermann]
 iterations = 150
@@ -75,11 +75,11 @@ error_weight = 1.0
 
 [functions."Schaffer 2"]
 iterations = 500
-error_weight = 1.8
+error_weight = 1
 
 [functions."Schaffer 4"]
 iterations = 500
-error_weight = 1.8
+error_weight = 1
 
 [functions.Shubert]
 iterations = 150
