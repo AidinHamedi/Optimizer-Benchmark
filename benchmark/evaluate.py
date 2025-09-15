@@ -40,7 +40,9 @@ def benchmark_optimizer(
     output_dir: Path,
     hyper_search_spaces: dict,
     config: dict,
+    functions: list | None = None,
     eval_args: dict = {},
+    debug: bool = False,
 ) -> None:
     """
     Benchmarks a given optimizer across multiple test functions with hyperparameter tuning.
@@ -51,7 +53,9 @@ def benchmark_optimizer(
         output_dir (Path): Directory where results and visualizations will be saved.
         hyper_search_spaces (dict): Dictionary defining the hyperparameter search space for the optimizer.
         config (dict): Configuration dictionary containing tuning parameters like number of iterations and trials.
+        functions (list | None, optional): List of functions to benchmark. If None, all functions will be used. Defaults to None.
         eval_args (dict, optional): Additional arguments for evaluation, keyed by optimizer name. Defaults to {}.
+        debug (bool, optional): Whether to enable debug mode. Defaults to False.
 
     Returns:
         None
@@ -68,6 +72,9 @@ def benchmark_optimizer(
     error_rates = {}
 
     for func_name, consts in FUNC_DICT.items():
+        if functions is not None and func_name not in functions:
+            continue
+
         vis_file = results_dir.joinpath(func_name + config["img_format"])
 
         if vis_file.exists() and config["exist_pass"]:
@@ -111,6 +118,7 @@ def benchmark_optimizer(
                 eval_size,
                 num_iters,
                 **eval_args.get(optimizer_name, {}),
+                debug=debug,
             )
 
         study = optuna.create_study(
@@ -146,6 +154,7 @@ def benchmark_optimizer(
             study.best_value,
             gm_pos,
             eval_size,
+            debug=debug,
         )
 
     if results_json_dir.exists():

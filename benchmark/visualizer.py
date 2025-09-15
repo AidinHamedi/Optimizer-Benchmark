@@ -18,6 +18,7 @@ def plot_function(
     global_minimums: torch.Tensor,
     eval_size: Tuple[Tuple[int, int], Tuple[int, int]],
     res: Union[int, str] = "auto",
+    debug: bool = False,
 ):
     """
     Visualizes an optimizer's trajectory over a 2D function surface.
@@ -32,8 +33,11 @@ def plot_function(
         global_minimums: Tensor containing the global minimum point(s)
         eval_size: Tuple defining the x and y axis ranges
         res: Resolution of the surface plot (points per axis)
+        debug: Debug mode flag
     """
-    X, Y, Z = compute_surface(func, func_name, scale_eval_size(eval_size, 1.1), res)
+    X, Y, Z = compute_surface(
+        func, func_name, scale_eval_size(eval_size, 1.1), res, debug=debug
+    )
 
     fig, ax = plt.subplots(figsize=(14, 14))
     cs = ax.contour(X.numpy(), Y.numpy(), Z.numpy(), levels=20, cmap="jet")
