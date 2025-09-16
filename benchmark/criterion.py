@@ -23,7 +23,7 @@ def objective(
     lucky_jump_factor: float = 1.0,
     lucky_jump_threshold: float = 0.18,
     final_distance_factor: float = 1.5,
-    final_value_factor: float = 0.9,
+    final_value_factor: float = 0.8,
     min_movement_factor: float = 0.6,
     min_movement_threshold: float = 0.5,
     final_proximity_factor: float = 8.0,
