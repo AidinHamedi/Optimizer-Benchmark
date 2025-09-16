@@ -394,7 +394,7 @@ wheels = [
 ]
 
 [[package]]
-name = "ml-optimizer-benchmark"
+name = "Optimizer-Benchmark"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
