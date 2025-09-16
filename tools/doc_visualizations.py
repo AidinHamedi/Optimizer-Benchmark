@@ -5,18 +5,18 @@ from typing import Any, Dict, Tuple
 RESULTS_FILE = Path("./results/results.json")
 DOCS_SAVE_PATH = Path("./docs/vis")
 TEMPLATES_PATH = Path("./tools/templates")
+STATIC_FILES = ("styles.css", "script.js")
 VIS_BASE_URL = "https://github.com/AidinHamedi/Optimizer-Benchmark/raw/vis-ref/results"
 FILE_FORMAT = ".jpg"
 
 
 def load_template(template_name: str, templates_path: Path = TEMPLATES_PATH) -> str:
-    """Load and cache templates from filesystem."""
+    """Load templates from filesystem."""
     template_file = templates_path / f"{template_name}.html"
     if not template_file.exists():
         raise FileNotFoundError(
             f"Template {template_name}.html not found at {template_file}"
         )
-
     return template_file.read_text(encoding="utf-8")
 
 
@@ -28,12 +28,12 @@ def render_template(template_name: str, **kwargs) -> str:
 
 def calculate_ranks(
     results: Dict[str, Any],
-) -> Tuple[Dict[str, Dict[str, int]], Dict[str, int]]:
+) -> Tuple[Dict[str, Dict[str, int]], Dict[str, int], Dict[str, int]]:
     """
     Calculate both function-specific and overall ranks for optimizers.
 
     Returns:
-        Tuple of (function_ranks, overall_ranks)
+        Tuple of (function_ranks, error_rate_ranks, avg_rank_ranks)
     """
     function_ranks = {}
     all_functions = set()
@@ -41,6 +41,7 @@ def calculate_ranks(
     for optimizer_data in results["optimizers"].values():
         all_functions.update(optimizer_data["error_rates"].keys())
 
+    # Per-function ranks
     for function_name in all_functions:
         function_errors = []
         for optimizer, data in results["optimizers"].items():
@@ -49,37 +50,54 @@ def calculate_ranks(
                 function_errors.append((optimizer, error_rate))
 
         function_errors.sort(key=lambda x: x[1])
-
         ranks = {}
         current_rank = 1
         prev_error = None
-
         for i, (optimizer, error) in enumerate(function_errors):
             if error != prev_error:
                 current_rank = i + 1
             ranks[optimizer] = current_rank
             prev_error = error
-
         function_ranks[function_name] = ranks
 
-    optimizers = []
-    for optimizer, data in results["optimizers"].items():
-        avg_error = data["weighted_avg_error_rate"]
-        optimizers.append((optimizer, avg_error))
-
+    # Error-rate based overall rank
+    optimizers = [
+        (opt, data["weighted_avg_error_rate"])
+        for opt, data in results["optimizers"].items()
+    ]
     optimizers.sort(key=lambda x: x[1])
 
-    overall_ranks = {}
+    error_rate_ranks = {}
     current_rank = 1
     prev_error = None
-
     for i, (optimizer, error) in enumerate(optimizers):
         if error != prev_error:
             current_rank = i + 1
-        overall_ranks[optimizer] = current_rank
+        error_rate_ranks[optimizer] = current_rank
         prev_error = error
 
-    return function_ranks, overall_ranks
+    # Average rank across functions
+    avg_ranks = []
+    for optimizer in results["optimizers"]:
+        ranks = [
+            function_ranks[f][optimizer]
+            for f in all_functions
+            if optimizer in function_ranks[f]
+        ]
+        avg_rank = sum(ranks) / len(ranks) if ranks else float("inf")
+        avg_ranks.append((optimizer, avg_rank))
+
+    avg_ranks.sort(key=lambda x: x[1])
+    avg_rank_ranks = {}
+    current_rank = 1
+    prev_val = None
+    for i, (optimizer, val) in enumerate(avg_ranks):
+        if val != prev_val:
+            current_rank = i + 1
+        avg_rank_ranks[optimizer] = current_rank
+        prev_val = val
+
+    return function_ranks, error_rate_ranks, avg_rank_ranks
 
 
 def load_results(results_file: Path = RESULTS_FILE) -> Dict[str, Any]:
@@ -106,10 +124,9 @@ def copy_static_files(
     templates_path: Path = TEMPLATES_PATH, output_path: Path = DOCS_SAVE_PATH
 ):
     """Copy CSS and JS files to output directory."""
-    static_files = ["styles.css", "script.js"]
     output_path.mkdir(parents=True, exist_ok=True)
 
-    for file_name in static_files:
+    for file_name in STATIC_FILES:
         src = templates_path / file_name
         dst = output_path / file_name
         if src.exists():
@@ -124,18 +141,18 @@ def generate_visualizations(verbose: bool = True):
         print(f"Results file: {RESULTS_FILE.absolute()}")
         print(f"Output directory: {DOCS_SAVE_PATH.absolute()}")
 
-    if verbose:
-        print("Loading results data...")
     results = load_results()
 
     if verbose:
         print("Calculating optimizer ranks...")
-    function_ranks, overall_ranks = calculate_ranks(results)
+
+    function_ranks, error_rate_ranks, avg_rank_ranks = calculate_ranks(results)
 
     DOCS_SAVE_PATH.mkdir(parents=True, exist_ok=True)
 
     if verbose:
         print("Copying static files...")
+
     copy_static_files()
 
     if verbose:
@@ -165,7 +182,8 @@ def generate_visualizations(verbose: bool = True):
             "page",
             title=optimizer,
             cards=cards_html,
-            overall_rank=overall_ranks.get(optimizer, "N/A"),
+            error_rate_rank=error_rate_ranks.get(optimizer, "N/A"),
+            avg_rank=avg_rank_ranks.get(optimizer, "N/A"),
             avg_error_rate=round(optimizer_data["weighted_avg_error_rate"], 4),
             functions_count=len(optimizer_data["error_rates"]),
         )

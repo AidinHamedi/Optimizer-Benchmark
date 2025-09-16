@@ -1,34 +1,37 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>shampoo Results</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <h1>shampoo Benchmark Results</h1>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>shampoo Results</title>
+        <link rel="stylesheet" href="styles.css" />
+    </head>
+    <body>
+        <h1>shampoo Benchmark Results</h1>
 
-  <div class="summary">
-    <h2>Overall Performance</h2>
-    <div class="summary-stats">
-      <div class="stat-item">
-        <div class="stat-value">75</div>
-        <div class="stat-label">Overall Rank</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-value">21.6842</div>
-        <div class="stat-label">Avg Error Rate</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-value">16</div>
-        <div class="stat-label">Functions Tested</div>
-      </div>
-    </div>
-  </div>
+        <div class="summary">
+            <h2>Overall Performance</h2>
+            <div class="summary-stats">
+                <div class="stat-item">
+                    <div class="stat-value">75</div>
+                    <div class="stat-label">Rank (Error Rate)</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">73</div>
+                    <div class="stat-label">Rank (Avg Function Rank)</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">21.6842</div>
+                    <div class="stat-label">Avg Error Rate</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">16</div>
+                    <div class="stat-label">Functions Tested</div>
+                </div>
+            </div>
+        </div>
 
-  <div class="gallery">
-    <div class="card">
+        <div class="gallery"><div class="card">
     <div class="image-wrapper">
         <img
             src="https://github.com/AidinHamedi/Optimizer-Benchmark/raw/vis-ref/results/shampoo/Ackley.jpg"
@@ -252,22 +255,29 @@
         <h3 class="function-name">Styblinski-Tang</h3>
     </div>
 </div>
+</div>
 
-  </div>
+        <div class="modal" id="imageModal">
+            <div class="modal-content">
+                <button class="close-btn" onclick="closeModal()">×</button>
+                <img id="modalImage" src="" alt="Enlarged view" />
+            </div>
+        </div>
 
-  <div class="modal" id="imageModal">
-    <div class="modal-content">
-      <button class="close-btn" onclick="closeModal()">×</button>
-      <img id="modalImage" src="" alt="Enlarged view">
-    </div>
-  </div>
+        <footer>
+            Original repo:
+            <a
+                href="https://github.com/AidinHamedi/ML-Optimizer-Benchmark"
+                target="_blank"
+                >github.com/AidinHamedi/ML-Optimizer-Benchmark</a
+            ><br />
+            Made with ❤️ by AidinHamedi<br />
+            <em
+                >This page was automatically generated. Changes may be
+                overwritten.</em
+            >
+        </footer>
 
-  <footer>
-    Original repo: <a href="https://github.com/AidinHamedi/ML-Optimizer-Benchmark" target="_blank">github.com/AidinHamedi/ML-Optimizer-Benchmark</a><br>
-    Made with ❤️ by AidinHamedi<br>
-    <em>This page was automatically generated. Changes may be overwritten.</em>
-  </footer>
-
-  <script src="script.js"></script>
-</body>
+        <script src="script.js"></script>
+    </body>
 </html>
