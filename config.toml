@@ -30,43 +30,43 @@ ignore_optimizers = [
 
 # Configuration for each benchmark function, including iterations and error weight.
 [functions.Ackley]
-iterations = 150
+iterations = 250
 error_weight = 1.0
 
 [functions."Cross-in-Tray"]
-iterations = 150
+iterations = 250
 error_weight = 0.5
 
 [functions.EggHolder]
-iterations = 150
+iterations = 250
 error_weight = 1.0
 
 [functions."Gramacy-Lee 2D"]
-iterations = 100
+iterations = 200
 error_weight = 2.5
 
 [functions.Griewank]
-iterations = 200
+iterations = 400
 error_weight = 1.0
 
 [functions."Holder Table"]
-iterations = 150
+iterations = 250
 error_weight = 1.5
 
 [functions.Langermann]
-iterations = 150
+iterations = 250
 error_weight = 1.0
 
 [functions.Levy]
-iterations = 150
+iterations = 200
 error_weight = 1.0
 
 [functions."Levy 13"]
-iterations = 150
+iterations = 250
 error_weight = 1.0
 
 [functions.Rastrigin]
-iterations = 150
+iterations = 250
 error_weight = 1.0
 
 [functions.Rosenbrock]
@@ -74,29 +74,29 @@ iterations = 400
 error_weight = 1.0
 
 [functions."Schaffer 2"]
-iterations = 500
+iterations = 600
 error_weight = 1.8
 
 [functions."Schaffer 4"]
-iterations = 500
+iterations = 600
 error_weight = 1.8
 
 [functions.Shubert]
-iterations = 150
+iterations = 250
 error_weight = 1.0
 
 [functions."Drop-Wave"]
-iterations = 150
+iterations = 200
 error_weight = 1.0
 
 [functions."Styblinski-Tang"]
-iterations = 150
+iterations = 200
 error_weight = 1.0
 
 # Hyperparameter search spaces for optimizers.
 # If an optimizer is not listed here, the 'default' space is used.
 [hyperparameters]
-default = { lr = [0.0001, 2.0] }
+default = { lr = [0.0001, 8.0] }
 adadelta = { lr = [0.0001, 600.0] }
 adafactor = { lr = [0.0001, 600.0] }
 adamg = { lr = [0.0001, 20.0], p = [0, 1], q = [0, 1] }
@@ -110,7 +110,7 @@ pid = { lr = [0.0001, 0.5], derivative = [2.0, 14.0], integral = [1.0, 10.0], mo
   0.0,
   0.99,
 ] }
-tam = { lr = [0.0001, 6.0], momentum = [0.0001, 0.99] }
+tam = { lr = [0.0001, 8.0], momentum = [0.0001, 0.99] }
 sgdp = { lr = [0.0001, 2.0], momentum = [0.0001, 0.99] }
 accsgd = { lr = [0.0001, 2.0], momentum = [0.0001, 0.99] }
 sgdw = { lr = [0.0001, 2.0], momentum = [0.0001, 0.99] }
