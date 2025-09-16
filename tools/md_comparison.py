@@ -95,12 +95,29 @@ def main():
         tablefmt="github",
     )
 
-    markdown_out = (
-        "### Ranking by Error Rate\n\n"
-        + error_table
-        + "\n\n### Ranking by Avg Function Rank\n\n"
-        + avg_table
-    )
+    markdown_out = f"""
+<h4>
+<details open>
+<summary>Ranking by Avg Function Rank ⚡</summary>
+<h6>
+
+{avg_table}
+
+</h6>
+</details>
+</h4>
+
+<h4>
+<details>
+<summary>Ranking by Error Rate ⚡</summary>
+<h6>
+
+{error_table}
+
+</h6>
+</details>
+</h4>
+    """
 
     DOC_SAVE_PATH.parents[0].mkdir(parents=True, exist_ok=True)
     DOC_SAVE_PATH.write_text(markdown_out)
