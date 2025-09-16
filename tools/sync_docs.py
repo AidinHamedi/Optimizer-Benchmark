@@ -42,4 +42,5 @@ def main():
 
 
 if __name__ == "__main__":
+    raise Exception("This script does not work properly. (will be fixed soon)")
     main()
