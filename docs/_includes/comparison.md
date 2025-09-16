@@ -1,9 +1,4 @@
-
-<h4>
-<details open>
-<summary>Ranking by Avg Function Rank ⚡</summary>
-
-<h6>
+### Ranking by Error Rate
 
 |   Rank (Avg Function Rank) | Optimizer          |   Average Rank | Vis                                                                              |
 |----------------------------|--------------------|----------------|----------------------------------------------------------------------------------|
@@ -105,17 +100,7 @@
 |                         96 | adams              |          91.06 | [Open](https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adams)              |
 |                         97 | mars               |          93.44 | [Open](https://aidinhamedi.github.io/Optimizer-Benchmark/vis/mars)               |
 
-
-</h6>
-
-</details>
-</h4>
-
-<h4>
-<details>
-<summary>Ranking by Error Rate ⚡</summary>
-
-<h6>
+### Ranking by Avg Function Rank
 
 |   Rank (Error Rate) | Optimizer          | Avg Error Rate   | Vis                                                                              |
 |---------------------|--------------------|------------------|----------------------------------------------------------------------------------|
@@ -216,8 +201,3 @@
 |                  95 | adams              | 56.9071          | [Open](https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adams)              |
 |                  96 | qhadam             | 386.1081         | [Open](https://aidinhamedi.github.io/Optimizer-Benchmark/vis/qhadam)             |
 |                  97 | ranger25           | Failed ⚠️        | [Open](https://aidinhamedi.github.io/Optimizer-Benchmark/vis/ranger25)           |
-
-</h6>
-
-</details>
-</h4>
