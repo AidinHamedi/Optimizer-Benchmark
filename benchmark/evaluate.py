@@ -15,6 +15,10 @@ from .visualizer import plot_function
 
 optuna.logging.set_verbosity(optuna.logging.ERROR)
 
+OPTUNA_STORAGE_TYPE = "in-memory"  # sqlite, in-memory
+OPTUNA_STORAGE_PATH = "sqlite:///optuna_cache.db"
+OPTUNA_CACHE_TYPE = "opt"  # opt, func, opt+func
+
 
 def _progress_bar_callback(total_trials: int):
     pbar = tqdm(total=total_trials, desc=" └ Hyper Optimization")
@@ -122,9 +126,13 @@ def benchmark_optimizer(
             )
 
         study = optuna.create_study(
-            study_name=func_name,
+            study_name=f"{func_name}~{optimizer_name}"
+            if OPTUNA_CACHE_TYPE == "opt+func"
+            else (func_name if OPTUNA_CACHE_TYPE == "func" else optimizer_name),
             direction="minimize",
             sampler=optuna.samplers.TPESampler(seed=config["seed"]),
+            storage=OPTUNA_STORAGE_PATH if OPTUNA_STORAGE_TYPE == "sqlite" else None,
+            load_if_exists=OPTUNA_STORAGE_TYPE == "sqlite",
         )
 
         study.optimize(
