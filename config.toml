@@ -1,4 +1,3 @@
-# General benchmark settings.
 [benchmark]
 seed = 42
 deterministic = true  # Can slow down the process
@@ -28,75 +27,26 @@ ignore_optimizers = [
   "amos",
 ]
 
-# Configuration for each benchmark function, including iterations and error weight.
-[functions.Ackley]
-iterations = 250
-error_weight = 1.0
+[functions]
+Ackley = { iterations = 250, error_weight = 1.0 }
+"Cross-in-Tray" = { iterations = 250, error_weight = 0.5 }
+EggHolder = { iterations = 250, error_weight = 1.0 }
+"Gramacy-Lee 2D" = { iterations = 200, error_weight = 2.5 }
+Griewank = { iterations = 400, error_weight = 1.0 }
+"Holder Table" = { iterations = 250, error_weight = 1.5 }
+Langermann = { iterations = 250, error_weight = 1.0 }
+Levy = { iterations = 200, error_weight = 1.0 }
+"Levy 13" = { iterations = 250, error_weight = 1.0 }
+Rastrigin = { iterations = 250, error_weight = 1.0 }
+Rosenbrock = { iterations = 400, error_weight = 1.0 }
+"Schaffer 2" = { iterations = 600, error_weight = 1.8 }
+"Schaffer 4" = { iterations = 600, error_weight = 1.8 }
+Shubert = { iterations = 250, error_weight = 1.0 }
+"Drop-Wave" = { iterations = 200, error_weight = 1.0 }
+"Styblinski-Tang" = { iterations = 200, error_weight = 1.0 }
 
-[functions."Cross-in-Tray"]
-iterations = 250
-error_weight = 0.5
-
-[functions.EggHolder]
-iterations = 250
-error_weight = 1.0
-
-[functions."Gramacy-Lee 2D"]
-iterations = 200
-error_weight = 2.5
-
-[functions.Griewank]
-iterations = 400
-error_weight = 1.0
-
-[functions."Holder Table"]
-iterations = 250
-error_weight = 1.5
-
-[functions.Langermann]
-iterations = 250
-error_weight = 1.0
-
-[functions.Levy]
-iterations = 200
-error_weight = 1.0
-
-[functions."Levy 13"]
-iterations = 250
-error_weight = 1.0
-
-[functions.Rastrigin]
-iterations = 250
-error_weight = 1.0
-
-[functions.Rosenbrock]
-iterations = 400
-error_weight = 1.0
-
-[functions."Schaffer 2"]
-iterations = 600
-error_weight = 1.8
-
-[functions."Schaffer 4"]
-iterations = 600
-error_weight = 1.8
-
-[functions.Shubert]
-iterations = 250
-error_weight = 1.0
-
-[functions."Drop-Wave"]
-iterations = 200
-error_weight = 1.0
-
-[functions."Styblinski-Tang"]
-iterations = 200
-error_weight = 1.0
-
-# Hyperparameter search spaces for optimizers.
-# If an optimizer is not listed here, the 'default' space is used.
-[hyperparameters]
-default = { lr = [0.0001, 8.0] }
+[optimizers]
+base = { lr = [0.0001, 8.0] }
 adadelta = { lr = [0.0001, 600.0] }
 adafactor = { lr = [0.0001, 600.0] }
 adamg = { lr = [0.0001, 20.0], p = [0, 1], q = [0, 1] }
@@ -122,12 +72,11 @@ asgd = { lr = [0.0001, 2.0], amplifier = [0.0001, 0.5] }
 amos = { lr = [0.0001, 2.0], momentum = [0.0001, 0.99] }
 schedulefreesgd = { lr = [0.0001, 3.0], momentum = [0.0001, 0.99] }
 schedulefreeradam = { lr = [1.0, 10.0] }
+grokfastadamw = { lr = [0.0001, 8.0], _iter_scale = 4 } # Iteration num scale factor for GrokFastAdamW optimizer
 kron = { lr = [0.0001, 2.0], momentum = [0.0001, 0.99] }
 scion = { lr = [0.0001, 1.0], scale = [1.0, 1000.0] }
 scionlight = { lr = [0.0001, 1.0], scale = [1.0, 1000.0] }
 
-# Special evaluation arguments for specific optimizers.
-# These are passed to the `execute_steps` function.
 [optimizer_eval_args]
 alig = { use_closure = true }
 bsam = { use_closure = true }

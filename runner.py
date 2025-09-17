@@ -24,7 +24,9 @@ def read_toml_config(path: Path) -> dict:
 
 def get_hyperparameter_search_space(name: str, config: dict) -> dict:
     """Return the hyperparameter search space for a given optimizer name."""
-    return config.get(name, config["default"])
+    search_space = config.get(name, config["base"])
+    search_space.pop("_iter_scale", None)
+    return search_space
 
 
 @click.command()
@@ -42,8 +44,8 @@ def get_hyperparameter_search_space(name: str, config: dict) -> dict:
     "--range",
     nargs=2,
     type=int,
-    default=[0, -1],
-    help="Range of optimizer indices to benchmark (start end). Default: 0 -1 (all)",
+    default=[0, None],
+    help="Range of optimizer indices to benchmark (start end). Default: 0 None (all)",
 )
 @click.option(
     "--filter",
@@ -82,7 +84,9 @@ def main(
     configs = read_toml_config(config_path)
     optimizers = [
         opt
-        for opt in get_supported_optimizers(filter or None)
+        for opt in get_supported_optimizers(
+            None if not filter else filter[0] if len(filter) == 1 else filter
+        )
         if opt not in configs["benchmark"]["ignore_optimizers"]
     ][range[0] : range[1]]
 
@@ -93,25 +97,28 @@ def main(
         print(len(optimizers))
         return
 
-    function_iterations = {
-        func_name: func_config["iterations"]
+    function_error_weights = {
+        func_name: func_config["error_weight"]
         for func_name, func_config in configs["functions"].items()
     }
 
-    eval_configs = {
-        "num_iters": function_iterations,
-        "error_weights": {
-            func_name: func_config["error_weight"]
-            for func_name, func_config in configs["functions"].items()
-        },
-        **configs["benchmark"],
-    }
     eval_args = configs.get("optimizer_eval_args", {})
 
     for i, optimizer_name in enumerate(optimizers, start=1):
+        eval_configs = {
+            "num_iters": {
+                func_name: func_config["iterations"]
+                * configs["optimizers"].get(optimizer_name, {}).get("_iter_scale", 1)
+                for func_name, func_config in configs["functions"].items()
+            },
+            "error_weights": function_error_weights,
+            **configs["benchmark"],
+        }
+
         search_space = get_hyperparameter_search_space(
-            optimizer_name, configs["hyperparameters"]
+            optimizer_name, configs["optimizers"]
         )
+
         print(
             f"({i}/{len(optimizers)}) Processing {optimizer_name}... (Params to tune: {', '.join(search_space.keys())})"
         )
@@ -166,7 +173,11 @@ def main(
             search_space,
             eval_configs,
             eval_args=eval_args,
-            functions=functions or None,
+            functions=None
+            if not functions
+            else functions[0]
+            if len(functions) == 1
+            else functions,
             debug=debug,
         )
 
