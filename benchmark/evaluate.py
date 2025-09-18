@@ -172,7 +172,7 @@ def benchmark_optimizer(
             optuna_objective,
             n_trials=config["hypertune_trials"],
             show_progress_bar=False,
-            catch=(RuntimeError, ZeroDivisionError),
+            catch=ZeroDivisionError,
             n_jobs=1 if config["deterministic"] else 2,
             callbacks=[_progress_bar_callback(config["hypertune_trials"])],  # type: ignore
         )
