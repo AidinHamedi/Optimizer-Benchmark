@@ -23,12 +23,12 @@ run:
 	CHUNK_SIZE=$$(( ($$TOTAL + $(PROCS) - 1) / $(PROCS) )); \
 	echo "Running in $(PROCS) tmux panes, chunk size: $$CHUNK_SIZE"; \
 	sleep 5; \
-	tmux new-session -d "$(PYTHON) $(SCRIPT) --range 0 $$CHUNK_SIZE"; \
+	tmux new-session -d "$(PYTHON) $(SCRIPT) --opt_range 0 $$CHUNK_SIZE"; \
 	START=$$CHUNK_SIZE; \
 	for i in $$(seq 2 $(PROCS)); do \
 		END=$$((START + CHUNK_SIZE)); \
 		if [ $$END -gt $$TOTAL ]; then END=$$TOTAL; fi; \
-		tmux split-window -h "$(PYTHON) $(SCRIPT) --range $$START $$END"; \
+		tmux split-window -h "$(PYTHON) $(SCRIPT) --opt_range $$START $$END"; \
 		tmux select-layout tiled; \
 		START=$$END; \
 	done; \
