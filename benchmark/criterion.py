@@ -74,7 +74,15 @@ def objective(
     """
     cords = Pos2D(criterion, start_pos)
     optimizer = optimizer_maker(cords, optimizer_conf, num_iters)
-    steps = execute_steps(cords, optimizer, num_iters, **eval_args)
+
+    try:
+        steps = execute_steps(cords, optimizer, num_iters, **eval_args)
+    except Exception as e:
+        if debug:
+            print(f"Error during optimization: {e}")
+
+        return float("inf")
+
     final_pos = steps[:, -1]
 
     error: float = 0.0
