@@ -28,22 +28,22 @@ ignore_optimizers = [
 ]
 
 [functions]
-Ackley = { iterations = 250, error_weight = 1.0 }
-"Cross-in-Tray" = { iterations = 250, error_weight = 0.5 }
-EggHolder = { iterations = 250, error_weight = 1.0 }
-"Gramacy-Lee 2D" = { iterations = 200, error_weight = 2.5 }
-Griewank = { iterations = 400, error_weight = 1.0 }
-"Holder Table" = { iterations = 250, error_weight = 1.5 }
-Langermann = { iterations = 250, error_weight = 1.0 }
-Levy = { iterations = 200, error_weight = 1.0 }
-"Levy 13" = { iterations = 250, error_weight = 1.0 }
-Rastrigin = { iterations = 250, error_weight = 1.0 }
+Ackley = { iterations = 150, error_weight = 1.0 }
+"Cross-in-Tray" = { iterations = 150, error_weight = 0.5 }
+EggHolder = { iterations = 150, error_weight = 1.0 }
+"Gramacy-Lee 2D" = { iterations = 100, error_weight = 2.5 }
+Griewank = { iterations = 200, error_weight = 1.0 }
+"Holder Table" = { iterations = 150, error_weight = 1.5 }
+Langermann = { iterations = 150, error_weight = 1.0 }
+Levy = { iterations = 150, error_weight = 1.0 }
+"Levy 13" = { iterations = 150, error_weight = 1.0 }
+Rastrigin = { iterations = 150, error_weight = 1.0 }
 Rosenbrock = { iterations = 400, error_weight = 1.0 }
-"Schaffer 2" = { iterations = 600, error_weight = 1.8 }
-"Schaffer 4" = { iterations = 600, error_weight = 1.8 }
-Shubert = { iterations = 250, error_weight = 1.0 }
-"Drop-Wave" = { iterations = 200, error_weight = 1.0 }
-"Styblinski-Tang" = { iterations = 200, error_weight = 1.0 }
+"Schaffer 2" = { iterations = 500, error_weight = 1.8 }
+"Schaffer 4" = { iterations = 500, error_weight = 1.8 }
+Shubert = { iterations = 150, error_weight = 1.0 }
+"Drop-Wave" = { iterations = 150, error_weight = 1.0 }
+"Styblinski-Tang" = { iterations = 150, error_weight = 1.0 }
 
 [optimizers]
 base = { lr = [0.0001, 8.0] }
@@ -72,7 +72,7 @@ asgd = { lr = [0.0001, 2.0], amplifier = [0.0001, 0.5] }
 amos = { lr = [0.0001, 2.0], momentum = [0.0001, 0.99] }
 schedulefreesgd = { lr = [0.0001, 3.0], momentum = [0.0001, 0.99] }
 schedulefreeradam = { lr = [1.0, 10.0] }
-grokfastadamw = { lr = [0.0001, 8.0], _iter_scale = 4 } # Iteration num scale factor for GrokFastAdamW optimizer
+grokfastadamw = { lr = [0.0001, 8.0], _iter_scale = 6 } # Iteration num scale factor for GrokFastAdamW optimizer
 kron = { lr = [0.0001, 2.0], momentum = [0.0001, 0.99] }
 scion = { lr = [0.0001, 1.0], scale = [1.0, 1000.0] }
 scionlight = { lr = [0.0001, 1.0], scale = [1.0, 1000.0] }
