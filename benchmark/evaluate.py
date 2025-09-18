@@ -1,6 +1,7 @@
 import json
 import os
 import shutil
+import time
 from pathlib import Path
 from typing import Callable
 
@@ -36,6 +37,38 @@ def _progress_bar_callback(total_trials: int):
             pbar.close()
 
     return callback
+
+
+def _load_results(results_json_dir, optimizer_name, error_rates, max_retries=5):
+    """Load results.json safely with retries and update error_rates."""
+    for attempt in range(max_retries + 1):
+        if results_json_dir.exists():
+            try:
+                with results_json_dir.open("r", encoding="utf-8") as f:
+                    results = json.load(f)
+
+                prev_error_rates = (
+                    results.get("optimizers", {})
+                    .get(optimizer_name, {})
+                    .get("error_rates", {})
+                )
+
+                # Merge into error_rates
+                for func_name, error_rate in prev_error_rates.items():
+                    error_rates.setdefault(func_name, error_rate)
+
+                return results
+
+            except json.JSONDecodeError:
+                if attempt < max_retries:
+                    time.sleep(0.2)
+                    continue
+                else:
+                    return {"optimizers": {}}
+        else:
+            return {"optimizers": {}}
+
+    return {"optimizers": {}}
 
 
 def benchmark_optimizer(
@@ -165,24 +198,9 @@ def benchmark_optimizer(
             debug=debug,
         )
 
-    if results_json_dir.exists():
-        try:
-            with results_json_dir.open("r", encoding="utf-8") as f:
-                results = json.load(f)
-
-                prev_error_rates = (
-                    results.get("optimizers", {})
-                    .get(optimizer_name, {})
-                    .get("error_rates", {})
-                )
-
-                for func_name, error_rate in prev_error_rates.items():
-                    error_rates.setdefault(func_name, error_rate)
-
-        except json.JSONDecodeError:
-            results = {"optimizers": {}}
-    else:
-        results = {"optimizers": {}}
+    results = _load_results(
+        results_json_dir, optimizer_name, error_rates
+    )  # It updates the error_rates!
 
     weights = config.get("error_weights", {})
     weighted_errors = {
