@@ -8,7 +8,7 @@ RESULTS_FILE = Path("./results/results.json")
 README_BASE_PATH = Path("./readme-base/README.md")
 README_OUTPUT_PATH = Path("./README.md")
 DOCS_DATA_JSON_PATH = Path("./docs/ranks.json")
-VIS_BASE_DOCS_URL = "./vis/"
+VIS_BASE_DOCS_URL = "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/"
 README_TABLE_PLACEHOLDER = "{%comparison%}"
 
 
