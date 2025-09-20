@@ -1,10 +1,10 @@
-.PHONY: all clear run gen_docs sync_docs comp_vis
+.PHONY: all clear run gen_docs comp_vis
 
 PYTHON := python
 SCRIPT := runner.py
 PROCS ?= 4
 
-all: clear run gen_docs sync_docs comp_vis
+all: clear run gen_docs comp_vis
 
 clear:
 	@rm -r cache/ || true
@@ -37,11 +37,8 @@ run:
 gen_docs:
 	@rm -r docs/vis/ || true
 	@rm -r docs-common/includes/comparison.md || true
-	@python tools/md_comparison.py
+	@python tools/gen_comparison.py
 	@python tools/doc_visualizations.py
-
-sync_docs:
-	@python tools/sync_docs.py
 
 comp_vis:
 	@tar -czf results.tar.gz results/

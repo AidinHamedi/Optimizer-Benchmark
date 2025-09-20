@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Optimizer Visualizations and Rankings</title>
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <div class="container">
+            <header>
+                <h1>Optimizer Benchmark</h1>
+                <p class="intro">
+                    A benchmarking suite for evaluating PyTorch optimization
+                    algorithms on 2D mathematical functions using
+                    <a
+                        href="https://github.com/kozistr/pytorch_optimizer"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        >pytorch_optimizer</a
+                    >
+                    and <strong>Optuna</strong>.
+                </p>
+                <div class="warning">
+                    <p>
+                        <strong>Important Limitations</strong>: These results
+                        are based on synthetic 2D functions and may not reflect
+                        real-world performance. Use them as a reference, not as
+                        definitive guidance.
+                    </p>
+                </div>
+            </header>
+
+            <main>
+                <section id="features">
+                    <h2>🌶️ Features & Test Functions</h2>
+                    <ul>
+                        <li>
+                            Benchmarks most optimizers in `pytorch_optimizer`.
+                        </li>
+                        <li>
+                            Hyperparameter search with Optuna (TPE sampler).
+                        </li>
+                        <li>
+                            Configurable search spaces, iterations, and more via
+                            `config.toml`.
+                        </li>
+                    </ul>
+                    <h3 class="functions-title">
+                        Benchmarked on 16 Standard Test Functions:
+                    </h3>
+                    <ul class="function-list">
+                        <li>Ackley</li>
+                        <li>Cross-in-Tray</li>
+                        <li>Drop-Wave</li>
+                        <li>Eggholder</li>
+                        <li>Gramacy & Lee (2D)</li>
+                        <li>Griewank</li>
+                        <li>Holder Table</li>
+                        <li>Langermann</li>
+                        <li>Lévy</li>
+                        <li>Lévy 13</li>
+                        <li>Rastrigin</li>
+                        <li>Rosenbrock</li>
+                        <li>Schaffer 2</li>
+                        <li>Schaffer 4</li>
+                        <li>Shubert</li>
+                        <li>Styblinski–Tang</li>
+                    </ul>
+                </section>
+
+                <section id="rankings">
+                    <h2>📊 Rankings</h2>
+                    <p class="release-link">
+                        <a
+                            href="https://github.com/Aidinhamedi/Optimizer-Benchmark/releases/latest"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >Go to Newest Release 📦</a
+                        >
+                    </p>
+
+                    <div class="tabs">
+                        <button
+                            class="tab-link active"
+                            onclick="openTab(event, 'avg-rank')"
+                        >
+                            By Avg Function Rank ⚡
+                        </button>
+                        <button
+                            class="tab-link"
+                            onclick="openTab(event, 'error-rate')"
+                        >
+                            By Error Rate ⚡
+                        </button>
+                    </div>
+
+                    <div
+                        id="avg-rank"
+                        class="tab-content"
+                        style="display: block"
+                    >
+                        <div class="table-container">
+                            <table id="ranking-table">
+                                <thead>
+                                    <tr>
+                                        <th>Rank</th>
+                                        <th>Optimizer</th>
+                                        <th>Average Rank</th>
+                                        <th>Visualization</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="ranking-table-body"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div id="error-rate" class="tab-content">
+                        <div class="table-container">
+                            <table id="error-rate-table">
+                                <thead>
+                                    <tr>
+                                        <th>Rank</th>
+                                        <th>Optimizer</th>
+                                        <th>Avg Error Rate</th>
+                                        <th>Visualization</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="error-rate-table-body"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="quick-start">
+                    <h2>🚀 Quick Start</h2>
+                    <pre><code># Clone repository
+git clone --depth 1 https://github.com/AidinHamedi/Optimizer-Benchmark.git
+cd Optimizer-Benchmark
+
+# Install dependencies
+uv sync
+
+# Run the benchmark
+python runner.py</code></pre>
+                </section>
+
+                <section id="contributing">
+                    <h2>🤝 Contributing</h2>
+                    <p>
+                        Contributions are welcome! If you’d like to contribute,
+                        please feel free to submit a pull request or open an
+                        issue to discuss your ideas.
+                    </p>
+                </section>
+            </main>
+
+            <footer>
+                <p>
+                    <a
+                        href="https://github.com/AidinHamedi/Optimizer-Benchmark"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        >View the Original Repository on GitHub</a
+                    >
+                </p>
+                <p>Made with ❤️ by Aidin Hamedi</p>
+            </footer>
+        </div>
+        <script src="script.js"></script>
+    </body>
+</html>

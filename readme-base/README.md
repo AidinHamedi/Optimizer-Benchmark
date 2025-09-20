@@ -56,7 +56,7 @@ The script will:
 > ### Newest release 📦
 > #### [Go to newest release](https://github.com/Aidinhamedi/Optimizer-Benchmark/releases/latest)
 
-{% include comparison.md %}
+{%comparison%}
 
 ## 🤝 Contributing
 
