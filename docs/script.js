@@ -25,7 +25,7 @@ function populateTable(tableBody, data) {
             <td>${item.rank}</td>
             <td>${item.optimizer}</td>
             <td>${item.value}</td>
-            <td class="vis-link"><a href="${item.vis}" target="_blank" rel="noopener noreferrer">Open</a></td>
+            <td class="vis-link"><a href="${item.vis}">Open</a></td>
         `;
     tableBody.appendChild(row);
   });
