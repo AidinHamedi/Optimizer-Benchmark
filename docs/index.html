@@ -3,7 +3,11 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Optimizer Visualizations and Rankings</title>
+        <meta
+            name="description"
+            content="A benchmark comparing PyTorch optimizers on 2D test functions. View performance rankings and trajectory visualizations powered by Optuna for hyperparameter tuning."
+        />
+        <title>Optimizer Benchmark | Rankings & Visualizations</title>
         <link rel="stylesheet" href="style.css" />
     </head>
     <body>
@@ -12,14 +16,16 @@
                 <h1>Optimizer Benchmark</h1>
                 <p class="intro">
                     A benchmarking suite for evaluating PyTorch optimization
-                    algorithms on 2D mathematical functions using
+                    algorithms on 2D mathematical functions. This project uses
+                    the
                     <a
                         href="https://github.com/kozistr/pytorch_optimizer"
                         target="_blank"
                         rel="noopener noreferrer"
                         >pytorch_optimizer</a
                     >
-                    and <strong>Optuna</strong>.
+                    library and <strong>Optuna</strong> for hyperparameter
+                    tuning to generate performance rankings and visualizations.
                 </p>
                 <div class="warning">
                     <p>
@@ -36,14 +42,22 @@
                     <h2>🌶️ Features & Test Functions</h2>
                     <ul>
                         <li>
-                            Benchmarks most optimizers in `pytorch_optimizer`.
+                            Benchmarks most of the supported optimizers in
+                            `pytorch_optimizer`.
                         </li>
                         <li>
-                            Hyperparameter search with Optuna (TPE sampler).
+                            Performs hyperparameter search with Optuna (TPE
+                            sampler) to find effective settings for each
+                            optimizer.
                         </li>
                         <li>
-                            Configurable search spaces, iterations, and more via
-                            `config.toml`.
+                            Generates visualizations of optimization
+                            trajectories as contour plots, showing the path each
+                            optimizer takes on the function's surface.
+                        </li>
+                        <li>
+                            Configurable search spaces, iteration counts, and
+                            optimizers via `config.toml`.
                         </li>
                     </ul>
                     <h3 class="functions-title">
@@ -71,6 +85,12 @@
 
                 <section id="rankings">
                     <h2>📊 Rankings</h2>
+                    <p>
+                        Optimizers are ranked based on their average performance
+                        across all test functions. Explore the tables to compare
+                        results and view detailed visualizations for each
+                        algorithm.
+                    </p>
                     <p class="release-link">
                         <a
                             href="https://github.com/Aidinhamedi/Optimizer-Benchmark/releases/latest"

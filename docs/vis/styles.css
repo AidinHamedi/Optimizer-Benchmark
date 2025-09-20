@@ -11,8 +11,33 @@ body {
     padding: 2rem;
 }
 
+.top-nav {
+    margin-bottom: 1.5rem;
+    padding-left: 0.25rem;
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    color: #555;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1rem;
+    transition:
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.back-link:hover {
+    color: #0077cc;
+    text-decoration: none;
+    transform: translateX(-4px);
+}
+
 h1 {
     text-align: center;
+    margin-top: 1rem;
     margin-bottom: 3.5rem;
     font-size: 2rem;
     font-weight: 600;
@@ -224,6 +249,7 @@ footer {
     text-align: center;
     font-size: 0.9rem;
     color: #555;
+    line-height: 1.5;
 }
 
 footer a {
