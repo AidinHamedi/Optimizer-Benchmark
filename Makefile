@@ -4,7 +4,7 @@ PYTHON := python
 SCRIPT := runner.py
 PROCS ?= 4
 
-all: clear run gen_docs comp_vis
+all: clear run gen_docs
 
 clear:
 	@rm -r cache/ || true
