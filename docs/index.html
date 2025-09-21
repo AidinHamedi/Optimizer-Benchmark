@@ -42,45 +42,139 @@
                     <h2>🌶️ Features & Test Functions</h2>
                     <ul>
                         <li>
-                            Benchmarks most of the supported optimizers in
-                            `pytorch_optimizer`.
+                            Benchmarks optimizers from the
+                            <code>pytorch_optimizer</code> library.
+                        </li>
+                        <li>Uses Optuna for hyperparameter tuning.</li>
+                        <li>
+                            Generates trajectory visualizations for each
+                            optimizer and function.
                         </li>
                         <li>
-                            Performs hyperparameter search with Optuna (TPE
-                            sampler) to find effective settings for each
-                            optimizer.
+                            Presents performance rankings on a project website.
                         </li>
                         <li>
-                            Generates visualizations of optimization
-                            trajectories as contour plots, showing the path each
-                            optimizer takes on the function's surface.
-                        </li>
-                        <li>
-                            Configurable search spaces, iteration counts, and
-                            optimizers via `config.toml`.
+                            Configurable via a <code>config.toml</code> file.
                         </li>
                     </ul>
                     <h3 class="functions-title">
-                        Benchmarked on 16 Standard Test Functions:
+                        Benchmarked on 16 Standard Test Functions
                     </h3>
-                    <ul class="function-list">
-                        <li>Ackley</li>
-                        <li>Cross-in-Tray</li>
-                        <li>Drop-Wave</li>
-                        <li>Eggholder</li>
-                        <li>Gramacy & Lee (2D)</li>
-                        <li>Griewank</li>
-                        <li>Holder Table</li>
-                        <li>Langermann</li>
-                        <li>Lévy</li>
-                        <li>Lévy 13</li>
-                        <li>Rastrigin</li>
-                        <li>Rosenbrock</li>
-                        <li>Schaffer 2</li>
-                        <li>Schaffer 4</li>
-                        <li>Shubert</li>
-                        <li>Styblinski–Tang</li>
-                    </ul>
+                    <p>Click on a function's name to learn more about it.</p>
+                    <div class="function-grid">
+                        <a
+                            href="https://www.sfu.ca/~ssurjano/ackley.html"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="function-card"
+                            >Ackley</a
+                        >
+                        <a
+                            href="https://www.sfu.ca/~ssurjano/crossit.html"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="function-card"
+                            >Cross-in-Tray</a
+                        >
+                        <a
+                            href="https://www.sfu.ca/~ssurjano/drop.html"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="function-card"
+                            >Drop-Wave</a
+                        >
+                        <a
+                            href="https://www.sfu.ca/~ssurjano/egg.html"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="function-card"
+                            >Eggholder</a
+                        >
+                        <a
+                            href="https://www.sfu.ca/~ssurjano/grlee12.html"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="function-card"
+                            >Gramacy & Lee</a
+                        >
+                        <a
+                            href="https://www.sfu.ca/~ssurjano/griewank.html"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="function-card"
+                            >Griewank</a
+                        >
+                        <a
+                            href="https://www.sfu.ca/~ssurjano/holder.html"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="function-card"
+                            >Holder Table</a
+                        >
+                        <a
+                            href="https://www.sfu.ca/~ssurjano/langer.html"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="function-card"
+                            >Langermann</a
+                        >
+                        <a
+                            href="https://www.sfu.ca/~ssurjano/levy.html"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="function-card"
+                            >Lévy</a
+                        >
+                        <a
+                            href="https://www.sfu.ca/~ssurjano/levy13.html"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="function-card"
+                            >Lévy N. 13</a
+                        >
+                        <a
+                            href="https://www.sfu.ca/~ssurjano/rastr.html"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="function-card"
+                            >Rastrigin</a
+                        >
+                        <a
+                            href="https://www.sfu.ca/~ssurjano/rosen.html"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="function-card"
+                            >Rosenbrock</a
+                        >
+                        <a
+                            href="https://www.sfu.ca/~ssurjano/schaffer2.html"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="function-card"
+                            >Schaffer N. 2</a
+                        >
+                        <a
+                            href="https://www.sfu.ca/~ssurjano/schaffer4.html"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="function-card"
+                            >Schaffer N. 4</a
+                        >
+                        <a
+                            href="https://www.sfu.ca/~ssurjano/shubert.html"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="function-card"
+                            >Shubert</a
+                        >
+                        <a
+                            href="https://www.sfu.ca/~ssurjano/stybtang.html"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="function-card"
+                            >Styblinski–Tang</a
+                        >
+                    </div>
                 </section>
 
                 <section id="rankings">
