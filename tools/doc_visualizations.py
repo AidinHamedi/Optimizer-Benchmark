@@ -174,6 +174,7 @@ def generate_visualizations(verbose: bool = True):
                 "card",
                 url=generate_image_url(optimizer, function_name),
                 name=function_name,
+                optimizer_name=optimizer,
                 function_rank=function_rank,
             )
             cards_html += card_html
