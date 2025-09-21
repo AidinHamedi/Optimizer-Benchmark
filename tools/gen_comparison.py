@@ -1,15 +1,9 @@
 import json
-import re
 from pathlib import Path
 
-from tabulate import tabulate
-
 RESULTS_FILE = Path("./results/results.json")
-README_BASE_PATH = Path("./readme-base/README.md")
-README_OUTPUT_PATH = Path("./README.md")
 DOCS_DATA_JSON_PATH = Path("./docs/ranks.json")
 VIS_BASE_DOCS_URL = "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/"
-README_TABLE_PLACEHOLDER = "{%comparison%}"
 
 
 def load_results(file_path: Path) -> dict:
@@ -107,64 +101,6 @@ def generate_website_data(avg_rank_sorted: list, error_rate_sorted: list):
     print(f"Successfully generated website data at: {DOCS_DATA_JSON_PATH}")
 
 
-def update_readme_file(avg_rank_sorted: list, error_rate_sorted: list):
-    """Generate markdown tables and update the root README.md file."""
-
-    def create_markdown_table(sorted_data: list, headers: list) -> str:
-        table_data = []
-
-        for rank, (optimizer, value) in enumerate(sorted_data, start=1):
-            if isinstance(value, float) and value != float("inf"):
-                display_value = f"{value:.2f}"
-            elif value == float("inf"):
-                display_value = "Failed ⚠️"
-            else:
-                display_value = str(value)
-
-            vis_link = f"[Open]({VIS_BASE_DOCS_URL}{optimizer})"
-            table_data.append([rank, optimizer, display_value, vis_link])
-
-        return tabulate(table_data, headers=headers, tablefmt="github")
-
-    avg_table = create_markdown_table(
-        avg_rank_sorted,
-        ["Rank (Avg Function Rank)", "Optimizer", "Average Rank", "Vis"],
-    )
-    error_table = create_markdown_table(
-        error_rate_sorted, ["Rank (Error Rate)", "Optimizer", "Avg Error Rate", "Vis"]
-    )
-
-    comparison_block = f"""<h4>
-<details open>
-<summary>Ranking by Avg Function Rank ⚡</summary>
-<h6>
-
-{avg_table}
-
-</h6>
-</details>
-</h4>
-
-<h4>
-<details>
-<summary>Ranking by Error Rate ⚡</summary>
-<h6>
-
-{error_table}
-
-</h6>
-</details>
-</h4>"""
-
-    base_readme_content = README_BASE_PATH.read_text(encoding="utf-8")
-    final_readme = base_readme_content.replace(
-        README_TABLE_PLACEHOLDER, comparison_block
-    )
-
-    README_OUTPUT_PATH.write_text(final_readme, encoding="utf-8")
-    print(f"Successfully updated main README at: {README_OUTPUT_PATH}")
-
-
 def main():
     """Main execution function."""
     print("Starting documentation and web data generation...")
@@ -173,9 +109,8 @@ def main():
         avg_rank_sorted, error_rate_sorted = calculate_and_sort_rankings(results)
 
         generate_website_data(avg_rank_sorted, error_rate_sorted)
-        update_readme_file(avg_rank_sorted, error_rate_sorted)
 
-        print("All tasks completed successfully.")
+        print("Done.")
     except (FileNotFoundError, ValueError) as e:
         print(f"An error occurred: {e}")
 
