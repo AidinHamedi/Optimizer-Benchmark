@@ -6,14 +6,12 @@ img_format = ".jpg"
 hypertune_trials = 700
 ignore_optimizers = [
   "msvag",
-  "lbfgs",
   "lomo",
   "adalomo",
   "demo",
   "a2grad",
   "muon",
   "alice",
-  "adamc",
   "adamwsn",
   "adamuon",
   "splus",
@@ -76,6 +74,7 @@ grokfastadamw = { lr = [0.0001, 8.0], _iter_scale = 6 } # Iteration num scale fa
 kron = { lr = [0.0001, 2.0], momentum = [0.0001, 0.99] }
 scion = { lr = [0.0001, 1.0], scale = [1.0, 1000.0] }
 scionlight = { lr = [0.0001, 1.0], scale = [1.0, 1000.0] }
+lbfgs = { lr = [0.0001, 8.0], max_iter = [1, 40, "int"], history_size = [1, 200, "int"] }
 
 [optimizer_eval_args]
 alig = { use_closure = true }
