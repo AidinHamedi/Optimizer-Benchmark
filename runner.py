@@ -19,6 +19,7 @@ OPTIMIZER_PATCHES = {
     "adashift": lambda cfg, iters: cfg.update({"keep_num": 1}),
     "ranger21": lambda cfg, iters: cfg.update({"num_iterations": iters}),
     "ranger25": lambda cfg, iters: cfg.update({"orthograd": False}),
+    "bsam": lambda cfg, iters: cfg.update({"num_data": 1}),
 }
 
 # This set identifies optimizers from the pytorch_optimizer library that have a non-standard
@@ -220,16 +221,19 @@ def main(**kwargs):
 
         get_optimizer = get_optimizer_factory(optimizer_name, debug)
 
-        benchmark_optimizer(
-            get_optimizer,
-            optimizer_name,
-            results_dir,
-            search_space,
-            eval_configs,
-            eval_args=eval_args,
-            functions=funcs,
-            debug=debug,
-        )
+        try:
+            benchmark_optimizer(
+                get_optimizer,
+                optimizer_name,
+                results_dir,
+                search_space,
+                eval_configs,
+                eval_args=eval_args,
+                functions=funcs,
+                debug=debug,
+            )
+        except Exception as e:
+            print(f"Failed to benchmark {optimizer_name}: {e}")
 
     print("Done!")
 
