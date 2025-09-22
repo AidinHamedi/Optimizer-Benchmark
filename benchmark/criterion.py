@@ -33,7 +33,44 @@ def objective(
 ) -> float:
     """
     Evaluates an optimization trajectory and returns a scalar error.
-    ... (docstring is unchanged) ...
+
+    The error combines several criteria:
+      - Boundary violations (if outside the search space).
+      - Distance of the final position from known global minima.
+      - Average wandering of the trajectory relative to its final position.
+      - Function value (z-value) at the final position.
+      - Convergence speed (how quickly it reaches tolerance).
+      - Oscillation (sharp turns during trajectory).
+      - Large "lucky jump" steps that skip across the search space.
+      - Insufficient movement from the starting position (max displacement under threshold).
+      - Final position too close to starting position (under threshold).
+
+    Args:
+        criterion (Callable): Function to minimize (maps [x, y] -> scalar).
+        optimizer_maker (Callable): Factory that creates an optimizer instance.
+        optimizer_conf (dict): Optimizer configuration parameters.
+        start_pos (torch.Tensor): Starting position (shape: [2]).
+        global_min_pos (torch.Tensor): One or more known global minima ([N, 2]).
+        bounds (Tuple[Tuple[int, int], Tuple[int, int]]): Allowed (x, y) ranges.
+        num_iters (int): Number of optimization steps.
+        boundary_penalty (bool, optional): Penalize positions outside bounds.
+        average_distance_factor (float, optional): Weight for trajectory wandering penalty.
+        convergence_factor (float, optional): Weight for convergence speed penalty. 0 disables.
+        convergence_tol (float, optional): Distance threshold to consider "converged".
+        oscillation_factor (float, optional): Weight for oscillation penalty. 0 disables.
+        lucky_jump_factor (float, optional): Weight for very large step penalty. 0 disables.
+        lucky_jump_threshold (float, optional): Relative step size considered "too large".
+        final_distance_factor (float, optional): Weight for final distance to global minima. 0 disables.
+        final_value_factor (float, optional): Weight for final function value.
+        min_movement_factor (float, optional): Weight for insufficient-movement penalty. 0 disables.
+        min_movement_threshold (float, optional): Fraction of max side considered too small movement.
+        final_proximity_factor (float, optional): Weight for final-position-close-to-start penalty. 0 disables.
+        final_proximity_threshold (float, optional): Fraction of max side considered too close.
+        debug (bool, optional): Print debug information.
+        **eval_args: Extra arguments for the step execution function.
+
+    Returns:
+        float: Total error (lower is better).
     """
     cords = Pos2D(criterion, start_pos)
     optimizer = optimizer_maker(cords, optimizer_conf, num_iters)
