@@ -40,13 +40,23 @@ def plot_function(
     )
 
     fig, ax = plt.subplots(figsize=(14, 14))
-    cs = ax.contour(X.numpy(), Y.numpy(), Z.numpy(), levels=20, cmap="jet")
+    cs = ax.contour(X.numpy(), Y.numpy(), Z.numpy(), levels=25, cmap="jet")
     fig.colorbar(cs, ax=ax, label="f(x, y)")
 
     xs = cords[0].numpy()
     ys = cords[1].numpy()
 
-    ax.plot(xs, ys, color="black", linewidth=2, alpha=0.8, marker="x", label="path")
+    ax.plot(
+        xs,
+        ys,
+        color="black",
+        linewidth=2,
+        alpha=1,
+        marker="o",
+        label="path",
+        markersize=5,
+        markerfacecolor="white",
+    )
     ax.scatter(
         xs[0],
         ys[0],
