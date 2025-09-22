@@ -16,9 +16,16 @@ from .visualizer import plot_function
 
 optuna.logging.set_verbosity(optuna.logging.ERROR)
 
-OPTUNA_STORAGE_TYPE = "in-memory"  # sqlite, in-memory
+# Optuna storage can be configured here.
+# 'in-memory' is faster but not persistent across runs.
+# 'sqlite' is persistent, allowing studies to be resumed.
+OPTUNA_STORAGE_TYPE = "in-memory"
 OPTUNA_STORAGE_PATH = "sqlite:///optuna_cache.db"
-OPTUNA_CACHE_TYPE = "opt"  # opt, func, opt+func
+# Defines how Optuna studies are named, affecting caching.
+# 'opt': One study per optimizer (caches across functions).
+# 'func': One study per function (caches across optimizers).
+# 'opt+func': One study per optimizer-function pair (no caching).
+OPTUNA_CACHE_TYPE = "opt"
 
 
 def _progress_bar_callback(total_trials: int):
@@ -47,25 +54,31 @@ def _load_results(results_json_dir, optimizer_name, error_rates, max_retries=5):
                 with results_json_dir.open("r", encoding="utf-8") as f:
                     results = json.load(f)
 
+                # If previous results for this optimizer exist, load them.
                 prev_error_rates = (
                     results.get("optimizers", {})
                     .get(optimizer_name, {})
                     .get("error_rates", {})
                 )
 
-                # Merge into error_rates
+                # Merge previous results into the current error_rates dictionary.
+                # This is important for rerunning benchmarks on a subset of functions,
+                # ensuring old results for other functions are not lost.
                 for func_name, error_rate in prev_error_rates.items():
                     error_rates.setdefault(func_name, error_rate)
 
                 return results
 
             except json.JSONDecodeError:
+                # If the file is partially written, wait and retry.
                 if attempt < max_retries:
                     time.sleep(0.2)
                     continue
                 else:
+                    # If it's still corrupt after retries, start with a fresh result set.
                     return {"optimizers": {}}
         else:
+            # If the file doesn't exist, create a new result set.
             return {"optimizers": {}}
 
     return {"optimizers": {}}
@@ -101,6 +114,7 @@ def benchmark_optimizer(
     results_dir = output_dir.joinpath(optimizer_name)
     results_json_dir = output_dir.joinpath("results.json")
 
+    # If exist_pass is false, we clear previous results for this optimizer.
     if results_dir.exists() and not config["exist_pass"]:
         shutil.rmtree(results_dir)
 
@@ -109,11 +123,13 @@ def benchmark_optimizer(
     error_rates = {}
 
     for func_name, consts in FUNC_DICT.items():
+        # Allow running the benchmark on a specific subset of functions.
         if functions is not None and func_name not in functions:
             continue
 
         vis_file = results_dir.joinpath(func_name + config["img_format"])
 
+        # If exist_pass is true, we can skip functions that already have a result.
         if vis_file.exists() and config["exist_pass"]:
             continue
 
@@ -123,8 +139,10 @@ def benchmark_optimizer(
         start_pos = consts["pos"]
         gm_pos = consts["gm_pos"]
 
+        # This inner function is what Optuna will optimize.
         def optuna_objective(trial: optuna.Trial) -> float:
             optimizer_params = {}
+            # Dynamically suggest hyperparameters based on the search space from config.toml.
             for name, space in hyper_search_spaces.items():
                 if isinstance(space, list) and len(space) == 2:
                     optimizer_params[name] = trial.suggest_float(
@@ -146,6 +164,7 @@ def benchmark_optimizer(
 
             num_iters = config["num_iters"][func_name]  # type: ignore
 
+            # The return value of this function is the error score that Optuna tries to minimize.
             return objective(
                 func,
                 optimizer_maker,
@@ -158,6 +177,7 @@ def benchmark_optimizer(
                 debug=debug,
             )
 
+        # Create an Optuna study. The study name determines caching behavior.
         study = optuna.create_study(
             study_name=f"{func_name}~{optimizer_name}"
             if OPTUNA_CACHE_TYPE == "opt+func"
@@ -172,13 +192,14 @@ def benchmark_optimizer(
             optuna_objective,
             n_trials=config["hypertune_trials"],
             show_progress_bar=False,
-            catch=ZeroDivisionError,
+            catch=ZeroDivisionError,  # Catch errors from unstable hyperparameters.
             n_jobs=1 if config["deterministic"] else 2,
             callbacks=[_progress_bar_callback(config["hypertune_trials"])],  # type: ignore
         )
 
         error_rates[func_name] = study.best_value
 
+        # After finding the best parameters, run the optimizer one last time to generate the visualization.
         pos = Pos2D(func, start_pos)
         plot_function(
             func,
@@ -198,9 +219,8 @@ def benchmark_optimizer(
             debug=debug,
         )
 
-    results = _load_results(
-        results_json_dir, optimizer_name, error_rates
-    )  # It updates the error_rates!
+    # Load existing results and merge them with the new ones.
+    results = _load_results(results_json_dir, optimizer_name, error_rates)
 
     weights = config.get("error_weights", {})
     weighted_errors = {

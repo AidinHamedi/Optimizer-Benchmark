@@ -34,6 +34,9 @@ def compute_surface(
     if cache and cache_file.exists() and not debug:
         return torch.load(cache_file)
 
+    # The 'auto' resolution attempts to create a reasonably detailed plot by scaling
+    # the number of points based on the evaluation size. This prevents low-resolution
+    # plots for large functions or overly dense plots for small ones.
     if res == "auto":
         num_points = int(math.sqrt(eval_size[0][1]) * 200)
     else:
@@ -47,8 +50,11 @@ def compute_surface(
 
     with torch.no_grad():
         try:
+            # Vectorized computation is much faster if the function supports it.
             Z = func(grid_points).reshape(num_points, num_points)
         except Exception:
+            # Fallback to a slower, iterative computation for functions that are not
+            # written to handle batched inputs.
             Z_vals = [func(p) for p in grid_points]
             Z = torch.stack(Z_vals).reshape(num_points, num_points)
 

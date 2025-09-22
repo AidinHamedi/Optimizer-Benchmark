@@ -18,16 +18,20 @@ def load_results(file_path: Path) -> dict:
 
 def calculate_and_sort_rankings(results: dict) -> tuple[list, list]:
     """
-    Compute and sort optimizer rankings by average function rank and error rate.
+    Computes and sorts optimizer rankings by two metrics:
+    1. Average rank across all functions.
+    2. Weighted average error rate.
     """
     optimizers_data = results.get("optimizers", {})
     if not optimizers_data:
         return [], []
 
+    # Get a set of all functions that were benchmarked.
     all_functions = {
         fn for data in optimizers_data.values() for fn in data.get("error_rates", {})
     }
 
+    # Calculate the rank of each optimizer for each individual function.
     function_ranks = {}
     for fn in all_functions:
         errors = [
@@ -39,6 +43,9 @@ def calculate_and_sort_rankings(results: dict) -> tuple[list, list]:
 
         ranks = {}
         rank_counter, prev_val = 1, None
+        # This logic correctly handles ties: if two optimizers have the same score,
+        # they get the same rank, and the next rank number is skipped.
+        # e.g., 1, 2, 2, 4
         for i, (opt, val) in enumerate(errors):
             if val != prev_val:
                 rank_counter = i + 1
@@ -46,6 +53,8 @@ def calculate_and_sort_rankings(results: dict) -> tuple[list, list]:
             prev_val = val
         function_ranks[fn] = ranks
 
+    # Calculate the average of an optimizer's ranks across all functions.
+    # This metric rewards consistency.
     avg_ranks = {}
     for opt in optimizers_data:
         ranks = [
@@ -55,12 +64,16 @@ def calculate_and_sort_rankings(results: dict) -> tuple[list, list]:
         ]
         avg_ranks[opt] = sum(ranks) / len(ranks) if ranks else float("inf")
 
+    # Sort optimizers by their average rank.
     avg_rank_sorted = sorted(avg_ranks.items(), key=lambda x: x[1])
 
+    # Now, get the final weighted error rates for each optimizer.
+    # This metric rewards overall performance, weighted by function importance.
     error_rates = [
         (opt, data.get("weighted_avg_error_rate", float("inf")))
         for opt, data in optimizers_data.items()
     ]
+    # Sort optimizers by their weighted error rate.
     error_rate_sorted = sorted(error_rates, key=lambda x: x[1])
 
     return avg_rank_sorted, error_rate_sorted

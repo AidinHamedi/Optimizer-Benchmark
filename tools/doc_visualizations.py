@@ -30,18 +30,21 @@ def calculate_ranks(
     results: Dict[str, Any],
 ) -> Tuple[Dict[str, Dict[str, int]], Dict[str, int], Dict[str, int]]:
     """
-    Calculate both function-specific and overall ranks for optimizers.
+    Calculates three types of ranks for optimizers:
+    1.  function_ranks: Rank of each optimizer on each specific function.
+    2.  error_rate_ranks: Overall rank based on the final weighted average error.
+    3.  avg_rank_ranks: Overall rank based on the average rank across all functions.
 
-    Returns:
-        Tuple of (function_ranks, error_rate_ranks, avg_rank_ranks)
+    This dual-ranking system provides a more nuanced view of performance.
     """
     function_ranks = {}
     all_functions = set()
 
+    # First, gather all unique function names from the results.
     for optimizer_data in results["optimizers"].values():
         all_functions.update(optimizer_data["error_rates"].keys())
 
-    # Per-function ranks
+    # 1. Calculate per-function ranks.
     for function_name in all_functions:
         function_errors = []
         for optimizer, data in results["optimizers"].items():
@@ -49,10 +52,13 @@ def calculate_ranks(
                 error_rate = data["error_rates"][function_name]
                 function_errors.append((optimizer, error_rate))
 
+        # Sort optimizers by their error rate for the current function.
         function_errors.sort(key=lambda x: x[1])
         ranks = {}
         current_rank = 1
         prev_error = None
+        # Assign ranks, correctly handling ties. If two optimizers have the same
+        # error, they receive the same rank, and the next rank is incremented accordingly.
         for i, (optimizer, error) in enumerate(function_errors):
             if error != prev_error:
                 current_rank = i + 1
@@ -60,7 +66,7 @@ def calculate_ranks(
             prev_error = error
         function_ranks[function_name] = ranks
 
-    # Error-rate based overall rank
+    # 2. Calculate overall rank based on weighted average error rate.
     optimizers = [
         (opt, data["weighted_avg_error_rate"])
         for opt, data in results["optimizers"].items()
@@ -70,13 +76,14 @@ def calculate_ranks(
     error_rate_ranks = {}
     current_rank = 1
     prev_error = None
+    # Assign ranks with tie handling, same as above.
     for i, (optimizer, error) in enumerate(optimizers):
         if error != prev_error:
             current_rank = i + 1
         error_rate_ranks[optimizer] = current_rank
         prev_error = error
 
-    # Average rank across functions
+    # 3. Calculate overall rank based on the average of per-function ranks.
     avg_ranks = []
     for optimizer in results["optimizers"]:
         ranks = [
@@ -84,6 +91,9 @@ def calculate_ranks(
             for f in all_functions
             if optimizer in function_ranks[f]
         ]
+        # This provides a different perspective: an optimizer that is consistently
+        # good (e.g., always 5th place) might rank higher than one that is brilliant
+        # on a few functions but fails on others.
         avg_rank = sum(ranks) / len(ranks) if ranks else float("inf")
         avg_ranks.append((optimizer, avg_rank))
 
@@ -91,6 +101,7 @@ def calculate_ranks(
     avg_rank_ranks = {}
     current_rank = 1
     prev_val = None
+    # Assign final ranks with tie handling.
     for i, (optimizer, val) in enumerate(avg_ranks):
         if val != prev_val:
             current_rank = i + 1
