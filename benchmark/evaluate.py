@@ -29,7 +29,7 @@ OPTUNA_CACHE_TYPE = "opt"
 
 
 def _progress_bar_callback(total_trials: int):
-    pbar = tqdm(total=total_trials, desc=" └ Hyper Optimization")
+    pbar = tqdm(total=total_trials, desc=" ├ Hyper Optimization")
 
     def callback(study: optuna.Study, trial: optuna.Trial):
         pbar.update(1)
@@ -70,15 +70,12 @@ def _load_results(results_json_dir, optimizer_name, error_rates, max_retries=5):
                 return results
 
             except json.JSONDecodeError:
-                # If the file is partially written, wait and retry.
                 if attempt < max_retries:
                     time.sleep(0.2)
                     continue
                 else:
-                    # If it's still corrupt after retries, start with a fresh result set.
                     return {"optimizers": {}}
         else:
-            # If the file doesn't exist, create a new result set.
             return {"optimizers": {}}
 
     return {"optimizers": {}}
@@ -121,6 +118,7 @@ def benchmark_optimizer(
     os.makedirs(results_dir, exist_ok=True)
 
     error_rates = {}
+    run_metrics = {}
 
     for func_name, consts in FUNC_DICT.items():
         # Allow running the benchmark on a specific subset of functions.
@@ -164,8 +162,7 @@ def benchmark_optimizer(
 
             num_iters = config["num_iters"][func_name]  # type: ignore
 
-            # The return value of this function is the error score that Optuna tries to minimize.
-            return objective(
+            error, metrics = objective(
                 func,
                 optimizer_maker,
                 optimizer_params,
@@ -176,6 +173,10 @@ def benchmark_optimizer(
                 **eval_args.get(optimizer_name, {}),
                 debug=debug,
             )
+
+            trial.set_user_attr("metrics", metrics)
+
+            return error
 
         # Create an Optuna study. The study name determines caching behavior.
         study = optuna.create_study(
@@ -198,6 +199,13 @@ def benchmark_optimizer(
         )
 
         error_rates[func_name] = study.best_value
+        run_metrics[func_name] = study.best_trial.user_attrs.get("metrics", {})
+
+        print(" ├ Best Metrics:")
+        for i, (metric_name, metric_value) in enumerate(run_metrics[func_name].items()):
+            print(
+                f" {'└┬' if i == 0 else (' └' if i == len(run_metrics[func_name]) - 1 else ' ├')} {metric_name}: {metric_value}, contribution: {round(metric_value / error_rates[func_name] * 100)}%"
+            )
 
         # After finding the best parameters, run the optimizer one last time to generate the visualization.
         pos = Pos2D(func, start_pos)

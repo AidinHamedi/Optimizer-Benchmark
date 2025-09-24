@@ -5,7 +5,7 @@ import torch
 
 
 def normalize(
-    min_val: float, max_val: float, out_min: float = 0.0, out_max: float = 1.0
+    min_val: float, max_val: float, out_min: float = 0.0, out_max: float = 2.0
 ):
     """
     Returns a decorator that normalizes the output of a function from [min_val, max_val]
@@ -15,7 +15,7 @@ def normalize(
         min_val (float): Minimum expected function output.
         max_val (float): Maximum expected function output.
         out_min (float): Target lower bound (default: 0.0).
-        out_max (float): Target upper bound (default: 1.0).
+        out_max (float): Target upper bound (default: 2.0).
     """
     out_range = out_max - out_min
 
