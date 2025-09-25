@@ -30,3 +30,6 @@ digest.txt
 
 # Optuna cache
 optuna_cache.db
+
+# Tools
+tools/func_dev.py
