@@ -34,10 +34,6 @@ def objective(
     """
     Evaluates an optimization trajectory and returns a scalar error.
 
-    The error combines several criteria, all normalized to be independent of the
-    benchmark function's domain size. This is primarily achieved by dividing absolute
-    distances by the diagonal of the function's search space.
-
     Args:
         criterion (Callable): Function to minimize (maps [x, y] -> scalar).
         optimizer_maker (Callable): Factory that creates an optimizer instance.
@@ -93,16 +89,12 @@ def objective(
     search_space_diag = torch.norm(ranges).item()
 
     # 0. Function value at final position.
-    # This is scale-independent because each benchmark function's output is
-    # already normalized to a [0, 1] range via a decorator.
     final_value = max(criterion(final_pos).item(), 0)
     contrib = error_scaler(final_value * final_value_factor)
     metrics["final loss"] = contrib
     error += contrib
 
     # 1. Boundary penalty.
-    # The penalty is normalized by the search space diagonal, so a 1-unit
-    # violation is penalized more heavily on a small function than a large one.
     if boundary_penalty:
         violation = (
             torch.clamp(bounds[0][0] - steps[0], min=0).max()
@@ -116,7 +108,6 @@ def objective(
         error += contrib
 
     # 2. Final distance to the nearest known global minimum.
-    # This is normalized by the search space diagonal.
     final_dist = torch.min(torch.norm(global_min_pos - final_pos, dim=1)).item()
     normalized_final_dist = final_dist / search_space_diag
     contrib = error_scaler(normalized_final_dist * final_distance_factor)
@@ -124,7 +115,6 @@ def objective(
     error += contrib
 
     # 3. Average trajectory distance from the final point (wandering).
-    # This is also normalized by the search space diagonal.
     avg_dist = torch.norm(steps.T - final_pos[None, :], dim=1).mean().item()
     normalized_avg_dist = avg_dist / search_space_diag
     contrib = error_scaler(normalized_avg_dist * average_distance_factor)
@@ -132,8 +122,6 @@ def objective(
     error += contrib
 
     # 4. Convergence speed.
-    # The tolerance is relative to the search space diagonal, making the
-    # condition for "convergence" scale-independent.
     if convergence_factor > 0.0:
         actual_convergence_tol = convergence_tol * search_space_diag
         dists = torch.min(
@@ -147,7 +135,6 @@ def objective(
         error += contrib
 
     # 5. Oscillation penalty.
-    # The angular part is scale-free. The step size part is normalized by the diagonal.
     if oscillation_factor > 0.0:
         step_vecs = steps[:, 1:] - steps[:, :-1]
         step_norms = torch.norm(step_vecs, dim=0, keepdim=True)
@@ -162,7 +149,6 @@ def objective(
         error += contrib
 
     # 6. Large step ("lucky jump") penalty.
-    # This is already scale-independent as it's relative to the domain size.
     if lucky_jump_factor > 0.0:
         largest_step = torch.norm(steps[:, 1:] - steps[:, :-1], dim=0).max().item()
         observed_span = (steps.max(1).values - steps.min(1).values).max().item()
@@ -175,7 +161,6 @@ def objective(
             error += contrib
 
     # 7. Insufficient movement penalty.
-    # This is already scale-independent, comparing displacement to `max_side`.
     if min_movement_factor > 0.0:
         max_displacement = torch.norm(steps.T - start_pos[None, :], dim=1).max().item()
         if max_displacement < min_movement_threshold * max_side:
@@ -185,7 +170,6 @@ def objective(
             error += contrib
 
     # 8. Final position too close to start penalty.
-    # Also scale-independent, comparing final displacement to `max_side`.
     if final_proximity_factor > 0.0:
         final_disp = torch.norm(final_pos - start_pos).item()
         if final_disp < final_proximity_threshold * max_side:
