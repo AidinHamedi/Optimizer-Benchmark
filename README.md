@@ -31,6 +31,8 @@ The optimizers are evaluated on the following standard 2D test functions. Click 
 | [Rastrigin](https://www.sfu.ca/~ssurjano/rastr.html)                     | [Rosenbrock](https://www.sfu.ca/~ssurjano/rosen.html)                          |
 | [Schaffer N. 2](https://www.sfu.ca/~ssurjano/schaffer2.html)             | [Schaffer N. 4](https://www.sfu.ca/~ssurjano/schaffer4.html)                   |
 | [Shubert](https://www.sfu.ca/~ssurjano/shubert.html)                     | [Styblinski–Tang](https://www.sfu.ca/~ssurjano/stybtang.html)                  |
+| [Weierstrass](https://en.wikipedia.org/wiki/Weierstrass_function)        | [Schwefel](https://www.sfu.ca/~ssurjano/schwef.html)                           |
+
 
 ## 📊 Results & Visualizations
 
