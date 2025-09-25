@@ -2,6 +2,7 @@ import torch
 
 from .norm import normalize
 
+FUNCTION_NAME = "Rosenbrock"
 START_POS = torch.tensor([-2.0, 2.0])
 EVAL_SIZE = ((-2.1, 2.1), (-1.1, 3.1))
 ROSEN_A = torch.tensor(100.0)

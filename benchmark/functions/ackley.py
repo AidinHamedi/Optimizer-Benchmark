@@ -2,6 +2,7 @@ import torch
 
 from .norm import normalize
 
+FUNCTION_NAME = "Ackley"
 START_POS = torch.tensor([7.6, 8.4])
 EVAL_SIZE = ((-10, 10), (-10, 10))
 ACKLEY_A = torch.tensor(10.0)
