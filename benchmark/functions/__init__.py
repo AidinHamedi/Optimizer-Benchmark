@@ -36,7 +36,7 @@ def load_functions() -> Dict[str, Dict[str, Any]]:
                 callable(fval)
                 and not fname.startswith("_")
                 and fname not in IGNORE_FUNCTIONS
-            )  # Exclude ignored function names
+            )
         ]
 
         if not candidates:

@@ -40,9 +40,11 @@ Rastrigin = { iterations = 150, error_weight = 1.5 }
 Rosenbrock = { iterations = 400, error_weight = 1.0 }
 "Schaffer 2" = { iterations = 500, error_weight = 1.8 }
 "Schaffer 4" = { iterations = 500, error_weight = 1.8 }
+SchwefelSin = { iterations = 150, error_weight = 1.0 }
 Shubert = { iterations = 150, error_weight = 1.0 }
 "Drop-Wave" = { iterations = 150, error_weight = 1.5 }
 "Styblinski-Tang" = { iterations = 150, error_weight = 1.5 }
+Weierstrass = { iterations = 150, error_weight = 1 }
 
 [optimizers]
 base = { lr = [0.0001, 8.0] }
