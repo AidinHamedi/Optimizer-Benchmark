@@ -36,7 +36,7 @@ run:
 
 gen_docs:
 	@rm -r docs/vis/ || true
-	@rm -r docs-common/includes/comparison.md || true
+	@rm -r docs/ranks.json || true
 	@python tools/gen_comparison.py
 	@python tools/doc_visualizations.py
 

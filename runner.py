@@ -2,6 +2,8 @@ import tomllib
 from pathlib import Path
 
 import click
+import numpy as np
+import torch
 from pytorch_optimizer import (
     get_supported_optimizers,
     load_optimizer,
@@ -9,22 +11,17 @@ from pytorch_optimizer import (
 
 from benchmark.evaluate import benchmark_optimizer
 
+torch.use_deterministic_algorithms(True)
+
 CONFIG_PATH = Path("./config.toml")
 OUTPUT_DIR = Path("./results")
 
-# Some optimizers require specific arguments to be set based on the benchmark context.
-# For example, Ranger21 needs to know the total number of iterations for its internal scheduler.
-# This dictionary provides a clean way to apply these "patches" at runtime.
 OPTIMIZER_PATCHES = {
     "adashift": lambda cfg, iters: cfg.update({"keep_num": 1}),
     "ranger21": lambda cfg, iters: cfg.update({"num_iterations": iters}),
     "ranger25": lambda cfg, iters: cfg.update({"orthograd": False}),
     "bsam": lambda cfg, iters: cfg.update({"num_data": 1}),
 }
-
-# This set identifies optimizers from the pytorch_optimizer library that have a non-standard
-# weight_decay implementation. They expect weight_decay to be passed during initialization
-# rather than being applied to parameter groups. We handle this in the factory.
 SPECIAL_WEIGHT_DECAY_OPTIMIZERS = {
     "adagc",
     "adalite",
@@ -84,6 +81,10 @@ def get_optimizer_factory(optimizer_name: str, debug: bool = False):
     """
 
     def factory(model, optimizer_config: dict, num_iters: int):
+        # Reset the random seed for reproducibility.
+        torch.manual_seed(42)
+        np.random.seed(42)
+
         # Apply a patch if the optimizer requires special configuration.
         patch = OPTIMIZER_PATCHES.get(optimizer_name)
         if patch:

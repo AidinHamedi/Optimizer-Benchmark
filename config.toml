@@ -44,7 +44,7 @@ SchwefelSin = { iterations = 150, error_weight = 1.0 }
 Shubert = { iterations = 150, error_weight = 1.0 }
 "Drop-Wave" = { iterations = 150, error_weight = 1.5 }
 "Styblinski-Tang" = { iterations = 150, error_weight = 1.5 }
-Weierstrass = { iterations = 150, error_weight = 1 }
+Weierstrass = { iterations = 150, error_weight = 1.8 }
 
 [optimizers]
 base = { lr = [0.0001, 8.0] }
