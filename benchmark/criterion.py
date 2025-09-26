@@ -20,7 +20,7 @@ def objective(
     convergence_factor: float = 0.1,
     convergence_tol: float = 0.01,
     oscillation_factor: float = 1.0,
-    lucky_jump_factor: float = 1.0,
+    lucky_jump_factor: float = 2.0,
     lucky_jump_threshold: float = 0.05,
     final_distance_factor: float = 1.5,
     final_value_factor: float = 0.8,
@@ -103,9 +103,20 @@ def objective(
             + torch.clamp(steps[1] - bounds[1][1], min=0).max()
         )
         normalized_violation = violation.item() / search_space_diag
-        contrib = (normalized_violation**2) * 20.0  # Weighted heavily
+        contrib = (normalized_violation**2) * 40.0  # Weighted heavily
         metrics["boundary violation"] = contrib
         error += contrib
+
+        final_violation = (
+            max(bounds[0][0] - final_pos[0].item(), 0)
+            + max(final_pos[0].item() - bounds[0][1], 0)
+            + max(bounds[1][0] - final_pos[1].item(), 0)
+            + max(final_pos[1].item() - bounds[1][1], 0)
+        )
+        if final_violation > 0:
+            contrib = (final_violation / search_space_diag) * 120
+            metrics["final position out-of-bounds"] = contrib
+            error += contrib
 
     # 2. Final distance to the nearest known global minimum.
     final_dist = torch.min(torch.norm(global_min_pos - final_pos, dim=1)).item()
@@ -182,4 +193,4 @@ def objective(
     if debug:
         print("[objective] contributions:", metrics, "=> total:", error)
 
-    return float("inf") if math.isnan(error) else error + 1, metrics
+    return float("inf") if math.isnan(error) else error, metrics
