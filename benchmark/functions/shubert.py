@@ -2,6 +2,7 @@ import torch
 
 from .norm import normalize
 
+FUNCTION_NAME = "Shubert"
 START_POS = torch.tensor([1.81, 1.82])
 EVAL_SIZE = ((-10, 10), (-10, 10))
 GLOBAL_MINIMUM_LOC = torch.tensor(

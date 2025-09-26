@@ -2,6 +2,7 @@ import torch
 
 from .norm import normalize
 
+FUNCTION_NAME = "Holder Table"
 START_POS = torch.tensor([-0.001, 0.001])
 EVAL_SIZE = ((-14, 14), (-12, 12))
 GLOBAL_MINIMUM_LOC = torch.tensor(

@@ -2,18 +2,29 @@ import torch
 
 from .norm import normalize
 
-FUNCTION_NAME = "Langermann"
-START_POS = torch.tensor([4.6, 6.7])
-EVAL_SIZE = ((0, 10), (0, 10))
-LANGERMANN_M = torch.tensor(5)
-LANGERMANN_C = torch.tensor([1.0, 2.0, 5.0, 2.0, 3.0])
+FUNCTION_NAME = "Langermann 2"
+START_POS = torch.tensor([4.8, 10])
+EVAL_SIZE = ((-1.5, 12), (-2, 12))
+LANGERMANN_M = torch.tensor(10)
+LANGERMANN_C = torch.tensor([2.5, 2.0, 1.0, 1.5, 3.0, 2.0, 2.5, 2.0, 5.0, 2.2])
 LANGERMANN_A = torch.tensor(
-    [[3.0, 5.0], [5.0, 2.0], [2.0, 1.0], [1.0, 4.0], [7.0, 9.0]]
+    [
+        [3.0, 5.0],
+        [5.0, 2.0],
+        [2.0, 1.0],
+        [1.0, 4.0],
+        [7.0, 9.0],
+        [9.0, 1.0],
+        [6.0, 6.0],
+        [4.5, 8.0],
+        [8.0, 3.0],
+        [2.5, 7.5],
+    ]
 )
-GLOBAL_MINIMUM_LOC = torch.tensor([[2.7927, 1.6016]])
+GLOBAL_MINIMUM_LOC = torch.tensor([[7.6557745933532715, 2.076188087463379]])
 
 
-@normalize(-4.1293, 5.1617)
+@normalize(-4.629549026489258, 5.470799446105957)
 @torch.jit.script
 def langermann(
     x: torch.Tensor,

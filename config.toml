@@ -26,22 +26,25 @@ ignore_optimizers = [
 ]
 
 [functions]
-Ackley = { iterations = 150, error_weight = 1.0 }
+Ackley = { iterations = 150, error_weight = 1.5 }
 "Cross-in-Tray" = { iterations = 150, error_weight = 0.5 }
 EggHolder = { iterations = 150, error_weight = 1.0 }
-"Gramacy-Lee 2D" = { iterations = 100, error_weight = 2.5 }
-Griewank = { iterations = 200, error_weight = 1.0 }
-"Holder Table" = { iterations = 150, error_weight = 1.5 }
+"Gramacy & Lee 2D" = { iterations = 100, error_weight = 2.5 }
+Griewank = { iterations = 200, error_weight = 1.5 }
+"Holder Table" = { iterations = 150, error_weight = 1.0 }
 Langermann = { iterations = 150, error_weight = 1.0 }
-Levy = { iterations = 150, error_weight = 1.0 }
-"Levy 13" = { iterations = 150, error_weight = 1.0 }
-Rastrigin = { iterations = 150, error_weight = 1.0 }
+"Langermann 2" = { iterations = 150, error_weight = 1.0 }
+"Lévy" = { iterations = 150, error_weight = 1.0 }
+"Lévy 13" = { iterations = 150, error_weight = 1.5 }
+Rastrigin = { iterations = 150, error_weight = 1.5 }
 Rosenbrock = { iterations = 400, error_weight = 1.0 }
 "Schaffer 2" = { iterations = 500, error_weight = 1.8 }
 "Schaffer 4" = { iterations = 500, error_weight = 1.8 }
+SchwefelSin = { iterations = 150, error_weight = 1.0 }
 Shubert = { iterations = 150, error_weight = 1.0 }
-"Drop-Wave" = { iterations = 150, error_weight = 1.0 }
-"Styblinski-Tang" = { iterations = 150, error_weight = 1.0 }
+"Drop-Wave" = { iterations = 150, error_weight = 1.5 }
+"Styblinski-Tang" = { iterations = 150, error_weight = 1.5 }
+Weierstrass = { iterations = 150, error_weight = 1.8 }
 
 [optimizers]
 base = { lr = [0.0001, 8.0] }

@@ -1,0 +1,25 @@
+import torch
+
+from .norm import normalize
+
+FUNCTION_NAME = ""
+START_POS = torch.tensor([x, y])
+EVAL_SIZE = ((-13, 13), (-13, 13))
+GLOBAL_MINIMUM_LOC = torch.tensor(
+    [[x, y]]
+)
+
+
+#@normalize(min, max)
+@torch.jit.script
+def fn(x: torch.Tensor) -> torch.Tensor:
+    """
+    Computes the _ function.
+
+    Args:
+        x (torch.Tensor): A 1D tensor with two elements representing [x, y].
+
+    Returns:
+        torch.Tensor: Scalar tensor with the _ function value.
+    """
+    return y
