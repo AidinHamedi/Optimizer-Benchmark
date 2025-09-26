@@ -11,7 +11,7 @@ ACKLEY_C = torch.tensor(2 * torch.pi)
 GLOBAL_MINIMUM_LOC = torch.tensor([[0.0, 0.0]])
 
 
-@normalize(-0.1247, 9.1874)
+@normalize(0.0, 8.854326248168945)
 @torch.jit.script
 def ackley(
     x: torch.Tensor,

@@ -202,10 +202,15 @@ def benchmark_optimizer(
         run_metrics[func_name] = study.best_trial.user_attrs.get("metrics", {})
 
         print(" ├ Best Metrics:")
-        for i, (metric_name, metric_value) in enumerate(run_metrics[func_name].items()):
-            print(
-                f" {'└┬' if i == 0 else (' └' if i == len(run_metrics[func_name]) - 1 else ' ├')} {metric_name}: {metric_value}, contribution: {round(metric_value / error_rates[func_name] * 100)}%"
-            )
+        if error_rates[func_name] != float("inf"):
+            for i, (metric_name, metric_value) in enumerate(
+                run_metrics[func_name].items()
+            ):
+                print(
+                    f" {'└┬' if i == 0 else (' └' if i == len(run_metrics[func_name]) - 1 else ' ├')} {metric_name}: {metric_value}, contribution: {round(metric_value / error_rates[func_name] * 100)}%"
+                )
+        else:
+            print(" └─ No metrics available")
 
         # After finding the best parameters, run the optimizer one last time to generate the visualization.
         pos = Pos2D(func, start_pos)

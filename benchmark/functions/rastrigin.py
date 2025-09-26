@@ -8,7 +8,7 @@ EVAL_SIZE = ((-10, 10), (-10, 10))
 GLOBAL_MINIMUM_LOC = torch.tensor([[0.0, 0.0]])
 
 
-@normalize(0.6358, 305.3365)
+@normalize(0.0, 261.5675964355469)
 @torch.jit.script
 def rastrigin(x: torch.Tensor) -> torch.Tensor:
     """

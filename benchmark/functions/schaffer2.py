@@ -8,7 +8,7 @@ EVAL_SIZE = ((-10, 10), (-10, 10))
 GLOBAL_MINIMUM_LOC = torch.tensor([[0.0, 0.0]])
 
 
-@normalize(8.0585e-05, 0.9961)
+@normalize(0.0, 0.9964832067489624)
 @torch.jit.script
 def schaffer2(x: torch.Tensor) -> torch.Tensor:
     """
