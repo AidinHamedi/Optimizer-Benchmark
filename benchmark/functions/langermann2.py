@@ -3,7 +3,7 @@ import torch
 from .norm import normalize
 
 FUNCTION_NAME = "Langermann 2"
-START_POS = torch.tensor([4.8, 10])
+START_POS = torch.tensor([3.8, 10])
 EVAL_SIZE = ((-1.5, 12), (-2, 12))
 LANGERMANN_M = torch.tensor(10)
 LANGERMANN_C = torch.tensor([2.5, 2.0, 1.0, 1.5, 3.0, 2.0, 2.5, 2.0, 5.0, 2.2])
