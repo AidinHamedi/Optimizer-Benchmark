@@ -15,15 +15,10 @@ dependencies = [
   "torch>=2.7.0",
   "torchvision>=0.22.0",
   "tqdm>=4.67.1",
-  # "plotly>=6.0.0",
-  # "kaleido>=1.0.0",
 ]
 
 [project.optional-dependencies]
 # [dependency-groups]
-# docs = [
-#   "mkdocs-material>=9.6.16",
-# ]
 
 [tool.pyright]
 pythonVersion = "3.11"

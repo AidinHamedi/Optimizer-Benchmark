@@ -39,6 +39,7 @@ gen_docs:
 	@rm -r docs/ranks.json || true
 	@python tools/gen_comparison.py
 	@python tools/doc_visualizations.py
+	@python tools/gen_sitemap.py
 
 comp_vis:
 	@tar -czf results.tar.gz results/
