@@ -3,64 +3,81 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>
+            PyTorch Optimizer Benchmark | Performance Rankings & Visualizations
+        </title>
         <meta
             name="description"
-            content="A benchmark comparing PyTorch optimizers on 2D test functions. View performance rankings and trajectory visualizations powered by Optuna for hyperparameter tuning."
+            content="An open-source benchmark comparing PyTorch optimization algorithms. Explore performance rankings, analyze trajectory visualizations on 2D test functions, and review results from hyperparameter tuning with Optuna. A resource for evaluating optimizer performance."
         />
-        <title>Optimizer Benchmark | Rankings & Visualizations</title>
+        <meta
+            name="keywords"
+            content="PyTorch optimizer benchmark, optimizer comparison, optimization algorithms, pytorch_optimizer, Optuna, hyperparameter tuning, 2D test functions, optimizer visualization, Adam benchmark, SGD benchmark, optimizer performance rankings"
+        />
         <link rel="stylesheet" href="style.css" />
     </head>
     <body>
         <div class="container">
             <header>
-                <h1>Optimizer Benchmark</h1>
+                <h1>PyTorch Optimizer Benchmark</h1>
                 <p class="intro">
-                    A benchmarking suite for evaluating PyTorch optimization
-                    algorithms on 2D mathematical functions. This project uses
-                    the
+                    This project provides an open-source framework for
+                    benchmarking PyTorch optimization algorithms. It evaluates
+                    optimizers from the
                     <a
                         href="https://github.com/kozistr/pytorch_optimizer"
                         target="_blank"
                         rel="noopener noreferrer"
                         >pytorch_optimizer</a
                     >
-                    library and <strong>Optuna</strong> for hyperparameter
-                    tuning to generate performance rankings and visualizations.
+                    library on a suite of standard 2D mathematical test
+                    functions, using <strong>Optuna</strong> for automated
+                    hyperparameter tuning. The results include detailed
+                    performance rankings and trajectory visualizations to help
+                    analyze and compare the behavior of different algorithms.
                 </p>
                 <div class="warning">
                     <p>
-                        <strong>Important Limitations</strong>: These results
-                        are based on synthetic 2D functions and may not reflect
-                        real-world performance. Use them as a reference, not as
-                        definitive guidance.
+                        <strong>Important Limitations</strong>: These benchmark
+                        results are based on synthetic 2D functions and may not
+                        reflect real-world performance when training neural
+                        networks. The rankings should be used as a reference,
+                        not as definitive guidance for practical applications.
                     </p>
                 </div>
             </header>
 
             <main>
                 <section id="features">
-                    <h2>🌶️ Features & Test Functions</h2>
+                    <h2>Features & Benchmark Functions</h2>
                     <ul>
                         <li>
-                            Benchmarks optimizers from the
+                            Benchmarks a wide range of optimizers from the
                             <code>pytorch_optimizer</code> library.
                         </li>
-                        <li>Uses Optuna for hyperparameter tuning.</li>
                         <li>
-                            Generates trajectory visualizations for each
-                            optimizer and function.
+                            Performs automated hyperparameter tuning using
+                            Optuna.
                         </li>
                         <li>
-                            Presents performance rankings on a project website.
+                            Generates detailed trajectory visualizations for
+                            each optimizer and function pair.
                         </li>
+                        <li>Presents performance rankings.</li>
                         <li>
-                            Configurable via a <code>config.toml</code> file.
+                            Is fully configurable via a
+                            <code>config.toml</code> file.
                         </li>
                     </ul>
                     <h3 class="functions-title">
-                        Benchmarked on 16 Standard Test Functions
+                        Evaluated on Standard 2D Test Functions
                     </h3>
-                    <p>Click on a function's name to learn more about it.</p>
+                    <p>
+                        The optimizers are benchmarked on a diverse set of
+                        mathematical functions to test their performance in
+                        various landscapes. Click on a function's name to learn
+                        more about it.
+                    </p>
                     <div class="function-grid">
                         <a
                             href="https://www.sfu.ca/~ssurjano/ackley.html"
@@ -192,19 +209,21 @@
                 </section>
 
                 <section id="rankings">
-                    <h2>📊 Rankings</h2>
+                    <h2>📊 Optimizer Performance Rankings</h2>
                     <p>
-                        Optimizers are ranked based on their average performance
-                        across all test functions. Explore the tables to compare
-                        results and view detailed visualizations for each
-                        algorithm.
+                        Optimizers are ranked by their average performance
+                        across all benchmark functions. The interactive tables
+                        below allow you to compare results and view detailed
+                        trajectory visualizations for each optimization
+                        algorithm, providing insight into their convergence
+                        properties.
                     </p>
                     <p class="release-link">
                         <a
                             href="https://github.com/Aidinhamedi/Optimizer-Benchmark/releases/latest"
                             target="_blank"
                             rel="noopener noreferrer"
-                            >Go to Newest Release 📦</a
+                            >Download Latest Benchmark Results 📦</a
                         >
                     </p>
 
@@ -213,13 +232,13 @@
                             class="tab-link active"
                             onclick="openTab(event, 'avg-rank')"
                         >
-                            By Avg Function Rank
+                            By Average Function Rank
                         </button>
                         <button
                             class="tab-link"
                             onclick="openTab(event, 'error-rate')"
                         >
-                            By Error Rate
+                            By Average Error Rate
                         </button>
                     </div>
 
@@ -261,7 +280,7 @@
                 </section>
 
                 <section id="quick-start">
-                    <h2>🚀 Quick Start</h2>
+                    <h2>🚀 Getting Started</h2>
                     <pre><code># Clone repository
 git clone --depth 1 https://github.com/AidinHamedi/Optimizer-Benchmark.git
 cd Optimizer-Benchmark
@@ -276,9 +295,9 @@ python runner.py</code></pre>
                 <section id="contributing">
                     <h2>🤝 Contributing</h2>
                     <p>
-                        Contributions are welcome! If you’d like to contribute,
-                        please feel free to submit a pull request or open an
-                        issue to discuss your ideas.
+                        Contributions are welcome! If you would like to
+                        contribute, please feel free to submit a pull request or
+                        open an issue to discuss your ideas.
                     </p>
                 </section>
                 <section id="references">
