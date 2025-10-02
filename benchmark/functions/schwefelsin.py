@@ -3,7 +3,7 @@ import torch
 from .norm import normalize
 
 FUNCTION_NAME = "SchwefelSin"
-START_POS = torch.tensor([-5, 4])
+START_POS = torch.tensor([11.4, 12])
 EVAL_SIZE = ((-23, 23), (-23, 23))
 SCALE_TO_ORIGINAL = 500.0 / 20.0
 GLOBAL_MINIMUM_LOC = torch.tensor(
