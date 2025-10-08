@@ -5,8 +5,8 @@ from .norm import normalize
 FUNCTION_NAME = "Langermann 2"
 START_POS = torch.tensor([3.8, 10])
 EVAL_SIZE = ((-1.5, 12), (-2, 12))
-LANGERMANN_M = torch.tensor(10)
-LANGERMANN_C = torch.tensor([2.5, 2.0, 1.0, 1.5, 3.0, 2.0, 2.5, 2.0, 5.0, 2.2])
+LANGERMANN_M = torch.tensor(11)
+LANGERMANN_C = torch.tensor([2.5, 2.0, 1.0, 1.5, 3.0, 2.0, 2.5, 2.0, 5.0, 2.2, 1.8])
 LANGERMANN_A = torch.tensor(
     [
         [3.0, 5.0],
@@ -19,6 +19,7 @@ LANGERMANN_A = torch.tensor(
         [4.5, 8.0],
         [8.0, 3.0],
         [2.5, 7.5],
+        [4.2, 3.6],
     ]
 )
 GLOBAL_MINIMUM_LOC = torch.tensor([[7.6557745933532715, 2.076188087463379]])
