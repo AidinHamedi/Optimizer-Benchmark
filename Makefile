@@ -37,9 +37,9 @@ run:
 gen_docs:
 	@rm -r docs/vis/ || true
 	@rm -r docs/ranks.json || true
-	@python tools/gen_comparison.py
-	@python tools/doc_visualizations.py
-	@python tools/gen_sitemap.py
+	@python -m tools.gen_comparison
+	@python -m tools.gen_visPages
+	@python -m tools.gen_sitemap
 
 comp_vis:
 	@tar -czf results.tar.gz results/
