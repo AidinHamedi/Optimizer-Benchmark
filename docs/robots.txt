@@ -1,1 +1,3 @@
+User-agent: *
+Allow: /
 Sitemap: https://aidinhamedi.github.io/Optimizer-Benchmark/sitemap.xml
