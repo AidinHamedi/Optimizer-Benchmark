@@ -13,7 +13,7 @@ LANGERMANN_A = torch.tensor(
 GLOBAL_MINIMUM_LOC = torch.tensor([[2.7927, 1.6016]])
 
 
-@normalize(-4.1293, 5.1617)
+@normalize(-4.155096530914307, 5.160184860229492)
 @torch.jit.script
 def langermann(
     x: torch.Tensor,

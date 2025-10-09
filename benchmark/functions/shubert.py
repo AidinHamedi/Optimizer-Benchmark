@@ -29,7 +29,7 @@ GLOBAL_MINIMUM_LOC = torch.tensor(
 )
 
 
-@normalize(-186.6189, 210.2482)
+@normalize(-186.72389221191406, 210.48094177246094)
 @torch.jit.script
 def shubert(x: torch.Tensor) -> torch.Tensor:
     """Computes the Shubert function.

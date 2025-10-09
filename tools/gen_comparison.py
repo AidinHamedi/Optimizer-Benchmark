@@ -1,132 +1,62 @@
 import json
-from pathlib import Path
 
-RESULTS_FILE = Path("./results/results.json")
-DOCS_DATA_JSON_PATH = Path("./docs/ranks.json")
-VIS_BASE_DOCS_URL = "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/"
+from .core import RANKS_FILE, VIS_WEBPAGE_BASE_URL, Console, load_results
+from .misc import get_aer_ranks, get_afr_ranks
 
-
-def load_results(file_path: Path) -> dict:
-    """Safely load and parse the results.json file."""
-    if not file_path.exists():
-        raise FileNotFoundError(f"Results file not found at {file_path}")
-    try:
-        return json.loads(file_path.read_text(encoding="utf-8"))
-    except json.JSONDecodeError as e:
-        raise ValueError(f"Invalid JSON in results file: {e}")
+TOOL_NAME = "COMP-GEN"
 
 
-def calculate_and_sort_rankings(results: dict) -> tuple[list, list]:
-    """
-    Computes and sorts optimizer rankings by two metrics:
-    1. Average rank across all functions.
-    2. Weighted average error rate.
-    """
-    optimizers_data = results.get("optimizers", {})
-    if not optimizers_data:
-        return [], []
+def get_ranks_json(afr_rankings: list, aer_rankings: list, console: Console) -> str:
+    def _create_list(ranks: list) -> list:
+        entries = []
 
-    # Get a set of all functions that were benchmarked.
-    all_functions = {
-        fn for data in optimizers_data.values() for fn in data.get("error_rates", {})
-    }
-
-    # Calculate the rank of each optimizer for each individual function.
-    function_ranks = {}
-    for fn in all_functions:
-        errors = [
-            (opt, data["error_rates"].get(fn))
-            for opt, data in optimizers_data.items()
-            if data["error_rates"].get(fn) is not None
-        ]
-        errors.sort(key=lambda x: x[1])
-
-        ranks = {}
-        rank_counter, prev_val = 1, None
-        # This logic correctly handles ties: if two optimizers have the same score,
-        # they get the same rank, and the next rank number is skipped.
-        # e.g., 1, 2, 2, 4
-        for i, (opt, val) in enumerate(errors):
-            if val != prev_val:
-                rank_counter = i + 1
-            ranks[opt] = rank_counter
-            prev_val = val
-        function_ranks[fn] = ranks
-
-    # Calculate the average of an optimizer's ranks across all functions.
-    # This metric rewards consistency.
-    avg_ranks = {}
-    for opt in optimizers_data:
-        ranks = [
-            function_ranks[fn][opt]
-            for fn in all_functions
-            if opt in function_ranks.get(fn, {})
-        ]
-        avg_ranks[opt] = sum(ranks) / len(ranks) if ranks else float("inf")
-
-    # Sort optimizers by their average rank.
-    avg_rank_sorted = sorted(avg_ranks.items(), key=lambda x: x[1])
-
-    # Now, get the final weighted error rates for each optimizer.
-    # This metric rewards overall performance, weighted by function importance.
-    error_rates = [
-        (opt, data.get("weighted_avg_error_rate", float("inf")))
-        for opt, data in optimizers_data.items()
-    ]
-    # Sort optimizers by their weighted error rate.
-    error_rate_sorted = sorted(error_rates, key=lambda x: x[1])
-
-    return avg_rank_sorted, error_rate_sorted
-
-
-def generate_website_data(avg_rank_sorted: list, error_rate_sorted: list):
-    """Generate and save the ranks.json file for the interactive website."""
-
-    def create_rank_list(sorted_data: list) -> list:
-        web_list = []
-
-        for rank, (optimizer, value) in enumerate(sorted_data, start=1):
+        for rank, (optimizer, value) in enumerate(ranks, start=1):
             if isinstance(value, float) and value != float("inf"):
                 display_value = f"{value:.4f}".rstrip("0").rstrip(".")
-            elif value == float("inf"):
-                display_value = "Failed ⚠️"
             else:
-                display_value = str(value)
+                display_value = "Failed ⚠️"
+                console.error(f"Optimizer {optimizer} invalid rank value: {value}")
 
-            web_list.append(
+            entries.append(
                 {
                     "rank": rank,
                     "optimizer": optimizer,
                     "value": display_value,
-                    "vis": f"{VIS_BASE_DOCS_URL}{optimizer}",
+                    "vis": f"{VIS_WEBPAGE_BASE_URL}{optimizer}",
                 }
             )
-        return web_list
 
-    web_json_content = {
-        "rankingByAvgRank": create_rank_list(avg_rank_sorted),
-        "rankingByErrorRate": create_rank_list(error_rate_sorted),
-    }
+        return entries
 
-    DOCS_DATA_JSON_PATH.write_text(
-        json.dumps(web_json_content, indent=2), encoding="utf-8"
+    return json.dumps(
+        {
+            "rankingByAvgRank": _create_list(afr_rankings),
+            "rankingByErrorRate": _create_list(aer_rankings),
+        }
     )
-    print(f"Successfully generated website data at: {DOCS_DATA_JSON_PATH}")
 
 
-def main():
-    """Main execution function."""
-    print("Starting documentation and web data generation...")
+def main(console: Console):
+    console.info("Generating comparison...")
+
     try:
-        results = load_results(RESULTS_FILE)
-        avg_rank_sorted, error_rate_sorted = calculate_and_sort_rankings(results)
+        results = load_results()["optimizers"]
+    except Exception:
+        console.error("Failed to load optimizer results.")
+        return None
 
-        generate_website_data(avg_rank_sorted, error_rate_sorted)
+    json_data = get_ranks_json(
+        get_afr_ranks(results)[0], get_aer_ranks(results), console
+    )
 
-        print("Done.")
-    except (FileNotFoundError, ValueError) as e:
-        print(f"An error occurred: {e}")
+    RANKS_FILE.write_text(json_data, encoding="utf-8")
+
+    console.info("Done.")
 
 
 if __name__ == "__main__":
-    main()
+    console = Console(TOOL_NAME)
+    try:
+        main(console)
+    except Exception as e:
+        console.error(f"An error occurred: {e}")

@@ -8,7 +8,7 @@ EVAL_SIZE = ((-60, 60), (-60, 60))
 GLOBAL_MINIMUM_LOC = torch.tensor([[0.0, 0.0]])
 
 
-@normalize(0.0, 270)
+@normalize(0.029671549797058105, 218.95753479003906)
 @torch.jit.script
 def griewank(x: torch.Tensor) -> torch.Tensor:
     """

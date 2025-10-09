@@ -8,7 +8,7 @@ EVAL_SIZE = ((-10, 10), (-10, 10))
 GLOBAL_MINIMUM_LOC = torch.tensor([[1, 1]])
 
 
-@normalize(1.3266e-05, 109.8625)
+@normalize(1.0799613846756984e-05, 103.99503326416016)
 @torch.jit.script
 def levy(x: torch.Tensor) -> torch.Tensor:
     """Computes the Lévy function.

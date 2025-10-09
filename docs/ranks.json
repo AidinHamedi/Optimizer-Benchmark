@@ -3,1168 +3,1192 @@
     {
       "rank": 1,
       "optimizer": "emonavi",
-      "value": "16.1579",
+      "value": "17.6842",
       "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/emonavi"
     },
     {
       "rank": 2,
-      "optimizer": "adashift",
-      "value": "16.4737",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adashift"
+      "optimizer": "adalite",
+      "value": "18.4737",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adalite"
     },
     {
       "rank": 3,
       "optimizer": "emofact",
-      "value": "18.9474",
+      "value": "20.2632",
       "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/emofact"
     },
     {
       "rank": 4,
       "optimizer": "emozeal",
-      "value": "18.9474",
+      "value": "20.2632",
       "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/emozeal"
     },
     {
       "rank": 5,
-      "optimizer": "soap",
-      "value": "20.7368",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/soap"
-    },
-    {
-      "rank": 6,
-      "optimizer": "adalite",
-      "value": "21.4211",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adalite"
-    },
-    {
-      "rank": 7,
-      "optimizer": "signsgd",
-      "value": "22.3684",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/signsgd"
-    },
-    {
-      "rank": 8,
       "optimizer": "fadam",
-      "value": "22.8947",
+      "value": "22.6842",
       "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/fadam"
     },
     {
-      "rank": 9,
+      "rank": 6,
+      "optimizer": "adashift",
+      "value": "22.7895",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adashift"
+    },
+    {
+      "rank": 7,
+      "optimizer": "soap",
+      "value": "24.5789",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/soap"
+    },
+    {
+      "rank": 8,
       "optimizer": "aida",
-      "value": "23.3684",
+      "value": "24.9474",
       "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/aida"
     },
     {
-      "rank": 10,
-      "optimizer": "grokfastadamw",
-      "value": "24.0526",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/grokfastadamw"
-    },
-    {
-      "rank": 11,
+      "rank": 9,
       "optimizer": "kron",
-      "value": "24.5789",
+      "value": "25.5263",
       "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/kron"
     },
     {
-      "rank": 12,
-      "optimizer": "focus",
-      "value": "25.2632",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/focus"
-    },
-    {
-      "rank": 13,
+      "rank": 10,
       "optimizer": "sophiah",
-      "value": "25.8947",
+      "value": "25.6316",
       "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/sophiah"
     },
     {
+      "rank": 11,
+      "optimizer": "signsgd",
+      "value": "26.4211",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/signsgd"
+    },
+    {
+      "rank": 12,
+      "optimizer": "adamp",
+      "value": "27.5263",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adamp"
+    },
+    {
+      "rank": 13,
+      "optimizer": "grokfastadamw",
+      "value": "29.2632",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/grokfastadamw"
+    },
+    {
       "rank": 14,
-      "optimizer": "tiger",
-      "value": "26.4737",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/tiger"
+      "optimizer": "focus",
+      "value": "29.4737",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/focus"
     },
     {
       "rank": 15,
-      "optimizer": "spam",
-      "value": "27.7368",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/spam"
+      "optimizer": "adagc",
+      "value": "29.6316",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adagc"
     },
     {
       "rank": 16,
-      "optimizer": "adammini",
-      "value": "27.8947",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adammini"
+      "optimizer": "adabelief",
+      "value": "29.8421",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adabelief"
     },
     {
       "rank": 17,
-      "optimizer": "yogi",
-      "value": "27.9474",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/yogi"
+      "optimizer": "tiger",
+      "value": "30.2632",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/tiger"
     },
     {
       "rank": 18,
       "optimizer": "adamc",
-      "value": "28.0526",
+      "value": "31.2632",
       "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adamc"
     },
     {
       "rank": 19,
       "optimizer": "swats",
-      "value": "28.2632",
+      "value": "31.4737",
       "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/swats"
     },
     {
       "rank": 20,
-      "optimizer": "adagc",
-      "value": "28.4737",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adagc"
+      "optimizer": "adanorm",
+      "value": "32.0526",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adanorm"
     },
     {
       "rank": 21,
-      "optimizer": "apollo",
-      "value": "29.3684",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/apollo"
+      "optimizer": "fira",
+      "value": "32.1053",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/fira"
     },
     {
       "rank": 22,
-      "optimizer": "fira",
-      "value": "29.3684",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/fira"
+      "optimizer": "apollo",
+      "value": "32.1053",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/apollo"
     },
     {
       "rank": 23,
       "optimizer": "galore",
-      "value": "29.3684",
+      "value": "32.1053",
       "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/galore"
     },
     {
       "rank": 24,
-      "optimizer": "adabelief",
-      "value": "29.8947",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adabelief"
+      "optimizer": "yogi",
+      "value": "32.2632",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/yogi"
     },
     {
       "rank": 25,
-      "optimizer": "adanorm",
-      "value": "30.9474",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adanorm"
-    },
-    {
-      "rank": 26,
-      "optimizer": "adam",
-      "value": "31.0526",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adam"
-    },
-    {
-      "rank": 27,
-      "optimizer": "adamp",
-      "value": "31.3684",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adamp"
-    },
-    {
-      "rank": 28,
-      "optimizer": "ademamix",
-      "value": "32.4737",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/ademamix"
-    },
-    {
-      "rank": 29,
       "optimizer": "stablespam",
-      "value": "33.5263",
+      "value": "32.4211",
       "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/stablespam"
     },
     {
+      "rank": 26,
+      "optimizer": "adopt",
+      "value": "32.4737",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adopt"
+    },
+    {
+      "rank": 27,
+      "optimizer": "spam",
+      "value": "32.8421",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/spam"
+    },
+    {
+      "rank": 28,
+      "optimizer": "laprop",
+      "value": "32.8421",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/laprop"
+    },
+    {
+      "rank": 29,
+      "optimizer": "adam",
+      "value": "33.4211",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adam"
+    },
+    {
       "rank": 30,
-      "optimizer": "adatam",
-      "value": "33.6842",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adatam"
+      "optimizer": "ademamix",
+      "value": "33.6316",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/ademamix"
     },
     {
       "rank": 31,
       "optimizer": "came",
-      "value": "34.6316",
+      "value": "34.1053",
       "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/came"
     },
     {
       "rank": 32,
-      "optimizer": "adopt",
-      "value": "34.9474",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adopt"
-    },
-    {
-      "rank": 33,
-      "optimizer": "tam",
-      "value": "35.8421",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/tam"
-    },
-    {
-      "rank": 34,
       "optimizer": "simplifiedademamix",
-      "value": "36.4737",
+      "value": "34.1579",
       "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/simplifiedademamix"
     },
     {
+      "rank": 33,
+      "optimizer": "adammini",
+      "value": "34.5789",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adammini"
+    },
+    {
+      "rank": 34,
+      "optimizer": "adatam",
+      "value": "35.9474",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adatam"
+    },
+    {
       "rank": 35,
-      "optimizer": "laprop",
-      "value": "36.8947",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/laprop"
+      "optimizer": "tam",
+      "value": "35.9474",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/tam"
     },
     {
       "rank": 36,
-      "optimizer": "emolynx",
-      "value": "37.5789",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/emolynx"
-    },
-    {
-      "rank": 37,
-      "optimizer": "lion",
-      "value": "37.5789",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/lion"
-    },
-    {
-      "rank": 38,
       "optimizer": "novograd",
-      "value": "38.6316",
+      "value": "36.9474",
       "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/novograd"
     },
     {
-      "rank": 39,
+      "rank": 37,
       "optimizer": "scion",
-      "value": "40.6842",
+      "value": "37.8421",
       "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/scion"
+    },
+    {
+      "rank": 38,
+      "optimizer": "emolynx",
+      "value": "38.4737",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/emolynx"
+    },
+    {
+      "rank": 39,
+      "optimizer": "lion",
+      "value": "38.4737",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/lion"
     },
     {
       "rank": 40,
       "optimizer": "adabound",
-      "value": "43.6316",
+      "value": "44",
       "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adabound"
     },
     {
       "rank": 41,
       "optimizer": "adan",
-      "value": "44.7368",
+      "value": "44.3158",
       "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adan"
     },
     {
       "rank": 42,
-      "optimizer": "lars",
-      "value": "46.9474",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/lars"
-    },
-    {
-      "rank": 43,
-      "optimizer": "nadam",
-      "value": "47.1579",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/nadam"
-    },
-    {
-      "rank": 44,
-      "optimizer": "adahessian",
-      "value": "47.1579",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adahessian"
-    },
-    {
-      "rank": 45,
-      "optimizer": "prodigy",
-      "value": "47.5263",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/prodigy"
-    },
-    {
-      "rank": 46,
-      "optimizer": "vsgd",
-      "value": "47.8421",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/vsgd"
-    },
-    {
-      "rank": 47,
       "optimizer": "adamax",
-      "value": "47.8947",
+      "value": "45.2105",
       "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adamax"
     },
     {
-      "rank": 48,
-      "optimizer": "ranger21",
-      "value": "48.2105",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/ranger21"
-    },
-    {
-      "rank": 49,
-      "optimizer": "avagrad",
-      "value": "48.2632",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/avagrad"
-    },
-    {
-      "rank": 50,
+      "rank": 43,
       "optimizer": "sgd",
-      "value": "49",
+      "value": "45.6842",
       "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/sgd"
     },
     {
-      "rank": 51,
+      "rank": 44,
       "optimizer": "sgdp",
-      "value": "49",
+      "value": "45.6842",
       "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/sgdp"
     },
     {
-      "rank": 52,
-      "optimizer": "emoneco",
-      "value": "51",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/emoneco"
+      "rank": 45,
+      "optimizer": "vsgd",
+      "value": "46.0526",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/vsgd"
     },
     {
-      "rank": 53,
+      "rank": 46,
+      "optimizer": "ranger21",
+      "value": "46.6842",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/ranger21"
+    },
+    {
+      "rank": 47,
+      "optimizer": "nadam",
+      "value": "46.8421",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/nadam"
+    },
+    {
+      "rank": 48,
       "optimizer": "pid",
-      "value": "51",
+      "value": "47.6842",
       "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/pid"
     },
     {
-      "rank": 54,
-      "optimizer": "adadelta",
-      "value": "51.7895",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adadelta"
+      "rank": 49,
+      "optimizer": "prodigy",
+      "value": "48.3158",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/prodigy"
     },
     {
-      "rank": 55,
-      "optimizer": "radam",
-      "value": "52.8947",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/radam"
+      "rank": 50,
+      "optimizer": "lars",
+      "value": "49",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/lars"
     },
     {
-      "rank": 56,
-      "optimizer": "scionlight",
-      "value": "53",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/scionlight"
+      "rank": 51,
+      "optimizer": "adahessian",
+      "value": "50.5789",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adahessian"
     },
     {
-      "rank": 57,
-      "optimizer": "fromage",
-      "value": "53.6316",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/fromage"
-    },
-    {
-      "rank": 58,
-      "optimizer": "padam",
-      "value": "53.8421",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/padam"
-    },
-    {
-      "rank": 59,
+      "rank": 52,
       "optimizer": "schedulefreeadamw",
-      "value": "54.1579",
+      "value": "51.3684",
       "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/schedulefreeadamw"
     },
     {
-      "rank": 60,
-      "optimizer": "apollodqn",
-      "value": "54.6316",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/apollodqn"
+      "rank": 53,
+      "optimizer": "scionlight",
+      "value": "51.9474",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/scionlight"
     },
     {
-      "rank": 61,
-      "optimizer": "gravity",
-      "value": "55.4737",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/gravity"
+      "rank": 54,
+      "optimizer": "avagrad",
+      "value": "52",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/avagrad"
     },
     {
-      "rank": 62,
-      "optimizer": "adai",
-      "value": "55.5263",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adai"
+      "rank": 55,
+      "optimizer": "padam",
+      "value": "52.1053",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/padam"
     },
     {
-      "rank": 63,
+      "rank": 56,
       "optimizer": "madgrad",
-      "value": "56.0526",
+      "value": "52.4737",
       "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/madgrad"
     },
     {
+      "rank": 57,
+      "optimizer": "gravity",
+      "value": "53.0526",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/gravity"
+    },
+    {
+      "rank": 58,
+      "optimizer": "adadelta",
+      "value": "53.2105",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adadelta"
+    },
+    {
+      "rank": 59,
+      "optimizer": "apollodqn",
+      "value": "53.6316",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/apollodqn"
+    },
+    {
+      "rank": 60,
+      "optimizer": "ranger25",
+      "value": "53.6842",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/ranger25"
+    },
+    {
+      "rank": 61,
+      "optimizer": "fromage",
+      "value": "54.5263",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/fromage"
+    },
+    {
+      "rank": 62,
+      "optimizer": "radam",
+      "value": "56.3158",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/radam"
+    },
+    {
+      "rank": 63,
+      "optimizer": "emoneco",
+      "value": "56.4211",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/emoneco"
+    },
+    {
       "rank": 64,
-      "optimizer": "lamb",
-      "value": "57.1579",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/lamb"
-    },
-    {
-      "rank": 65,
-      "optimizer": "adasmooth",
-      "value": "58",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adasmooth"
-    },
-    {
-      "rank": 66,
-      "optimizer": "aggmo",
-      "value": "58.1053",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/aggmo"
-    },
-    {
-      "rank": 67,
-      "optimizer": "asgd",
-      "value": "58.4211",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/asgd"
-    },
-    {
-      "rank": 68,
-      "optimizer": "dadaptadan",
-      "value": "60.1579",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/dadaptadan"
-    },
-    {
-      "rank": 69,
       "optimizer": "scalableshampoo",
-      "value": "60.9474",
+      "value": "57",
       "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/scalableshampoo"
     },
     {
+      "rank": 65,
+      "optimizer": "aggmo",
+      "value": "57.1579",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/aggmo"
+    },
+    {
+      "rank": 66,
+      "optimizer": "adasmooth",
+      "value": "57.7895",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adasmooth"
+    },
+    {
+      "rank": 67,
+      "optimizer": "adai",
+      "value": "59.5789",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adai"
+    },
+    {
+      "rank": 68,
+      "optimizer": "asgd",
+      "value": "59.5789",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/asgd"
+    },
+    {
+      "rank": 69,
+      "optimizer": "lamb",
+      "value": "60.9474",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/lamb"
+    },
+    {
       "rank": 70,
-      "optimizer": "ftrl",
-      "value": "62.2105",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/ftrl"
+      "optimizer": "sgdsai",
+      "value": "61.7895",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/sgdsai"
     },
     {
       "rank": 71,
-      "optimizer": "sm3",
-      "value": "63.1053",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/sm3"
+      "optimizer": "dadaptadan",
+      "value": "62.2105",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/dadaptadan"
     },
     {
       "rank": 72,
-      "optimizer": "exadam",
-      "value": "63.2632",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/exadam"
+      "optimizer": "ftrl",
+      "value": "62.8421",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/ftrl"
     },
     {
       "rank": 73,
       "optimizer": "dadaptsgd",
-      "value": "65.1579",
+      "value": "62.8947",
       "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/dadaptsgd"
     },
     {
       "rank": 74,
-      "optimizer": "schedulefreesgd",
-      "value": "65.4737",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/schedulefreesgd"
+      "optimizer": "sm3",
+      "value": "63.8947",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/sm3"
     },
     {
       "rank": 75,
       "optimizer": "adapnm",
-      "value": "66.3158",
+      "value": "64.5789",
       "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adapnm"
     },
     {
       "rank": 76,
-      "optimizer": "sgdsai",
-      "value": "66.4211",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/sgdsai"
+      "optimizer": "schedulefreesgd",
+      "value": "65.1579",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/schedulefreesgd"
     },
     {
       "rank": 77,
-      "optimizer": "diffgrad",
-      "value": "66.5263",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/diffgrad"
-    },
-    {
-      "rank": 78,
       "optimizer": "nero",
-      "value": "68",
+      "value": "65.8421",
       "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/nero"
     },
     {
+      "rank": 78,
+      "optimizer": "exadam",
+      "value": "66.5789",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/exadam"
+    },
+    {
       "rank": 79,
-      "optimizer": "accsgd",
-      "value": "68.6842",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/accsgd"
+      "optimizer": "diffgrad",
+      "value": "68.2105",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/diffgrad"
     },
     {
       "rank": 80,
+      "optimizer": "lbfgs",
+      "value": "68.3158",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/lbfgs"
+    },
+    {
+      "rank": 81,
+      "optimizer": "accsgd",
+      "value": "68.6316",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/accsgd"
+    },
+    {
+      "rank": 82,
       "optimizer": "pnm",
       "value": "68.6842",
       "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/pnm"
     },
     {
-      "rank": 81,
+      "rank": 83,
       "optimizer": "racs",
-      "value": "69.8421",
+      "value": "69.5263",
       "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/racs"
     },
     {
-      "rank": 82,
-      "optimizer": "lbfgs",
-      "value": "70.0526",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/lbfgs"
-    },
-    {
-      "rank": 83,
-      "optimizer": "rmsprop",
-      "value": "71.2105",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/rmsprop"
-    },
-    {
       "rank": 84,
-      "optimizer": "qhm",
-      "value": "71.3684",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/qhm"
-    },
-    {
-      "rank": 85,
       "optimizer": "dadaptlion",
-      "value": "71.4211",
+      "value": "70.7368",
       "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/dadaptlion"
     },
     {
+      "rank": 85,
+      "optimizer": "qhm",
+      "value": "71.8421",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/qhm"
+    },
+    {
       "rank": 86,
-      "optimizer": "shampoo",
-      "value": "71.6316",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/shampoo"
+      "optimizer": "rmsprop",
+      "value": "72.6842",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/rmsprop"
     },
     {
       "rank": 87,
-      "optimizer": "dadaptadagrad",
-      "value": "73.2105",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/dadaptadagrad"
-    },
-    {
-      "rank": 88,
-      "optimizer": "kate",
-      "value": "76.4737",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/kate"
-    },
-    {
-      "rank": 89,
       "optimizer": "ranger",
-      "value": "78.2632",
+      "value": "73.9474",
       "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/ranger"
     },
     {
+      "rank": 88,
+      "optimizer": "dadaptadagrad",
+      "value": "74.8947",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/dadaptadagrad"
+    },
+    {
+      "rank": 89,
+      "optimizer": "qhadam",
+      "value": "76.1579",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/qhadam"
+    },
+    {
       "rank": 90,
-      "optimizer": "adamg",
-      "value": "79.3158",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adamg"
+      "optimizer": "shampoo",
+      "value": "76.2105",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/shampoo"
     },
     {
       "rank": 91,
-      "optimizer": "grams",
-      "value": "81",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/grams"
+      "optimizer": "kate",
+      "value": "76.2105",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/kate"
     },
     {
       "rank": 92,
-      "optimizer": "schedulefreeradam",
-      "value": "82.1579",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/schedulefreeradam"
+      "optimizer": "grams",
+      "value": "81.9474",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/grams"
     },
     {
       "rank": 93,
-      "optimizer": "adams",
+      "optimizer": "adamg",
       "value": "82.3158",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adams"
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adamg"
     },
     {
       "rank": 94,
-      "optimizer": "adamod",
-      "value": "82.7368",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adamod"
+      "optimizer": "schedulefreeradam",
+      "value": "83.8947",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/schedulefreeradam"
     },
     {
       "rank": 95,
-      "optimizer": "srmm",
-      "value": "88.1053",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/srmm"
+      "optimizer": "adams",
+      "value": "85.3684",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adams"
     },
     {
       "rank": 96,
-      "optimizer": "adafactor",
-      "value": "94.4211",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adafactor"
+      "optimizer": "adamod",
+      "value": "87.1579",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adamod"
     },
     {
       "rank": 97,
+      "optimizer": "srmm",
+      "value": "91.0526",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/srmm"
+    },
+    {
+      "rank": 98,
+      "optimizer": "adafactor",
+      "value": "96.0526",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adafactor"
+    },
+    {
+      "rank": 99,
       "optimizer": "mars",
-      "value": "95.8947",
+      "value": "97.7368",
       "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/mars"
     }
   ],
   "rankingByErrorRate": [
     {
       "rank": 1,
-      "optimizer": "adashift",
-      "value": "1.4363",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adashift"
+      "optimizer": "adalite",
+      "value": "1.5106",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adalite"
     },
     {
       "rank": 2,
-      "optimizer": "adalite",
-      "value": "1.4869",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adalite"
+      "optimizer": "adashift",
+      "value": "1.6161",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adashift"
     },
     {
       "rank": 3,
       "optimizer": "emonavi",
-      "value": "1.5519",
+      "value": "1.638",
       "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/emonavi"
     },
     {
       "rank": 4,
-      "optimizer": "emofact",
-      "value": "1.6165",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/emofact"
-    },
-    {
-      "rank": 5,
-      "optimizer": "emozeal",
-      "value": "1.6165",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/emozeal"
-    },
-    {
-      "rank": 6,
       "optimizer": "sophiah",
-      "value": "1.6327",
+      "value": "1.705",
       "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/sophiah"
     },
     {
-      "rank": 7,
+      "rank": 5,
       "optimizer": "fadam",
-      "value": "1.6329",
+      "value": "1.7388",
       "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/fadam"
+    },
+    {
+      "rank": 6,
+      "optimizer": "emofact",
+      "value": "1.7439",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/emofact"
+    },
+    {
+      "rank": 7,
+      "optimizer": "emozeal",
+      "value": "1.7439",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/emozeal"
     },
     {
       "rank": 8,
       "optimizer": "aida",
-      "value": "1.7527",
+      "value": "1.8121",
       "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/aida"
     },
     {
       "rank": 9,
       "optimizer": "signsgd",
-      "value": "1.7796",
+      "value": "1.8405",
       "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/signsgd"
     },
     {
       "rank": 10,
-      "optimizer": "yogi",
-      "value": "1.8094",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/yogi"
+      "optimizer": "kron",
+      "value": "1.8566",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/kron"
     },
     {
       "rank": 11,
       "optimizer": "soap",
-      "value": "1.8103",
+      "value": "1.8633",
       "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/soap"
     },
     {
       "rank": 12,
-      "optimizer": "tiger",
-      "value": "1.8303",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/tiger"
-    },
-    {
-      "rank": 13,
-      "optimizer": "kron",
-      "value": "1.8307",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/kron"
-    },
-    {
-      "rank": 14,
-      "optimizer": "grokfastadamw",
-      "value": "1.8417",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/grokfastadamw"
-    },
-    {
-      "rank": 15,
-      "optimizer": "adammini",
-      "value": "1.8553",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adammini"
-    },
-    {
-      "rank": 16,
-      "optimizer": "focus",
-      "value": "1.8692",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/focus"
-    },
-    {
-      "rank": 17,
       "optimizer": "adabelief",
-      "value": "1.9439",
+      "value": "1.8801",
       "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adabelief"
     },
     {
-      "rank": 18,
-      "optimizer": "adamc",
-      "value": "1.9559",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adamc"
+      "rank": 13,
+      "optimizer": "focus",
+      "value": "1.9194",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/focus"
     },
     {
-      "rank": 19,
-      "optimizer": "spam",
-      "value": "1.9662",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/spam"
-    },
-    {
-      "rank": 20,
-      "optimizer": "adam",
-      "value": "1.9738",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adam"
-    },
-    {
-      "rank": 21,
-      "optimizer": "swats",
-      "value": "1.9821",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/swats"
-    },
-    {
-      "rank": 22,
-      "optimizer": "adagc",
-      "value": "2.0164",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adagc"
-    },
-    {
-      "rank": 23,
-      "optimizer": "adanorm",
-      "value": "2.029",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adanorm"
-    },
-    {
-      "rank": 24,
-      "optimizer": "apollo",
-      "value": "2.0449",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/apollo"
-    },
-    {
-      "rank": 25,
-      "optimizer": "fira",
-      "value": "2.0449",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/fira"
-    },
-    {
-      "rank": 26,
-      "optimizer": "galore",
-      "value": "2.0449",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/galore"
-    },
-    {
-      "rank": 27,
+      "rank": 14,
       "optimizer": "adamp",
-      "value": "2.0888",
+      "value": "1.9284",
       "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adamp"
     },
     {
-      "rank": 28,
-      "optimizer": "ademamix",
-      "value": "2.1015",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/ademamix"
-    },
-    {
-      "rank": 29,
+      "rank": 15,
       "optimizer": "stablespam",
-      "value": "2.1171",
+      "value": "1.9527",
       "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/stablespam"
     },
     {
-      "rank": 30,
-      "optimizer": "emolynx",
-      "value": "2.1212",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/emolynx"
+      "rank": 16,
+      "optimizer": "grokfastadamw",
+      "value": "1.9688",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/grokfastadamw"
     },
     {
-      "rank": 31,
-      "optimizer": "lion",
-      "value": "2.1212",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/lion"
+      "rank": 17,
+      "optimizer": "yogi",
+      "value": "1.9907",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/yogi"
     },
     {
-      "rank": 32,
+      "rank": 18,
+      "optimizer": "tiger",
+      "value": "1.994",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/tiger"
+    },
+    {
+      "rank": 19,
+      "optimizer": "adanorm",
+      "value": "2.0142",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adanorm"
+    },
+    {
+      "rank": 20,
+      "optimizer": "adagc",
+      "value": "2.0461",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adagc"
+    },
+    {
+      "rank": 21,
+      "optimizer": "adammini",
+      "value": "2.0507",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adammini"
+    },
+    {
+      "rank": 22,
+      "optimizer": "spam",
+      "value": "2.0666",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/spam"
+    },
+    {
+      "rank": 23,
       "optimizer": "adopt",
-      "value": "2.14",
+      "value": "2.0779",
       "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adopt"
     },
     {
+      "rank": 24,
+      "optimizer": "adamc",
+      "value": "2.0859",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adamc"
+    },
+    {
+      "rank": 25,
+      "optimizer": "swats",
+      "value": "2.0996",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/swats"
+    },
+    {
+      "rank": 26,
+      "optimizer": "fira",
+      "value": "2.1055",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/fira"
+    },
+    {
+      "rank": 27,
+      "optimizer": "apollo",
+      "value": "2.1055",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/apollo"
+    },
+    {
+      "rank": 28,
+      "optimizer": "galore",
+      "value": "2.1055",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/galore"
+    },
+    {
+      "rank": 29,
+      "optimizer": "adam",
+      "value": "2.1534",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adam"
+    },
+    {
+      "rank": 30,
+      "optimizer": "ademamix",
+      "value": "2.1666",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/ademamix"
+    },
+    {
+      "rank": 31,
+      "optimizer": "emolynx",
+      "value": "2.1835",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/emolynx"
+    },
+    {
+      "rank": 32,
+      "optimizer": "lion",
+      "value": "2.1835",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/lion"
+    },
+    {
       "rank": 33,
-      "optimizer": "tam",
-      "value": "2.2457",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/tam"
+      "optimizer": "simplifiedademamix",
+      "value": "2.1922",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/simplifiedademamix"
     },
     {
       "rank": 34,
       "optimizer": "laprop",
-      "value": "2.3175",
+      "value": "2.2116",
       "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/laprop"
     },
     {
       "rank": 35,
-      "optimizer": "adatam",
-      "value": "2.3577",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adatam"
+      "optimizer": "tam",
+      "value": "2.292",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/tam"
     },
     {
       "rank": 36,
-      "optimizer": "novograd",
-      "value": "2.3633",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/novograd"
+      "optimizer": "adatam",
+      "value": "2.3018",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adatam"
     },
     {
       "rank": 37,
-      "optimizer": "came",
-      "value": "2.3647",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/came"
-    },
-    {
-      "rank": 38,
       "optimizer": "adamax",
-      "value": "2.4203",
+      "value": "2.3274",
       "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adamax"
     },
     {
-      "rank": 39,
-      "optimizer": "adan",
-      "value": "2.4219",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adan"
-    },
-    {
-      "rank": 40,
-      "optimizer": "simplifiedademamix",
-      "value": "2.4626",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/simplifiedademamix"
-    },
-    {
-      "rank": 41,
+      "rank": 38,
       "optimizer": "ranger21",
-      "value": "2.4654",
+      "value": "2.3908",
       "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/ranger21"
     },
     {
-      "rank": 42,
+      "rank": 39,
+      "optimizer": "novograd",
+      "value": "2.3957",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/novograd"
+    },
+    {
+      "rank": 40,
+      "optimizer": "came",
+      "value": "2.4156",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/came"
+    },
+    {
+      "rank": 41,
       "optimizer": "nadam",
-      "value": "2.4721",
+      "value": "2.4236",
       "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/nadam"
     },
     {
+      "rank": 42,
+      "optimizer": "adan",
+      "value": "2.4638",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adan"
+    },
+    {
       "rank": 43,
-      "optimizer": "adadelta",
-      "value": "2.5265",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adadelta"
+      "optimizer": "schedulefreeadamw",
+      "value": "2.5309",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/schedulefreeadamw"
     },
     {
       "rank": 44,
       "optimizer": "fromage",
-      "value": "2.5896",
+      "value": "2.5787",
       "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/fromage"
     },
     {
       "rank": 45,
-      "optimizer": "scionlight",
-      "value": "2.6865",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/scionlight"
-    },
-    {
-      "rank": 46,
-      "optimizer": "emoneco",
-      "value": "2.7137",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/emoneco"
-    },
-    {
-      "rank": 47,
-      "optimizer": "schedulefreeadamw",
-      "value": "2.7169",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/schedulefreeadamw"
-    },
-    {
-      "rank": 48,
-      "optimizer": "pid",
-      "value": "2.7523",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/pid"
-    },
-    {
-      "rank": 49,
-      "optimizer": "adasmooth",
-      "value": "2.7558",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adasmooth"
-    },
-    {
-      "rank": 50,
-      "optimizer": "lars",
-      "value": "2.7824",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/lars"
-    },
-    {
-      "rank": 51,
-      "optimizer": "vsgd",
-      "value": "2.8224",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/vsgd"
-    },
-    {
-      "rank": 52,
-      "optimizer": "ftrl",
-      "value": "2.8654",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/ftrl"
-    },
-    {
-      "rank": 53,
-      "optimizer": "sm3",
-      "value": "2.8983",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/sm3"
-    },
-    {
-      "rank": 54,
-      "optimizer": "lamb",
-      "value": "2.9138",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/lamb"
-    },
-    {
-      "rank": 55,
-      "optimizer": "exadam",
-      "value": "2.936",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/exadam"
-    },
-    {
-      "rank": 56,
-      "optimizer": "scion",
-      "value": "2.9429",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/scion"
-    },
-    {
-      "rank": 57,
-      "optimizer": "asgd",
-      "value": "3.0353",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/asgd"
-    },
-    {
-      "rank": 58,
-      "optimizer": "adapnm",
-      "value": "3.0701",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adapnm"
-    },
-    {
-      "rank": 59,
-      "optimizer": "nero",
-      "value": "3.2161",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/nero"
-    },
-    {
-      "rank": 60,
-      "optimizer": "prodigy",
-      "value": "3.2202",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/prodigy"
-    },
-    {
-      "rank": 61,
-      "optimizer": "diffgrad",
-      "value": "3.222",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/diffgrad"
-    },
-    {
-      "rank": 62,
-      "optimizer": "rmsprop",
-      "value": "3.2534",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/rmsprop"
-    },
-    {
-      "rank": 63,
-      "optimizer": "padam",
-      "value": "3.3328",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/padam"
-    },
-    {
-      "rank": 64,
-      "optimizer": "adai",
-      "value": "3.3792",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adai"
-    },
-    {
-      "rank": 65,
-      "optimizer": "scalableshampoo",
-      "value": "3.4495",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/scalableshampoo"
-    },
-    {
-      "rank": 66,
-      "optimizer": "adahessian",
-      "value": "3.4797",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adahessian"
-    },
-    {
-      "rank": 67,
       "optimizer": "sgd",
-      "value": "3.4884",
+      "value": "2.6349",
       "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/sgd"
     },
     {
-      "rank": 68,
+      "rank": 46,
       "optimizer": "sgdp",
-      "value": "3.4884",
+      "value": "2.6349",
       "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/sgdp"
     },
     {
-      "rank": 69,
-      "optimizer": "madgrad",
-      "value": "3.5229",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/madgrad"
+      "rank": 47,
+      "optimizer": "adadelta",
+      "value": "2.6415",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adadelta"
     },
     {
-      "rank": 70,
+      "rank": 48,
+      "optimizer": "scionlight",
+      "value": "2.7025",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/scionlight"
+    },
+    {
+      "rank": 49,
+      "optimizer": "pid",
+      "value": "2.7063",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/pid"
+    },
+    {
+      "rank": 50,
+      "optimizer": "adasmooth",
+      "value": "2.791",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adasmooth"
+    },
+    {
+      "rank": 51,
+      "optimizer": "emoneco",
+      "value": "2.8004",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/emoneco"
+    },
+    {
+      "rank": 52,
+      "optimizer": "vsgd",
+      "value": "2.8283",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/vsgd"
+    },
+    {
+      "rank": 53,
+      "optimizer": "lars",
+      "value": "2.8363",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/lars"
+    },
+    {
+      "rank": 54,
+      "optimizer": "scion",
+      "value": "2.8934",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/scion"
+    },
+    {
+      "rank": 55,
+      "optimizer": "ftrl",
+      "value": "2.9649",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/ftrl"
+    },
+    {
+      "rank": 56,
+      "optimizer": "sm3",
+      "value": "2.9704",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/sm3"
+    },
+    {
+      "rank": 57,
       "optimizer": "adabound",
-      "value": "3.5253",
+      "value": "2.9806",
       "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adabound"
     },
     {
-      "rank": 71,
+      "rank": 58,
+      "optimizer": "lamb",
+      "value": "3.0246",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/lamb"
+    },
+    {
+      "rank": 59,
+      "optimizer": "asgd",
+      "value": "3.0381",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/asgd"
+    },
+    {
+      "rank": 60,
+      "optimizer": "adapnm",
+      "value": "3.0486",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adapnm"
+    },
+    {
+      "rank": 61,
+      "optimizer": "padam",
+      "value": "3.0507",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/padam"
+    },
+    {
+      "rank": 62,
+      "optimizer": "exadam",
+      "value": "3.0856",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/exadam"
+    },
+    {
+      "rank": 63,
+      "optimizer": "avagrad",
+      "value": "3.1602",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/avagrad"
+    },
+    {
+      "rank": 64,
+      "optimizer": "madgrad",
+      "value": "3.1647",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/madgrad"
+    },
+    {
+      "rank": 65,
       "optimizer": "apollodqn",
-      "value": "3.5328",
+      "value": "3.1834",
       "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/apollodqn"
     },
     {
-      "rank": 72,
+      "rank": 66,
       "optimizer": "radam",
-      "value": "3.6492",
+      "value": "3.1856",
       "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/radam"
+    },
+    {
+      "rank": 67,
+      "optimizer": "prodigy",
+      "value": "3.1962",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/prodigy"
+    },
+    {
+      "rank": 68,
+      "optimizer": "nero",
+      "value": "3.2117",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/nero"
+    },
+    {
+      "rank": 69,
+      "optimizer": "diffgrad",
+      "value": "3.2663",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/diffgrad"
+    },
+    {
+      "rank": 70,
+      "optimizer": "scalableshampoo",
+      "value": "3.2861",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/scalableshampoo"
+    },
+    {
+      "rank": 71,
+      "optimizer": "rmsprop",
+      "value": "3.2876",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/rmsprop"
+    },
+    {
+      "rank": 72,
+      "optimizer": "adai",
+      "value": "3.3183",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adai"
     },
     {
       "rank": 73,
       "optimizer": "qhm",
-      "value": "3.6903",
+      "value": "3.4021",
       "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/qhm"
     },
     {
       "rank": 74,
-      "optimizer": "aggmo",
-      "value": "3.7562",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/aggmo"
-    },
-    {
-      "rank": 75,
-      "optimizer": "lbfgs",
-      "value": "3.8679",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/lbfgs"
-    },
-    {
-      "rank": 76,
       "optimizer": "pnm",
-      "value": "3.8997",
+      "value": "3.4458",
       "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/pnm"
     },
     {
+      "rank": 75,
+      "optimizer": "aggmo",
+      "value": "3.5831",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/aggmo"
+    },
+    {
+      "rank": 76,
+      "optimizer": "lbfgs",
+      "value": "3.6091",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/lbfgs"
+    },
+    {
       "rank": 77,
-      "optimizer": "avagrad",
-      "value": "3.9182",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/avagrad"
+      "optimizer": "adahessian",
+      "value": "3.6174",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adahessian"
     },
     {
       "rank": 78,
       "optimizer": "dadaptadagrad",
-      "value": "4.0627",
+      "value": "3.955",
       "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/dadaptadagrad"
     },
     {
       "rank": 79,
-      "optimizer": "grams",
-      "value": "4.1042",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/grams"
-    },
-    {
-      "rank": 80,
-      "optimizer": "dadaptsgd",
-      "value": "4.2597",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/dadaptsgd"
-    },
-    {
-      "rank": 81,
-      "optimizer": "kate",
-      "value": "4.3438",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/kate"
-    },
-    {
-      "rank": 82,
-      "optimizer": "dadaptlion",
-      "value": "4.435",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/dadaptlion"
-    },
-    {
-      "rank": 83,
-      "optimizer": "gravity",
-      "value": "4.4371",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/gravity"
-    },
-    {
-      "rank": 84,
       "optimizer": "ranger",
-      "value": "4.5082",
+      "value": "4.0586",
       "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/ranger"
     },
     {
-      "rank": 85,
-      "optimizer": "adams",
-      "value": "4.7005",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adams"
+      "rank": 80,
+      "optimizer": "grams",
+      "value": "4.0616",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/grams"
     },
     {
-      "rank": 86,
+      "rank": 81,
       "optimizer": "schedulefreesgd",
-      "value": "4.7332",
+      "value": "4.0727",
       "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/schedulefreesgd"
     },
     {
-      "rank": 87,
+      "rank": 82,
+      "optimizer": "gravity",
+      "value": "4.1231",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/gravity"
+    },
+    {
+      "rank": 83,
+      "optimizer": "kate",
+      "value": "4.2841",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/kate"
+    },
+    {
+      "rank": 84,
+      "optimizer": "dadaptlion",
+      "value": "4.3568",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/dadaptlion"
+    },
+    {
+      "rank": 85,
       "optimizer": "accsgd",
-      "value": "4.8883",
+      "value": "4.6253",
       "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/accsgd"
+    },
+    {
+      "rank": 86,
+      "optimizer": "adams",
+      "value": "4.734",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adams"
+    },
+    {
+      "rank": 87,
+      "optimizer": "dadaptsgd",
+      "value": "4.9685",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/dadaptsgd"
     },
     {
       "rank": 88,
       "optimizer": "racs",
-      "value": "5.2149",
+      "value": "4.9971",
       "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/racs"
     },
     {
       "rank": 89,
       "optimizer": "dadaptadan",
-      "value": "5.3516",
+      "value": "5.3934",
       "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/dadaptadan"
     },
     {
       "rank": 90,
       "optimizer": "adamg",
-      "value": "7.2585",
+      "value": "7.1805",
       "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adamg"
     },
     {
       "rank": 91,
-      "optimizer": "adamod",
-      "value": "7.2738",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adamod"
+      "optimizer": "schedulefreeradam",
+      "value": "7.198",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/schedulefreeradam"
     },
     {
       "rank": 92,
-      "optimizer": "schedulefreeradam",
-      "value": "7.3799",
-      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/schedulefreeradam"
+      "optimizer": "adamod",
+      "value": "7.3333",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adamod"
     },
     {
       "rank": 93,
       "optimizer": "srmm",
-      "value": "8.1214",
+      "value": "7.6447",
       "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/srmm"
     },
     {
       "rank": 94,
       "optimizer": "adafactor",
-      "value": "10.2543",
+      "value": "10.296",
       "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/adafactor"
     },
     {
       "rank": 95,
       "optimizer": "mars",
-      "value": "11.8422",
+      "value": "11.9431",
       "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/mars"
     },
     {
       "rank": 96,
       "optimizer": "sgdsai",
-      "value": "14.9279",
+      "value": "13.6452",
       "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/sgdsai"
     },
     {
       "rank": 97,
       "optimizer": "shampoo",
-      "value": "28.869",
+      "value": "29.0068",
       "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/shampoo"
+    },
+    {
+      "rank": 98,
+      "optimizer": "qhadam",
+      "value": "Failed \u26a0\ufe0f",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/qhadam"
+    },
+    {
+      "rank": 99,
+      "optimizer": "ranger25",
+      "value": "Failed \u26a0\ufe0f",
+      "vis": "https://aidinhamedi.github.io/Optimizer-Benchmark/vis/ranger25"
     }
   ]
 }

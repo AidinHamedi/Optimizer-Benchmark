@@ -223,3 +223,81 @@ footer p {
     word-wrap: break-word;
     word-break: break-all;
 }
+
+.project-overview {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin: 2rem 0;
+    border-left: 4px solid #0077cc;
+}
+
+.project-overview h2 {
+    margin-top: 0;
+    color: #333;
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.usage-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.usage-item {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.usage-item h3 {
+    margin-top: 0;
+    color: #0077cc;
+    font-size: 1.1rem;
+}
+
+.function-note {
+    text-align: center;
+    font-style: italic;
+    color: #666;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+}
+
+.results-actions {
+    text-align: center;
+    margin: 2rem 0;
+}
+
+.download-btn {
+    display: inline-block;
+    background: #0077cc;
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+    margin-bottom: 0.5rem;
+}
+
+.download-btn:hover {
+    background: #005fa3;
+    text-decoration: none;
+}
+
+.results-note {
+    font-size: 0.9rem;
+    color: #666;
+    margin: 0;
+}
+
+.tab-description {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    font-style: italic;
+}

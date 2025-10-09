@@ -8,7 +8,7 @@ EVAL_SIZE = ((-5, 5), (-5, 5))
 GLOBAL_MINIMUM_LOC = torch.tensor([[-2.903534, -2.903534]])
 
 
-@normalize(-78.3310, 750)
+@normalize(-78.32813262939453, 458.5625)
 @torch.jit.script
 def stybtang(x: torch.Tensor) -> torch.Tensor:
     """
