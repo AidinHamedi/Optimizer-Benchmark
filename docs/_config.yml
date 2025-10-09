@@ -1,3 +1,4 @@
 title: PyTorch Optimizer Benchmark
 description: An open-source benchmark for comparing PyTorch optimization algorithms. Explore performance rankings, trajectory visualizations, and results from hyperparameter tuning with Optuna on 2D test functions.
-theme: jekyll-theme-cayman
+include:
+  - \*.xml
