@@ -5,19 +5,18 @@ from .norm import normalize
 FUNCTION_NAME = "Weierstrass"
 START_POS = torch.tensor([-12, -11])
 EVAL_SIZE = ((-13, 13), (-13, 13))
-WEIERSTRASS_A = torch.tensor(0.5)
-WEIERSTRASS_B = torch.tensor(3.0)
-WEIERSTRASS_KMAX = torch.tensor(20)
+WEIERSTRASS_A = 0.5
+WEIERSTRASS_B = 3.0
+WEIERSTRASS_KMAX = 10
 
-_kmax = WEIERSTRASS_KMAX.int().item()
-_k = torch.arange(_kmax + 1)
+_k = torch.arange(WEIERSTRASS_KMAX + 1)
 WEIERSTRASS_AK = torch.pow(WEIERSTRASS_A, _k)
 WEIERSTRASS_PIBK = torch.pi * torch.pow(WEIERSTRASS_B, _k)
 
 GLOBAL_MINIMUM_LOC = torch.tensor([[0.0, 0.0]])
 
 
-@normalize(0.149155855178833, 7.9263105392456055)
+@normalize(-3.850635290145874, 3.9265196323394775)
 @torch.jit.script
 def weierstrass(
     x: torch.Tensor,
