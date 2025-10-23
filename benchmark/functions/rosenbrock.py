@@ -25,13 +25,8 @@ def rosenbrock(
     Returns:
         torch.Tensor: Scalar tensor with the Rosenbrock function value.
     """
-    d = x.numel()
-    total = torch.tensor(0.0, dtype=x.dtype, device=x.device)
-
-    for i in range(d - 1):
-        xi = x[i]
-        xnext = x[i + 1]
-        term = a * (xnext - xi**2) ** 2 + (xi - 1) ** 2
-        total = total + term
+    xi = x[:-1]
+    xnext = x[1:]
+    total = torch.sum(a * (xnext - xi**2) ** 2 + (xi - 1) ** 2)
 
     return total
