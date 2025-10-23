@@ -10,7 +10,7 @@ GLOBAL_MINIMUM_LOC = torch.tensor(
 )
 
 
-@normalize(1015.8145751953125, 20625.36328125)
+@normalize(-20625.36328125, -1015.8145751953125)
 @torch.jit.script
 def cross_in_tray(x: torch.Tensor) -> torch.Tensor:
     """Computes the Cross-in-tray function.
@@ -28,5 +28,5 @@ def cross_in_tray(x: torch.Tensor) -> torch.Tensor:
     r = torch.sqrt(x1 * x1 + x2 * x2)
     fact2 = torch.exp(torch.abs(100.0 - r / torch.pi))
 
-    y = torch.pow(torch.abs(fact1 * fact2) + 1.0, 0.1)
+    y = -torch.pow(torch.abs(fact1 * fact2) + 1.0, 0.1)
     return y.type(x.dtype, non_blocking=True)
