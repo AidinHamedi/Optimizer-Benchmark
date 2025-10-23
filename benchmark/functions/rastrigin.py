@@ -15,7 +15,7 @@ def rastrigin(x: torch.Tensor) -> torch.Tensor:
     Computes the Rastrigin function.
 
     Args:
-        x (torch.Tensor): A tensor representing the input vector.
+        x (torch.Tensor): A tensor with last dimension size 2, representing [x, y].
 
     Returns:
         torch.Tensor: Scalar tensor with the Rastrigin function value.

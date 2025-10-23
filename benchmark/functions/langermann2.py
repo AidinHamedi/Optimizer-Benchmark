@@ -37,7 +37,7 @@ def langermann(
     Computes the Langermann function.
 
     Args:
-        x (torch.Tensor): A 1D tensor with two elements representing [x, y].
+        x (torch.Tensor): A tensor with last dimension size 2, representing [x, y].
         m, c, a (torch.Tensor): Constants for the Langermann function.
 
     Returns:

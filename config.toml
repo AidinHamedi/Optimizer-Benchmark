@@ -36,6 +36,7 @@ Langermann = { iterations = 150, error_weight = 1.0 }
 "Langermann 2" = { iterations = 150, error_weight = 1.0 }
 "Lévy" = { iterations = 150, error_weight = 1.0 }
 "Lévy 13" = { iterations = 150, error_weight = 1.5 }
+MixedMichalewiczSphere = { iterations = 150, error_weight = 1.5 }
 Rastrigin = { iterations = 150, error_weight = 1.5 }
 Rosenbrock = { iterations = 400, error_weight = 1.0 }
 "Schaffer 2" = { iterations = 500, error_weight = 1.8 }
@@ -44,7 +45,7 @@ SchwefelSin = { iterations = 150, error_weight = 1.0 }
 Shubert = { iterations = 150, error_weight = 1.0 }
 "Drop-Wave" = { iterations = 150, error_weight = 1.5 }
 "Styblinski-Tang" = { iterations = 150, error_weight = 1.5 }
-Weierstrass = { iterations = 150, error_weight = 1.8 }
+Weierstrass = { iterations = 150, error_weight = 2 }
 
 [optimizers]
 base = { lr = [0.0001, 8.0] }

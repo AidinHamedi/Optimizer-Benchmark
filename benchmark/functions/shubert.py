@@ -35,7 +35,7 @@ def shubert(x: torch.Tensor) -> torch.Tensor:
     """Computes the Shubert function.
 
     Args:
-        x (torch.Tensor): A tensor with last dimension size 2, representing [x1, x2].
+        x (torch.Tensor): A tensor with last dimension size 2, representing [x, y].
 
     Returns:
         torch.Tensor: Scalar tensor with the Shubert function value.

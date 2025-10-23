@@ -14,7 +14,7 @@ def levy13(x: torch.Tensor) -> torch.Tensor:
     """Computes the Lévy Function N. 13.
 
     Args:
-        x (torch.Tensor): A 1D tensor with two elements representing [x, y].
+        x (torch.Tensor): A tensor with last dimension size 2, representing [x, y].
 
     Returns:
         torch.Tensor: Scalar (or batched) tensor with the Lévy N. 13 function value.

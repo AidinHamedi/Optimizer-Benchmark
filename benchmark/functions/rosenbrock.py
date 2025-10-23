@@ -19,14 +19,14 @@ def rosenbrock(
     Computes the Rosenbrock function.
 
     Args:
-        x (torch.Tensor): A 1D tensor representing the input vector.
+        x (torch.Tensor): A tensor with last dimension size 2, representing [x, y].
         a (torch.Tensor): The Rosenbrock constant (default = 100.0).
 
     Returns:
         torch.Tensor: Scalar tensor with the Rosenbrock function value.
     """
     d = x.numel()
-    total = torch.tensor(0.0, dtype=x.dtype)
+    total = torch.tensor(0.0, dtype=x.dtype, device=x.device)
 
     for i in range(d - 1):
         xi = x[i]
