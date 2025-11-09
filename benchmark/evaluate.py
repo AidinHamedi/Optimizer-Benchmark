@@ -207,7 +207,9 @@ def benchmark_optimizer(
                 run_metrics[func_name].items()
             ):
                 print(
-                    f" {'└┬' if i == 0 else (' └' if i == len(run_metrics[func_name]) - 1 else ' ├')} {metric_name}: {metric_value}, contribution: {round(metric_value / error_rates[func_name] * 100)}%"
+                    f"{'└┬' if i == 0 else (' └' if i == len(run_metrics[func_name]) - 1 else ' ├')} "
+                    f"{metric_name}: {metric_value}, "
+                    f"contribution: {round(metric_value / error_rates[func_name] * 100)}%"
                 )
         else:
             print(" └─ No metrics available")
