@@ -46,39 +46,20 @@ def _progress_bar_callback(total_trials: int):
     return callback
 
 
-def _load_results(results_json_dir, optimizer_name, error_rates, max_retries=5):
-    """Load results.json safely with retries and update error_rates."""
+def _load_json(path, default={"optimizers": {}}, max_retries=5):
+    """Load JSON file safely with retries."""
     for attempt in range(max_retries + 1):
-        if results_json_dir.exists():
-            try:
-                with results_json_dir.open("r", encoding="utf-8") as f:
-                    results = json.load(f)
+        try:
+            with path.open("r", encoding="utf-8") as f:
+                return json.load(f)
+        except Exception:
+            if attempt < max_retries:
+                time.sleep(0.2)
+                continue
+            else:
+                break
 
-                # If previous results for this optimizer exist, load them.
-                prev_error_rates = (
-                    results.get("optimizers", {})
-                    .get(optimizer_name, {})
-                    .get("error_rates", {})
-                )
-
-                # Merge previous results into the current error_rates dictionary.
-                # This is important for rerunning benchmarks on a subset of functions,
-                # ensuring old results for other functions are not lost.
-                for func_name, error_rate in prev_error_rates.items():
-                    error_rates.setdefault(func_name, error_rate)
-
-                return results
-
-            except json.JSONDecodeError:
-                if attempt < max_retries:
-                    time.sleep(0.2)
-                    continue
-                else:
-                    return {"optimizers": {}}
-        else:
-            return {"optimizers": {}}
-
-    return {"optimizers": {}}
+    return default
 
 
 def benchmark_optimizer(
@@ -111,8 +92,11 @@ def benchmark_optimizer(
     results_dir = output_dir.joinpath(optimizer_name)
     results_json_dir = output_dir.joinpath("results.json")
 
-    # If exist_pass is false, we clear previous results for this optimizer.
-    if results_dir.exists() and not config["exist_pass"]:
+    # If exist_pass is false or the optimizer name is not in the results JSON file, we clear previous results for this optimizer.
+    if results_dir.exists() and (
+        (not config["exist_pass"])
+        or (optimizer_name not in _load_json(results_json_dir))
+    ):
         shutil.rmtree(results_dir)
 
     os.makedirs(results_dir, exist_ok=True)
@@ -123,12 +107,6 @@ def benchmark_optimizer(
     for func_name, consts in FUNC_DICT.items():
         # Allow running the benchmark on a specific subset of functions.
         if functions is not None and func_name not in functions:
-            continue
-
-        vis_file = results_dir.joinpath(func_name + config["img_format"])
-
-        # If exist_pass is true, we can skip functions that already have a result.
-        if vis_file.exists() and config["exist_pass"]:
             continue
 
         print(f" ┌ Evaluating On {func_name}...")
@@ -207,7 +185,7 @@ def benchmark_optimizer(
                 run_metrics[func_name].items()
             ):
                 print(
-                    f"{'└┬' if i == 0 else (' └' if i == len(run_metrics[func_name]) - 1 else ' ├')} "
+                    f"{' └┬' if i == 0 else ('  └' if i == len(run_metrics[func_name]) - 1 else '  ├')} "
                     f"{metric_name}: {metric_value}, "
                     f"contribution: {round(metric_value / error_rates[func_name] * 100)}%"
                 )
@@ -234,8 +212,10 @@ def benchmark_optimizer(
             debug=debug,
         )
 
+        print("")
+
     # Load existing results and merge them with the new ones.
-    results = _load_results(results_json_dir, optimizer_name, error_rates)
+    results = _load_json(results_json_dir)
 
     weights = config.get("error_weights", {})
     weighted_errors = {
@@ -248,6 +228,7 @@ def benchmark_optimizer(
         "weighted_error_rates": weighted_errors,
         "avg_error_rate": sum(error_rates.values()) / len(error_rates),
         "weighted_avg_error_rate": sum(weighted_errors.values()) / len(weighted_errors),
+        "metrics": run_metrics,
     }
 
     with results_json_dir.open("w", encoding="utf-8") as f:
