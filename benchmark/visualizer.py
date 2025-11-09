@@ -1,4 +1,4 @@
-from typing import Tuple, Union
+from typing import Tuple, Union, Callable
 
 import matplotlib.pyplot as plt
 import torch
@@ -8,7 +8,7 @@ from .utils.surface import compute_surface
 
 
 def plot_function(
-    func,
+    func: Callable,
     func_name: str,
     cords: torch.Tensor,
     output_file: str,
