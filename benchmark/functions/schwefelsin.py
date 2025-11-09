@@ -28,7 +28,7 @@ def schwefel_sin(
 
     Args:
         x (torch.Tensor): A tensor with last dimension size 2, representing [x, y].
-        scale_to_original (torch.Tensor): Scale factor to map to original ±500 range.
+        scale (torch.Tensor): Scale factor for [x, y].
 
     Returns:
         torch.Tensor: Scalar tensor with the Schwefel function value.

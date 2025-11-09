@@ -24,6 +24,7 @@ def schaffer4(
 
     Args:
         x (torch.Tensor): A tensor with last dimension size 2, representing [x, y].
+        scale (torch.Tensor): Scale factor for [x, y].
 
     Returns:
         torch.Tensor: Scalar tensor with the Schaffer function value.
