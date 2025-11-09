@@ -31,7 +31,6 @@ Ackley = { iterations = 150, error_weight = 1.5 }
 EggHolder = { iterations = 150, error_weight = 0.8 }
 "Gramacy & Lee 2D" = { iterations = 100, error_weight = 2.5 }
 Griewank = { iterations = 200, error_weight = 1.5 }
-"Holder Table" = { iterations = 150, error_weight = 0.8 }
 Langermann = { iterations = 150, error_weight = 1.0 }
 "Langermann 2" = { iterations = 150, error_weight = 0.8 }
 "Lévy" = { iterations = 150, error_weight = 1.0 }
@@ -79,6 +78,7 @@ kron = { lr = [0.0001, 2.0], momentum = [0.0001, 0.99] }
 scion = { lr = [0.0001, 1.0], scale = [1.0, 1000.0] }
 scionlight = { lr = [0.0001, 1.0], scale = [1.0, 1000.0] }
 lbfgs = { lr = [0.0001, 8.0], max_iter = [1, 40, "int"], history_size = [1, 200, "int"] }
+conda = {lr = [0.0001, 8.0], update_proj_gap = [10, 400, "int"], scale = [0.0001, 12.0]}
 
 [optimizer_eval_args]
 alig = { use_closure = true }
