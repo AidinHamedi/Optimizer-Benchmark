@@ -1,4 +1,5 @@
 import xml.etree.ElementTree as ET
+from concurrent.futures import ThreadPoolExecutor
 from datetime import date
 
 import requests
@@ -45,16 +46,21 @@ def main(console: Console):
 
     add_url(WEBSITE_URL, lastmod=str(date.today()), priority=1.0)
 
-    for optimizer_name in results:
-        url = f"{VIS_WEBPAGE_BASE_URL}{optimizer_name}"
-        if is_url_accessible(url):
-            add_url(
-                url,
-                lastmod=str(date.today()),
-                priority=0.8,
-            )
-        else:
-            console.warn(f"URL {url} is not accessible.")
+    with ThreadPoolExecutor(max_workers=32) as executor:
+        executor.map(
+            lambda name: (
+                add_url(
+                    f"{VIS_WEBPAGE_BASE_URL}{name}",
+                    lastmod=str(date.today()),
+                    priority=0.8,
+                )
+                if is_url_accessible(f"{VIS_WEBPAGE_BASE_URL}{name}")
+                else console.warn(
+                    f"URL {VIS_WEBPAGE_BASE_URL}{name} is not accessible."
+                )
+            ),
+            results,
+        )
 
     tree = ET.ElementTree(SITEMAP_ROOT)
     tree.write(SITEMAP_FILE, encoding="utf-8", xml_declaration=True)
