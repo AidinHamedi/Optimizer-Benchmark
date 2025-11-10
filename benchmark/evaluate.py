@@ -95,7 +95,7 @@ def benchmark_optimizer(
     # If exist_pass is false or the optimizer name is not in the results JSON file, we clear previous results for this optimizer.
     if results_dir.exists() and (
         (not config["exist_pass"])
-        or (optimizer_name not in _load_json(results_json_dir))
+        or (optimizer_name not in _load_json(results_json_dir)["optimizers"])
     ):
         shutil.rmtree(results_dir)
 
