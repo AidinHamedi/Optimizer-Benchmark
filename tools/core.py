@@ -5,10 +5,12 @@ DOCS_DIR = Path("./docs")
 DOCS_VIS_DIR = Path("./docs/vis")
 RANKS_FILE = Path("./docs/ranks.json")
 RESULTS_FILE = Path("./results/results.json")
-SITEMAP_FILE = Path("./docs/sitemap.xml")
+SITEMAP_FILE = Path("./docs/sitemap_index.xml")
 WEBSITE_URL = "https://aidinhamedi.github.io/Optimizer-Benchmark/"
 VIS_WEBPAGE_BASE_URL = WEBSITE_URL + "vis/"
-VIS_REPO_URL = "https://github.com/AidinHamedi/Optimizer-Benchmark/raw/vis-ref/results"
+VIS_REPO_URL = (
+    "https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results"
+)
 TEMPLATES_PATH = Path("./tools/templates")
 VIS_PAGE_STATIC_FILES = ("styles.css", "script.js")
 FILE_FORMAT = ".jpg"
