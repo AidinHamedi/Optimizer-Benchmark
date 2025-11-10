@@ -11,6 +11,7 @@ ignore_optimizers = [
   "demo",
   "a2grad",
   "muon",
+  "adago",
   "alice",
   "adamwsn",
   "adamuon",

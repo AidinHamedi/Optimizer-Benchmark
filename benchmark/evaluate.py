@@ -98,6 +98,8 @@ def benchmark_optimizer(
         or (optimizer_name not in _load_json(results_json_dir)["optimizers"])
     ):
         shutil.rmtree(results_dir)
+    else:
+        return None
 
     os.makedirs(results_dir, exist_ok=True)
 
