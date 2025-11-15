@@ -38,7 +38,7 @@ The optimizers are evaluated on the following standard 2D test functions. Click 
 
 The full benchmark results, including performance rankings and detailed trajectory plots for each optimizer, are available on the project website.
 
-#### ➡️ [**View the Optimizer Benchmark Website**](https://aidinhamedi.github.io/Optimizer-Benchmark/)
+#### ➡️ [**View the Optimizer Benchmark Website (Rankings & Visualizations)**](https://aidinhamedi.github.io/Optimizer-Benchmark/)
 #### ➡️ [**Download the Benchmark Results**](https://github.com/Aidinhamedi/Optimizer-Benchmark/releases/latest)
 
 ## 🚀 Quick Start
