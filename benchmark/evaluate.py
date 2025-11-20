@@ -46,7 +46,7 @@ def _progress_bar_callback(total_trials: int):
     return callback
 
 
-def _load_json(path, default={"optimizers": {}}, max_retries=5):
+def _load_json(path, default, max_retries=5):
     """Load JSON file safely with retries."""
     for attempt in range(max_retries + 1):
         try:
@@ -90,16 +90,26 @@ def benchmark_optimizer(
     """
 
     results_dir = output_dir.joinpath(optimizer_name)
-    results_json_dir = output_dir.joinpath("results.json")
+    results_json_path = output_dir.joinpath("results.json")
 
-    # If exist_pass is false or the optimizer name is not in the results JSON file, we clear previous results for this optimizer.
-    if results_dir.exists() and (
-        (not config["exist_pass"])
-        or (optimizer_name not in _load_json(results_json_dir)["optimizers"])
+    num_expected_files = len(functions) if functions is not None else len(FUNC_DICT)
+
+    # Skip this optimizer only if exist_pass is enabled AND a full set of valid,
+    # complete results already exists.
+    if (
+        config["exist_pass"]
+        and optimizer_name
+        in _load_json(results_json_path, {"optimizers": {}}).get("optimizers", {})
+        and results_dir.is_dir()
+        and len(list(results_dir.glob(f"*{config['img_format']}")))
+        == num_expected_files
     ):
-        shutil.rmtree(results_dir)
-    else:
+        print(f"Skipping {optimizer_name}: Complete results already exist.")
         return None
+
+    # For any run that proceeds, first clear any partial or outdated artifacts.
+    if results_dir.exists():
+        shutil.rmtree(results_dir)
 
     os.makedirs(results_dir, exist_ok=True)
 
@@ -217,7 +227,7 @@ def benchmark_optimizer(
         print("")
 
     # Load existing results and merge them with the new ones.
-    results = _load_json(results_json_dir)
+    results = _load_json(results_json_path, {"optimizers": {}})
 
     weights = config.get("error_weights", {})
     weighted_errors = {
@@ -233,5 +243,5 @@ def benchmark_optimizer(
         "metrics": run_metrics,
     }
 
-    with results_json_dir.open("w", encoding="utf-8") as f:
+    with results_json_path.open("w", encoding="utf-8") as f:
         json.dump(results, f, indent=4, ensure_ascii=False)
