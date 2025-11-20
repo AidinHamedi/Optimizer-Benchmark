@@ -5,12 +5,11 @@ from .norm import normalize
 FUNCTION_NAME = "MixedMichalewiczSphere"
 START_POS = torch.tensor([9.0, 9.0])
 EVAL_SIZE = ((-10.0, 10.0), (-10.0, 10.0))
+GLOBAL_MINIMUM_LOC = torch.tensor([[2.1268880367279053, 1.5619332790374756]])
 
 M = 2.0
 ALPHA = 0.95
 SPHERE_SCALE = 0.6
-
-GLOBAL_MINIMUM_LOC = torch.tensor([[2.1268880367279053, 1.5619332790374756]])
 
 
 @normalize(-1.5200809240341187, 8.869929313659668)

@@ -5,9 +5,6 @@ from .norm import normalize
 FUNCTION_NAME = "Cross-in-Tray"
 START_POS = torch.tensor([6.6, 8.3])
 EVAL_SIZE = ((-10, 10), (-10, 10))
-
-FUNC_SCALE = 5
-
 GLOBAL_MINIMUM_LOC = torch.tensor(
     [
         [-0.26586073637008667, -0.26586073637008667],
@@ -16,6 +13,8 @@ GLOBAL_MINIMUM_LOC = torch.tensor(
         [0.26586073637008667, 0.26586073637008667],
     ]
 )
+
+FUNC_SCALE = 5
 
 
 @normalize(-20625.240234375, -806.4556884765625)

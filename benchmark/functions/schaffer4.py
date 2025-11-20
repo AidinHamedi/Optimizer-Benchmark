@@ -5,12 +5,11 @@ from .norm import normalize
 FUNCTION_NAME = "Schaffer 4"
 START_POS = torch.tensor([8.2, 8.4])
 EVAL_SIZE = ((-10, 10), (-10, 10))
-
-FUNC_SCALE = 5
-
 GLOBAL_MINIMUM_LOC = torch.tensor(
     [[0.0, 0.125], [0.0, -0.125], [0.125, 0.0], [-0.125, 0.0]]
 )
+
+FUNC_SCALE = 5
 
 
 @normalize(-0.2065865695476532, 0.5)

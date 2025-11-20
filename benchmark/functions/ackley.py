@@ -5,12 +5,11 @@ from .norm import normalize
 FUNCTION_NAME = "Ackley"
 START_POS = torch.tensor([7.6, 8.4])
 EVAL_SIZE = ((-10, 10), (-10, 10))
+GLOBAL_MINIMUM_LOC = torch.tensor([[0.0, 0.0]])
 
 ACKLEY_A = torch.tensor(10.0)
 ACKLEY_B = torch.tensor(0.1)
 ACKLEY_C = torch.tensor(2 * torch.pi)
-
-GLOBAL_MINIMUM_LOC = torch.tensor([[0.0, 0.0]])
 
 
 @normalize(-12.718281745910645, -3.8639559745788574)

@@ -5,6 +5,7 @@ from .norm import normalize
 FUNCTION_NAME = "Weierstrass"
 START_POS = torch.tensor([-12, -11])
 EVAL_SIZE = ((-13, 13), (-13, 13))
+GLOBAL_MINIMUM_LOC = torch.tensor([[0.0, 0.0]])
 
 WEIERSTRASS_A = 0.55
 WEIERSTRASS_B = 3.0
@@ -13,8 +14,6 @@ _k = torch.arange(WEIERSTRASS_KMAX + 1)
 WEIERSTRASS_AK = torch.pow(WEIERSTRASS_A, _k)
 WEIERSTRASS_PIBK = torch.pi * torch.pow(WEIERSTRASS_B, _k)
 FUNC_SCALE = 0.07692307692
-
-GLOBAL_MINIMUM_LOC = torch.tensor([[0.0, 0.0]])
 
 
 @normalize(-3.850635290145874, 3.9265196323394775)
