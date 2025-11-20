@@ -26,6 +26,7 @@ Ackley = { iterations = 150, error_weight = 1.5 }
 "Cross-in-Tray" = { iterations = 150, error_weight = 0.5 }
 "Drop-Wave" = { iterations = 150, error_weight = 1.5 }
 EggHolder = { iterations = 150, error_weight = 0.8 }
+"Goldstein-Price" = { iterations = 150, error_weight = 1.0 }
 "Gramacy & Lee 2D" = { iterations = 100, error_weight = 2.5 }
 Griewank = { iterations = 200, error_weight = 1.5 }
 Langermann = { iterations = 150, error_weight = 1.0 }
