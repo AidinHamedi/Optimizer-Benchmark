@@ -64,23 +64,30 @@ def main(console: Console):
         console.info(f"Generating page for {optimizer}...")
 
         cards_html = ""
-        for function_name in func_rankings[optimizer]:
+
+        sorted_functions = sorted(
+            func_rankings[optimizer].items(), key=lambda item: item[1]
+        )
+
+        for function_name, rank in sorted_functions:
             cards_html += render_template(
                 "card",
                 url=generate_image_url(optimizer, function_name),
                 name=function_name,
                 optimizer_name=optimizer,
-                function_rank=func_rankings[optimizer][function_name],
+                function_rank=rank,
             )
 
         page_html = render_template(
             "page",
             title=optimizer,
             cards=cards_html,
-            error_rate_rank=aer_rankings[optimizer],
-            avg_rank=afr_rankings[optimizer],
-            avg_error_rate=round(results[optimizer]["weighted_avg_error_rate"], 4),
-            functions_count=len(results[optimizer]["error_rates"]),
+            error_rate_rank=aer_rankings.get(optimizer, "-"),
+            avg_rank=afr_rankings.get(optimizer, "-"),
+            avg_error_rate=round(
+                results[optimizer].get("weighted_avg_error_rate", 0), 4
+            ),
+            functions_count=len(results[optimizer].get("error_rates", {})),
         )
 
         output_file = DOCS_VIS_DIR / f"{optimizer}.html"

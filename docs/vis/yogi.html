@@ -3,305 +3,649 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>yogi Optimizer Benchmark Results</title>
+        <title>yogi - Optimizer Performance Benchmark</title>
+        <meta
+            name="description"
+            content="Detailed benchmark results and trajectory visualizations for the yogi optimizer on 18 test functions."
+        />
         <link rel="stylesheet" href="styles.css" />
     </head>
     <body>
-        <nav class="top-nav">
-            <a href="../" class="back-link">‹ Back to Rankings</a>
-        </nav>
+        <div class="container">
+            <nav class="nav-header">
+                <h1>yogi</h1>
+                <a href="../" class="back-link">
+                    <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <path d="M19 12H5M12 19l-7-7 7-7" />
+                    </svg>
+                    All Rankings
+                </a>
+            </nav>
 
-        <h1>yogi Optimizer Benchmark Results</h1>
-
-        <div class="summary">
-            <h2>Overall Performance</h2>
-            <div class="summary-stats">
-                <div class="stat-item">
-                    <div class="stat-value">21</div>
-                    <div class="stat-label">Rank (Error Rate)</div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Average Rank</div>
+                    <div class="stat-value">#30</div>
                 </div>
-                <div class="stat-item">
-                    <div class="stat-value">30</div>
-                    <div class="stat-label">Rank (Avg Function Rank)</div>
+                <div class="stat-card">
+                    <div class="stat-label">Error Rate Rank</div>
+                    <div class="stat-value">#21</div>
                 </div>
-                <div class="stat-item">
+                <div class="stat-card">
+                    <div class="stat-label">Weighted Avg Error</div>
                     <div class="stat-value">1.8374</div>
-                    <div class="stat-label">Avg Error Rate</div>
                 </div>
-                <div class="stat-item">
-                    <div class="stat-value">19</div>
+                <div class="stat-card">
                     <div class="stat-label">Functions Tested</div>
+                    <div class="stat-value">19</div>
                 </div>
             </div>
-        </div>
 
-        <div class="gallery"><div class="card">
-    <div class="image-wrapper">
-        <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/Rastrigin.jpg"
-            alt="yogi benchmark visualization on Rastrigin"
-            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
-        />
-        <div class="rank-badge">Rank #48</div>
-        <button class="enlarge-btn" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/Rastrigin.jpg')">🔍</button>
-    </div>
-    <div class="card-content">
-        <h3 class="function-name">Rastrigin</h3>
-    </div>
-</div>
-<div class="card">
-    <div class="image-wrapper">
-        <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/Griewank.jpg"
-            alt="yogi benchmark visualization on Griewank"
-            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
-        />
-        <div class="rank-badge">Rank #19</div>
-        <button class="enlarge-btn" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/Griewank.jpg')">🔍</button>
-    </div>
-    <div class="card-content">
-        <h3 class="function-name">Griewank</h3>
-    </div>
-</div>
-<div class="card">
-    <div class="image-wrapper">
-        <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/Langermann%202.jpg"
-            alt="yogi benchmark visualization on Langermann 2"
-            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
-        />
-        <div class="rank-badge">Rank #65</div>
-        <button class="enlarge-btn" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/Langermann%202.jpg')">🔍</button>
-    </div>
-    <div class="card-content">
-        <h3 class="function-name">Langermann 2</h3>
-    </div>
-</div>
-<div class="card">
-    <div class="image-wrapper">
+            <p class="gallery-intro">
+                Functions are sorted based on the optimizer's performance
+                relative to other algorithms. The rank number on each image
+                (e.g. #1) indicates its standing on that specific function
+                compared to all other optimizers tested.
+            </p>
+
+            <div class="gallery"><div class="card" data-rank="1">
+    <!-- The whole wrapper is now clickable -->
+    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/Schaffer%204.jpg')">
         <img
             src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/Schaffer%204.jpg"
             alt="yogi benchmark visualization on Schaffer 4"
+            loading="lazy"
             onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
         />
-        <div class="rank-badge">Rank #1</div>
-        <button class="enlarge-btn" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/Schaffer%204.jpg')">🔍</button>
+        <div class="rank-badge">#1</div>
+
+        <!-- Button kept as a visual cue, but click is handled by parent too -->
+        <button class="enlarge-btn" aria-label="Enlarge image">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </button>
     </div>
     <div class="card-content">
         <h3 class="function-name">Schaffer 4</h3>
     </div>
 </div>
-<div class="card">
-    <div class="image-wrapper">
-        <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/Styblinski-Tang.jpg"
-            alt="yogi benchmark visualization on Styblinski-Tang"
-            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
-        />
-        <div class="rank-badge">Rank #38</div>
-        <button class="enlarge-btn" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/Styblinski-Tang.jpg')">🔍</button>
-    </div>
-    <div class="card-content">
-        <h3 class="function-name">Styblinski-Tang</h3>
-    </div>
-</div>
-<div class="card">
-    <div class="image-wrapper">
-        <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/Weierstrass.jpg"
-            alt="yogi benchmark visualization on Weierstrass"
-            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
-        />
-        <div class="rank-badge">Rank #43</div>
-        <button class="enlarge-btn" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/Weierstrass.jpg')">🔍</button>
-    </div>
-    <div class="card-content">
-        <h3 class="function-name">Weierstrass</h3>
-    </div>
-</div>
-<div class="card">
-    <div class="image-wrapper">
+<div class="card" data-rank="8">
+    <!-- The whole wrapper is now clickable -->
+    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/Lévy%2013.jpg')">
         <img
             src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/Lévy%2013.jpg"
             alt="yogi benchmark visualization on Lévy 13"
+            loading="lazy"
             onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
         />
-        <div class="rank-badge">Rank #8</div>
-        <button class="enlarge-btn" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/Lévy%2013.jpg')">🔍</button>
+        <div class="rank-badge">#8</div>
+
+        <!-- Button kept as a visual cue, but click is handled by parent too -->
+        <button class="enlarge-btn" aria-label="Enlarge image">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </button>
     </div>
     <div class="card-content">
         <h3 class="function-name">Lévy 13</h3>
     </div>
 </div>
-<div class="card">
-    <div class="image-wrapper">
-        <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/MixedMichalewiczSphere.jpg"
-            alt="yogi benchmark visualization on MixedMichalewiczSphere"
-            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
-        />
-        <div class="rank-badge">Rank #16</div>
-        <button class="enlarge-btn" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/MixedMichalewiczSphere.jpg')">🔍</button>
-    </div>
-    <div class="card-content">
-        <h3 class="function-name">MixedMichalewiczSphere</h3>
-    </div>
-</div>
-<div class="card">
-    <div class="image-wrapper">
-        <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/SchwefelSin.jpg"
-            alt="yogi benchmark visualization on SchwefelSin"
-            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
-        />
-        <div class="rank-badge">Rank #51</div>
-        <button class="enlarge-btn" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/SchwefelSin.jpg')">🔍</button>
-    </div>
-    <div class="card-content">
-        <h3 class="function-name">SchwefelSin</h3>
-    </div>
-</div>
-<div class="card">
-    <div class="image-wrapper">
-        <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/Rosenbrock.jpg"
-            alt="yogi benchmark visualization on Rosenbrock"
-            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
-        />
-        <div class="rank-badge">Rank #54</div>
-        <button class="enlarge-btn" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/Rosenbrock.jpg')">🔍</button>
-    </div>
-    <div class="card-content">
-        <h3 class="function-name">Rosenbrock</h3>
-    </div>
-</div>
-<div class="card">
-    <div class="image-wrapper">
-        <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/Drop-Wave.jpg"
-            alt="yogi benchmark visualization on Drop-Wave"
-            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
-        />
-        <div class="rank-badge">Rank #36</div>
-        <button class="enlarge-btn" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/Drop-Wave.jpg')">🔍</button>
-    </div>
-    <div class="card-content">
-        <h3 class="function-name">Drop-Wave</h3>
-    </div>
-</div>
-<div class="card">
-    <div class="image-wrapper">
-        <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/Schaffer%202.jpg"
-            alt="yogi benchmark visualization on Schaffer 2"
-            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
-        />
-        <div class="rank-badge">Rank #18</div>
-        <button class="enlarge-btn" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/Schaffer%202.jpg')">🔍</button>
-    </div>
-    <div class="card-content">
-        <h3 class="function-name">Schaffer 2</h3>
-    </div>
-</div>
-<div class="card">
-    <div class="image-wrapper">
-        <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/Langermann.jpg"
-            alt="yogi benchmark visualization on Langermann"
-            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
-        />
-        <div class="rank-badge">Rank #43</div>
-        <button class="enlarge-btn" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/Langermann.jpg')">🔍</button>
-    </div>
-    <div class="card-content">
-        <h3 class="function-name">Langermann</h3>
-    </div>
-</div>
-<div class="card">
-    <div class="image-wrapper">
-        <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/Gramacy%20&%20Lee%202D.jpg"
-            alt="yogi benchmark visualization on Gramacy & Lee 2D"
-            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
-        />
-        <div class="rank-badge">Rank #48</div>
-        <button class="enlarge-btn" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/Gramacy%20&%20Lee%202D.jpg')">🔍</button>
-    </div>
-    <div class="card-content">
-        <h3 class="function-name">Gramacy & Lee 2D</h3>
-    </div>
-</div>
-<div class="card">
-    <div class="image-wrapper">
+<div class="card" data-rank="11">
+    <!-- The whole wrapper is now clickable -->
+    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/Shubert.jpg')">
         <img
             src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/Shubert.jpg"
             alt="yogi benchmark visualization on Shubert"
+            loading="lazy"
             onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
         />
-        <div class="rank-badge">Rank #11</div>
-        <button class="enlarge-btn" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/Shubert.jpg')">🔍</button>
+        <div class="rank-badge">#11</div>
+
+        <!-- Button kept as a visual cue, but click is handled by parent too -->
+        <button class="enlarge-btn" aria-label="Enlarge image">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </button>
     </div>
     <div class="card-content">
         <h3 class="function-name">Shubert</h3>
     </div>
 </div>
-<div class="card">
-    <div class="image-wrapper">
+<div class="card" data-rank="16">
+    <!-- The whole wrapper is now clickable -->
+    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/MixedMichalewiczSphere.jpg')">
         <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/EggHolder.jpg"
-            alt="yogi benchmark visualization on EggHolder"
+            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/MixedMichalewiczSphere.jpg"
+            alt="yogi benchmark visualization on MixedMichalewiczSphere"
+            loading="lazy"
             onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
         />
-        <div class="rank-badge">Rank #42</div>
-        <button class="enlarge-btn" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/EggHolder.jpg')">🔍</button>
+        <div class="rank-badge">#16</div>
+
+        <!-- Button kept as a visual cue, but click is handled by parent too -->
+        <button class="enlarge-btn" aria-label="Enlarge image">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </button>
     </div>
     <div class="card-content">
-        <h3 class="function-name">EggHolder</h3>
+        <h3 class="function-name">MixedMichalewiczSphere</h3>
     </div>
 </div>
-<div class="card">
-    <div class="image-wrapper">
+<div class="card" data-rank="18">
+    <!-- The whole wrapper is now clickable -->
+    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/Schaffer%202.jpg')">
         <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/Lévy.jpg"
-            alt="yogi benchmark visualization on Lévy"
+            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/Schaffer%202.jpg"
+            alt="yogi benchmark visualization on Schaffer 2"
+            loading="lazy"
             onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
         />
-        <div class="rank-badge">Rank #50</div>
-        <button class="enlarge-btn" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/Lévy.jpg')">🔍</button>
+        <div class="rank-badge">#18</div>
+
+        <!-- Button kept as a visual cue, but click is handled by parent too -->
+        <button class="enlarge-btn" aria-label="Enlarge image">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </button>
     </div>
     <div class="card-content">
-        <h3 class="function-name">Lévy</h3>
+        <h3 class="function-name">Schaffer 2</h3>
     </div>
 </div>
-<div class="card">
-    <div class="image-wrapper">
+<div class="card" data-rank="19">
+    <!-- The whole wrapper is now clickable -->
+    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/Griewank.jpg')">
         <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/Ackley.jpg"
-            alt="yogi benchmark visualization on Ackley"
+            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/Griewank.jpg"
+            alt="yogi benchmark visualization on Griewank"
+            loading="lazy"
             onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
         />
-        <div class="rank-badge">Rank #48</div>
-        <button class="enlarge-btn" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/Ackley.jpg')">🔍</button>
+        <div class="rank-badge">#19</div>
+
+        <!-- Button kept as a visual cue, but click is handled by parent too -->
+        <button class="enlarge-btn" aria-label="Enlarge image">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </button>
     </div>
     <div class="card-content">
-        <h3 class="function-name">Ackley</h3>
+        <h3 class="function-name">Griewank</h3>
     </div>
 </div>
-<div class="card">
-    <div class="image-wrapper">
+<div class="card" data-rank="22">
+    <!-- The whole wrapper is now clickable -->
+    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/Cross-in-Tray.jpg')">
         <img
             src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/Cross-in-Tray.jpg"
             alt="yogi benchmark visualization on Cross-in-Tray"
+            loading="lazy"
             onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
         />
-        <div class="rank-badge">Rank #22</div>
-        <button class="enlarge-btn" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/Cross-in-Tray.jpg')">🔍</button>
+        <div class="rank-badge">#22</div>
+
+        <!-- Button kept as a visual cue, but click is handled by parent too -->
+        <button class="enlarge-btn" aria-label="Enlarge image">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </button>
     </div>
     <div class="card-content">
         <h3 class="function-name">Cross-in-Tray</h3>
     </div>
 </div>
+<div class="card" data-rank="36">
+    <!-- The whole wrapper is now clickable -->
+    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/Drop-Wave.jpg')">
+        <img
+            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/Drop-Wave.jpg"
+            alt="yogi benchmark visualization on Drop-Wave"
+            loading="lazy"
+            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
+        />
+        <div class="rank-badge">#36</div>
+
+        <!-- Button kept as a visual cue, but click is handled by parent too -->
+        <button class="enlarge-btn" aria-label="Enlarge image">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </button>
+    </div>
+    <div class="card-content">
+        <h3 class="function-name">Drop-Wave</h3>
+    </div>
 </div>
+<div class="card" data-rank="38">
+    <!-- The whole wrapper is now clickable -->
+    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/Styblinski-Tang.jpg')">
+        <img
+            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/Styblinski-Tang.jpg"
+            alt="yogi benchmark visualization on Styblinski-Tang"
+            loading="lazy"
+            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
+        />
+        <div class="rank-badge">#38</div>
+
+        <!-- Button kept as a visual cue, but click is handled by parent too -->
+        <button class="enlarge-btn" aria-label="Enlarge image">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </button>
+    </div>
+    <div class="card-content">
+        <h3 class="function-name">Styblinski-Tang</h3>
+    </div>
+</div>
+<div class="card" data-rank="42">
+    <!-- The whole wrapper is now clickable -->
+    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/EggHolder.jpg')">
+        <img
+            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/EggHolder.jpg"
+            alt="yogi benchmark visualization on EggHolder"
+            loading="lazy"
+            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
+        />
+        <div class="rank-badge">#42</div>
+
+        <!-- Button kept as a visual cue, but click is handled by parent too -->
+        <button class="enlarge-btn" aria-label="Enlarge image">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </button>
+    </div>
+    <div class="card-content">
+        <h3 class="function-name">EggHolder</h3>
+    </div>
+</div>
+<div class="card" data-rank="43">
+    <!-- The whole wrapper is now clickable -->
+    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/Weierstrass.jpg')">
+        <img
+            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/Weierstrass.jpg"
+            alt="yogi benchmark visualization on Weierstrass"
+            loading="lazy"
+            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
+        />
+        <div class="rank-badge">#43</div>
+
+        <!-- Button kept as a visual cue, but click is handled by parent too -->
+        <button class="enlarge-btn" aria-label="Enlarge image">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </button>
+    </div>
+    <div class="card-content">
+        <h3 class="function-name">Weierstrass</h3>
+    </div>
+</div>
+<div class="card" data-rank="43">
+    <!-- The whole wrapper is now clickable -->
+    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/Langermann.jpg')">
+        <img
+            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/Langermann.jpg"
+            alt="yogi benchmark visualization on Langermann"
+            loading="lazy"
+            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
+        />
+        <div class="rank-badge">#43</div>
+
+        <!-- Button kept as a visual cue, but click is handled by parent too -->
+        <button class="enlarge-btn" aria-label="Enlarge image">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </button>
+    </div>
+    <div class="card-content">
+        <h3 class="function-name">Langermann</h3>
+    </div>
+</div>
+<div class="card" data-rank="48">
+    <!-- The whole wrapper is now clickable -->
+    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/Rastrigin.jpg')">
+        <img
+            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/Rastrigin.jpg"
+            alt="yogi benchmark visualization on Rastrigin"
+            loading="lazy"
+            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
+        />
+        <div class="rank-badge">#48</div>
+
+        <!-- Button kept as a visual cue, but click is handled by parent too -->
+        <button class="enlarge-btn" aria-label="Enlarge image">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </button>
+    </div>
+    <div class="card-content">
+        <h3 class="function-name">Rastrigin</h3>
+    </div>
+</div>
+<div class="card" data-rank="48">
+    <!-- The whole wrapper is now clickable -->
+    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/Ackley.jpg')">
+        <img
+            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/Ackley.jpg"
+            alt="yogi benchmark visualization on Ackley"
+            loading="lazy"
+            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
+        />
+        <div class="rank-badge">#48</div>
+
+        <!-- Button kept as a visual cue, but click is handled by parent too -->
+        <button class="enlarge-btn" aria-label="Enlarge image">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </button>
+    </div>
+    <div class="card-content">
+        <h3 class="function-name">Ackley</h3>
+    </div>
+</div>
+<div class="card" data-rank="48">
+    <!-- The whole wrapper is now clickable -->
+    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/Gramacy%20&%20Lee%202D.jpg')">
+        <img
+            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/Gramacy%20&%20Lee%202D.jpg"
+            alt="yogi benchmark visualization on Gramacy & Lee 2D"
+            loading="lazy"
+            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
+        />
+        <div class="rank-badge">#48</div>
+
+        <!-- Button kept as a visual cue, but click is handled by parent too -->
+        <button class="enlarge-btn" aria-label="Enlarge image">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </button>
+    </div>
+    <div class="card-content">
+        <h3 class="function-name">Gramacy & Lee 2D</h3>
+    </div>
+</div>
+<div class="card" data-rank="50">
+    <!-- The whole wrapper is now clickable -->
+    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/Lévy.jpg')">
+        <img
+            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/Lévy.jpg"
+            alt="yogi benchmark visualization on Lévy"
+            loading="lazy"
+            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
+        />
+        <div class="rank-badge">#50</div>
+
+        <!-- Button kept as a visual cue, but click is handled by parent too -->
+        <button class="enlarge-btn" aria-label="Enlarge image">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </button>
+    </div>
+    <div class="card-content">
+        <h3 class="function-name">Lévy</h3>
+    </div>
+</div>
+<div class="card" data-rank="51">
+    <!-- The whole wrapper is now clickable -->
+    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/SchwefelSin.jpg')">
+        <img
+            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/SchwefelSin.jpg"
+            alt="yogi benchmark visualization on SchwefelSin"
+            loading="lazy"
+            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
+        />
+        <div class="rank-badge">#51</div>
+
+        <!-- Button kept as a visual cue, but click is handled by parent too -->
+        <button class="enlarge-btn" aria-label="Enlarge image">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </button>
+    </div>
+    <div class="card-content">
+        <h3 class="function-name">SchwefelSin</h3>
+    </div>
+</div>
+<div class="card" data-rank="54">
+    <!-- The whole wrapper is now clickable -->
+    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/Rosenbrock.jpg')">
+        <img
+            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/Rosenbrock.jpg"
+            alt="yogi benchmark visualization on Rosenbrock"
+            loading="lazy"
+            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
+        />
+        <div class="rank-badge">#54</div>
+
+        <!-- Button kept as a visual cue, but click is handled by parent too -->
+        <button class="enlarge-btn" aria-label="Enlarge image">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </button>
+    </div>
+    <div class="card-content">
+        <h3 class="function-name">Rosenbrock</h3>
+    </div>
+</div>
+<div class="card" data-rank="65">
+    <!-- The whole wrapper is now clickable -->
+    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/Langermann%202.jpg')">
+        <img
+            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/yogi/Langermann%202.jpg"
+            alt="yogi benchmark visualization on Langermann 2"
+            loading="lazy"
+            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
+        />
+        <div class="rank-badge">#65</div>
+
+        <!-- Button kept as a visual cue, but click is handled by parent too -->
+        <button class="enlarge-btn" aria-label="Enlarge image">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </button>
+    </div>
+    <div class="card-content">
+        <h3 class="function-name">Langermann 2</h3>
+    </div>
+</div>
+</div>
+        </div>
 
         <div class="modal" id="imageModal">
             <div class="modal-content">
@@ -311,16 +655,10 @@
         </div>
 
         <footer>
-            View the Project on GitHub:
             <a
                 href="https://github.com/AidinHamedi/Optimizer-Benchmark"
                 target="_blank"
-                >github.com/AidinHamedi/Optimizer-Benchmark</a
-            ><br />
-            Made with ❤️ by AidinHamedi<br />
-            <em
-                >This page was automatically generated. Changes may be
-                overwritten.</em
+                >View Repository</a
             >
         </footer>
 
