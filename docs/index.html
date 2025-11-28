@@ -30,8 +30,9 @@
                         stroke-linecap="round"
                         stroke-linejoin="round"
                     >
-                        <path d="M2 5l3 5 3-3 5 12 5-14 3 4" /></svg
-                    >Optimizer Benchmark
+                        <path d="M2 5l3 5 3-3 5 12 5-14 3 4" />
+                    </svg>
+                    Optimizer Benchmark
                 </a>
                 <div class="nav-links">
                     <a href="#about">Methodology</a>
@@ -77,7 +78,7 @@
                             style="margin-right: 8px"
                         >
                             <path
-                                d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S19.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"
+                                d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"
                             ></path>
                         </svg>
                         Star on GitHub
@@ -295,81 +296,78 @@
                     >
                 </div>
 
-                <!-- Content Section -->
-                <div class="content-wrapper">
-                    <h2 class="section-title" id="methodology">Methodology</h2>
-                    <div class="text-section">
-                        <p>
-                            This project benchmarks algorithms available in the
-                            <code>pytorch_optimizer</code> library. The
-                            evaluation process for each optimizer consists of
-                            the following steps:
-                        </p>
-                        <ul>
-                            <li>
-                                <strong>Hyperparameter Tuning:</strong> For
-                                every function, the
-                                <code>Optuna</code> framework is used to search
-                                for optimal hyperparameters (e.g., learning
-                                rate, momentum) over a fixed number of trials.
-                            </li>
-                            <li>
-                                <strong>Execution:</strong> The optimizer is run
-                                on the 2D function using the best
-                                hyperparameters found during the tuning phase.
-                            </li>
-                            <li>
-                                <strong>Visualization:</strong> The optimization
-                                trajectory (path taken from start to finish) is
-                                recorded and plotted on the function's contour
-                                map.
-                            </li>
-                            <li>
-                                <strong>Scoring:</strong> Optimizers are ranked
-                                based on their final distance from the global
-                                minimum and the number of iterations required to
-                                converge.
-                            </li>
-                        </ul>
-                    </div>
-
-                    <h2 class="section-title" id="faq">FAQ</h2>
-
-                    <details>
-                        <summary>What functions are used?</summary>
-                        <div class="faq-content">
-                            The suite uses 19 standard optimization test
-                            functions, including multimodal functions (e.g.,
-                            Ackley, Rastrigin) and valley-shaped functions
-                            (e.g., Rosenbrock). These are continuous, 2D
-                            mathematical surfaces.
-                        </div>
-                    </details>
-
-                    <details>
-                        <summary>
-                            Does this predict Neural Network performance?
-                        </summary>
-                        <div class="faq-content">
-                            No. These are low-dimensional (2D) problems. Deep
-                            Learning involves high-dimensional optimization with
-                            different landscape characteristics (e.g., saddle
-                            points). This benchmark strictly evaluates
-                            algorithmic behavior in a 2D context.
-                        </div>
-                    </details>
-
-                    <details>
-                        <summary>How are the rankings calculated?</summary>
-                        <div class="faq-content">
-                            <strong>Average Rank</strong> is the mean position
-                            of an optimizer across all 19 functions.
-                            <strong>Weighted Error Rate</strong> is the
-                            aggregated distance to the global minimum, weighted
-                            by the difficulty of the specific function.
-                        </div>
-                    </details>
+                <!-- Methodology Section -->
+                <h2 class="section-title" id="about">Methodology</h2>
+                <div class="text-section">
+                    <p>
+                        This project benchmarks algorithms available in the
+                        <code>pytorch_optimizer</code> library. The evaluation
+                        process for each optimizer consists of the following
+                        steps:
+                    </p>
+                    <ul>
+                        <li>
+                            <strong>Hyperparameter Tuning:</strong> For every
+                            function, the <code>Optuna</code> framework is used
+                            to search for optimal hyperparameters (e.g.,
+                            learning rate, momentum) over a fixed number of
+                            trials.
+                        </li>
+                        <li>
+                            <strong>Execution:</strong> The optimizer is run on
+                            the 2D function using the best hyperparameters found
+                            during the tuning phase.
+                        </li>
+                        <li>
+                            <strong>Visualization:</strong> The optimization
+                            trajectory (path taken from start to finish) is
+                            recorded and plotted on the function's contour map.
+                        </li>
+                        <li>
+                            <strong>Scoring:</strong> Optimizers are ranked
+                            based on their final distance from the global
+                            minimum and the number of iterations required to
+                            converge.
+                        </li>
+                    </ul>
                 </div>
+
+                <!-- FAQ Section -->
+                <h2 class="section-title" id="faq">FAQ</h2>
+
+                <details>
+                    <summary>What functions are used?</summary>
+                    <div class="faq-content">
+                        The suite uses 18 standard optimization test functions,
+                        including multimodal functions (e.g., Ackley, Rastrigin)
+                        and valley-shaped functions (e.g., Rosenbrock). These
+                        are continuous, 2D mathematical surfaces.
+                    </div>
+                </details>
+
+                <details>
+                    <summary>
+                        Does this predict Neural Network performance?
+                    </summary>
+                    <div class="faq-content">
+                        No. These are low-dimensional (2D) problems. Deep
+                        Learning involves high-dimensional optimization with
+                        different landscape characteristics (e.g., saddle
+                        points). This benchmark strictly evaluates algorithmic
+                        behavior in a 2D context.
+                    </div>
+                </details>
+
+                <details>
+                    <summary>How are the rankings calculated?</summary>
+                    <div class="faq-content">
+                        <strong>Average Rank</strong> is the mean position of an
+                        optimizer across all 18 functions.
+                        <strong>Weighted Error Rate</strong> is the aggregated
+                        distance to the global minimum, weighted by the
+                        difficulty of the specific function.
+                    </div>
+                </details>
             </main>
 
             <footer>
