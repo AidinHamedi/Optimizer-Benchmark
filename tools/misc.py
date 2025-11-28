@@ -28,14 +28,23 @@ def get_afr_ranks(results: dict) -> tuple[list, dict]:
     return sorted(avg_ranks.items(), key=lambda x: x[1]), function_ranks
 
 
-def get_aer_ranks(results: dict) -> list:
+def get_aer_ranks(optimizers: dict, weights: dict) -> list:
     """Get Ranks Based On Average Error Rate On Functions"""
-    error_rates = [
-        (opt, data.get("weighted_avg_error_rate", float("inf")))
-        for opt, data in results.items()
-    ]
+    optimizer_scores = []
 
-    return sorted(error_rates, key=lambda x: x[1])
+    for opt, data in optimizers.items():
+        error_rates = data.get("error_rates", {})
+        if not error_rates:
+            optimizer_scores.append((opt, float("inf")))
+            continue
+
+        weighted_sum = sum(
+            error * weights.get(func, 1.0) for func, error in error_rates.items()
+        )
+        avg_error = weighted_sum / len(error_rates)
+        optimizer_scores.append((opt, avg_error))
+
+    return sorted(optimizer_scores, key=lambda x: x[1])
 
 
 def ranks_to_dict(rank_output):

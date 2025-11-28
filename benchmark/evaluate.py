@@ -226,20 +226,23 @@ def benchmark_optimizer(
 
         print("")
 
-    # Load existing results and merge them with the new ones.
-    results = _load_json(results_json_path, {"optimizers": {}})
-
     weights = config.get("error_weights", {})
-    weighted_errors = {
-        func_name: error_rate * weights.get(func_name, 1.0)
-        for func_name, error_rate in error_rates.items()
-    }
+    # weighted_errors = {
+    #     func_name: error_rate * weights.get(func_name, 1.0)
+    #     for func_name, error_rate in error_rates.items()
+    # }
+
+    # Load existing results and merge them with the new ones.
+    results = _load_json(
+        results_json_path, {"optimizers": {}, "functions": {"weights": weights}}
+    )
 
     results["optimizers"][optimizer_name] = {
+        "hyperparameters": study.best_params,
         "error_rates": error_rates,
-        "weighted_error_rates": weighted_errors,
-        "avg_error_rate": sum(error_rates.values()) / len(error_rates),
-        "weighted_avg_error_rate": sum(weighted_errors.values()) / len(weighted_errors),
+        # "weighted_error_rates": weighted_errors,
+        # "avg_error_rate": sum(error_rates.values()) / len(error_rates),
+        # "weighted_avg_error_rate": sum(weighted_errors.values()) / len(weighted_errors),
         "metrics": run_metrics,
     }
 

@@ -345,10 +345,6 @@ footer a:hover {
     text-decoration: underline;
 }
 
-/* ----------------------------------------------------------------- */
-/* --- RESPONSIVE DESIGN (MOBILE OPTIMIZATIONS) --- */
-/* ----------------------------------------------------------------- */
-
 @media (max-width: 1024px) {
     .gallery {
         grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -386,7 +382,6 @@ footer a:hover {
         max-height: 80vh;
     }
 
-    /* Ensure Enlarge Button is always visible on touch devices */
     .enlarge-btn {
         opacity: 1;
         transform: none;
@@ -397,7 +392,7 @@ footer a:hover {
 
 @media (max-width: 480px) {
     .stats-grid {
-        grid-template-columns: 1fr; /* Single column stats for very small screens */
+        grid-template-columns: 1fr;
     }
 
     .nav-header {
