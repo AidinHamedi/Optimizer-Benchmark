@@ -623,7 +623,7 @@ requires-dist = [
     { name = "numpy", specifier = ">=2.3.2" },
     { name = "optuna", specifier = ">=4.4.0" },
     { name = "pillow", specifier = ">=11.3.0" },
-    { name = "pytorch-optimizer", specifier = ">=3.8.0" },
+    { name = "pytorch-optimizer", specifier = ">=3.8.2" },
     { name = "requests", specifier = ">=2.32.5" },
     { name = "tabulate", specifier = ">=0.9.0" },
     { name = "torch", specifier = ">=2.7.0", index = "https://download.pytorch.org/whl/cpu" },
@@ -750,16 +750,16 @@ wheels = [
 
 [[package]]
 name = "pytorch-optimizer"
-version = "3.8.1"
+version = "3.8.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "numpy" },
     { name = "torch", version = "2.8.0", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "sys_platform == 'darwin'" },
     { name = "torch", version = "2.8.0+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "sys_platform != 'darwin'" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/06/b3/2338c801a58bafc27b71d538f6647c2e109b4c5054f95938ca6efd55b31d/pytorch_optimizer-3.8.1.tar.gz", hash = "sha256:be40710cb4da0c1cb73f7d4b932ae0c1c001e2b8c8034e1cfbdad88388a90772", size = 157504, upload-time = "2025-10-18T10:44:35.619Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/56/5a/13df160942fd13d24caefe052f87f44277edcb024f5e3dbad10e08eae98d/pytorch_optimizer-3.8.2.tar.gz", hash = "sha256:ec2a73dc1ecbd272c25f7caef15032c8b63f4103cd3e30529df76b39be589b08", size = 159882, upload-time = "2025-10-26T05:58:26.465Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/3e/8a/4c03a524ebb80c1b9d6aff85df765d41f8e92c39f377f1c6d9ed2dbbf8ed/pytorch_optimizer-3.8.1-py3-none-any.whl", hash = "sha256:0c1f6f726359a992137c2265cada4c25055bfcc9bdae10aa61024d7053994c15", size = 267123, upload-time = "2025-10-18T10:44:34.417Z" },
+    { url = "https://files.pythonhosted.org/packages/fb/ee/2ca9dfcb01059e7c0ec04e98c6d59177b7a9fa6b19299e9c07cdc0002d1a/pytorch_optimizer-3.8.2-py3-none-any.whl", hash = "sha256:1719d8d3253696a78df9a448677341d8c4344bcda5e5b2212a10762329204a65", size = 269089, upload-time = "2025-10-26T05:58:24.883Z" },
 ]
 
 [[package]]

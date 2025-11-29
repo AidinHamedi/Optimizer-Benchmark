@@ -10,10 +10,6 @@
             name="description"
             content="Compare PyTorch optimizer performance on 2D test functions. See rankings, trajectory visualizations, and results from hyperparameter tuning with Optuna."
         />
-        <meta
-            name="keywords"
-            content="PyTorch optimizer benchmark, optimizer comparison, Adam, SGD, optimization algorithms, machine learning, deep learning, optimizer performance"
-        />
         <link rel="stylesheet" href="style.css" />
     </head>
     <body>
@@ -37,6 +33,7 @@
                 <div class="nav-links">
                     <a href="#about">Methodology</a>
                     <a href="#faq">FAQ</a>
+                    <a href="#references">References</a>
                     <a
                         href="https://github.com/AidinHamedi/Optimizer-Benchmark/releases/latest"
                         target="_blank"
@@ -45,7 +42,7 @@
                 </div>
             </nav>
 
-            <header class="hero">
+            <header class="hero content-max-width">
                 <h1>PyTorch Optimizer<br />Benchmark</h1>
                 <p class="subtitle">
                     Trajectory visualization and evaluation of optimization
@@ -53,7 +50,6 @@
                     on standard 2D mathematical test functions.
                 </p>
 
-                <!-- Repo Link Component -->
                 <div class="repo-input-wrapper">
                     <span class="repo-prefix">github.com/</span>
                     <input
@@ -61,7 +57,7 @@
                         class="repo-url"
                         value="AidinHamedi/Optimizer-Benchmark"
                         readonly
-                        onclick="this.select();"
+                        onclick="this.select()"
                     />
                     <a
                         href="https://github.com/AidinHamedi/Optimizer-Benchmark"
@@ -86,7 +82,7 @@
                 </div>
             </header>
 
-            <!-- Clickable Stats Grid -->
+            <!-- Stats Grid -->
             <div class="stats-grid">
                 <a
                     href="https://optuna.org/"
@@ -110,13 +106,13 @@
                 </a>
             </div>
 
-            <div class="limitations-box">
+            <div class="limitations-box content-max-width">
                 <span class="limitations-icon">⚠️</span>
                 <div class="limitations-content">
                     <strong>Scope Limitation:</strong> These tests are performed
-                    exclusively on synthetic 2D mathematical functions (e.g.,
-                    Ackley, Rosenbrock). Results demonstrate algorithmic
-                    behavior in low-dimensional settings and
+                    exclusively on synthetic 2D mathematical functions. Results
+                    demonstrate algorithmic behavior in low-dimensional settings
+                    and
                     <strong
                         >do not reflect performance in high-dimensional neural
                         network training</strong
@@ -125,6 +121,7 @@
             </div>
 
             <main>
+                <!-- Rankings Section (Wide) -->
                 <section id="rankings">
                     <div class="tabs">
                         <button
@@ -178,6 +175,7 @@
                     </div>
                 </section>
 
+                <!-- Test Functions (Wide Grid) -->
                 <h2 class="section-title" id="functions">Test Functions</h2>
                 <div class="function-grid">
                     <a
@@ -296,78 +294,113 @@
                     >
                 </div>
 
-                <!-- Methodology Section -->
-                <h2 class="section-title" id="about">Methodology</h2>
-                <div class="text-section">
-                    <p>
-                        This project benchmarks algorithms available in the
-                        <code>pytorch_optimizer</code> library. The evaluation
-                        process for each optimizer consists of the following
-                        steps:
-                    </p>
-                    <ul>
+                <!-- Methodology (Centered) -->
+                <section class="content-max-width" id="about">
+                    <h2 class="section-title">Methodology</h2>
+                    <div class="text-section">
+                        <p>
+                            This project benchmarks algorithms available in the
+                            <code>pytorch_optimizer</code> library. The
+                            evaluation process consists of:
+                        </p>
+                        <ul>
+                            <li>
+                                <strong>Hyperparameter Tuning:</strong> Used
+                                <code>Optuna</code> to search for optimal
+                                parameters (LR, momentum, etc.) over a fixed
+                                number of trials.
+                            </li>
+                            <li>
+                                <strong>Execution:</strong> The optimizer is run
+                                using the best hyperparameters found.
+                            </li>
+                            <li>
+                                <strong>Visualization:</strong> The trajectory
+                                is recorded and plotted on the contour map.
+                            </li>
+                            <li>
+                                <strong>Scoring:</strong> Ranked by final
+                                distance from the global minimum and convergence
+                                speed.
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- FAQ (Centered) -->
+                <section class="content-max-width" id="faq">
+                    <h2 class="section-title">FAQ</h2>
+
+                    <details>
+                        <summary>What functions are used?</summary>
+                        <div class="faq-content">
+                            The suite uses 19 standard optimization test
+                            functions, including multimodal functions (e.g.,
+                            Ackley) and valley-shaped functions (e.g.,
+                            Rosenbrock).
+                        </div>
+                    </details>
+
+                    <details>
+                        <summary>
+                            Does this predict Neural Network performance?
+                        </summary>
+                        <div class="faq-content">
+                            <strong>No.</strong> These are low-dimensional (2D)
+                            problems. Deep Learning involves high-dimensional
+                            optimization with different landscapes (saddle
+                            points). This strictly evaluates algorithmic
+                            behavior in a 2D context.
+                        </div>
+                    </details>
+
+                    <details>
+                        <summary>How are the rankings calculated?</summary>
+                        <div class="faq-content">
+                            <strong>Average Rank</strong> is the mean position
+                            across all functions.
+                            <strong>Weighted Error Rate</strong> is the
+                            aggregated distance to the global minimum, weighted
+                            by function difficulty.
+                        </div>
+                    </details>
+                </section>
+
+                <!-- References (Centered) -->
+                <section class="content-max-width" id="references">
+                    <h2 class="section-title">References</h2>
+                    <ul class="ref-list">
                         <li>
-                            <strong>Hyperparameter Tuning:</strong> For every
-                            function, the <code>Optuna</code> framework is used
-                            to search for optimal hyperparameters (e.g.,
-                            learning rate, momentum) over a fixed number of
-                            trials.
+                            <p>
+                                <strong
+                                    >Virtual Library of Simulation
+                                    Experiments:</strong
+                                >
+                                Test Functions and Datasets for Optimization
+                                Algorithms. <br />Source: Simon Fraser
+                                University. Curated by Derek Bingham. <br /><a
+                                    href="https://www.sfu.ca/~ssurjano/optimization.html"
+                                    target="_blank"
+                                    >https://www.sfu.ca/~ssurjano/optimization.html</a
+                                >
+                            </p>
                         </li>
                         <li>
-                            <strong>Execution:</strong> The optimizer is run on
-                            the 2D function using the best hyperparameters found
-                            during the tuning phase.
-                        </li>
-                        <li>
-                            <strong>Visualization:</strong> The optimization
-                            trajectory (path taken from start to finish) is
-                            recorded and plotted on the function's contour map.
-                        </li>
-                        <li>
-                            <strong>Scoring:</strong> Optimizers are ranked
-                            based on their final distance from the global
-                            minimum and the number of iterations required to
-                            converge.
+                            <p>
+                                <strong>Kim, H. (2021).</strong>
+                                <em
+                                    >pytorch_optimizer: optimizer & lr scheduler
+                                    & loss function collections in PyTorch</em
+                                >
+                                (Version 2.12.0) [Computer software]. <br /><a
+                                    href="https://github.com/kozistr/pytorch_optimizer"
+                                    target="_blank"
+                                    >https://github.com/kozistr/pytorch_optimizer</a
+                                >
+                            </p>
                         </li>
                     </ul>
-                </div>
-
-                <!-- FAQ Section -->
-                <h2 class="section-title" id="faq">FAQ</h2>
-
-                <details>
-                    <summary>What functions are used?</summary>
-                    <div class="faq-content">
-                        The suite uses 18 standard optimization test functions,
-                        including multimodal functions (e.g., Ackley, Rastrigin)
-                        and valley-shaped functions (e.g., Rosenbrock). These
-                        are continuous, 2D mathematical surfaces.
-                    </div>
-                </details>
-
-                <details>
-                    <summary>
-                        Does this predict Neural Network performance?
-                    </summary>
-                    <div class="faq-content">
-                        No. These are low-dimensional (2D) problems. Deep
-                        Learning involves high-dimensional optimization with
-                        different landscape characteristics (e.g., saddle
-                        points). This benchmark strictly evaluates algorithmic
-                        behavior in a 2D context.
-                    </div>
-                </details>
-
-                <details>
-                    <summary>How are the rankings calculated?</summary>
-                    <div class="faq-content">
-                        <strong>Average Rank</strong> is the mean position of an
-                        optimizer across all 18 functions.
-                        <strong>Weighted Error Rate</strong> is the aggregated
-                        distance to the global minimum, weighted by the
-                        difficulty of the specific function.
-                    </div>
-                </details>
+                </section>
             </main>
 
             <footer>

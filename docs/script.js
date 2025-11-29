@@ -47,10 +47,20 @@ function populateTable(tableBody, data) {
             <td class="opt-name" style="font-weight:500;">${item.optimizer}</td>
             <td class="score-cell">${item.value}</td>
             <td class="vis-link">
-                <!-- Added 'action-link' class here -->
-                <a href="${item.vis}" class="action-link">
-                    View Analysis
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left:6px;"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                <a href="${item.vis}" class="action-link vis-link-icon">
+                    View Trajectory
+                    <svg
+                        width="14"
+                        height="14"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    >
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
                 </a>
             </td>
         </tr>

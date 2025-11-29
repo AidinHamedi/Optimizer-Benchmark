@@ -14,7 +14,7 @@
         <div class="container">
             <nav class="nav-header">
                 <h1>sgdsai</h1>
-                <a href="../" class="back-link">
+                <a href="../#rankings" class="back-link">
                     <svg
                         width="16"
                         height="16"
@@ -32,7 +32,7 @@
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-label">Average Rank</div>
-                    <div class="stat-value">#70</div>
+                    <div class="stat-value">#68</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-label">Error Rate Rank</div>
@@ -40,11 +40,11 @@
                 </div>
                 <div class="stat-card">
                     <div class="stat-label">Weighted Avg Error</div>
-                    <div class="stat-value">4.0238</div>
+                    <div class="stat-value">3.846</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-label">Functions Tested</div>
-                    <div class="stat-value">19</div>
+                    <div class="stat-value">20</div>
                 </div>
             </div>
 
@@ -55,8 +55,36 @@
                 compared to all other optimizers tested.
             </p>
 
-            <div class="gallery"><div class="card" data-rank="15">
-    <!-- The whole wrapper is now clickable -->
+            <div class="gallery"><div class="card" data-rank="1">
+    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/sgdsai/Goldstein-Price.jpg')">
+        <img
+            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/sgdsai/Goldstein-Price.jpg"
+            alt="sgdsai benchmark visualization on Goldstein-Price"
+            loading="lazy"
+            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
+        />
+        <div class="rank-badge">#1</div>
+
+        <button class="enlarge-btn" aria-label="Enlarge image">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </button>
+    </div>
+    <div class="card-content">
+        <h3 class="function-name">Goldstein-Price</h3>
+    </div>
+</div>
+<div class="card" data-rank="15">
     <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/sgdsai/Schaffer%204.jpg')">
         <img
             src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/sgdsai/Schaffer%204.jpg"
@@ -66,7 +94,6 @@
         />
         <div class="rank-badge">#15</div>
 
-        <!-- Button kept as a visual cue, but click is handled by parent too -->
         <button class="enlarge-btn" aria-label="Enlarge image">
             <svg
                 width="20"
@@ -87,7 +114,6 @@
     </div>
 </div>
 <div class="card" data-rank="23">
-    <!-- The whole wrapper is now clickable -->
     <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/sgdsai/Lévy.jpg')">
         <img
             src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/sgdsai/Lévy.jpg"
@@ -97,7 +123,6 @@
         />
         <div class="rank-badge">#23</div>
 
-        <!-- Button kept as a visual cue, but click is handled by parent too -->
         <button class="enlarge-btn" aria-label="Enlarge image">
             <svg
                 width="20"
@@ -118,7 +143,6 @@
     </div>
 </div>
 <div class="card" data-rank="27">
-    <!-- The whole wrapper is now clickable -->
     <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/sgdsai/Styblinski-Tang.jpg')">
         <img
             src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/sgdsai/Styblinski-Tang.jpg"
@@ -128,7 +152,6 @@
         />
         <div class="rank-badge">#27</div>
 
-        <!-- Button kept as a visual cue, but click is handled by parent too -->
         <button class="enlarge-btn" aria-label="Enlarge image">
             <svg
                 width="20"
@@ -149,7 +172,6 @@
     </div>
 </div>
 <div class="card" data-rank="30">
-    <!-- The whole wrapper is now clickable -->
     <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/sgdsai/Rosenbrock.jpg')">
         <img
             src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/sgdsai/Rosenbrock.jpg"
@@ -159,7 +181,6 @@
         />
         <div class="rank-badge">#30</div>
 
-        <!-- Button kept as a visual cue, but click is handled by parent too -->
         <button class="enlarge-btn" aria-label="Enlarge image">
             <svg
                 width="20"
@@ -179,8 +200,7 @@
         <h3 class="function-name">Rosenbrock</h3>
     </div>
 </div>
-<div class="card" data-rank="35">
-    <!-- The whole wrapper is now clickable -->
+<div class="card" data-rank="34">
     <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/sgdsai/Langermann%202.jpg')">
         <img
             src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/sgdsai/Langermann%202.jpg"
@@ -188,9 +208,8 @@
             loading="lazy"
             onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
         />
-        <div class="rank-badge">#35</div>
+        <div class="rank-badge">#34</div>
 
-        <!-- Button kept as a visual cue, but click is handled by parent too -->
         <button class="enlarge-btn" aria-label="Enlarge image">
             <svg
                 width="20"
@@ -211,38 +230,6 @@
     </div>
 </div>
 <div class="card" data-rank="39">
-    <!-- The whole wrapper is now clickable -->
-    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/sgdsai/Lévy%2013.jpg')">
-        <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/sgdsai/Lévy%2013.jpg"
-            alt="sgdsai benchmark visualization on Lévy 13"
-            loading="lazy"
-            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
-        />
-        <div class="rank-badge">#39</div>
-
-        <!-- Button kept as a visual cue, but click is handled by parent too -->
-        <button class="enlarge-btn" aria-label="Enlarge image">
-            <svg
-                width="20"
-                height="20"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                viewBox="0 0 24 24"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-            >
-                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
-            </svg>
-        </button>
-    </div>
-    <div class="card-content">
-        <h3 class="function-name">Lévy 13</h3>
-    </div>
-</div>
-<div class="card" data-rank="40">
-    <!-- The whole wrapper is now clickable -->
     <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/sgdsai/Ackley.jpg')">
         <img
             src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/sgdsai/Ackley.jpg"
@@ -250,9 +237,8 @@
             loading="lazy"
             onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
         />
-        <div class="rank-badge">#40</div>
+        <div class="rank-badge">#39</div>
 
-        <!-- Button kept as a visual cue, but click is handled by parent too -->
         <button class="enlarge-btn" aria-label="Enlarge image">
             <svg
                 width="20"
@@ -272,8 +258,36 @@
         <h3 class="function-name">Ackley</h3>
     </div>
 </div>
+<div class="card" data-rank="39">
+    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/sgdsai/Lévy%2013.jpg')">
+        <img
+            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/sgdsai/Lévy%2013.jpg"
+            alt="sgdsai benchmark visualization on Lévy 13"
+            loading="lazy"
+            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
+        />
+        <div class="rank-badge">#39</div>
+
+        <button class="enlarge-btn" aria-label="Enlarge image">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </button>
+    </div>
+    <div class="card-content">
+        <h3 class="function-name">Lévy 13</h3>
+    </div>
+</div>
 <div class="card" data-rank="46">
-    <!-- The whole wrapper is now clickable -->
     <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/sgdsai/Schaffer%202.jpg')">
         <img
             src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/sgdsai/Schaffer%202.jpg"
@@ -283,7 +297,6 @@
         />
         <div class="rank-badge">#46</div>
 
-        <!-- Button kept as a visual cue, but click is handled by parent too -->
         <button class="enlarge-btn" aria-label="Enlarge image">
             <svg
                 width="20"
@@ -304,7 +317,6 @@
     </div>
 </div>
 <div class="card" data-rank="49">
-    <!-- The whole wrapper is now clickable -->
     <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/sgdsai/Gramacy%20&%20Lee%202D.jpg')">
         <img
             src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/sgdsai/Gramacy%20&%20Lee%202D.jpg"
@@ -314,7 +326,6 @@
         />
         <div class="rank-badge">#49</div>
 
-        <!-- Button kept as a visual cue, but click is handled by parent too -->
         <button class="enlarge-btn" aria-label="Enlarge image">
             <svg
                 width="20"
@@ -335,7 +346,6 @@
     </div>
 </div>
 <div class="card" data-rank="63">
-    <!-- The whole wrapper is now clickable -->
     <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/sgdsai/MixedMichalewiczSphere.jpg')">
         <img
             src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/sgdsai/MixedMichalewiczSphere.jpg"
@@ -345,7 +355,6 @@
         />
         <div class="rank-badge">#63</div>
 
-        <!-- Button kept as a visual cue, but click is handled by parent too -->
         <button class="enlarge-btn" aria-label="Enlarge image">
             <svg
                 width="20"
@@ -366,7 +375,6 @@
     </div>
 </div>
 <div class="card" data-rank="65">
-    <!-- The whole wrapper is now clickable -->
     <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/sgdsai/Rastrigin.jpg')">
         <img
             src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/sgdsai/Rastrigin.jpg"
@@ -376,7 +384,6 @@
         />
         <div class="rank-badge">#65</div>
 
-        <!-- Button kept as a visual cue, but click is handled by parent too -->
         <button class="enlarge-btn" aria-label="Enlarge image">
             <svg
                 width="20"
@@ -396,8 +403,7 @@
         <h3 class="function-name">Rastrigin</h3>
     </div>
 </div>
-<div class="card" data-rank="67">
-    <!-- The whole wrapper is now clickable -->
+<div class="card" data-rank="66">
     <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/sgdsai/Weierstrass.jpg')">
         <img
             src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/sgdsai/Weierstrass.jpg"
@@ -405,9 +411,8 @@
             loading="lazy"
             onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
         />
-        <div class="rank-badge">#67</div>
+        <div class="rank-badge">#66</div>
 
-        <!-- Button kept as a visual cue, but click is handled by parent too -->
         <button class="enlarge-btn" aria-label="Enlarge image">
             <svg
                 width="20"
@@ -427,8 +432,7 @@
         <h3 class="function-name">Weierstrass</h3>
     </div>
 </div>
-<div class="card" data-rank="77">
-    <!-- The whole wrapper is now clickable -->
+<div class="card" data-rank="76">
     <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/sgdsai/Langermann.jpg')">
         <img
             src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/sgdsai/Langermann.jpg"
@@ -436,9 +440,8 @@
             loading="lazy"
             onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
         />
-        <div class="rank-badge">#77</div>
+        <div class="rank-badge">#76</div>
 
-        <!-- Button kept as a visual cue, but click is handled by parent too -->
         <button class="enlarge-btn" aria-label="Enlarge image">
             <svg
                 width="20"
@@ -459,7 +462,6 @@
     </div>
 </div>
 <div class="card" data-rank="78">
-    <!-- The whole wrapper is now clickable -->
     <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/sgdsai/Drop-Wave.jpg')">
         <img
             src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/sgdsai/Drop-Wave.jpg"
@@ -469,7 +471,6 @@
         />
         <div class="rank-badge">#78</div>
 
-        <!-- Button kept as a visual cue, but click is handled by parent too -->
         <button class="enlarge-btn" aria-label="Enlarge image">
             <svg
                 width="20"
@@ -490,17 +491,15 @@
     </div>
 </div>
 <div class="card" data-rank="94">
-    <!-- The whole wrapper is now clickable -->
-    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/sgdsai/Griewank.jpg')">
+    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/sgdsai/Shubert.jpg')">
         <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/sgdsai/Griewank.jpg"
-            alt="sgdsai benchmark visualization on Griewank"
+            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/sgdsai/Shubert.jpg"
+            alt="sgdsai benchmark visualization on Shubert"
             loading="lazy"
             onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
         />
         <div class="rank-badge">#94</div>
 
-        <!-- Button kept as a visual cue, but click is handled by parent too -->
         <button class="enlarge-btn" aria-label="Enlarge image">
             <svg
                 width="20"
@@ -517,11 +516,10 @@
         </button>
     </div>
     <div class="card-content">
-        <h3 class="function-name">Griewank</h3>
+        <h3 class="function-name">Shubert</h3>
     </div>
 </div>
 <div class="card" data-rank="94">
-    <!-- The whole wrapper is now clickable -->
     <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/sgdsai/Cross-in-Tray.jpg')">
         <img
             src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/sgdsai/Cross-in-Tray.jpg"
@@ -531,7 +529,6 @@
         />
         <div class="rank-badge">#94</div>
 
-        <!-- Button kept as a visual cue, but click is handled by parent too -->
         <button class="enlarge-btn" aria-label="Enlarge image">
             <svg
                 width="20"
@@ -552,17 +549,15 @@
     </div>
 </div>
 <div class="card" data-rank="94">
-    <!-- The whole wrapper is now clickable -->
-    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/sgdsai/Shubert.jpg')">
+    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/sgdsai/Griewank.jpg')">
         <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/sgdsai/Shubert.jpg"
-            alt="sgdsai benchmark visualization on Shubert"
+            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/sgdsai/Griewank.jpg"
+            alt="sgdsai benchmark visualization on Griewank"
             loading="lazy"
             onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
         />
         <div class="rank-badge">#94</div>
 
-        <!-- Button kept as a visual cue, but click is handled by parent too -->
         <button class="enlarge-btn" aria-label="Enlarge image">
             <svg
                 width="20"
@@ -579,11 +574,10 @@
         </button>
     </div>
     <div class="card-content">
-        <h3 class="function-name">Shubert</h3>
+        <h3 class="function-name">Griewank</h3>
     </div>
 </div>
 <div class="card" data-rank="97">
-    <!-- The whole wrapper is now clickable -->
     <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/sgdsai/EggHolder.jpg')">
         <img
             src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/sgdsai/EggHolder.jpg"
@@ -593,7 +587,6 @@
         />
         <div class="rank-badge">#97</div>
 
-        <!-- Button kept as a visual cue, but click is handled by parent too -->
         <button class="enlarge-btn" aria-label="Enlarge image">
             <svg
                 width="20"
@@ -614,7 +607,6 @@
     </div>
 </div>
 <div class="card" data-rank="98">
-    <!-- The whole wrapper is now clickable -->
     <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/sgdsai/SchwefelSin.jpg')">
         <img
             src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/sgdsai/SchwefelSin.jpg"
@@ -624,7 +616,6 @@
         />
         <div class="rank-badge">#98</div>
 
-        <!-- Button kept as a visual cue, but click is handled by parent too -->
         <button class="enlarge-btn" aria-label="Enlarge image">
             <svg
                 width="20"
