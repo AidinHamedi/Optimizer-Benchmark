@@ -3,305 +3,640 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>nadam Optimizer Benchmark Results</title>
+        <title>nadam - Optimizer Performance Benchmark</title>
+        <meta
+            name="description"
+            content="Detailed benchmark results and trajectory visualizations for the nadam optimizer on 18 test functions."
+        />
         <link rel="stylesheet" href="styles.css" />
     </head>
     <body>
-        <nav class="top-nav">
-            <a href="../" class="back-link">‹ Back to Rankings</a>
-        </nav>
+        <div class="container">
+            <nav class="nav-header">
+                <h1>nadam</h1>
+                <a href="../#rankings" class="back-link">
+                    <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <path d="M19 12H5M12 19l-7-7 7-7" />
+                    </svg>
+                    All Rankings
+                </a>
+            </nav>
 
-        <h1>nadam Optimizer Benchmark Results</h1>
-
-        <div class="summary">
-            <h2>Overall Performance</h2>
-            <div class="summary-stats">
-                <div class="stat-item">
-                    <div class="stat-value">46</div>
-                    <div class="stat-label">Rank (Error Rate)</div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Average Rank</div>
+                    <div class="stat-value">#59</div>
                 </div>
-                <div class="stat-item">
-                    <div class="stat-value">57</div>
-                    <div class="stat-label">Rank (Avg Function Rank)</div>
+                <div class="stat-card">
+                    <div class="stat-label">Error Rate Rank</div>
+                    <div class="stat-value">#45</div>
                 </div>
-                <div class="stat-item">
-                    <div class="stat-value">2.2635</div>
-                    <div class="stat-label">Avg Error Rate</div>
+                <div class="stat-card">
+                    <div class="stat-label">Weighted Avg Error</div>
+                    <div class="stat-value">2.2295</div>
                 </div>
-                <div class="stat-item">
-                    <div class="stat-value">19</div>
+                <div class="stat-card">
                     <div class="stat-label">Functions Tested</div>
+                    <div class="stat-value">20</div>
                 </div>
             </div>
-        </div>
 
-        <div class="gallery"><div class="card">
-    <div class="image-wrapper">
-        <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/Rastrigin.jpg"
-            alt="nadam benchmark visualization on Rastrigin"
-            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
-        />
-        <div class="rank-badge">Rank #34</div>
-        <button class="enlarge-btn" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/Rastrigin.jpg')">🔍</button>
-    </div>
-    <div class="card-content">
-        <h3 class="function-name">Rastrigin</h3>
-    </div>
-</div>
-<div class="card">
-    <div class="image-wrapper">
-        <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/Griewank.jpg"
-            alt="nadam benchmark visualization on Griewank"
-            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
-        />
-        <div class="rank-badge">Rank #32</div>
-        <button class="enlarge-btn" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/Griewank.jpg')">🔍</button>
-    </div>
-    <div class="card-content">
-        <h3 class="function-name">Griewank</h3>
-    </div>
-</div>
-<div class="card">
-    <div class="image-wrapper">
-        <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/Langermann%202.jpg"
-            alt="nadam benchmark visualization on Langermann 2"
-            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
-        />
-        <div class="rank-badge">Rank #27</div>
-        <button class="enlarge-btn" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/Langermann%202.jpg')">🔍</button>
-    </div>
-    <div class="card-content">
-        <h3 class="function-name">Langermann 2</h3>
-    </div>
-</div>
-<div class="card">
-    <div class="image-wrapper">
-        <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/Schaffer%204.jpg"
-            alt="nadam benchmark visualization on Schaffer 4"
-            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
-        />
-        <div class="rank-badge">Rank #45</div>
-        <button class="enlarge-btn" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/Schaffer%204.jpg')">🔍</button>
-    </div>
-    <div class="card-content">
-        <h3 class="function-name">Schaffer 4</h3>
-    </div>
-</div>
-<div class="card">
-    <div class="image-wrapper">
-        <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/Styblinski-Tang.jpg"
-            alt="nadam benchmark visualization on Styblinski-Tang"
-            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
-        />
-        <div class="rank-badge">Rank #63</div>
-        <button class="enlarge-btn" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/Styblinski-Tang.jpg')">🔍</button>
-    </div>
-    <div class="card-content">
-        <h3 class="function-name">Styblinski-Tang</h3>
-    </div>
-</div>
-<div class="card">
-    <div class="image-wrapper">
-        <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/Weierstrass.jpg"
-            alt="nadam benchmark visualization on Weierstrass"
-            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
-        />
-        <div class="rank-badge">Rank #48</div>
-        <button class="enlarge-btn" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/Weierstrass.jpg')">🔍</button>
-    </div>
-    <div class="card-content">
-        <h3 class="function-name">Weierstrass</h3>
-    </div>
-</div>
-<div class="card">
-    <div class="image-wrapper">
-        <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/Lévy%2013.jpg"
-            alt="nadam benchmark visualization on Lévy 13"
-            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
-        />
-        <div class="rank-badge">Rank #63</div>
-        <button class="enlarge-btn" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/Lévy%2013.jpg')">🔍</button>
-    </div>
-    <div class="card-content">
-        <h3 class="function-name">Lévy 13</h3>
-    </div>
-</div>
-<div class="card">
-    <div class="image-wrapper">
-        <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/MixedMichalewiczSphere.jpg"
-            alt="nadam benchmark visualization on MixedMichalewiczSphere"
-            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
-        />
-        <div class="rank-badge">Rank #55</div>
-        <button class="enlarge-btn" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/MixedMichalewiczSphere.jpg')">🔍</button>
-    </div>
-    <div class="card-content">
-        <h3 class="function-name">MixedMichalewiczSphere</h3>
-    </div>
-</div>
-<div class="card">
-    <div class="image-wrapper">
-        <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/SchwefelSin.jpg"
-            alt="nadam benchmark visualization on SchwefelSin"
-            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
-        />
-        <div class="rank-badge">Rank #68</div>
-        <button class="enlarge-btn" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/SchwefelSin.jpg')">🔍</button>
-    </div>
-    <div class="card-content">
-        <h3 class="function-name">SchwefelSin</h3>
-    </div>
-</div>
-<div class="card">
-    <div class="image-wrapper">
-        <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/Rosenbrock.jpg"
-            alt="nadam benchmark visualization on Rosenbrock"
-            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
-        />
-        <div class="rank-badge">Rank #56</div>
-        <button class="enlarge-btn" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/Rosenbrock.jpg')">🔍</button>
-    </div>
-    <div class="card-content">
-        <h3 class="function-name">Rosenbrock</h3>
-    </div>
-</div>
-<div class="card">
-    <div class="image-wrapper">
-        <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/Drop-Wave.jpg"
-            alt="nadam benchmark visualization on Drop-Wave"
-            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
-        />
-        <div class="rank-badge">Rank #47</div>
-        <button class="enlarge-btn" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/Drop-Wave.jpg')">🔍</button>
-    </div>
-    <div class="card-content">
-        <h3 class="function-name">Drop-Wave</h3>
-    </div>
-</div>
-<div class="card">
-    <div class="image-wrapper">
+            <p class="gallery-intro">
+                Functions are sorted based on the optimizer's performance
+                relative to other algorithms. The rank number on each image
+                (e.g. #1) indicates its standing on that specific function
+                compared to all other optimizers tested.
+            </p>
+
+            <div class="gallery"><div class="card" data-rank="9">
+    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/Schaffer%202.jpg')">
         <img
             src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/Schaffer%202.jpg"
             alt="nadam benchmark visualization on Schaffer 2"
+            loading="lazy"
             onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
         />
-        <div class="rank-badge">Rank #9</div>
-        <button class="enlarge-btn" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/Schaffer%202.jpg')">🔍</button>
+        <div class="rank-badge">#9</div>
+
+        <button class="enlarge-btn" aria-label="Enlarge image">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </button>
     </div>
     <div class="card-content">
         <h3 class="function-name">Schaffer 2</h3>
     </div>
 </div>
-<div class="card">
-    <div class="image-wrapper">
+<div class="card" data-rank="27">
+    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/Langermann%202.jpg')">
         <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/Langermann.jpg"
-            alt="nadam benchmark visualization on Langermann"
+            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/Langermann%202.jpg"
+            alt="nadam benchmark visualization on Langermann 2"
+            loading="lazy"
             onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
         />
-        <div class="rank-badge">Rank #49</div>
-        <button class="enlarge-btn" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/Langermann.jpg')">🔍</button>
+        <div class="rank-badge">#27</div>
+
+        <button class="enlarge-btn" aria-label="Enlarge image">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </button>
     </div>
     <div class="card-content">
-        <h3 class="function-name">Langermann</h3>
+        <h3 class="function-name">Langermann 2</h3>
     </div>
 </div>
-<div class="card">
-    <div class="image-wrapper">
+<div class="card" data-rank="32">
+    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/Griewank.jpg')">
         <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/Gramacy%20&%20Lee%202D.jpg"
-            alt="nadam benchmark visualization on Gramacy & Lee 2D"
+            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/Griewank.jpg"
+            alt="nadam benchmark visualization on Griewank"
+            loading="lazy"
             onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
         />
-        <div class="rank-badge">Rank #66</div>
-        <button class="enlarge-btn" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/Gramacy%20&%20Lee%202D.jpg')">🔍</button>
+        <div class="rank-badge">#32</div>
+
+        <button class="enlarge-btn" aria-label="Enlarge image">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </button>
     </div>
     <div class="card-content">
-        <h3 class="function-name">Gramacy & Lee 2D</h3>
+        <h3 class="function-name">Griewank</h3>
     </div>
 </div>
-<div class="card">
-    <div class="image-wrapper">
+<div class="card" data-rank="34">
+    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/Rastrigin.jpg')">
         <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/Shubert.jpg"
-            alt="nadam benchmark visualization on Shubert"
+            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/Rastrigin.jpg"
+            alt="nadam benchmark visualization on Rastrigin"
+            loading="lazy"
             onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
         />
-        <div class="rank-badge">Rank #49</div>
-        <button class="enlarge-btn" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/Shubert.jpg')">🔍</button>
+        <div class="rank-badge">#34</div>
+
+        <button class="enlarge-btn" aria-label="Enlarge image">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </button>
     </div>
     <div class="card-content">
-        <h3 class="function-name">Shubert</h3>
+        <h3 class="function-name">Rastrigin</h3>
     </div>
 </div>
-<div class="card">
-    <div class="image-wrapper">
-        <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/EggHolder.jpg"
-            alt="nadam benchmark visualization on EggHolder"
-            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
-        />
-        <div class="rank-badge">Rank #84</div>
-        <button class="enlarge-btn" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/EggHolder.jpg')">🔍</button>
-    </div>
-    <div class="card-content">
-        <h3 class="function-name">EggHolder</h3>
-    </div>
-</div>
-<div class="card">
-    <div class="image-wrapper">
-        <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/Lévy.jpg"
-            alt="nadam benchmark visualization on Lévy"
-            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
-        />
-        <div class="rank-badge">Rank #66</div>
-        <button class="enlarge-btn" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/Lévy.jpg')">🔍</button>
-    </div>
-    <div class="card-content">
-        <h3 class="function-name">Lévy</h3>
-    </div>
-</div>
-<div class="card">
-    <div class="image-wrapper">
+<div class="card" data-rank="40">
+    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/Ackley.jpg')">
         <img
             src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/Ackley.jpg"
             alt="nadam benchmark visualization on Ackley"
+            loading="lazy"
             onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
         />
-        <div class="rank-badge">Rank #41</div>
-        <button class="enlarge-btn" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/Ackley.jpg')">🔍</button>
+        <div class="rank-badge">#40</div>
+
+        <button class="enlarge-btn" aria-label="Enlarge image">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </button>
     </div>
     <div class="card-content">
         <h3 class="function-name">Ackley</h3>
     </div>
 </div>
-<div class="card">
-    <div class="image-wrapper">
+<div class="card" data-rank="45">
+    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/Schaffer%204.jpg')">
+        <img
+            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/Schaffer%204.jpg"
+            alt="nadam benchmark visualization on Schaffer 4"
+            loading="lazy"
+            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
+        />
+        <div class="rank-badge">#45</div>
+
+        <button class="enlarge-btn" aria-label="Enlarge image">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </button>
+    </div>
+    <div class="card-content">
+        <h3 class="function-name">Schaffer 4</h3>
+    </div>
+</div>
+<div class="card" data-rank="47">
+    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/Drop-Wave.jpg')">
+        <img
+            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/Drop-Wave.jpg"
+            alt="nadam benchmark visualization on Drop-Wave"
+            loading="lazy"
+            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
+        />
+        <div class="rank-badge">#47</div>
+
+        <button class="enlarge-btn" aria-label="Enlarge image">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </button>
+    </div>
+    <div class="card-content">
+        <h3 class="function-name">Drop-Wave</h3>
+    </div>
+</div>
+<div class="card" data-rank="48">
+    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/Weierstrass.jpg')">
+        <img
+            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/Weierstrass.jpg"
+            alt="nadam benchmark visualization on Weierstrass"
+            loading="lazy"
+            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
+        />
+        <div class="rank-badge">#48</div>
+
+        <button class="enlarge-btn" aria-label="Enlarge image">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </button>
+    </div>
+    <div class="card-content">
+        <h3 class="function-name">Weierstrass</h3>
+    </div>
+</div>
+<div class="card" data-rank="49">
+    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/Shubert.jpg')">
+        <img
+            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/Shubert.jpg"
+            alt="nadam benchmark visualization on Shubert"
+            loading="lazy"
+            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
+        />
+        <div class="rank-badge">#49</div>
+
+        <button class="enlarge-btn" aria-label="Enlarge image">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </button>
+    </div>
+    <div class="card-content">
+        <h3 class="function-name">Shubert</h3>
+    </div>
+</div>
+<div class="card" data-rank="49">
+    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/Langermann.jpg')">
+        <img
+            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/Langermann.jpg"
+            alt="nadam benchmark visualization on Langermann"
+            loading="lazy"
+            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
+        />
+        <div class="rank-badge">#49</div>
+
+        <button class="enlarge-btn" aria-label="Enlarge image">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </button>
+    </div>
+    <div class="card-content">
+        <h3 class="function-name">Langermann</h3>
+    </div>
+</div>
+<div class="card" data-rank="55">
+    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/MixedMichalewiczSphere.jpg')">
+        <img
+            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/MixedMichalewiczSphere.jpg"
+            alt="nadam benchmark visualization on MixedMichalewiczSphere"
+            loading="lazy"
+            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
+        />
+        <div class="rank-badge">#55</div>
+
+        <button class="enlarge-btn" aria-label="Enlarge image">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </button>
+    </div>
+    <div class="card-content">
+        <h3 class="function-name">MixedMichalewiczSphere</h3>
+    </div>
+</div>
+<div class="card" data-rank="55">
+    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/Cross-in-Tray.jpg')">
         <img
             src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/Cross-in-Tray.jpg"
             alt="nadam benchmark visualization on Cross-in-Tray"
+            loading="lazy"
             onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
         />
-        <div class="rank-badge">Rank #55</div>
-        <button class="enlarge-btn" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/Cross-in-Tray.jpg')">🔍</button>
+        <div class="rank-badge">#55</div>
+
+        <button class="enlarge-btn" aria-label="Enlarge image">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </button>
     </div>
     <div class="card-content">
         <h3 class="function-name">Cross-in-Tray</h3>
     </div>
 </div>
+<div class="card" data-rank="56">
+    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/Rosenbrock.jpg')">
+        <img
+            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/Rosenbrock.jpg"
+            alt="nadam benchmark visualization on Rosenbrock"
+            loading="lazy"
+            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
+        />
+        <div class="rank-badge">#56</div>
+
+        <button class="enlarge-btn" aria-label="Enlarge image">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </button>
+    </div>
+    <div class="card-content">
+        <h3 class="function-name">Rosenbrock</h3>
+    </div>
 </div>
+<div class="card" data-rank="63">
+    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/Styblinski-Tang.jpg')">
+        <img
+            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/Styblinski-Tang.jpg"
+            alt="nadam benchmark visualization on Styblinski-Tang"
+            loading="lazy"
+            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
+        />
+        <div class="rank-badge">#63</div>
+
+        <button class="enlarge-btn" aria-label="Enlarge image">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </button>
+    </div>
+    <div class="card-content">
+        <h3 class="function-name">Styblinski-Tang</h3>
+    </div>
+</div>
+<div class="card" data-rank="63">
+    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/Lévy%2013.jpg')">
+        <img
+            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/Lévy%2013.jpg"
+            alt="nadam benchmark visualization on Lévy 13"
+            loading="lazy"
+            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
+        />
+        <div class="rank-badge">#63</div>
+
+        <button class="enlarge-btn" aria-label="Enlarge image">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </button>
+    </div>
+    <div class="card-content">
+        <h3 class="function-name">Lévy 13</h3>
+    </div>
+</div>
+<div class="card" data-rank="66">
+    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/Lévy.jpg')">
+        <img
+            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/Lévy.jpg"
+            alt="nadam benchmark visualization on Lévy"
+            loading="lazy"
+            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
+        />
+        <div class="rank-badge">#66</div>
+
+        <button class="enlarge-btn" aria-label="Enlarge image">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </button>
+    </div>
+    <div class="card-content">
+        <h3 class="function-name">Lévy</h3>
+    </div>
+</div>
+<div class="card" data-rank="66">
+    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/Goldstein-Price.jpg')">
+        <img
+            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/Goldstein-Price.jpg"
+            alt="nadam benchmark visualization on Goldstein-Price"
+            loading="lazy"
+            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
+        />
+        <div class="rank-badge">#66</div>
+
+        <button class="enlarge-btn" aria-label="Enlarge image">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </button>
+    </div>
+    <div class="card-content">
+        <h3 class="function-name">Goldstein-Price</h3>
+    </div>
+</div>
+<div class="card" data-rank="66">
+    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/Gramacy%20&%20Lee%202D.jpg')">
+        <img
+            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/Gramacy%20&%20Lee%202D.jpg"
+            alt="nadam benchmark visualization on Gramacy & Lee 2D"
+            loading="lazy"
+            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
+        />
+        <div class="rank-badge">#66</div>
+
+        <button class="enlarge-btn" aria-label="Enlarge image">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </button>
+    </div>
+    <div class="card-content">
+        <h3 class="function-name">Gramacy & Lee 2D</h3>
+    </div>
+</div>
+<div class="card" data-rank="68">
+    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/SchwefelSin.jpg')">
+        <img
+            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/SchwefelSin.jpg"
+            alt="nadam benchmark visualization on SchwefelSin"
+            loading="lazy"
+            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
+        />
+        <div class="rank-badge">#68</div>
+
+        <button class="enlarge-btn" aria-label="Enlarge image">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </button>
+    </div>
+    <div class="card-content">
+        <h3 class="function-name">SchwefelSin</h3>
+    </div>
+</div>
+<div class="card" data-rank="84">
+    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/EggHolder.jpg')">
+        <img
+            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/nadam/EggHolder.jpg"
+            alt="nadam benchmark visualization on EggHolder"
+            loading="lazy"
+            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
+        />
+        <div class="rank-badge">#84</div>
+
+        <button class="enlarge-btn" aria-label="Enlarge image">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </button>
+    </div>
+    <div class="card-content">
+        <h3 class="function-name">EggHolder</h3>
+    </div>
+</div>
+</div>
+        </div>
 
         <div class="modal" id="imageModal">
             <div class="modal-content">
@@ -311,16 +646,10 @@
         </div>
 
         <footer>
-            View the Project on GitHub:
             <a
                 href="https://github.com/AidinHamedi/Optimizer-Benchmark"
                 target="_blank"
-                >github.com/AidinHamedi/Optimizer-Benchmark</a
-            ><br />
-            Made with ❤️ by AidinHamedi<br />
-            <em
-                >This page was automatically generated. Changes may be
-                overwritten.</em
+                >View Repository</a
             >
         </footer>
 

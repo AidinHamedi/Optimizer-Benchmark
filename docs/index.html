@@ -3,247 +3,138 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>PyTorch Optimizer Benchmark - Rankings & Results</title>
+        <title>
+            PyTorch Optimizer Benchmark - 2D Trajectory Visualizations
+        </title>
         <meta
             name="description"
             content="Compare PyTorch optimizer performance on 2D test functions. See rankings, trajectory visualizations, and results from hyperparameter tuning with Optuna."
-        />
-        <meta
-            name="keywords"
-            content="PyTorch optimizer benchmark, optimizer comparison, Adam, SGD, optimization algorithms, machine learning, deep learning, optimizer performance"
         />
         <link rel="stylesheet" href="style.css" />
     </head>
     <body>
         <div class="container">
-            <header>
-                <h1>PyTorch Optimizer Benchmark</h1>
-                <p class="intro">
-                    A practical comparison of PyTorch optimization algorithms
-                    tested on standard 2D mathematical functions. This project
-                    helps you understand how different optimizers perform across
-                    various optimization landscapes.
+            <nav>
+                <a href="#" class="brand">
+                    <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    >
+                        <path d="M2 5l3 5 3-3 5 12 5-14 3 4" />
+                    </svg>
+                    Optimizer Benchmark
+                </a>
+                <div class="nav-links">
+                    <a href="#about">Methodology</a>
+                    <a href="#faq">FAQ</a>
+                    <a href="#references">References</a>
+                    <a
+                        href="https://github.com/AidinHamedi/Optimizer-Benchmark/releases/latest"
+                        target="_blank"
+                        >Download Data</a
+                    >
+                </div>
+            </nav>
+
+            <header class="hero content-max-width">
+                <h1>PyTorch Optimizer<br />Benchmark</h1>
+                <p class="subtitle">
+                    Trajectory visualization and evaluation of optimization
+                    algorithms<br />
+                    on standard 2D mathematical test functions.
                 </p>
 
-                <div class="project-overview">
-                    <h2>What This Benchmark Does</h2>
-                    <p>
-                        This project evaluates optimization algorithms from the
-                        <a
-                            href="https://github.com/kozistr/pytorch_optimizer"
-                            target="_blank"
-                            >pytorch_optimizer</a
+                <div class="repo-input-wrapper">
+                    <span class="repo-prefix">github.com/</span>
+                    <input
+                        type="text"
+                        class="repo-url"
+                        value="AidinHamedi/Optimizer-Benchmark"
+                        readonly
+                        onclick="this.select()"
+                    />
+                    <a
+                        href="https://github.com/AidinHamedi/Optimizer-Benchmark"
+                        target="_blank"
+                        class="visit-btn"
+                    >
+                        <svg
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            style="margin-right: 8px"
                         >
-                        library. For each optimizer, we:
-                    </p>
-                    <ul>
-                        <li>Automatically tune hyperparameters using Optuna</li>
-                        <li>Test on 18 different 2D mathematical functions</li>
-                        <li>
-                            Generate trajectory visualizations showing
-                            optimization paths
-                        </li>
-                        <li>Rank optimizers based on overall performance</li>
-                    </ul>
-                </div>
-
-                <div class="warning">
-                    <p>
-                        <strong>Important Note</strong>: These results come from
-                        synthetic 2D functions and may not directly translate to
-                        real neural network training. Use these rankings as a
-                        reference rather than definitive guidance for practical
-                        applications.
-                    </p>
+                            <path
+                                d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"
+                            ></path>
+                        </svg>
+                        Star on GitHub
+                    </a>
                 </div>
             </header>
 
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+                <a
+                    href="https://optuna.org/"
+                    target="_blank"
+                    class="stat-item external"
+                >
+                    <span class="stat-label">Tuning Engine</span>
+                    <span class="stat-value">Optuna</span>
+                </a>
+                <a href="#functions" class="stat-item">
+                    <span class="stat-label">Test Suite</span>
+                    <span class="stat-value">19 Mathematical Functions</span>
+                </a>
+                <a
+                    href="https://pytorch-optimizers.readthedocs.io/en/latest/"
+                    target="_blank"
+                    class="stat-item external"
+                >
+                    <span class="stat-label">Library</span>
+                    <span class="stat-value">pytorch_optimizer</span>
+                </a>
+            </div>
+
+            <div class="limitations-box content-max-width">
+                <span class="limitations-icon">⚠️</span>
+                <div class="limitations-content">
+                    <strong>Scope Limitation:</strong> These tests are performed
+                    exclusively on synthetic 2D mathematical functions. Results
+                    demonstrate algorithmic behavior in low-dimensional settings
+                    and
+                    <strong
+                        >do not reflect performance in high-dimensional neural
+                        network training</strong
+                    >.
+                </div>
+            </div>
+
             <main>
-                <!--<section id="how-to-use">
-                    <h2>How to Use These Results</h2>
-                    <div class="usage-grid">
-                        <div class="usage-item">
-                            <h3>For Researchers</h3>
-                            <p>
-                                Compare optimizer behavior across different
-                                function landscapes and understand convergence
-                                patterns.
-                            </p>
-                        </div>
-                        <div class="usage-item">
-                            <h3>For Practitioners</h3>
-                            <p>
-                                Get starting points for optimizer selection and
-                                hyperparameter ranges for your projects.
-                            </p>
-                        </div>
-                        <div class="usage-item">
-                            <h3>For Educators</h3>
-                            <p>
-                                Use the visualizations to teach optimization
-                                concepts and show how different algorithms work.
-                            </p>
-                        </div>
-                    </div>
-                </section>-->
-
-                <section id="functions">
-                    <h2>Test Functions</h2>
-                    <p>
-                        The benchmark uses 18 standard 2D mathematical functions
-                        to test optimizer performance in different scenarios:
-                    </p>
-                    <div class="function-grid">
-                        <a
-                            href="https://www.sfu.ca/~ssurjano/ackley.html"
-                            target="_blank"
-                            class="function-card"
-                            >Ackley</a
-                        >
-                        <a
-                            href="https://www.sfu.ca/~ssurjano/crossit.html"
-                            target="_blank"
-                            class="function-card"
-                            >Cross-in-Tray</a
-                        >
-                        <a
-                            href="https://www.sfu.ca/~ssurjano/drop.html"
-                            target="_blank"
-                            class="function-card"
-                            >Drop-Wave</a
-                        >
-                        <a
-                            href="https://www.sfu.ca/~ssurjano/egg.html"
-                            target="_blank"
-                            class="function-card"
-                            >Eggholder</a
-                        >
-                        <a
-                            href="https://www.sfu.ca/~ssurjano/grlee12.html"
-                            target="_blank"
-                            class="function-card"
-                            >Gramacy & Lee</a
-                        >
-                        <a
-                            href="https://www.sfu.ca/~ssurjano/griewank.html"
-                            target="_blank"
-                            class="function-card"
-                            >Griewank</a
-                        >
-                        <a
-                            href="https://www.sfu.ca/~ssurjano/langer.html"
-                            target="_blank"
-                            class="function-card"
-                            >Langermann</a
-                        >
-                        <a
-                            href="https://www.sfu.ca/~ssurjano/levy.html"
-                            target="_blank"
-                            class="function-card"
-                            >Lévy</a
-                        >
-                        <a
-                            href="https://www.sfu.ca/~ssurjano/levy13.html"
-                            target="_blank"
-                            class="function-card"
-                            >Lévy N. 13</a
-                        >
-                        <a
-                            href="https://www.sfu.ca/~ssurjano/rastr.html"
-                            target="_blank"
-                            class="function-card"
-                            >Rastrigin</a
-                        >
-                        <a
-                            href="https://www.sfu.ca/~ssurjano/rosen.html"
-                            target="_blank"
-                            class="function-card"
-                            >Rosenbrock</a
-                        >
-                        <a
-                            href="https://www.sfu.ca/~ssurjano/schaffer2.html"
-                            target="_blank"
-                            class="function-card"
-                            >Schaffer N. 2</a
-                        >
-                        <a
-                            href="https://www.sfu.ca/~ssurjano/schaffer4.html"
-                            target="_blank"
-                            class="function-card"
-                            >Schaffer N. 4</a
-                        >
-                        <a
-                            href="https://www.sfu.ca/~ssurjano/shubert.html"
-                            target="_blank"
-                            class="function-card"
-                            >Shubert</a
-                        >
-                        <a
-                            href="https://www.sfu.ca/~ssurjano/stybtang.html"
-                            target="_blank"
-                            class="function-card"
-                            >Styblinski–Tang</a
-                        >
-                        <a
-                            href="https://en.wikipedia.org/wiki/Weierstrass_function"
-                            target="_blank"
-                            class="function-card"
-                            >Weierstrass</a
-                        >
-                        <a
-                            href="https://www.sfu.ca/~ssurjano/schwef.html"
-                            target="_blank"
-                            class="function-card"
-                            >Schwefel</a
-                        >
-                        <a
-                            href="https://www.sfu.ca/~ssurjano/michal.html"
-                            target="_blank"
-                            class="function-card"
-                            >Michalewicz</a
-                        >
-                    </div>
-                    <p class="function-note">
-                        Each function presents unique challenges like multiple
-                        minima, plateaus, or sharp valleys that test different
-                        aspects of optimizer performance.
-                    </p>
-                </section>
-
+                <!-- Rankings Section (Wide) -->
                 <section id="rankings">
-                    <h2>Optimizer Performance Rankings</h2>
-                    <p>
-                        Optimizers are ranked by their average performance
-                        across all test functions. The rankings help you compare
-                        how different algorithms handle various optimization
-                        challenges.
-                    </p>
-
-                    <div class="results-actions">
-                        <a
-                            href="https://github.com/Aidinhamedi/Optimizer-Benchmark/releases/latest"
-                            target="_blank"
-                            class="download-btn"
-                        >
-                            Download Full Results
-                        </a>
-                        <p class="results-note">
-                            Includes detailed data, visualizations
-                        </p>
-                    </div>
-
                     <div class="tabs">
                         <button
                             class="tab-link active"
                             onclick="openTab(event, 'avg-rank')"
                         >
-                            By Average Rank
+                            Average Rank
                         </button>
                         <button
                             class="tab-link"
                             onclick="openTab(event, 'error-rate')"
                         >
-                            By Error Rate
+                            Weighted Error Rate
                         </button>
                     </div>
 
@@ -252,19 +143,14 @@
                         class="tab-content"
                         style="display: block"
                     >
-                        <p class="tab-description">
-                            Ranked by average position across all functions
-                            (lower is better). This shows consistent
-                            performance.
-                        </p>
                         <div class="table-container">
                             <table id="ranking-table">
                                 <thead>
                                     <tr>
                                         <th>Rank</th>
                                         <th>Optimizer</th>
-                                        <th>Avg Rank</th>
-                                        <th>Visualization</th>
+                                        <th>Score</th>
+                                        <th>Visuals</th>
                                     </tr>
                                 </thead>
                                 <tbody id="ranking-table-body"></tbody>
@@ -273,19 +159,14 @@
                     </div>
 
                     <div id="error-rate" class="tab-content">
-                        <p class="tab-description">
-                            Ranked by weighted average error rate across all
-                            functions (lower is better). This shows overall
-                            optimization quality.
-                        </p>
                         <div class="table-container">
                             <table id="error-rate-table">
                                 <thead>
                                     <tr>
                                         <th>Rank</th>
                                         <th>Optimizer</th>
-                                        <th>Avg Error</th>
-                                        <th>Visualization</th>
+                                        <th>Error</th>
+                                        <th>Visuals</th>
                                     </tr>
                                 </thead>
                                 <tbody id="error-rate-table-body"></tbody>
@@ -294,89 +175,236 @@
                     </div>
                 </section>
 
-                <section id="quick-start">
-                    <h2>Run Your Own Tests</h2>
-                    <p>
-                        You can run this benchmark yourself to test different
-                        optimizers or add new functions:
-                    </p>
-                    <pre><code># Clone and setup
-git clone https://github.com/AidinHamedi/Optimizer-Benchmark.git
-cd Optimizer-Benchmark
-uv sync
+                <!-- Test Functions (Wide Grid) -->
+                <h2 class="section-title" id="functions">Test Functions</h2>
+                <div class="function-grid">
+                    <a
+                        href="https://www.sfu.ca/~ssurjano/ackley.html"
+                        target="_blank"
+                        class="function-card"
+                        >Ackley</a
+                    >
+                    <a
+                        href="https://www.sfu.ca/~ssurjano/crossit.html"
+                        target="_blank"
+                        class="function-card"
+                        >Cross-in-Tray</a
+                    >
+                    <a
+                        href="https://www.sfu.ca/~ssurjano/drop.html"
+                        target="_blank"
+                        class="function-card"
+                        >Drop-Wave</a
+                    >
+                    <a
+                        href="https://www.sfu.ca/~ssurjano/egg.html"
+                        target="_blank"
+                        class="function-card"
+                        >Eggholder</a
+                    >
+                    <a
+                        href="https://www.sfu.ca/~ssurjano/grlee12.html"
+                        target="_blank"
+                        class="function-card"
+                        >Gramacy & Lee</a
+                    >
+                    <a
+                        href="https://www.sfu.ca/~ssurjano/griewank.html"
+                        target="_blank"
+                        class="function-card"
+                        >Griewank</a
+                    >
+                    <a
+                        href="https://www.sfu.ca/~ssurjano/langer.html"
+                        target="_blank"
+                        class="function-card"
+                        >Langermann</a
+                    >
+                    <a
+                        href="https://www.sfu.ca/~ssurjano/levy.html"
+                        target="_blank"
+                        class="function-card"
+                        >Lévy</a
+                    >
+                    <a
+                        href="https://www.sfu.ca/~ssurjano/levy13.html"
+                        target="_blank"
+                        class="function-card"
+                        >Lévy N. 13</a
+                    >
+                    <a
+                        href="https://www.sfu.ca/~ssurjano/rastr.html"
+                        target="_blank"
+                        class="function-card"
+                        >Rastrigin</a
+                    >
+                    <a
+                        href="https://www.sfu.ca/~ssurjano/rosen.html"
+                        target="_blank"
+                        class="function-card"
+                        >Rosenbrock</a
+                    >
+                    <a
+                        href="https://www.sfu.ca/~ssurjano/schaffer2.html"
+                        target="_blank"
+                        class="function-card"
+                        >Schaffer N. 2</a
+                    >
+                    <a
+                        href="https://www.sfu.ca/~ssurjano/schaffer4.html"
+                        target="_blank"
+                        class="function-card"
+                        >Schaffer N. 4</a
+                    >
+                    <a
+                        href="https://www.sfu.ca/~ssurjano/shubert.html"
+                        target="_blank"
+                        class="function-card"
+                        >Shubert</a
+                    >
+                    <a
+                        href="https://www.sfu.ca/~ssurjano/stybtang.html"
+                        target="_blank"
+                        class="function-card"
+                        >Styblinski–Tang</a
+                    >
+                    <a
+                        href="https://en.wikipedia.org/wiki/Weierstrass_function"
+                        target="_blank"
+                        class="function-card"
+                        >Weierstrass</a
+                    >
+                    <a
+                        href="https://www.sfu.ca/~ssurjano/schwef.html"
+                        target="_blank"
+                        class="function-card"
+                        >Schwefel</a
+                    >
+                    <a
+                        href="https://www.sfu.ca/~ssurjano/michal.html"
+                        target="_blank"
+                        class="function-card"
+                        >Michalewicz</a
+                    >
+                    <a
+                        href="https://www.sfu.ca/~ssurjano/goldpr.html"
+                        target="_blank"
+                        class="function-card"
+                        >Goldstein-Price</a
+                    >
+                </div>
 
-# CLI options
-python runner.py --help
-
-# Run benchmark
-python runner.py</code></pre>
-                    <p>
-                        The benchmark will generate results and visualizations
-                        in the <code>./results/</code> directory.
-                    </p>
+                <!-- Methodology (Centered) -->
+                <section class="content-max-width" id="about">
+                    <h2 class="section-title">Methodology</h2>
+                    <div class="text-section">
+                        <p>
+                            This project benchmarks algorithms available in the
+                            <code>pytorch_optimizer</code> library. The
+                            evaluation process consists of:
+                        </p>
+                        <ul>
+                            <li>
+                                <strong>Hyperparameter Tuning:</strong> Used
+                                <code>Optuna</code> to search for optimal
+                                parameters (LR, momentum, etc.) over a fixed
+                                number of trials.
+                            </li>
+                            <li>
+                                <strong>Execution:</strong> The optimizer is run
+                                using the best hyperparameters found.
+                            </li>
+                            <li>
+                                <strong>Visualization:</strong> The trajectory
+                                is recorded and plotted on the contour map.
+                            </li>
+                            <li>
+                                <strong>Scoring:</strong> Ranked by final
+                                distance from the global minimum and convergence
+                                speed.
+                            </li>
+                        </ul>
+                    </div>
                 </section>
 
-                <section id="contributing">
-                    <h2>Contribute & Improve</h2>
-                    <p>
-                        This project is open source and welcomes contributions.
-                        Areas where help is especially welcome:
-                    </p>
-                    <ul>
-                        <li>
-                            Improving the website design and user experience
-                        </li>
-                        <li>Adding new test functions or optimizers</li>
-                        <li>Enhancing the evaluation methodology</li>
-                        <li>Documentation improvements</li>
-                    </ul>
-                    <p>
-                        Feel free to open issues or submit pull requests on
-                        GitHub.
-                    </p>
+                <!-- FAQ (Centered) -->
+                <section class="content-max-width" id="faq">
+                    <h2 class="section-title">FAQ</h2>
+
+                    <details>
+                        <summary>What functions are used?</summary>
+                        <div class="faq-content">
+                            The suite uses 19 standard optimization test
+                            functions, including multimodal functions (e.g.,
+                            Ackley) and valley-shaped functions (e.g.,
+                            Rosenbrock).
+                        </div>
+                    </details>
+
+                    <details>
+                        <summary>
+                            Does this predict Neural Network performance?
+                        </summary>
+                        <div class="faq-content">
+                            <strong>No.</strong> These are low-dimensional (2D)
+                            problems. Deep Learning involves high-dimensional
+                            optimization with different landscapes (saddle
+                            points). This strictly evaluates algorithmic
+                            behavior in a 2D context.
+                        </div>
+                    </details>
+
+                    <details>
+                        <summary>How are the rankings calculated?</summary>
+                        <div class="faq-content">
+                            <strong>Average Rank</strong> is the mean position
+                            across all functions.
+                            <strong>Weighted Error Rate</strong> is the
+                            aggregated distance to the global minimum, weighted
+                            by function difficulty.
+                        </div>
+                    </details>
                 </section>
 
-                <section id="references">
-                    <h2>References & Resources</h2>
-                    <ul>
+                <!-- References (Centered) -->
+                <section class="content-max-width" id="references">
+                    <h2 class="section-title">References</h2>
+                    <ul class="ref-list">
                         <li>
-                            <strong>Test Functions Source:</strong> Virtual
-                            Library of Simulation Experiments, Simon Fraser
-                            University
-                            <a
-                                href="https://www.sfu.ca/~ssurjano/optimization.html"
-                                >https://www.sfu.ca/~ssurjano/optimization.html</a
-                            >
+                            <p>
+                                <strong
+                                    >Virtual Library of Simulation
+                                    Experiments:</strong
+                                >
+                                Test Functions and Datasets for Optimization
+                                Algorithms. <br />Source: Simon Fraser
+                                University. Curated by Derek Bingham. <br /><a
+                                    href="https://www.sfu.ca/~ssurjano/optimization.html"
+                                    target="_blank"
+                                    >https://www.sfu.ca/~ssurjano/optimization.html</a
+                                >
+                            </p>
                         </li>
                         <li>
-                            <strong>Optimizer Library:</strong>
-                            pytorch_optimizer by kozistr
-                            <a
-                                href="https://github.com/kozistr/pytorch_optimizer"
-                                >https://github.com/kozistr/pytorch_optimizer</a
-                            >
-                        </li>
-                        <li>
-                            <strong>Hyperparameter Tuning:</strong> Optuna
-                            framework
-                            <a href="https://optuna.org/"
-                                >https://optuna.org/</a
-                            >
+                            <p>
+                                <strong>Kim, H. (2021).</strong>
+                                <em
+                                    >pytorch_optimizer: optimizer & lr scheduler
+                                    & loss function collections in PyTorch</em
+                                >
+                                (Version 2.12.0) [Computer software]. <br /><a
+                                    href="https://github.com/kozistr/pytorch_optimizer"
+                                    target="_blank"
+                                    >https://github.com/kozistr/pytorch_optimizer</a
+                                >
+                            </p>
                         </li>
                     </ul>
                 </section>
             </main>
 
             <footer>
-                <p>
-                    <a
-                        href="https://github.com/AidinHamedi/Optimizer-Benchmark"
-                        target="_blank"
-                    >
-                        View Project on GitHub
-                    </a>
-                </p>
-                <p>Made with ❤️ by Aidin Hamedi</p>
+                <p>Released under the MIT License.</p>
             </footer>
         </div>
         <script src="script.js"></script>

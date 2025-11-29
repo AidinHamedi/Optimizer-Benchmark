@@ -40,13 +40,15 @@ def main(console: Console):
     console.info("Generating comparison...")
 
     try:
-        results = load_results()["optimizers"]
-    except Exception:
-        console.error("Failed to load optimizer results.")
+        data = load_results()
+        optimizers = data["optimizers"]
+        weights = data["functions"]["weights"]
+    except Exception as e:
+        console.error(f"Failed to load results: {e}")
         return None
 
     json_data = get_ranks_json(
-        get_afr_ranks(results)[0], get_aer_ranks(results), console
+        get_afr_ranks(optimizers)[0], get_aer_ranks(optimizers, weights), console
     )
 
     RANKS_FILE.write_text(json_data, encoding="utf-8")

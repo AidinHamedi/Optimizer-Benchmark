@@ -3,305 +3,640 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>gravity Optimizer Benchmark Results</title>
+        <title>gravity - Optimizer Performance Benchmark</title>
+        <meta
+            name="description"
+            content="Detailed benchmark results and trajectory visualizations for the gravity optimizer on 18 test functions."
+        />
         <link rel="stylesheet" href="styles.css" />
     </head>
     <body>
-        <nav class="top-nav">
-            <a href="../" class="back-link">‹ Back to Rankings</a>
-        </nav>
+        <div class="container">
+            <nav class="nav-header">
+                <h1>gravity</h1>
+                <a href="../#rankings" class="back-link">
+                    <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <path d="M19 12H5M12 19l-7-7 7-7" />
+                    </svg>
+                    All Rankings
+                </a>
+            </nav>
 
-        <h1>gravity Optimizer Benchmark Results</h1>
-
-        <div class="summary">
-            <h2>Overall Performance</h2>
-            <div class="summary-stats">
-                <div class="stat-item">
-                    <div class="stat-value">73</div>
-                    <div class="stat-label">Rank (Error Rate)</div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Average Rank</div>
+                    <div class="stat-value">#53</div>
                 </div>
-                <div class="stat-item">
-                    <div class="stat-value">49</div>
-                    <div class="stat-label">Rank (Avg Function Rank)</div>
+                <div class="stat-card">
+                    <div class="stat-label">Error Rate Rank</div>
+                    <div class="stat-value">#73</div>
                 </div>
-                <div class="stat-item">
-                    <div class="stat-value">3.0977</div>
-                    <div class="stat-label">Avg Error Rate</div>
+                <div class="stat-card">
+                    <div class="stat-label">Weighted Avg Error</div>
+                    <div class="stat-value">3.037</div>
                 </div>
-                <div class="stat-item">
-                    <div class="stat-value">19</div>
+                <div class="stat-card">
                     <div class="stat-label">Functions Tested</div>
+                    <div class="stat-value">20</div>
                 </div>
             </div>
-        </div>
 
-        <div class="gallery"><div class="card">
-    <div class="image-wrapper">
-        <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/Rastrigin.jpg"
-            alt="gravity benchmark visualization on Rastrigin"
-            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
-        />
-        <div class="rank-badge">Rank #24</div>
-        <button class="enlarge-btn" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/Rastrigin.jpg')">🔍</button>
-    </div>
-    <div class="card-content">
-        <h3 class="function-name">Rastrigin</h3>
-    </div>
-</div>
-<div class="card">
-    <div class="image-wrapper">
-        <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/Griewank.jpg"
-            alt="gravity benchmark visualization on Griewank"
-            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
-        />
-        <div class="rank-badge">Rank #95</div>
-        <button class="enlarge-btn" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/Griewank.jpg')">🔍</button>
-    </div>
-    <div class="card-content">
-        <h3 class="function-name">Griewank</h3>
-    </div>
-</div>
-<div class="card">
-    <div class="image-wrapper">
-        <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/Langermann%202.jpg"
-            alt="gravity benchmark visualization on Langermann 2"
-            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
-        />
-        <div class="rank-badge">Rank #15</div>
-        <button class="enlarge-btn" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/Langermann%202.jpg')">🔍</button>
-    </div>
-    <div class="card-content">
-        <h3 class="function-name">Langermann 2</h3>
-    </div>
-</div>
-<div class="card">
-    <div class="image-wrapper">
-        <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/Schaffer%204.jpg"
-            alt="gravity benchmark visualization on Schaffer 4"
-            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
-        />
-        <div class="rank-badge">Rank #51</div>
-        <button class="enlarge-btn" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/Schaffer%204.jpg')">🔍</button>
-    </div>
-    <div class="card-content">
-        <h3 class="function-name">Schaffer 4</h3>
-    </div>
-</div>
-<div class="card">
-    <div class="image-wrapper">
-        <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/Styblinski-Tang.jpg"
-            alt="gravity benchmark visualization on Styblinski-Tang"
-            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
-        />
-        <div class="rank-badge">Rank #52</div>
-        <button class="enlarge-btn" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/Styblinski-Tang.jpg')">🔍</button>
-    </div>
-    <div class="card-content">
-        <h3 class="function-name">Styblinski-Tang</h3>
-    </div>
-</div>
-<div class="card">
-    <div class="image-wrapper">
-        <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/Weierstrass.jpg"
-            alt="gravity benchmark visualization on Weierstrass"
-            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
-        />
-        <div class="rank-badge">Rank #30</div>
-        <button class="enlarge-btn" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/Weierstrass.jpg')">🔍</button>
-    </div>
-    <div class="card-content">
-        <h3 class="function-name">Weierstrass</h3>
-    </div>
-</div>
-<div class="card">
-    <div class="image-wrapper">
+            <p class="gallery-intro">
+                Functions are sorted based on the optimizer's performance
+                relative to other algorithms. The rank number on each image
+                (e.g. #1) indicates its standing on that specific function
+                compared to all other optimizers tested.
+            </p>
+
+            <div class="gallery"><div class="card" data-rank="4">
+    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/Lévy%2013.jpg')">
         <img
             src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/Lévy%2013.jpg"
             alt="gravity benchmark visualization on Lévy 13"
+            loading="lazy"
             onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
         />
-        <div class="rank-badge">Rank #4</div>
-        <button class="enlarge-btn" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/Lévy%2013.jpg')">🔍</button>
+        <div class="rank-badge">#4</div>
+
+        <button class="enlarge-btn" aria-label="Enlarge image">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </button>
     </div>
     <div class="card-content">
         <h3 class="function-name">Lévy 13</h3>
     </div>
 </div>
-<div class="card">
-    <div class="image-wrapper">
-        <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/MixedMichalewiczSphere.jpg"
-            alt="gravity benchmark visualization on MixedMichalewiczSphere"
-            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
-        />
-        <div class="rank-badge">Rank #11</div>
-        <button class="enlarge-btn" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/MixedMichalewiczSphere.jpg')">🔍</button>
-    </div>
-    <div class="card-content">
-        <h3 class="function-name">MixedMichalewiczSphere</h3>
-    </div>
-</div>
-<div class="card">
-    <div class="image-wrapper">
-        <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/SchwefelSin.jpg"
-            alt="gravity benchmark visualization on SchwefelSin"
-            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
-        />
-        <div class="rank-badge">Rank #67</div>
-        <button class="enlarge-btn" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/SchwefelSin.jpg')">🔍</button>
-    </div>
-    <div class="card-content">
-        <h3 class="function-name">SchwefelSin</h3>
-    </div>
-</div>
-<div class="card">
-    <div class="image-wrapper">
-        <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/Rosenbrock.jpg"
-            alt="gravity benchmark visualization on Rosenbrock"
-            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
-        />
-        <div class="rank-badge">Rank #72</div>
-        <button class="enlarge-btn" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/Rosenbrock.jpg')">🔍</button>
-    </div>
-    <div class="card-content">
-        <h3 class="function-name">Rosenbrock</h3>
-    </div>
-</div>
-<div class="card">
-    <div class="image-wrapper">
+<div class="card" data-rank="6">
+    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/Drop-Wave.jpg')">
         <img
             src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/Drop-Wave.jpg"
             alt="gravity benchmark visualization on Drop-Wave"
+            loading="lazy"
             onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
         />
-        <div class="rank-badge">Rank #6</div>
-        <button class="enlarge-btn" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/Drop-Wave.jpg')">🔍</button>
+        <div class="rank-badge">#6</div>
+
+        <button class="enlarge-btn" aria-label="Enlarge image">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </button>
     </div>
     <div class="card-content">
         <h3 class="function-name">Drop-Wave</h3>
     </div>
 </div>
-<div class="card">
-    <div class="image-wrapper">
+<div class="card" data-rank="11">
+    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/MixedMichalewiczSphere.jpg')">
         <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/Schaffer%202.jpg"
-            alt="gravity benchmark visualization on Schaffer 2"
+            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/MixedMichalewiczSphere.jpg"
+            alt="gravity benchmark visualization on MixedMichalewiczSphere"
+            loading="lazy"
             onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
         />
-        <div class="rank-badge">Rank #63</div>
-        <button class="enlarge-btn" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/Schaffer%202.jpg')">🔍</button>
+        <div class="rank-badge">#11</div>
+
+        <button class="enlarge-btn" aria-label="Enlarge image">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </button>
     </div>
     <div class="card-content">
-        <h3 class="function-name">Schaffer 2</h3>
+        <h3 class="function-name">MixedMichalewiczSphere</h3>
     </div>
 </div>
-<div class="card">
-    <div class="image-wrapper">
-        <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/Langermann.jpg"
-            alt="gravity benchmark visualization on Langermann"
-            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
-        />
-        <div class="rank-badge">Rank #28</div>
-        <button class="enlarge-btn" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/Langermann.jpg')">🔍</button>
-    </div>
-    <div class="card-content">
-        <h3 class="function-name">Langermann</h3>
-    </div>
-</div>
-<div class="card">
-    <div class="image-wrapper">
+<div class="card" data-rank="11">
+    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/Gramacy%20&%20Lee%202D.jpg')">
         <img
             src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/Gramacy%20&%20Lee%202D.jpg"
             alt="gravity benchmark visualization on Gramacy & Lee 2D"
+            loading="lazy"
             onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
         />
-        <div class="rank-badge">Rank #11</div>
-        <button class="enlarge-btn" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/Gramacy%20&%20Lee%202D.jpg')">🔍</button>
+        <div class="rank-badge">#11</div>
+
+        <button class="enlarge-btn" aria-label="Enlarge image">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </button>
     </div>
     <div class="card-content">
         <h3 class="function-name">Gramacy & Lee 2D</h3>
     </div>
 </div>
-<div class="card">
-    <div class="image-wrapper">
+<div class="card" data-rank="15">
+    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/Langermann%202.jpg')">
         <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/Shubert.jpg"
-            alt="gravity benchmark visualization on Shubert"
+            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/Langermann%202.jpg"
+            alt="gravity benchmark visualization on Langermann 2"
+            loading="lazy"
             onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
         />
-        <div class="rank-badge">Rank #57</div>
-        <button class="enlarge-btn" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/Shubert.jpg')">🔍</button>
+        <div class="rank-badge">#15</div>
+
+        <button class="enlarge-btn" aria-label="Enlarge image">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </button>
     </div>
     <div class="card-content">
-        <h3 class="function-name">Shubert</h3>
+        <h3 class="function-name">Langermann 2</h3>
     </div>
 </div>
-<div class="card">
-    <div class="image-wrapper">
+<div class="card" data-rank="24">
+    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/Rastrigin.jpg')">
         <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/EggHolder.jpg"
-            alt="gravity benchmark visualization on EggHolder"
+            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/Rastrigin.jpg"
+            alt="gravity benchmark visualization on Rastrigin"
+            loading="lazy"
             onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
         />
-        <div class="rank-badge">Rank #91</div>
-        <button class="enlarge-btn" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/EggHolder.jpg')">🔍</button>
+        <div class="rank-badge">#24</div>
+
+        <button class="enlarge-btn" aria-label="Enlarge image">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </button>
     </div>
     <div class="card-content">
-        <h3 class="function-name">EggHolder</h3>
+        <h3 class="function-name">Rastrigin</h3>
     </div>
 </div>
-<div class="card">
-    <div class="image-wrapper">
+<div class="card" data-rank="28">
+    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/Langermann.jpg')">
         <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/Lévy.jpg"
-            alt="gravity benchmark visualization on Lévy"
+            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/Langermann.jpg"
+            alt="gravity benchmark visualization on Langermann"
+            loading="lazy"
             onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
         />
-        <div class="rank-badge">Rank #93</div>
-        <button class="enlarge-btn" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/Lévy.jpg')">🔍</button>
+        <div class="rank-badge">#28</div>
+
+        <button class="enlarge-btn" aria-label="Enlarge image">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </button>
     </div>
     <div class="card-content">
-        <h3 class="function-name">Lévy</h3>
+        <h3 class="function-name">Langermann</h3>
     </div>
 </div>
-<div class="card">
-    <div class="image-wrapper">
+<div class="card" data-rank="30">
+    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/Weierstrass.jpg')">
+        <img
+            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/Weierstrass.jpg"
+            alt="gravity benchmark visualization on Weierstrass"
+            loading="lazy"
+            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
+        />
+        <div class="rank-badge">#30</div>
+
+        <button class="enlarge-btn" aria-label="Enlarge image">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </button>
+    </div>
+    <div class="card-content">
+        <h3 class="function-name">Weierstrass</h3>
+    </div>
+</div>
+<div class="card" data-rank="38">
+    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/Ackley.jpg')">
         <img
             src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/Ackley.jpg"
             alt="gravity benchmark visualization on Ackley"
+            loading="lazy"
             onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
         />
-        <div class="rank-badge">Rank #39</div>
-        <button class="enlarge-btn" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/Ackley.jpg')">🔍</button>
+        <div class="rank-badge">#38</div>
+
+        <button class="enlarge-btn" aria-label="Enlarge image">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </button>
     </div>
     <div class="card-content">
         <h3 class="function-name">Ackley</h3>
     </div>
 </div>
-<div class="card">
-    <div class="image-wrapper">
+<div class="card" data-rank="51">
+    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/Schaffer%204.jpg')">
+        <img
+            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/Schaffer%204.jpg"
+            alt="gravity benchmark visualization on Schaffer 4"
+            loading="lazy"
+            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
+        />
+        <div class="rank-badge">#51</div>
+
+        <button class="enlarge-btn" aria-label="Enlarge image">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </button>
+    </div>
+    <div class="card-content">
+        <h3 class="function-name">Schaffer 4</h3>
+    </div>
+</div>
+<div class="card" data-rank="51">
+    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/Cross-in-Tray.jpg')">
         <img
             src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/Cross-in-Tray.jpg"
             alt="gravity benchmark visualization on Cross-in-Tray"
+            loading="lazy"
             onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
         />
-        <div class="rank-badge">Rank #51</div>
-        <button class="enlarge-btn" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/Cross-in-Tray.jpg')">🔍</button>
+        <div class="rank-badge">#51</div>
+
+        <button class="enlarge-btn" aria-label="Enlarge image">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </button>
     </div>
     <div class="card-content">
         <h3 class="function-name">Cross-in-Tray</h3>
     </div>
 </div>
+<div class="card" data-rank="52">
+    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/Styblinski-Tang.jpg')">
+        <img
+            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/Styblinski-Tang.jpg"
+            alt="gravity benchmark visualization on Styblinski-Tang"
+            loading="lazy"
+            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
+        />
+        <div class="rank-badge">#52</div>
+
+        <button class="enlarge-btn" aria-label="Enlarge image">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </button>
+    </div>
+    <div class="card-content">
+        <h3 class="function-name">Styblinski-Tang</h3>
+    </div>
 </div>
+<div class="card" data-rank="57">
+    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/Shubert.jpg')">
+        <img
+            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/Shubert.jpg"
+            alt="gravity benchmark visualization on Shubert"
+            loading="lazy"
+            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
+        />
+        <div class="rank-badge">#57</div>
+
+        <button class="enlarge-btn" aria-label="Enlarge image">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </button>
+    </div>
+    <div class="card-content">
+        <h3 class="function-name">Shubert</h3>
+    </div>
+</div>
+<div class="card" data-rank="63">
+    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/Schaffer%202.jpg')">
+        <img
+            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/Schaffer%202.jpg"
+            alt="gravity benchmark visualization on Schaffer 2"
+            loading="lazy"
+            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
+        />
+        <div class="rank-badge">#63</div>
+
+        <button class="enlarge-btn" aria-label="Enlarge image">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </button>
+    </div>
+    <div class="card-content">
+        <h3 class="function-name">Schaffer 2</h3>
+    </div>
+</div>
+<div class="card" data-rank="67">
+    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/SchwefelSin.jpg')">
+        <img
+            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/SchwefelSin.jpg"
+            alt="gravity benchmark visualization on SchwefelSin"
+            loading="lazy"
+            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
+        />
+        <div class="rank-badge">#67</div>
+
+        <button class="enlarge-btn" aria-label="Enlarge image">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </button>
+    </div>
+    <div class="card-content">
+        <h3 class="function-name">SchwefelSin</h3>
+    </div>
+</div>
+<div class="card" data-rank="72">
+    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/Rosenbrock.jpg')">
+        <img
+            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/Rosenbrock.jpg"
+            alt="gravity benchmark visualization on Rosenbrock"
+            loading="lazy"
+            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
+        />
+        <div class="rank-badge">#72</div>
+
+        <button class="enlarge-btn" aria-label="Enlarge image">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </button>
+    </div>
+    <div class="card-content">
+        <h3 class="function-name">Rosenbrock</h3>
+    </div>
+</div>
+<div class="card" data-rank="79">
+    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/Goldstein-Price.jpg')">
+        <img
+            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/Goldstein-Price.jpg"
+            alt="gravity benchmark visualization on Goldstein-Price"
+            loading="lazy"
+            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
+        />
+        <div class="rank-badge">#79</div>
+
+        <button class="enlarge-btn" aria-label="Enlarge image">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </button>
+    </div>
+    <div class="card-content">
+        <h3 class="function-name">Goldstein-Price</h3>
+    </div>
+</div>
+<div class="card" data-rank="91">
+    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/EggHolder.jpg')">
+        <img
+            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/EggHolder.jpg"
+            alt="gravity benchmark visualization on EggHolder"
+            loading="lazy"
+            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
+        />
+        <div class="rank-badge">#91</div>
+
+        <button class="enlarge-btn" aria-label="Enlarge image">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </button>
+    </div>
+    <div class="card-content">
+        <h3 class="function-name">EggHolder</h3>
+    </div>
+</div>
+<div class="card" data-rank="93">
+    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/Lévy.jpg')">
+        <img
+            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/Lévy.jpg"
+            alt="gravity benchmark visualization on Lévy"
+            loading="lazy"
+            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
+        />
+        <div class="rank-badge">#93</div>
+
+        <button class="enlarge-btn" aria-label="Enlarge image">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </button>
+    </div>
+    <div class="card-content">
+        <h3 class="function-name">Lévy</h3>
+    </div>
+</div>
+<div class="card" data-rank="95">
+    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/Griewank.jpg')">
+        <img
+            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/gravity/Griewank.jpg"
+            alt="gravity benchmark visualization on Griewank"
+            loading="lazy"
+            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
+        />
+        <div class="rank-badge">#95</div>
+
+        <button class="enlarge-btn" aria-label="Enlarge image">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </button>
+    </div>
+    <div class="card-content">
+        <h3 class="function-name">Griewank</h3>
+    </div>
+</div>
+</div>
+        </div>
 
         <div class="modal" id="imageModal">
             <div class="modal-content">
@@ -311,16 +646,10 @@
         </div>
 
         <footer>
-            View the Project on GitHub:
             <a
                 href="https://github.com/AidinHamedi/Optimizer-Benchmark"
                 target="_blank"
-                >github.com/AidinHamedi/Optimizer-Benchmark</a
-            ><br />
-            Made with ❤️ by AidinHamedi<br />
-            <em
-                >This page was automatically generated. Changes may be
-                overwritten.</em
+                >View Repository</a
             >
         </footer>
 

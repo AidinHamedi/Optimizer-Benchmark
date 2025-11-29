@@ -3,39 +3,60 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>{title} Optimizer Benchmark Results</title>
+        <title>{title} - Optimizer Performance Benchmark</title>
+        <meta
+            name="description"
+            content="Detailed benchmark results and trajectory visualizations for the {title} optimizer on 18 test functions."
+        />
         <link rel="stylesheet" href="styles.css" />
     </head>
     <body>
-        <nav class="top-nav">
-            <a href="../" class="back-link">‹ Back to Rankings</a>
-        </nav>
+        <div class="container">
+            <nav class="nav-header">
+                <h1>{title}</h1>
+                <a href="../#rankings" class="back-link">
+                    <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <path d="M19 12H5M12 19l-7-7 7-7" />
+                    </svg>
+                    All Rankings
+                </a>
+            </nav>
 
-        <h1>{title} Optimizer Benchmark Results</h1>
-
-        <div class="summary">
-            <h2>Overall Performance</h2>
-            <div class="summary-stats">
-                <div class="stat-item">
-                    <div class="stat-value">{error_rate_rank}</div>
-                    <div class="stat-label">Rank (Error Rate)</div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Average Rank</div>
+                    <div class="stat-value">#{avg_rank}</div>
                 </div>
-                <div class="stat-item">
-                    <div class="stat-value">{avg_rank}</div>
-                    <div class="stat-label">Rank (Avg Function Rank)</div>
+                <div class="stat-card">
+                    <div class="stat-label">Error Rate Rank</div>
+                    <div class="stat-value">#{error_rate_rank}</div>
                 </div>
-                <div class="stat-item">
+                <div class="stat-card">
+                    <div class="stat-label">Weighted Avg Error</div>
                     <div class="stat-value">{avg_error_rate}</div>
-                    <div class="stat-label">Avg Error Rate</div>
                 </div>
-                <div class="stat-item">
-                    <div class="stat-value">{functions_count}</div>
+                <div class="stat-card">
                     <div class="stat-label">Functions Tested</div>
+                    <div class="stat-value">{functions_count}</div>
                 </div>
             </div>
-        </div>
 
-        <div class="gallery">{cards}</div>
+            <p class="gallery-intro">
+                Functions are sorted based on the optimizer's performance
+                relative to other algorithms. The rank number on each image
+                (e.g. #1) indicates its standing on that specific function
+                compared to all other optimizers tested.
+            </p>
+
+            <div class="gallery">{cards}</div>
+        </div>
 
         <div class="modal" id="imageModal">
             <div class="modal-content">
@@ -45,16 +66,10 @@
         </div>
 
         <footer>
-            View the Project on GitHub:
             <a
                 href="https://github.com/AidinHamedi/Optimizer-Benchmark"
                 target="_blank"
-                >github.com/AidinHamedi/Optimizer-Benchmark</a
-            ><br />
-            Made with ❤️ by AidinHamedi<br />
-            <em
-                >This page was automatically generated. Changes may be
-                overwritten.</em
+                >View Repository</a
             >
         </footer>
 

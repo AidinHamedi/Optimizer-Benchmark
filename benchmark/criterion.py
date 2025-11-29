@@ -67,8 +67,7 @@ def objective(
     try:
         steps = execute_steps(cords, optimizer, num_iters, **eval_args)
     except Exception as e:
-        if debug:
-            print(f"Error during optimization: {e}")
+        print(f"Error during optimization: {e}")
         return float("inf"), {}
 
     final_pos = steps[:, -1]

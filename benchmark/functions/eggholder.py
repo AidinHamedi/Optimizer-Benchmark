@@ -5,12 +5,11 @@ from .norm import normalize
 FUNCTION_NAME = "EggHolder"
 START_POS = torch.tensor([0.9294921875, 0.9490234375])
 EVAL_SIZE = ((-13, 13), (-13, 13))
-
-FUNC_SCALE = 51.2
-
 GLOBAL_MINIMUM_LOC = torch.tensor(
     [[10.0, 7.8], [10.4, -11.9], [-11.5, -12.0], [-11.5, 4.8]]
 )
+
+FUNC_SCALE = 51.2
 
 
 @normalize(-1454.9971923828125, 1296.7808837890625)

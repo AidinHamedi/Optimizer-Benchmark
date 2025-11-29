@@ -48,39 +48,56 @@ def main(console: Console):
     console.info("Generating vis pages...")
 
     try:
-        results = load_results()["optimizers"]
-    except Exception:
-        console.error("Failed to load optimizer results.")
+        data = load_results()
+        optimizers = data["optimizers"]
+        weights = data["functions"]["weights"]
+    except Exception as e:
+        console.error(f"Failed to load results: {e}")
         return None
 
     DOCS_VIS_DIR.mkdir(parents=True, exist_ok=True)
     copy_static_files(console)
 
-    afr_rankings, func_rankings = get_afr_ranks(results)
+    afr_rankings, func_rankings = get_afr_ranks(optimizers)
     afr_rankings = ranks_to_dict(afr_rankings)
-    aer_rankings = ranks_to_dict(get_aer_ranks(results))
+    aer_rankings = ranks_to_dict(get_aer_ranks(optimizers, weights))
 
     for i, optimizer in enumerate(func_rankings):
         console.info(f"Generating page for {optimizer}...")
 
         cards_html = ""
-        for function_name in func_rankings[optimizer]:
+        # Sort functions by rank for better UX
+        sorted_functions = sorted(
+            func_rankings[optimizer].items(), key=lambda item: item[1]
+        )
+
+        for function_name, rank in sorted_functions:
             cards_html += render_template(
                 "card",
                 url=generate_image_url(optimizer, function_name),
                 name=function_name,
                 optimizer_name=optimizer,
-                function_rank=func_rankings[optimizer][function_name],
+                function_rank=rank,
             )
+
+        # Calculate weighted average error rate on the fly
+        error_rates = optimizers[optimizer].get("error_rates", {})
+        if error_rates:
+            weighted_sum = sum(
+                error * weights.get(func, 1.0) for func, error in error_rates.items()
+            )
+            avg_error_rate = weighted_sum / len(error_rates)
+        else:
+            avg_error_rate = 0.0
 
         page_html = render_template(
             "page",
             title=optimizer,
             cards=cards_html,
-            error_rate_rank=aer_rankings[optimizer],
-            avg_rank=afr_rankings[optimizer],
-            avg_error_rate=round(results[optimizer]["weighted_avg_error_rate"], 4),
-            functions_count=len(results[optimizer]["error_rates"]),
+            error_rate_rank=aer_rankings.get(optimizer, "-"),
+            avg_rank=afr_rankings.get(optimizer, "-"),
+            avg_error_rate=round(avg_error_rate, 4),
+            functions_count=len(error_rates),
         )
 
         output_file = DOCS_VIS_DIR / f"{optimizer}.html"
