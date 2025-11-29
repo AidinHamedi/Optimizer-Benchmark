@@ -1,5 +1,8 @@
 "use strict";
 
+// Global variable to store the fetched data
+let globalData = null;
+
 /**
  * Handles Tab Switching
  */
@@ -27,24 +30,60 @@ function openTab(evt, tabName) {
 }
 
 /**
- * Populates a table body
+ * Utility: Escapes special characters for Regex
+ * Ensures that searching for things like "+" doesn't break the regex
  */
-function populateTable(tableBody, data) {
+function escapeRegExp(string) {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+/**
+ * Utility: Wraps matched text in a highlight span
+ * Preserves the original casing of the text
+ */
+function highlightText(text, searchTerm) {
+  if (!searchTerm) return text;
+
+  const escapedTerm = escapeRegExp(searchTerm);
+  // 'gi' = global match, case insensitive
+  const regex = new RegExp(`(${escapedTerm})`, "gi");
+
+  return text.replace(regex, '<span class="highlight">$1</span>');
+}
+
+/**
+ * Populates a table body
+ * @param {HTMLElement} tableBody - The tbody element
+ * @param {Array} data - Array of optimizer objects
+ * @param {String} searchTerm - The current search text (for highlighting)
+ */
+function populateTable(tableBody, data, searchTerm = "") {
   if (!tableBody || !data) {
     console.warn("Table body or data missing.");
+    return;
+  }
+
+  // If no data matches filter
+  if (data.length === 0) {
+    tableBody.innerHTML = `<tr><td colspan="4" style="text-align:center; padding: 30px; color: var(--accents-4);">No optimizers found matching "${searchTerm}"</td></tr>`;
     return;
   }
 
   tableBody.innerHTML = "";
 
   const rows = data
-    .map(
-      (item) => `
+    .map((item) => {
+      // Apply highlighting to the optimizer name
+      const optimizerNameDisplay = highlightText(item.optimizer, searchTerm);
+
+      return `
         <tr>
             <td class="rank-cell">
                 <span style="font-weight:700; color:var(--accents-6);">#${item.rank}</span>
             </td>
-            <td class="opt-name" style="font-weight:500;">${item.optimizer}</td>
+            <td class="opt-name" style="font-weight:500;">
+                ${optimizerNameDisplay}
+            </td>
             <td class="score-cell">${item.value}</td>
             <td class="vis-link">
                 <a href="${item.vis}" class="action-link vis-link-icon">
@@ -64,11 +103,44 @@ function populateTable(tableBody, data) {
                 </a>
             </td>
         </tr>
-    `,
-    )
+    `;
+    })
     .join("");
 
   tableBody.innerHTML = rows;
+}
+
+/**
+ * Filter data based on search input
+ */
+function handleSearch(evt) {
+  if (!globalData) return;
+
+  const searchTerm = evt.target.value.toLowerCase().trim();
+  const rawSearchTerm = evt.target.value.trim();
+
+  // Filter both lists
+  const filteredRank = globalData.rankingByAvgRank.filter((item) =>
+    item.optimizer.toLowerCase().includes(searchTerm),
+  );
+  const filteredError = globalData.rankingByErrorRate.filter((item) =>
+    item.optimizer.toLowerCase().includes(searchTerm),
+  );
+
+  // Re-populate both tables
+  const rankingTableBody = document.getElementById("ranking-table-body");
+  const errorRateTableBody = document.getElementById("error-rate-table-body");
+
+  if (rankingTableBody)
+    populateTable(rankingTableBody, filteredRank, rawSearchTerm);
+  if (errorRateTableBody)
+    populateTable(errorRateTableBody, filteredError, rawSearchTerm);
+
+  // NEW: Scroll both table containers to the top
+  const tableContainers = document.querySelectorAll(".table-container");
+  tableContainers.forEach((container) => {
+    container.scrollTop = 0;
+  });
 }
 
 /**
@@ -82,15 +154,23 @@ async function loadDataAndInitializeTables() {
       throw new Error(`Failed to load data: ${response.status}`);
     }
 
-    const data = await response.json();
+    // Store data globally
+    globalData = await response.json();
 
     const rankingTableBody = document.getElementById("ranking-table-body");
     const errorRateTableBody = document.getElementById("error-rate-table-body");
 
+    // Initial Population
     if (rankingTableBody)
-      populateTable(rankingTableBody, data.rankingByAvgRank);
+      populateTable(rankingTableBody, globalData.rankingByAvgRank);
     if (errorRateTableBody)
-      populateTable(errorRateTableBody, data.rankingByErrorRate);
+      populateTable(errorRateTableBody, globalData.rankingByErrorRate);
+
+    // Attach Search Listener
+    const searchInput = document.getElementById("optimizer-search");
+    if (searchInput) {
+      searchInput.addEventListener("input", handleSearch);
+    }
   } catch (error) {
     console.error("Error initializing dashboard:", error);
   }
