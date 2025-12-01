@@ -2,6 +2,7 @@ import math
 from typing import Callable, Dict, Tuple
 
 import torch
+from scipy.spatial import ConvexHull
 
 from .utils.executor import execute_steps
 from .utils.model import Pos2D
@@ -16,16 +17,16 @@ def objective(
     bounds: Tuple[Tuple[int, int], Tuple[int, int]],
     num_iters: int,
     boundary_penalty: bool = True,
-    average_distance_factor: float = 0.3,
-    convergence_factor: float = 0.08,
-    convergence_tol: float = 0.05,
+    average_distance_factor: float = 0.0,
+    convergence_factor: float = 0.01,
+    convergence_tol: float = 0.02,
     oscillation_factor: float = 1.0,
     lucky_jump_factor: float = 2.0,
     lucky_jump_threshold: float = 0.05,
-    final_distance_factor: float = 1.5,
-    final_value_factor: float = 0.8,
+    final_distance_factor: float = 1.0,
+    final_value_factor: float = 1.0,
     min_movement_factor: float = 0.6,
-    min_movement_threshold: float = 1.2,
+    min_movement_threshold: float = 0.1,
     final_proximity_factor: float = 8.0,
     final_proximity_threshold: float = 0.1,
     debug: bool = False,
@@ -118,18 +119,21 @@ def objective(
             error += contrib
 
     # 2. Final distance to the nearest known global minimum.
-    final_dist = torch.min(torch.norm(global_min_pos - final_pos, dim=1)).item()
+    final_dist = max(
+        torch.min(torch.norm(global_min_pos - final_pos, dim=1)).item() - 0.04, 0
+    )
     normalized_final_dist = final_dist / search_space_diag
     contrib = error_scaler(normalized_final_dist * final_distance_factor)
     metrics["final distance to global minimum"] = contrib
     error += contrib
 
     # 3. Average trajectory distance from the final point (wandering).
-    avg_dist = torch.norm(steps.T - final_pos[None, :], dim=1).mean().item()
-    normalized_avg_dist = avg_dist / search_space_diag
-    contrib = error_scaler(normalized_avg_dist * average_distance_factor)
-    metrics["average distance to final point"] = contrib
-    error += contrib
+    if average_distance_factor > 0.0:
+        avg_dist = torch.norm(steps.T - final_pos[None, :], dim=1).mean().item()
+        normalized_avg_dist = avg_dist / search_space_diag
+        contrib = error_scaler(normalized_avg_dist * average_distance_factor)
+        metrics["average distance to final point"] = contrib
+        error += contrib
 
     # 4. Convergence speed.
     if convergence_factor > 0.0:
@@ -170,13 +174,18 @@ def objective(
             metrics["lucky jump"] = contrib
             error += contrib
 
-    # 7. Insufficient movement penalty.
+    # 7. Insufficient movement penalty
     if min_movement_factor > 0.0:
-        max_displacement = torch.norm(steps.T - start_pos[None, :], dim=1).max().item()
-        if max_displacement < min_movement_threshold * max_side:
-            delta = (min_movement_threshold * max_side - max_displacement) / max_side
-            contrib = error_scaler((delta**2) * min_movement_factor)
-            metrics["min movement"] = contrib
+        pts = steps.T.numpy()
+        area = ConvexHull(pts).volume
+
+        max_area = (bounds[0][1] - bounds[0][0]) * (bounds[1][1] - bounds[1][0])
+        normalized_area = area / max_area
+
+        if normalized_area < min_movement_threshold:
+            delta = min_movement_threshold - normalized_area
+            contrib = error_scaler(delta * delta * min_movement_factor)
+            metrics["min movement (area)"] = contrib
             error += contrib
 
     # 8. Final position too close to start penalty.
