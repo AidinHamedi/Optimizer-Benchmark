@@ -29,7 +29,7 @@ def get_afr_ranks(results: dict) -> tuple[list, dict]:
 
 
 def get_aer_ranks(optimizers: dict, weights: dict) -> list:
-    """Get Ranks Based On Average Error Rate On Functions"""
+    """Get Ranks Based On Weighted Average Error Rate On Functions"""
     optimizer_scores = []
 
     for opt, data in optimizers.items():
@@ -38,10 +38,15 @@ def get_aer_ranks(optimizers: dict, weights: dict) -> list:
             optimizer_scores.append((opt, float("inf")))
             continue
 
-        weighted_sum = sum(
-            error * weights.get(func, 1.0) for func, error in error_rates.items()
-        )
-        avg_error = weighted_sum / len(error_rates)
+        total_weight = 0.0
+        weighted_sum = 0.0
+
+        for func, error in error_rates.items():
+            w = weights.get(func, 1.0)
+            weighted_sum += error * w
+            total_weight += w
+
+        avg_error = weighted_sum / total_weight if total_weight > 0 else float("inf")
         optimizer_scores.append((opt, avg_error))
 
     return sorted(optimizer_scores, key=lambda x: x[1])

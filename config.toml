@@ -3,18 +3,32 @@
 # ==============================================================================
 [benchmark]
 seed = 42
-deterministic = true      # Ensures reproducibility. Can slow down the process.
-exist_pass = true         # If true, skips optimizers that already have results.
-img_format = ".jpg"       # Output format for visualization plots.
-hypertune_trials = 700    # Number of Optuna trials for hyperparameter tuning.
-
+deterministic = true  # Ensures reproducibility. Can slow down the process.
+exist_pass = true  # If true, skips optimizers that already have results.
+img_format = ".jpg"  # Output format for visualization plots.
+hypertune_trials = 700  # Number of Optuna trials for hyperparameter tuning.
 # List of optimizers to exclude from the benchmark run.
 ignore_optimizers = [
-  "msvag", "lomo", "adalomo", "demo", "a2grad", "muon", "adago", "alice",
-  "adamwsn", "adamuon", "splus", "alig", "bsam", "distributedmuon", "sgdw",
-  "adamw", "stableadamw", "dadaptadam", "amos",
+  "msvag",
+  "lomo",
+  "adalomo",
+  "demo",
+  "a2grad",
+  "muon",
+  "adago",
+  "alice",
+  "adamwsn",
+  "adamuon",
+  "splus",
+  "alig",
+  "bsam",
+  "distributedmuon",
+  "sgdw",
+  "adamw",
+  "stableadamw",
+  "dadaptadam",
+  "amos",
 ]
-
 
 # ==============================================================================
 # Test Function Configurations
@@ -22,45 +36,41 @@ ignore_optimizers = [
 # final error calculation.
 # ==============================================================================
 [functions]
-Ackley = { iterations = 150, error_weight = 1.5 }
+Ackley = { iterations = 150, error_weight = 1.8 }
 "Cross-in-Tray" = { iterations = 150, error_weight = 0.5 }
 "Drop-Wave" = { iterations = 150, error_weight = 1.5 }
-EggHolder = { iterations = 150, error_weight = 0.8 }
+EggHolder = { iterations = 150, error_weight = 0.2 }  # Small weight because it's not a reliable benchmark.
 "Goldstein-Price" = { iterations = 150, error_weight = 1.0 }
 "Gramacy & Lee 2D" = { iterations = 100, error_weight = 2.5 }
 Griewank = { iterations = 200, error_weight = 1.5 }
-Langermann = { iterations = 150, error_weight = 1.0 }
-"Langermann 2" = { iterations = 150, error_weight = 0.8 }
+Langermann = { iterations = 150, error_weight = 0.1 }  # Small weight because it's not a reliable benchmark.
+"Langermann 2" = { iterations = 150, error_weight = 0.1 }  # Small weight because it's not a reliable benchmark.
 "Lévy" = { iterations = 150, error_weight = 1.0 }
 "Lévy 13" = { iterations = 150, error_weight = 1.5 }
 MixedMichalewiczSphere = { iterations = 150, error_weight = 1.5 }
 Rastrigin = { iterations = 150, error_weight = 1.5 }
 Rosenbrock = { iterations = 400, error_weight = 1.0 }
-"Schaffer 2" = { iterations = 500, error_weight = 1.8 }
-"Schaffer 4" = { iterations = 500, error_weight = 1.8 }
-SchwefelSin = { iterations = 150, error_weight = 0.8 }
+"Schaffer 2" = { iterations = 500, error_weight = 1.5 }
+"Schaffer 4" = { iterations = 500, error_weight = 1.5 }
+SchwefelSin = { iterations = 150, error_weight = 0.1 }  # Small weight because it's not a reliable benchmark.
 Shubert = { iterations = 150, error_weight = 1.0 }
-"Styblinski-Tang" = { iterations = 150, error_weight = 1.2 }
+"Styblinski-Tang" = { iterations = 150, error_weight = 0.8 }
 Weierstrass = { iterations = 150, error_weight = 2.0 }
-
 
 # ==============================================================================
 # Optimizer Hyperparameter Search Spaces
 # Defines the search range for each optimizer's hyperparameters.
 # ==============================================================================
 [optimizers]
-
 # Default configuration used for any optimizer not explicitly defined below.
 base = { lr = [0.0001, 8.0] }
-
 adams = { lr = [0.0001, 10.0] }
 adamg = { lr = [0.0001, 20.0], p = [0.0, 1.0], q = [0.0, 1.0] }
 padam = { lr = [0.0001, 10.0] }
 dadaptlion = { lr = [0.0001, 10.0] }
 sophiah = { lr = [0.0001, 60.0] }
 schedulefreeradam = { lr = [1.0, 10.0] }
-grokfastadamw = { lr = [0.0001, 8.0], _iter_scale = 8 } # Special key to scale iterations up
-
+grokfastadamw = { lr = [0.0001, 8.0], _iter_scale = 10 }  # Special key to scale iterations up
 sgd = { lr = [0.0001, 2.0], momentum = [0.0001, 0.99] }
 sgdp = { lr = [0.0001, 2.0], momentum = [0.0001, 0.99] }
 sgdsai = { lr = [0.0001, 2.0], momentum = [0.0001, 0.99] }
@@ -69,20 +79,26 @@ signsgd = { lr = [0.0001, 2.0], momentum = [0.0001, 0.99] }
 tam = { lr = [0.0001, 8.0], momentum = [0.0001, 0.99] }
 asgd = { lr = [0.0001, 2.0], amplifier = [0.0001, 0.5] }
 schedulefreesgd = { lr = [0.0001, 3.0], momentum = [0.0001, 0.99] }
-
 adadelta = { lr = [0.0001, 600.0] }
 adafactor = { lr = [0.0001, 600.0] }
 dadaptadagrad = { lr = [0.0001, 20.0] }
-
 adahessian = { lr = [0.0001, 100.0] }
-
-pid = { lr = [0.0001, 0.5], integral = [1.0, 10.0], derivative = [2.0, 14.0], momentum = [0.0, 0.99] }
+pid = { lr = [0.0001, 0.5], integral = [1.0, 10.0], derivative = [2.0, 14.0], momentum = [
+  0.0,
+  0.99
+] }
 kron = { lr = [0.0001, 2.0], momentum = [0.0001, 0.99] }
 scion = { lr = [0.0001, 1.0], scale = [1.0, 1000.0] }
 scionlight = { lr = [0.0001, 1.0], scale = [1.0, 1000.0] }
-lbfgs = { lr = [0.0001, 8.0], max_iter = [1, 40, "int"], history_size = [1, 200, "int"] }
-conda = { lr = [0.0001, 8.0], update_proj_gap = [10, 400, "int"], scale = [0.0001, 12.0] }
-
+lbfgs = { lr = [0.0001, 8.0], max_iter = [1, 40, "int"], history_size = [
+  1,
+  200,
+  "int"
+] }
+conda = { lr = [0.0001, 8.0], update_proj_gap = [10, 400, "int"], scale = [
+  0.0001,
+  12.0
+] }
 
 # ==============================================================================
 # Special Evaluation Arguments
