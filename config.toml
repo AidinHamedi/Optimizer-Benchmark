@@ -70,7 +70,7 @@ padam = { lr = [0.0001, 10.0] }
 dadaptlion = { lr = [0.0001, 10.0] }
 sophiah = { lr = [0.0001, 60.0] }
 schedulefreeradam = { lr = [1.0, 10.0] }
-grokfastadamw = { lr = [0.0001, 8.0], _iter_scale = 10 }  # Special key to scale iterations up
+grokfastadamw = { lr = [0.0001, 8.0], _iter_scale = 7 }  # Special key to scale iterations up
 sgd = { lr = [0.0001, 2.0], momentum = [0.0001, 0.99] }
 sgdp = { lr = [0.0001, 2.0], momentum = [0.0001, 0.99] }
 sgdsai = { lr = [0.0001, 2.0], momentum = [0.0001, 0.99] }
