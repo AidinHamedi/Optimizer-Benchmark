@@ -115,6 +115,7 @@ def benchmark_optimizer(
 
     error_rates = {}
     run_metrics = {}
+    run_hyperparams = {}
 
     for func_name, consts in FUNC_DICT.items():
         # Allow running the benchmark on a specific subset of functions.
@@ -189,6 +190,7 @@ def benchmark_optimizer(
         )
 
         error_rates[func_name] = study.best_value
+        run_hyperparams[func_name] = study.best_params
         run_metrics[func_name] = study.best_trial.user_attrs.get("metrics", {})
 
         print(" ├ Best Metrics:")
@@ -239,7 +241,7 @@ def benchmark_optimizer(
     )
 
     results["optimizers"][optimizer_name] = {
-        "hyperparameters": study.best_params,
+        "hyperparameters": run_hyperparams,
         "error_rates": error_rates,
         # "weighted_error_rates": weighted_errors,
         # "avg_error_rate": sum(error_rates.values()) / len(error_rates),
