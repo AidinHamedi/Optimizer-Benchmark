@@ -17,37 +17,37 @@ class ObjectiveConfig:
         boundary_penalty (bool): If True, heavily penalizes positions outside bounds.
 
         # Weights (Set to 0.0 to disable specific metrics)
-        final_val_weight: float = 1.5     # Weight for the final function value (log-scaled).
-        final_dist_weight: float = 1.0    # Weight for final distance to global minimum.
-        convergence_weight: float = 0.5   # Weight for speed of convergence.
+        final_val_weight: float = 1.6     # Weight for the final function value (log-scaled).
+        final_dist_weight: float = 2.6    # Weight for final distance to global minimum.
+        convergence_weight: float = 0.1   # Weight for speed of convergence.
         efficiency_weight: float = 0.2    # Weight for path efficiency (penalizes wandering).
         stagnation_weight: float = 0.5    # Weight for penalizing lack of movement (std dev).
         lucky_jump_weight: float = 1.0    # Weight for penalizing single massive steps.
         start_prox_weight: float = 10.0   # Weight for ending too close to start (Heavy penalty).
-        boundary_weight: float = 100.0    # Multiplier for boundary violations.
+        boundary_weight: float = 16.0     # Multiplier for boundary violations.
 
         # Thresholds (Relative to search space diagonal)
         convergence_tol: float = 0.01      # Normalized distance to consider "converged".
         stagnation_threshold: float = 0.01 # Min normalized std-dev to not be considered stagnant.
         lucky_jump_threshold: float = 0.05 # Max allowed single step size (as % of diagonal).
-        start_prox_threshold: float = 0.1  # Distance from start to consider "no net movement".
+        start_prox_threshold: float = 0.12 # Distance from start to consider "no net movement".
     """
 
     boundary_penalty: bool = True
 
-    final_val_weight: float = 1.5
-    final_dist_weight: float = 1.0
-    convergence_weight: float = 0.5
+    final_val_weight: float = 1.6
+    final_dist_weight: float = 2.6
+    convergence_weight: float = 0.1
     efficiency_weight: float = 0.2
     stagnation_weight: float = 0.5
     lucky_jump_weight: float = 1.0
     start_prox_weight: float = 100.0
-    boundary_weight: float = 100.0
+    boundary_weight: float = 16.0
 
     convergence_tol: float = 0.01
     stagnation_threshold: float = 0.01
     lucky_jump_threshold: float = 0.05
-    start_prox_threshold: float = 0.2
+    start_prox_threshold: float = 0.12
 
 
 def _get_diagonal(bounds: Tuple[Tuple[float, float], Tuple[float, float]]) -> float:
@@ -241,7 +241,7 @@ def objective(
     # C. Boundary Violations
     if config.boundary_penalty:
         violation = _calc_boundary_violation(steps, bounds).item()
-        bound_penalty = (violation / diag) * config.boundary_weight
+        bound_penalty = ((violation / diag) ** 3) * config.boundary_weight
         metrics["bound_penalty"] = bound_penalty
         error_sum += bound_penalty
 
@@ -285,7 +285,12 @@ def objective(
         metrics["prox_penalty"] = prox_penalty
         error_sum += prox_penalty
 
-    if debug:
-        print(f"[Objective] Total: {error_sum:.4f} | Breakdown: {metrics}")
+    # Log-compress final score to max ≈ 10
+    logged_error = 10 * math.log1p(error_sum) / math.log(11)
 
-    return error_sum, metrics
+    if debug:
+        print(
+            f"[Objective] Raw Total: {error_sum:.4f} | Logged Total: {logged_error:.4f} | Breakdown: {metrics}"
+        )
+
+    return logged_error, metrics
