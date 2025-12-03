@@ -1,5 +1,6 @@
-from typing import Tuple, Union, Callable
+from typing import Callable, Tuple, Union
 
+import matplotlib.patches as mpatches
 import matplotlib.pyplot as plt
 import torch
 
@@ -14,6 +15,7 @@ def plot_function(
     output_file: str,
     optimizer_name: str,
     optimizer_params: dict,
+    metrics: dict,
     error_rate: float,
     global_minimums: torch.Tensor,
     eval_size: Tuple[Tuple[int, int], Tuple[int, int]],
@@ -30,6 +32,8 @@ def plot_function(
         output_file: Path where the plot image will be saved
         optimizer_name: Name of the optimizer used
         optimizer_params: Dictionary of optimizer parameters (shown in plot title)
+        metrics: Dictionary of penalty breakdowns to display in a legend
+        error_rate: The calculated total error/penalty score
         global_minimums: Tensor containing the global minimum point(s)
         eval_size: Tuple defining the x and y axis ranges
         res: Resolution of the surface plot (points per axis)
@@ -46,6 +50,7 @@ def plot_function(
     xs = cords[0].numpy()
     ys = cords[1].numpy()
 
+    # Trajectory plotting
     ax.plot(
         xs,
         ys,
@@ -53,7 +58,7 @@ def plot_function(
         linewidth=2,
         alpha=1,
         marker="o",
-        label="path",
+        label="Path",
         markersize=5,
         markerfacecolor="white",
     )
@@ -66,7 +71,7 @@ def plot_function(
         edgecolor="black",
         linewidths=0.8,
         zorder=5,
-        label="start",
+        label="Start",
     )
     ax.scatter(
         xs[-1],
@@ -77,7 +82,7 @@ def plot_function(
         edgecolor="black",
         linewidths=0.8,
         zorder=6,
-        label="final",
+        label="Final",
     )
 
     gx = global_minimums[:, 0].numpy()
@@ -92,7 +97,7 @@ def plot_function(
         edgecolor="black",
         linewidths=0.8,
         zorder=7,
-        label="global minimum",
+        label="Global Min",
     )
 
     config = ", ".join(
@@ -110,9 +115,32 @@ def plot_function(
     ax.set_ylabel("y")
     ax.set_aspect("equal")
 
+    # 1. Main Legend (Path items)
     handles, labels = ax.get_legend_handles_labels()
     by_label = dict(zip(labels, handles))
-    ax.legend(by_label.values(), by_label.keys(), loc="best")
+    main_legend = ax.legend(by_label.values(), by_label.keys(), loc="upper left")
+    ax.add_artist(main_legend)
+
+    # 2. Metrics Legend (Penalties)
+    # Filter out zero values and sort by magnitude (descending)
+    active_metrics = [
+        (k, v) for k, v in metrics.items() if isinstance(v, (int, float)) and v > 0
+    ]
+    active_metrics.sort(key=lambda x: x[1], reverse=True)
+
+    if active_metrics:
+        metric_handles = []
+        for k, v in active_metrics:
+            # Create invisible patches to act as text holders
+            clean_name = k.replace("_", " ").title()
+            patch = mpatches.Patch(color="none", label=f"{clean_name}: {v:.4f}")
+            metric_handles.append(patch)
+
+        ax.legend(
+            handles=metric_handles,
+            loc="lower right",
+            title="Penalty Breakdown",
+        )
 
     plt.savefig(output_file, bbox_inches="tight", dpi=120)
     plt.close()
