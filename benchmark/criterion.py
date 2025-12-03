@@ -21,14 +21,16 @@ class ObjectiveConfig:
         final_dist_weight: float = 1.0    # Weight for final distance to global minimum.
         convergence_weight: float = 0.5   # Weight for speed of convergence.
         efficiency_weight: float = 0.2    # Weight for path efficiency (penalizes wandering).
-        stagnation_weight: float = 0.5    # Weight for penalizing lack of movement.
+        stagnation_weight: float = 0.5    # Weight for penalizing lack of movement (std dev).
         lucky_jump_weight: float = 1.0    # Weight for penalizing single massive steps.
+        start_prox_weight: float = 10.0   # Weight for ending too close to start (Heavy penalty).
         boundary_weight: float = 100.0    # Multiplier for boundary violations.
 
         # Thresholds (Relative to search space diagonal)
-        convergence_tol: float = 0.01     # Normalized distance to consider "converged".
+        convergence_tol: float = 0.01      # Normalized distance to consider "converged".
         stagnation_threshold: float = 0.01 # Min normalized std-dev to not be considered stagnant.
         lucky_jump_threshold: float = 0.05 # Max allowed single step size (as % of diagonal).
+        start_prox_threshold: float = 0.1  # Distance from start to consider "no net movement".
     """
 
     boundary_penalty: bool = True
@@ -39,11 +41,13 @@ class ObjectiveConfig:
     efficiency_weight: float = 0.2
     stagnation_weight: float = 0.5
     lucky_jump_weight: float = 1.0
+    start_prox_weight: float = 10.0
     boundary_weight: float = 100.0
 
     convergence_tol: float = 0.01
     stagnation_threshold: float = 0.01
     lucky_jump_threshold: float = 0.05
+    start_prox_threshold: float = 0.1
 
 
 def _get_diagonal(bounds: Tuple[Tuple[float, float], Tuple[float, float]]) -> float:
@@ -110,6 +114,22 @@ def _calc_stagnation(steps: torch.Tensor, threshold: float) -> torch.Tensor:
     if std_dev < threshold:
         # Linear penalty: Max penalty if std is 0, 0 penalty if std >= threshold
         return (threshold - std_dev) / threshold
+
+    return torch.tensor(0.0)
+
+
+def _calc_start_proximity(
+    start: torch.Tensor, final: torch.Tensor, threshold: float
+) -> torch.Tensor:
+    """
+    Penalizes if the final position is too close to the starting position
+    (indicating zero net movement or circular logic).
+    """
+    dist = torch.norm(final - start)
+
+    if dist < threshold:
+        # Linear penalty: 1.0 if dist is 0, 0.0 if dist is threshold
+        return (threshold - dist) / threshold
 
     return torch.tensor(0.0)
 
@@ -241,7 +261,7 @@ def objective(
         metrics["eff_penalty"] = eff_penalty
         error_sum += eff_penalty
 
-    # F. Stagnation (Lack of movement)
+    # F. Stagnation (Lack of movement variance)
     if config.stagnation_weight > 0:
         abs_stag_thresh = config.stagnation_threshold * diag
         stag_val = _calc_stagnation(steps, abs_stag_thresh).item()
@@ -256,6 +276,14 @@ def objective(
         jump_penalty = jump_val * config.lucky_jump_weight
         metrics["jump_penalty"] = jump_penalty
         error_sum += jump_penalty
+
+    # H. Start Proximity (Zero net movement check)
+    if config.start_prox_weight > 0:
+        abs_prox_thresh = config.start_prox_threshold * diag
+        prox_val = _calc_start_proximity(start_pos, final_pos, abs_prox_thresh).item()
+        prox_penalty = prox_val * config.start_prox_weight
+        metrics["prox_penalty"] = prox_penalty
+        error_sum += prox_penalty
 
     if debug:
         print(f"[Objective] Total: {error_sum:.4f} | Breakdown: {metrics}")
