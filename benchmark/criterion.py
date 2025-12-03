@@ -41,13 +41,13 @@ class ObjectiveConfig:
     efficiency_weight: float = 0.2
     stagnation_weight: float = 0.5
     lucky_jump_weight: float = 1.0
-    start_prox_weight: float = 10.0
+    start_prox_weight: float = 100.0
     boundary_weight: float = 100.0
 
     convergence_tol: float = 0.01
     stagnation_threshold: float = 0.01
     lucky_jump_threshold: float = 0.05
-    start_prox_threshold: float = 0.1
+    start_prox_threshold: float = 0.2
 
 
 def _get_diagonal(bounds: Tuple[Tuple[float, float], Tuple[float, float]]) -> float:
