@@ -121,7 +121,7 @@
             </div>
 
             <main>
-                <!-- Search moved HERE for better visibility -->
+                <!-- Search -->
                 <div class="search-container content-max-width">
                     <div class="search-wrapper">
                         <svg
@@ -151,22 +151,23 @@
                     <div class="tabs">
                         <button
                             class="tab-link active"
-                            onclick="openTab(event, 'avg-rank')"
-                        >
-                            Average Rank
-                        </button>
-                        <button
-                            class="tab-link"
                             onclick="openTab(event, 'error-rate')"
                         >
                             Weighted Error Rate
                         </button>
+                        <button
+                            class="tab-link"
+                            onclick="openTab(event, 'avg-rank')"
+                        >
+                            Average Rank
+                        </button>
                     </div>
 
+                    <!-- Avg Rank hidden by default -->
                     <div
                         id="avg-rank"
                         class="tab-content"
-                        style="display: block"
+                        style="display: none"
                     >
                         <div class="table-container">
                             <table id="ranking-table">
@@ -183,7 +184,12 @@
                         </div>
                     </div>
 
-                    <div id="error-rate" class="tab-content">
+                    <!-- Error Rate shown by default -->
+                    <div
+                        id="error-rate"
+                        class="tab-content"
+                        style="display: block"
+                    >
                         <div class="table-container">
                             <table id="error-rate-table">
                                 <thead>
