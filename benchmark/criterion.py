@@ -28,7 +28,7 @@ class ObjectiveConfig:
 
         # Thresholds (Relative to search space diagonal)
         convergence_tol: float = 0.01      # Normalized distance to consider "converged".
-        boundary_tol: float = 0.1         # Normalized distance to consider "boundary violation".
+        boundary_tol: float = 0.1          # Normalized distance to consider "boundary violation".
         stagnation_threshold: float = 0.01 # Min normalized std-dev to not be considered stagnant.
         lucky_jump_threshold: float = 0.05 # Max allowed single step size (as % of diagonal).
         start_prox_threshold: float = 0.12 # Distance from start to consider "no net movement".

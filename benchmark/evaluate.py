@@ -46,7 +46,7 @@ def _progress_bar_callback(total_trials: int):
     return callback
 
 
-def _load_json(path, default, max_retries=5):
+def _load_json(path, default, max_retries=10):
     """Load JSON file safely with retries."""
     for attempt in range(max_retries + 1):
         try:
@@ -54,7 +54,7 @@ def _load_json(path, default, max_retries=5):
                 return json.load(f)
         except Exception:
             if attempt < max_retries:
-                time.sleep(0.2)
+                time.sleep(0.1)
                 continue
             else:
                 break
@@ -185,7 +185,7 @@ def benchmark_optimizer(
             n_trials=config["hypertune_trials"],
             show_progress_bar=False,
             catch=ZeroDivisionError,  # Catch errors from unstable hyperparameters.
-            n_jobs=1 if config["deterministic"] else 2,
+            n_jobs=1,
             callbacks=[_progress_bar_callback(config["hypertune_trials"])],  # type: ignore
         )
 

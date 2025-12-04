@@ -3,7 +3,6 @@
 # ==============================================================================
 [benchmark]
 seed = 42
-deterministic = true  # Ensures reproducibility. Can slow down the process.
 exist_pass = true  # If true, skips optimizers that already have results.
 img_format = ".jpg"  # Output format for visualization plots.
 hypertune_trials = 700  # Number of Optuna trials for hyperparameter tuning.
