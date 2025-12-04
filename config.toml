@@ -27,6 +27,7 @@ ignore_optimizers = [
   "adamw",
   "stableadamw",
   "dadaptadam",
+  "dadaptsgd",
   "amos",
 ]
 
@@ -50,8 +51,8 @@ Langermann = { iterations = 150, error_weight = 0.1 }  # Small weight because it
 MixedMichalewiczSphere = { iterations = 150, error_weight = 1.5 }
 Rastrigin = { iterations = 150, error_weight = 1.5 }
 Rosenbrock = { iterations = 400, error_weight = 1.0 }
-"Schaffer 2" = { iterations = 500, error_weight = 1.5 }
-"Schaffer 4" = { iterations = 500, error_weight = 1.5 }
+"Schaffer 2" = { iterations = 900, error_weight = 1.5 }
+"Schaffer 4" = { iterations = 900, error_weight = 1.5 }
 SchwefelSin = { iterations = 150, error_weight = 0.1 }  # Small weight because it's not a reliable benchmark.
 Shubert = { iterations = 150, error_weight = 1.0 }
 "Styblinski-Tang" = { iterations = 150, error_weight = 0.8 }
