@@ -28,6 +28,7 @@ class ObjectiveConfig:
 
         # Thresholds (Relative to search space diagonal)
         convergence_tol: float = 0.01      # Normalized distance to consider "converged".
+        boundary_tol: float = 0.1         # Normalized distance to consider "boundary violation".
         stagnation_threshold: float = 0.01 # Min normalized std-dev to not be considered stagnant.
         lucky_jump_threshold: float = 0.05 # Max allowed single step size (as % of diagonal).
         start_prox_threshold: float = 0.12 # Distance from start to consider "no net movement".
@@ -45,6 +46,7 @@ class ObjectiveConfig:
     boundary_weight: float = 16.0
 
     convergence_tol: float = 0.01
+    boundary_tol: float = 0.1
     stagnation_threshold: float = 0.01
     lucky_jump_threshold: float = 0.05
     start_prox_threshold: float = 0.12
@@ -58,7 +60,9 @@ def _get_diagonal(bounds: Tuple[Tuple[float, float], Tuple[float, float]]) -> fl
 
 
 def _calc_boundary_violation(
-    steps: torch.Tensor, bounds: Tuple[Tuple[float, float], Tuple[float, float]]
+    steps: torch.Tensor,
+    bounds: Tuple[Tuple[float, float], Tuple[float, float]],
+    tol: float,
 ) -> torch.Tensor:
     """Calculates sum of distances outside allowed bounds."""
     x_min, x_max = bounds[0]
@@ -68,8 +72,8 @@ def _calc_boundary_violation(
     x, y = steps[0], steps[1]
 
     # ReLU captures magnitude of violation (0 if inside)
-    x_loss = torch.relu(x_min - x) + torch.relu(x - x_max)
-    y_loss = torch.relu(y_min - y) + torch.relu(y - y_max)
+    x_loss = torch.relu(x_min - x - tol) + torch.relu(x - x_max - tol)
+    y_loss = torch.relu(y_min - y - tol) + torch.relu(y - y_max - tol)
 
     return torch.sum(x_loss + y_loss)
 
@@ -240,8 +244,10 @@ def objective(
 
     # C. Boundary Violations
     if config.boundary_penalty:
-        violation = _calc_boundary_violation(steps, bounds).item()
-        bound_penalty = ((violation / diag) ** 3) * config.boundary_weight
+        violation = _calc_boundary_violation(
+            steps, bounds, config.boundary_tol * diag
+        ).item()
+        bound_penalty = ((violation / diag) ** 4) * config.boundary_weight
         metrics["bound_penalty"] = bound_penalty
         error_sum += bound_penalty
 
@@ -285,7 +291,7 @@ def objective(
         metrics["prox_penalty"] = prox_penalty
         error_sum += prox_penalty
 
-    # Log-compress final score to max ≈ 10
+    # Log-compress final error
     logged_error = 10 * math.log1p(error_sum) / math.log(11)
 
     if debug:
