@@ -1,3 +1,5 @@
+"""Generate the optimizer comparison ranking JSON file."""
+
 import json
 
 from .core import RANKS_FILE, VIS_WEBPAGE_BASE_URL, Console, load_results
@@ -6,8 +8,14 @@ from .misc import get_aer_ranks, get_afr_ranks
 TOOL_NAME = "COMP-GEN"
 
 
-def get_ranks_json(afr_rankings: list, aer_rankings: list, console: Console) -> str:
-    def _create_list(ranks: list) -> list:
+def get_ranks_json(
+    afr_rankings: list[tuple[str, float]],
+    aer_rankings: list[tuple[str, float]],
+    console: Console,
+) -> str:
+    """Generate JSON string containing both ranking systems."""
+
+    def _create_list(ranks: list[tuple[str, float]]) -> list[dict[str, str | int]]:
         entries = []
 
         for rank, (optimizer, value) in enumerate(ranks, start=1):
@@ -36,7 +44,8 @@ def get_ranks_json(afr_rankings: list, aer_rankings: list, console: Console) -> 
     )
 
 
-def main(console: Console):
+def main(console: Console) -> None:
+    """Generate and save the comparison rankings JSON file."""
     console.info("Generating comparison...")
 
     try:

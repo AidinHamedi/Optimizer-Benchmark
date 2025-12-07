@@ -23,14 +23,14 @@ def cross_in_tray(
     x: torch.Tensor,
     scale: float = FUNC_SCALE,
 ) -> torch.Tensor:
-    """Computes the Cross-in-tray function.
+    """Compute the Cross-in-Tray function.
 
     Args:
-        x (torch.Tensor): A tensor with last dimension size 2, representing [x, y].
-        scale (torch.Tensor): Scale factor for [x, y].
+        x: Input tensor of shape [2] representing [x, y] coordinates.
+        scale: Scaling factor applied to input (default: 5).
 
     Returns:
-        torch.Tensor: Scalar tensor with the Cross-in-tray function value.
+        Scalar tensor with the function value.
     """
     x1 = x[..., 0].type(torch.float64, non_blocking=True) * scale
     x2 = x[..., 1].type(torch.float64, non_blocking=True) * scale

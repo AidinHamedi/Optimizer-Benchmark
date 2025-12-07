@@ -11,13 +11,13 @@ GLOBAL_MINIMUM_LOC = torch.tensor([[1, 1]])
 @normalize(1.0799613846756984e-05, 103.99503326416016)
 @torch.jit.script
 def levy(x: torch.Tensor) -> torch.Tensor:
-    """Computes the Lévy function.
+    """Compute the Lévy function.
 
     Args:
-        x (torch.Tensor): A tensor with last dimension size 2, representing [x, y].
+        x: Input tensor of shape [2] representing [x, y] coordinates.
 
     Returns:
-        torch.Tensor: Scalar tensor with the Lévy function value.
+        Scalar tensor with the function value.
     """
     w = 1.0 + (x - 1.0) / 4.0
     term1 = torch.sin(torch.pi * w[..., 0]) ** 2

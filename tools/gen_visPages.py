@@ -1,3 +1,5 @@
+"""Generate individual HTML pages for each optimizer's visualization results."""
+
 from .core import (
     DOCS_VIS_DIR,
     FILE_FORMAT,
@@ -12,8 +14,8 @@ from .misc import get_aer_ranks, get_afr_ranks, ranks_to_dict
 TOOL_NAME = "VIS-PAGE-GEN"
 
 
-def copy_static_files(console: Console):
-    """Copy CSS and JS files to output directory."""
+def copy_static_files(console: Console) -> None:
+    """Copy static CSS and JS files to the output directory."""
     for file_name in VIS_PAGE_STATIC_FILES:
         src = TEMPLATES_PATH / file_name
         dst = DOCS_VIS_DIR / file_name
@@ -22,8 +24,8 @@ def copy_static_files(console: Console):
             console.info(f"  Copied {file_name} to output directory")
 
 
-def get_page_template(template_name: str):
-    """Load templates from filesystem."""
+def get_page_template(template_name: str) -> str:
+    """Load an HTML template from the templates directory."""
     template_file = TEMPLATES_PATH / f"{template_name}.html"
     if not template_file.exists():
         raise FileNotFoundError(
@@ -33,18 +35,19 @@ def get_page_template(template_name: str):
 
 
 def render_template(template_name: str, **kwargs) -> str:
-    """Render a template with the given variables."""
+    """Render a template with variable substitution."""
     template = get_page_template(template_name)
     return template.format(**kwargs)
 
 
 def generate_image_url(optimizer: str, function_name: str) -> str:
-    """Generate URL for optimizer-function visualization image."""
+    """Generate the CDN URL for a visualization image."""
     url = f"{VIS_REPO_URL}/{optimizer}/{function_name}{FILE_FORMAT}"
     return url.replace(" ", "%20")
 
 
-def main(console: Console):
+def main(console: Console) -> None:
+    """Generate HTML visualization pages for all optimizers."""
     console.info("Generating vis pages...")
 
     try:
@@ -62,11 +65,10 @@ def main(console: Console):
     afr_rankings = ranks_to_dict(afr_rankings)
     aer_rankings = ranks_to_dict(get_aer_ranks(optimizers, weights))
 
-    for i, optimizer in enumerate(func_rankings):
+    for _, optimizer in enumerate(func_rankings):
         console.info(f"Generating page for {optimizer}...")
 
         cards_html = ""
-        # Sort functions by rank for better UX
         sorted_functions = sorted(
             func_rankings[optimizer].items(), key=lambda item: item[1]
         )
@@ -80,7 +82,6 @@ def main(console: Console):
                 function_rank=rank,
             )
 
-        # Calculate weighted average error rate on the fly
         error_rates = optimizers[optimizer].get("error_rates", {})
         if error_rates:
             weighted_sum = sum(
@@ -110,5 +111,5 @@ if __name__ == "__main__":
     console = Console(TOOL_NAME)
     try:
         main(console)
-    except ZeroDivisionError as e:
+    except Exception as e:
         console.error(f"An error occurred: {e}")

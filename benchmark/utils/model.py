@@ -5,15 +5,18 @@ from torch import nn
 
 
 class Pos2D(nn.Module):
-    """
-    Simple 2D optimization model.
+    """A 2D position model for optimizer benchmarking.
+
+    Wraps a 2D coordinate as a learnable parameter and evaluates it
+    against a given objective function.
     """
 
     def __init__(self, func: Callable, start_pos: torch.Tensor) -> None:
-        """
+        """Initialize the 2D position model.
+
         Args:
-            func: Mathematical function to optimize.
-            start_pos: Starting point for optimization (x, y).
+            func: Objective function that takes a 2D tensor and returns a scalar.
+            start_pos: Initial coordinates as a tensor [x, y].
         """
         super().__init__()
         self.func = func
@@ -23,4 +26,9 @@ class Pos2D(nn.Module):
         )
 
     def forward(self) -> torch.Tensor:
+        """Evaluate the objective function at the current position.
+
+        Returns:
+            Scalar tensor with the function value.
+        """
         return self.func(self.cords)

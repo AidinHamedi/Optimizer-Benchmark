@@ -15,15 +15,14 @@ def rosenbrock(
     x: torch.Tensor,
     a: torch.Tensor = ROSEN_A,
 ) -> torch.Tensor:
-    """
-    Computes the Rosenbrock function.
+    """Compute the Rosenbrock function.
 
     Args:
-        x (torch.Tensor): A tensor with last dimension size 2, representing [x, y].
-        a (torch.Tensor): The Rosenbrock constant (default = 100.0).
+        x: Input tensor of shape [2] representing [x, y] coordinates.
+        a: Steepness parameter (default: 100.0).
 
     Returns:
-        torch.Tensor: Scalar tensor with the Rosenbrock function value.
+        Scalar tensor with the function value.
     """
     xi = x[:-1]
     xnext = x[1:]

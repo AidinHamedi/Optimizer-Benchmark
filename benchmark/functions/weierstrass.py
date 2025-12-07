@@ -24,16 +24,16 @@ def weierstrass(
     pibk: torch.Tensor = WEIERSTRASS_PIBK,
     scale: float = FUNC_SCALE,
 ) -> torch.Tensor:
-    """
-    Computes the Weierstrass function.
+    """Compute the Weierstrass function.
 
     Args:
-        x (torch.Tensor): A 1D tensor representing the input vector.
-        ak (torch.Tensor): Precomputed a^k coefficients.
-        pibk (torch.Tensor): Precomputed π*b^k coefficients.
+        x: Input tensor of shape [2] representing [x, y] coordinates.
+        ak: Precomputed a^k coefficients.
+        pibk: Precomputed π*b^k coefficients.
+        scale: Scaling factor applied to input.
 
     Returns:
-        torch.Tensor: Scalar tensor with the Weierstrass function value.
+        Scalar tensor with the function value.
     """
     x = x * scale + 1.0
 

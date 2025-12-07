@@ -16,15 +16,14 @@ def schaffer2(
     x: torch.Tensor,
     scale: float = FUNC_SCALE,
 ) -> torch.Tensor:
-    """
-    Computes the Schaffer function N. 2.
+    """Compute the Schaffer N.2 function.
 
     Args:
-        x (torch.Tensor): A tensor with last dimension size 2, representing [x, y].
-        scale (torch.Tensor): Scale factor for [x, y].
+        x: Input tensor of shape [2] representing [x, y] coordinates.
+        scale: Scaling factor applied to input (default: 5).
 
     Returns:
-        torch.Tensor: Scalar tensor with the Schaffer function value.
+        Scalar tensor with the function value.
     """
     x = x * scale
     x1, x2 = x[0], x[1]

@@ -1,9 +1,18 @@
-def get_afr_ranks(results: dict) -> tuple[list, dict]:
-    """Get Ranks Based On Average Rank On Functions"""
+"""Utility functions for computing optimizer rankings."""
+
+from typing import Any
+
+
+def get_afr_ranks(
+    results: dict[str, Any],
+) -> tuple[list[tuple[str, float]], dict[str, dict[str, int]]]:
+    """Compute rankings based on average rank across test functions."""
+    # Collect all function names across all optimizers
     functions = {fn for data in results.values() for fn in data.get("error_rates", {})}
 
-    function_ranks = {opt: {} for opt in results}
+    function_ranks: dict[str, dict[str, int]] = {opt: {} for opt in results}
 
+    # Rank optimizers within each function
     for fn in functions:
         errors = [
             (opt, data["error_rates"][fn])
@@ -13,6 +22,7 @@ def get_afr_ranks(results: dict) -> tuple[list, dict]:
 
         errors.sort(key=lambda x: x[1])
 
+        # Competition ranking: tied optimizers get the same rank
         rank = 1
         prev_val = None
         for i, (opt, val) in enumerate(errors, start=1):
@@ -21,16 +31,19 @@ def get_afr_ranks(results: dict) -> tuple[list, dict]:
             function_ranks[opt][fn] = rank
             prev_val = val
 
-    avg_ranks = {}
+    # Average each optimizer's ranks across all functions
+    avg_ranks: dict[str, float] = {}
     for opt, ranks in function_ranks.items():
         avg_ranks[opt] = (sum(ranks.values()) / len(ranks)) if ranks else float("inf")
 
     return sorted(avg_ranks.items(), key=lambda x: x[1]), function_ranks
 
 
-def get_aer_ranks(optimizers: dict, weights: dict) -> list:
-    """Get Ranks Based On Weighted Average Error Rate On Functions"""
-    optimizer_scores = []
+def get_aer_ranks(
+    optimizers: dict[str, Any], weights: dict[str, float]
+) -> list[tuple[str, float]]:
+    """Compute rankings based on weighted average error rate."""
+    optimizer_scores: list[tuple[str, float]] = []
 
     for opt, data in optimizers.items():
         error_rates = data.get("error_rates", {})
@@ -52,9 +65,6 @@ def get_aer_ranks(optimizers: dict, weights: dict) -> list:
     return sorted(optimizer_scores, key=lambda x: x[1])
 
 
-def ranks_to_dict(rank_output):
-    """
-    Convert output of get_afr_ranks() or get_aer_ranks()
-    to a dictionary {optimizer_name: rank}.
-    """
+def ranks_to_dict(rank_output: list[tuple[str, float]]) -> dict[str, int]:
+    """Convert a sorted ranking list to a {name: rank} lookup dict."""
     return {opt: i for i, (opt, _) in enumerate(rank_output, start=1)}

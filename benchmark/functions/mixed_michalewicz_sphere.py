@@ -20,17 +20,16 @@ def mixed_michalewicz_sphere(
     alpha: float = ALPHA,
     sphere_scale: float = SPHERE_SCALE,
 ) -> torch.Tensor:
-    """
-    Computes Mixed Michalewicz + Sphere function.
+    """Compute the Mixed Michalewicz + Sphere function.
 
     Args:
-        x (torch.Tensor): A tensor with last dimension size 2, representing [x, y].
-        m (float): Michalewicz steepness parameter.
-        alpha (float): mixing coefficient (0 ≤ α ≤ 1).
-        sphere_scale (float): scale factor for the sphere component.
+        x: Input tensor of shape [2] representing [x, y] coordinates.
+        m: Michalewicz steepness parameter (default: 2.0).
+        alpha: Mixing coefficient between Michalewicz and Sphere (default: 0.95).
+        sphere_scale: Scaling factor for the Sphere component (default: 0.6).
 
     Returns:
-        torch.Tensor: Scalar tensor with the function value.
+        Scalar tensor with the function value.
     """
     sphere_val = torch.sum(x * x)
 

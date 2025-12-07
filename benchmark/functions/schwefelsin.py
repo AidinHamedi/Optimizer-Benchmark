@@ -22,15 +22,14 @@ def schwefel_sin(
     x: torch.Tensor,
     scale: float = FUNC_SCALE,
 ) -> torch.Tensor:
-    """
-    Computes the Schwefel function.
+    """Compute the Schwefel function.
 
     Args:
-        x (torch.Tensor): A tensor with last dimension size 2, representing [x, y].
-        scale (torch.Tensor): Scale factor for [x, y].
+        x: Input tensor of shape [2] representing [x, y] coordinates.
+        scale: Scaling factor applied to input (default: 25.0).
 
     Returns:
-        torch.Tensor: Scalar tensor with the Schwefel function value.
+        Scalar tensor with the function value.
     """
     x = x * scale
 

@@ -22,22 +22,21 @@ def plot_function(
     res: Union[int, str] = "auto",
     debug: bool = False,
 ):
-    """
-    Visualizes an optimizer's trajectory over a 2D function surface.
+    """Visualize an optimizer trajectory over a 2D function surface.
 
     Args:
-        func: The 2D mathematical function to visualize.
-        func_name: Name of the function (for plot title and caching).
-        cords: Tensor containing the optimization trajectory coordinates.
+        func: The 2D objective function to visualize.
+        func_name: Name of the function for title and caching.
+        cords: Tensor of shape [2, N] containing trajectory coordinates.
         output_file: Path where the plot image will be saved.
-        optimizer_name: Name of the optimizer used.
-        optimizer_params: Dictionary of optimizer parameters (shown in plot title).
-        metrics: Dictionary of penalty breakdowns to display in a legend.
-        error_rate: The calculated total error/penalty score.
-        global_minimums: Tensor containing the global minimum point(s).
-        eval_size: Tuple defining the x and y axis ranges.
-        res: Resolution of the surface plot (points per axis).
-        debug: Debug mode flag.
+        optimizer_name: Name of the optimizer for the plot title.
+        optimizer_params: Dictionary of optimizer parameters to display.
+        metrics: Dictionary of penalty breakdowns for the legend.
+        error_rate: Total error score to display.
+        global_minimums: Tensor of global minimum locations.
+        eval_size: Tuple defining x and y axis ranges.
+        res: Surface plot resolution (points per axis) or "auto".
+        debug: Enable debug output.
     """
     X, Y, Z = compute_surface(
         func, func_name, scale_eval_size(eval_size, 1.1), res, debug=debug
@@ -50,7 +49,6 @@ def plot_function(
     xs = cords[0].numpy()
     ys = cords[1].numpy()
 
-    # Trajectory plotting
     ax.plot(
         xs,
         ys,
@@ -115,14 +113,11 @@ def plot_function(
     ax.set_ylabel("y")
     ax.set_aspect("equal")
 
-    # 1. Main Legend (Path items)
     handles, labels = ax.get_legend_handles_labels()
     by_label = dict(zip(labels, handles))
     main_legend = ax.legend(by_label.values(), by_label.keys(), loc="upper left")
     ax.add_artist(main_legend)
 
-    # 2. Metrics Legend (Penalties)
-    # Filter out zero values and sort by magnitude (descending)
     active_metrics = [
         (k, v) for k, v in metrics.items() if isinstance(v, (int, float)) and v > 0
     ]
@@ -131,7 +126,6 @@ def plot_function(
     if active_metrics:
         metric_handles = []
         for k, v in active_metrics:
-            # Create invisible patches to act as text holders
             clean_name = k.replace("_", " ").title()
             patch = mpatches.Patch(color="none", label=f"{clean_name}: {v:.4f}")
             metric_handles.append(patch)

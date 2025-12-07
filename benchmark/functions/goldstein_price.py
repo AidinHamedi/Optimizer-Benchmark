@@ -4,21 +4,20 @@ from .norm import normalize
 
 FUNCTION_NAME = "Goldstein-Price"
 START_POS = torch.tensor([-1.8, 1.8])
-EVAL_SIZE = ((-2, 2), (-2, 2))
+EVAL_SIZE = ((-3, 3), (-3, 3))
 GLOBAL_MINIMUM_LOC = torch.tensor([[0.0, -1.0]])
 
 
 @normalize(3.0231451988220215, 1457606.625)
 @torch.jit.script
 def goldstein_price(x: torch.Tensor) -> torch.Tensor:
-    """
-    Computes the Goldstein-Price function.
+    """Compute the Goldstein-Price function.
 
     Args:
-        x (torch.Tensor): A tensor with last dimension size 2, representing [x, y].
+        x: Input tensor of shape [2] representing [x, y] coordinates.
 
     Returns:
-        torch.Tensor: Scalar tensor with the function value.
+        Scalar tensor with the function value.
     """
     x1 = x[..., 0]
     x2 = x[..., 1]

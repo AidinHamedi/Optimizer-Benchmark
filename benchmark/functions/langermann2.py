@@ -34,15 +34,16 @@ def langermann(
     c: torch.Tensor = LANGERMANN_C,
     a: torch.Tensor = LANGERMANN_A,
 ) -> torch.Tensor:
-    """
-    Computes the Langermann function.
+    """Compute the Langermann function (variant 2 with 11 terms).
 
     Args:
-        x (torch.Tensor): A tensor with last dimension size 2, representing [x, y].
-        m, c, a (torch.Tensor): Constants for the Langermann function.
+        x: Input tensor of shape [2] representing [x, y] coordinates.
+        m: Number of terms in the summation (default: 11).
+        c: Coefficient vector of length m.
+        a: Matrix of shape [m, 2] containing center points.
 
     Returns:
-        torch.Tensor: Scalar tensor with the Langermann function value.
+        Scalar tensor with the function value.
     """
     x_expanded = x.unsqueeze(0).expand(m, -1)  # type: ignore
     diff_sq = (x_expanded - a) ** 2

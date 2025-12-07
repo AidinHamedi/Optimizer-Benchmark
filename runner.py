@@ -16,12 +16,14 @@ torch.use_deterministic_algorithms(True)
 CONFIG_PATH = Path("./config.toml")
 OUTPUT_DIR = Path("./results")
 
+# Optimizers requiring special config that can't be expressed in the search space
 OPTIMIZER_PATCHES = {
     "adashift": lambda cfg, iters: cfg.update({"keep_num": 1}),
     "ranger21": lambda cfg, iters: cfg.update({"num_iterations": iters}),
     "ranger25": lambda cfg, iters: cfg.update({"orthograd": False}),
     "bsam": lambda cfg, iters: cfg.update({"num_data": 1}),
 }
+# Optimizers with non-standard signatures requiring explicit weight_decay=0.0
 SPECIAL_WEIGHT_DECAY_OPTIMIZERS = {
     "adagc",
     "adalite",
@@ -43,7 +45,17 @@ SPECIAL_WEIGHT_DECAY_OPTIMIZERS = {
 
 
 def read_toml_config(path: Path) -> dict:
-    """Read and parse a TOML configuration file into a dictionary."""
+    """Read and parse a TOML configuration file.
+
+    Args:
+        path: Path to the TOML file.
+
+    Returns:
+        Parsed configuration as a dictionary.
+
+    Raises:
+        FileNotFoundError: If the config file does not exist.
+    """
     file_path = Path(path)
     if not file_path.is_file():
         raise FileNotFoundError(f"Config file not found: {path}")
@@ -51,11 +63,14 @@ def read_toml_config(path: Path) -> dict:
         return tomllib.load(f)
 
 
-def normalize_multi_option(values: tuple[str]) -> list[str] | None:
-    """
-    Normalizes a Click multi-option tuple.
-    Click returns an empty tuple () for no options, ('val',) for one, and ('val1', 'val2') for many.
-    This function converts these to a more standard format: None or a list of strings.
+def normalize_multi_option(values: tuple[str, ...]) -> list[str] | None:
+    """Convert a Click multi-option tuple to a list or None.
+
+    Args:
+        values: Tuple of option values from Click.
+
+    Returns:
+        List of strings if values exist, None otherwise.
     """
     if not values:
         return None
@@ -63,29 +78,38 @@ def normalize_multi_option(values: tuple[str]) -> list[str] | None:
 
 
 def get_hyperparameter_search_space(name: str, config: dict) -> dict:
-    """Return the hyperparameter search space for a given optimizer name."""
-    # Fallback to the 'base' configuration if a specific one is not defined.
+    """Get the hyperparameter search space for a given optimizer.
+
+    Args:
+        name: Optimizer name.
+        config: Configuration dictionary containing optimizer settings.
+
+    Returns:
+        Dictionary defining the search space for Optuna.
+    """
+    # Fall back to 'base' config if optimizer-specific config not defined
     base = config.get(name, config["base"])
     search_space = dict(base)
-    # The '_iter_scale' key is a custom config for this benchmark, not a real hyperparameter.
-    # It must be removed before passing the config to Optuna or the optimizer.
+    # '_iter_scale' is benchmark-specific, not a hyperparameter for Optuna
     search_space.pop("_iter_scale", None)
     return search_space
 
 
 def get_optimizer_factory(optimizer_name: str, debug: bool = False):
-    """
-    Returns a factory function for creating an optimizer instance.
-    This approach allows us to encapsulate complex instantiation logic, including
-    applying patches and handling special cases for different optimizers.
+    """Create a factory function for instantiating an optimizer.
+
+    Args:
+        optimizer_name: Name of the optimizer to create.
+        debug: Enable debug logging.
+
+    Returns:
+        Factory function that creates optimizer instances.
     """
 
     def factory(model, optimizer_config: dict, num_iters: int):
-        # Reset the random seed for reproducibility.
         torch.manual_seed(42)
         np.random.seed(42)
 
-        # Apply a patch if the optimizer requires special configuration.
         patch = OPTIMIZER_PATCHES.get(optimizer_name)
         if patch:
             if debug:
@@ -94,9 +118,8 @@ def get_optimizer_factory(optimizer_name: str, debug: bool = False):
 
         optimizer_class = load_optimizer(optimizer_name)
 
-        # Handle optimizers with unique or non-standard parameter requirements.
         if optimizer_name == "adammini":
-            # AdamMini requires weight_decay to be handled separately.
+            # AdamMini takes model directly, not model.parameters()
             return optimizer_class(model, weight_decay=0.0, **optimizer_config)  # type: ignore
         elif optimizer_name in SPECIAL_WEIGHT_DECAY_OPTIMIZERS:
             if debug:
@@ -107,7 +130,6 @@ def get_optimizer_factory(optimizer_name: str, debug: bool = False):
                 **optimizer_config,
             )
         else:
-            # Standard optimizer instantiation.
             if debug:
                 print(f"Creating {optimizer_name}")
             return optimizer_class(model.parameters(), **optimizer_config)
@@ -118,30 +140,39 @@ def get_optimizer_factory(optimizer_name: str, debug: bool = False):
 def prepare_optimizers(
     configs: dict, filters: list[str] | None, opt_range: list[int]
 ) -> list[str]:
-    """Prepare list of optimizers to benchmark, applying filters and ignoring config exclusions."""
+    """Prepare the list of optimizers to benchmark.
+
+    Args:
+        configs: Configuration dictionary.
+        filters: Optional list of optimizer name filters.
+        opt_range: Range of optimizer indices [start, end].
+
+    Returns:
+        List of optimizer names to benchmark.
+    """
     all_optimizers = get_supported_optimizers(filters)
     ignore_list = configs["benchmark"].get("ignore_optimizers", [])
-    # Filter out optimizers listed in the config's ignore_list and apply CLI range.
     return [opt for opt in all_optimizers if opt not in ignore_list][
         opt_range[0] : opt_range[1]
     ]
 
 
 def prepare_eval_configs(configs: dict, optimizer_name: str) -> dict:
-    """
-    Builds the evaluation configuration for a given optimizer.
-    This includes setting the number of iterations per function (with scaling)
-    and defining the weights for error calculation.
+    """Build the evaluation configuration for an optimizer.
+
+    Args:
+        configs: Full configuration dictionary.
+        optimizer_name: Name of the optimizer.
+
+    Returns:
+        Evaluation configuration including iteration counts and error weights.
     """
     return {
-        # Some optimizers converge faster or slower. '_iter_scale' allows us to adjust
-        # the number of iterations for them without changing the base config.
         "num_iters": {
             func_name: func_config["iterations"]
             * configs["optimizers"].get(optimizer_name, {}).get("_iter_scale", 1)
             for func_name, func_config in configs["functions"].items()
         },
-        # Error weights allow us to prioritize performance on certain functions.
         "error_weights": {
             func_name: func_config["error_weight"]
             for func_name, func_config in configs["functions"].items()
@@ -185,7 +216,11 @@ def prepare_eval_configs(configs: dict, optimizer_name: str) -> dict:
     type=Path,
 )
 def main(**kwargs):
-    """The entry point of the app."""
+    """Run the optimizer benchmark suite.
+
+    Benchmarks PyTorch optimizers on 2D test functions using Optuna for
+    hyperparameter tuning. Results are saved as JSON and visualizations.
+    """
     debug: bool = kwargs["debug"]
     get_num: bool = kwargs["get_num"]
     opt_range: list[int] = kwargs["opt_range"]
@@ -201,8 +236,7 @@ def main(**kwargs):
     if debug:
         print(f"Optimizers: {optimizers}")
 
-    # The --get_num flag provides an easy way for wrapper scripts (like the Makefile)
-    # to query the total number of optimizers for parallel processing.
+    # --get_num flag for scripts to query optimizer count for parallel execution
     if get_num:
         print(len(optimizers))
         return

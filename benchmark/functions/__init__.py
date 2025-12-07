@@ -1,3 +1,5 @@
+"""Dynamic loader for benchmark test functions."""
+
 import importlib
 import pkgutil
 from typing import Any, Dict, Tuple
@@ -9,6 +11,15 @@ IGNORE_FUNCTIONS = {"normalize"}
 
 
 def load_functions() -> Dict[str, Dict[str, Any]]:
+    """Load all test functions from submodules.
+
+    Dynamically discovers and imports function modules, extracting the
+    objective function and its associated metadata (eval size, start
+    position, global minimum location).
+
+    Returns:
+        Dictionary mapping function names to their configuration dictionaries.
+    """
     func_dict: Dict[str, Dict[str, Any]] = {}
 
     package = importlib.import_module(PACKAGE_NAME)
@@ -29,6 +40,7 @@ def load_functions() -> Dict[str, Dict[str, Any]]:
 
         name = getattr(module, "FUNCTION_NAME")
 
+        # Find all public callables as candidate objective functions
         candidates = [
             (fname, fval)
             for fname, fval in module.__dict__.items()
@@ -44,6 +56,7 @@ def load_functions() -> Dict[str, Dict[str, Any]]:
                 print(f"⚠️  {full_module_name} has no public functions → skipped")
             continue
 
+        # Match function name to module name or FUNCTION_NAME, else use first candidate
         func = None
         for fname, fval in candidates:
             if (
@@ -79,12 +92,23 @@ FUNC_DICT = load_functions()
 def scale_eval_size(
     eval_size: Tuple[Tuple[float, float], Tuple[float, float]], scale: float
 ) -> Tuple[Tuple[float, float], Tuple[float, float]]:
-    """Scale the evaluation size by a given factor."""
+    """Scale the evaluation bounds by a given factor.
+
+    Args:
+        eval_size: Original bounds as ((x_min, x_max), (y_min, y_max)).
+        scale: Scaling factor to apply.
+
+    Returns:
+        Scaled bounds in the same format.
+    """
 
     def adjust_pair(first: float, second: float, factor: float) -> Tuple[float, float]:
+        """Adjust a min/max pair based on symmetry."""
+        # Symmetric bounds: scale both ends equally
         if first == -second:
             return first * factor, second * factor
 
+        # Asymmetric bounds: preserve relative structure
         sign = 1 if first >= 0 else -1
         abs_first = abs(first)
         abs_second_scaled = abs(second * factor)

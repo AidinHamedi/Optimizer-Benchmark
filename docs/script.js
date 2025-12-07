@@ -1,10 +1,13 @@
 "use strict";
 
-// Global variable to store the fetched data
+/** Global variable storing the fetched optimizer data. */
 let globalData = null;
 
 /**
- * Handles Tab Switching
+ * Switch between ranking tabs.
+ *
+ * @param {Event} evt - The click event from the tab button.
+ * @param {string} tabName - The ID of the tab content to display.
  */
 function openTab(evt, tabName) {
   const tabContents = document.querySelectorAll(".tab-content");
@@ -30,32 +33,37 @@ function openTab(evt, tabName) {
 }
 
 /**
- * Utility: Escapes special characters for Regex
- * Ensures that searching for things like "+" doesn't break the regex
+ * Escape special regex characters in a string.
+ *
+ * @param {string} string - The string to escape.
+ * @returns {string} The escaped string safe for use in a RegExp.
  */
 function escapeRegExp(string) {
   return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
 /**
- * Utility: Wraps matched text in a highlight span
- * Preserves the original casing of the text
+ * Wrap matched text in a highlight span while preserving original casing.
+ *
+ * @param {string} text - The text to search within.
+ * @param {string} searchTerm - The term to highlight.
+ * @returns {string} HTML string with matches wrapped in highlight spans.
  */
 function highlightText(text, searchTerm) {
   if (!searchTerm) return text;
 
   const escapedTerm = escapeRegExp(searchTerm);
-  // 'gi' = global match, case insensitive
   const regex = new RegExp(`(${escapedTerm})`, "gi");
 
   return text.replace(regex, '<span class="highlight">$1</span>');
 }
 
 /**
- * Populates a table body
- * @param {HTMLElement} tableBody - The tbody element
- * @param {Array} data - Array of optimizer objects
- * @param {String} searchTerm - The current search text (for highlighting)
+ * Populate a table body with optimizer ranking data.
+ *
+ * @param {HTMLElement} tableBody - The tbody element to populate.
+ * @param {Array<Object>} data - Array of optimizer objects with rank, optimizer, value, and vis properties.
+ * @param {string} [searchTerm=""] - Optional search term for highlighting matches.
  */
 function populateTable(tableBody, data, searchTerm = "") {
   if (!tableBody || !data) {
@@ -63,7 +71,6 @@ function populateTable(tableBody, data, searchTerm = "") {
     return;
   }
 
-  // If no data matches filter
   if (data.length === 0) {
     tableBody.innerHTML = `<tr><td colspan="4" style="text-align:center; padding: 30px; color: var(--accents-4);">No optimizers found matching "${searchTerm}"</td></tr>`;
     return;
@@ -73,7 +80,6 @@ function populateTable(tableBody, data, searchTerm = "") {
 
   const rows = data
     .map((item) => {
-      // Apply highlighting to the optimizer name
       const optimizerNameDisplay = highlightText(item.optimizer, searchTerm);
 
       return `
@@ -111,7 +117,9 @@ function populateTable(tableBody, data, searchTerm = "") {
 }
 
 /**
- * Filter data based on search input
+ * Handle search input and filter both ranking tables.
+ *
+ * @param {Event} evt - The input event from the search field.
  */
 function handleSearch(evt) {
   if (!globalData) return;
@@ -119,7 +127,6 @@ function handleSearch(evt) {
   const searchTerm = evt.target.value.toLowerCase().trim();
   const rawSearchTerm = evt.target.value.trim();
 
-  // Filter both lists
   const filteredRank = globalData.rankingByAvgRank.filter((item) =>
     item.optimizer.toLowerCase().includes(searchTerm),
   );
@@ -127,7 +134,6 @@ function handleSearch(evt) {
     item.optimizer.toLowerCase().includes(searchTerm),
   );
 
-  // Re-populate both tables
   const rankingTableBody = document.getElementById("ranking-table-body");
   const errorRateTableBody = document.getElementById("error-rate-table-body");
 
@@ -136,7 +142,6 @@ function handleSearch(evt) {
   if (errorRateTableBody)
     populateTable(errorRateTableBody, filteredError, rawSearchTerm);
 
-  // NEW: Scroll both table containers to the top
   const tableContainers = document.querySelectorAll(".table-container");
   tableContainers.forEach((container) => {
     container.scrollTop = 0;
@@ -144,7 +149,7 @@ function handleSearch(evt) {
 }
 
 /**
- * Main initialization
+ * Fetch ranking data and initialize the dashboard tables.
  */
 async function loadDataAndInitializeTables() {
   try {
@@ -154,19 +159,16 @@ async function loadDataAndInitializeTables() {
       throw new Error(`Failed to load data: ${response.status}`);
     }
 
-    // Store data globally
     globalData = await response.json();
 
     const rankingTableBody = document.getElementById("ranking-table-body");
     const errorRateTableBody = document.getElementById("error-rate-table-body");
 
-    // Initial Population
     if (rankingTableBody)
       populateTable(rankingTableBody, globalData.rankingByAvgRank);
     if (errorRateTableBody)
       populateTable(errorRateTableBody, globalData.rankingByErrorRate);
 
-    // Attach Search Listener
     const searchInput = document.getElementById("optimizer-search");
     if (searchInput) {
       searchInput.addEventListener("input", handleSearch);
