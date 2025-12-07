@@ -26,18 +26,18 @@ def plot_function(
     Visualizes an optimizer's trajectory over a 2D function surface.
 
     Args:
-        func: The 2D mathematical function to visualize
-        func_name: Name of the function (for plot title and caching)
-        cords: Tensor containing the optimization trajectory coordinates
-        output_file: Path where the plot image will be saved
-        optimizer_name: Name of the optimizer used
-        optimizer_params: Dictionary of optimizer parameters (shown in plot title)
-        metrics: Dictionary of penalty breakdowns to display in a legend
-        error_rate: The calculated total error/penalty score
-        global_minimums: Tensor containing the global minimum point(s)
-        eval_size: Tuple defining the x and y axis ranges
-        res: Resolution of the surface plot (points per axis)
-        debug: Debug mode flag
+        func: The 2D mathematical function to visualize.
+        func_name: Name of the function (for plot title and caching).
+        cords: Tensor containing the optimization trajectory coordinates.
+        output_file: Path where the plot image will be saved.
+        optimizer_name: Name of the optimizer used.
+        optimizer_params: Dictionary of optimizer parameters (shown in plot title).
+        metrics: Dictionary of penalty breakdowns to display in a legend.
+        error_rate: The calculated total error/penalty score.
+        global_minimums: Tensor containing the global minimum point(s).
+        eval_size: Tuple defining the x and y axis ranges.
+        res: Resolution of the surface plot (points per axis).
+        debug: Debug mode flag.
     """
     X, Y, Z = compute_surface(
         func, func_name, scale_eval_size(eval_size, 1.1), res, debug=debug

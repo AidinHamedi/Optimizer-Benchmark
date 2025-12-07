@@ -1,4 +1,5 @@
 import warnings
+from typing import Any, Callable, Dict
 
 import torch
 
@@ -53,3 +54,37 @@ def execute_steps(
             cords[:, i] = model.cords.detach()
 
     return cords
+
+
+def optimize(
+    criterion: Callable[[torch.Tensor], torch.Tensor],
+    optimizer_maker: Callable[[Pos2D, Dict, int], Any],
+    optimizer_conf: Dict[str, Any],
+    start_pos: torch.Tensor,
+    num_iters: int,
+    eval_args: Dict[str, Any],
+):
+    """Optimize a model using a given optimizer.
+
+    Args:
+        criterion (Callable[[torch.Tensor], torch.Tensor]): The loss function to optimize.
+        optimizer_maker (Callable[[Pos2D, Dict, int], Any]): A function that creates an optimizer.
+        optimizer_conf (Dict[str, Any]): Configuration for the optimizer.
+        start_pos (torch.Tensor): The starting position of the model.
+        num_iters (int): The number of iterations to optimize for.
+        eval_args (Dict[str, Any]): Additional arguments for the evaluation function.
+
+    Returns:
+        torch.Tensor: A tensor of shape (2, num_iters + 1) containing the trajectory of the model's coordinates.
+    """
+    cords = Pos2D(criterion, start_pos)
+    optimizer = optimizer_maker(cords, optimizer_conf, num_iters)
+
+    # Optimize
+    steps = execute_steps(cords, optimizer, num_iters, **eval_args)
+
+    # Check for NaN/Inf which implies optimizer explosion
+    if not torch.isfinite(steps).all():
+        raise ValueError("Optimizer generated NaN or Inf values.")
+
+    return steps

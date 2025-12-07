@@ -4,9 +4,6 @@ from typing import Any, Callable, Dict, Tuple
 
 import torch
 
-from .utils.executor import execute_steps
-from .utils.model import Pos2D
-
 
 @dataclass(frozen=True)
 class ObjectiveConfig:
@@ -17,10 +14,10 @@ class ObjectiveConfig:
         boundary_penalty (bool): If True, heavily penalizes positions outside bounds.
 
         # Weights (Set to 0.0 to disable specific metrics)
-        final_val_weight: float = 1.6     # Weight for the final function value (log-scaled).
+        final_val_weight: float = 1.8     # Weight for the final function value (log-scaled).
         final_dist_weight: float = 2.6    # Weight for final distance to global minimum.
         convergence_weight: float = 0.1   # Weight for speed of convergence.
-        efficiency_weight: float = 0.2    # Weight for path efficiency (penalizes wandering).
+        efficiency_weight: float = 0.15   # Weight for path efficiency (penalizes wandering).
         stagnation_weight: float = 0.5    # Weight for penalizing lack of movement (std dev).
         lucky_jump_weight: float = 1.0    # Weight for penalizing single massive steps.
         start_prox_weight: float = 10.0   # Weight for ending too close to start (Heavy penalty).
@@ -28,27 +25,27 @@ class ObjectiveConfig:
 
         # Thresholds (Relative to search space diagonal)
         convergence_tol: float = 0.01      # Normalized distance to consider "converged".
-        boundary_tol: float = 0.1          # Normalized distance to consider "boundary violation".
+        boundary_tol: float = 0.08         # Normalized distance to consider "boundary violation".
         stagnation_threshold: float = 0.01 # Min normalized std-dev to not be considered stagnant.
-        lucky_jump_threshold: float = 0.05 # Max allowed single step size (as % of diagonal).
+        lucky_jump_threshold: float = 0.02 # Max allowed single step size (as % of diagonal).
         start_prox_threshold: float = 0.12 # Distance from start to consider "no net movement".
     """
 
     boundary_penalty: bool = True
 
-    final_val_weight: float = 1.6
+    final_val_weight: float = 1.8
     final_dist_weight: float = 2.6
     convergence_weight: float = 0.1
-    efficiency_weight: float = 0.2
+    efficiency_weight: float = 0.15
     stagnation_weight: float = 0.5
-    lucky_jump_weight: float = 1.0
+    lucky_jump_weight: float = 1.8
     start_prox_weight: float = 100.0
     boundary_weight: float = 16.0
 
     convergence_tol: float = 0.01
-    boundary_tol: float = 0.1
+    boundary_tol: float = 0.08
     stagnation_threshold: float = 0.01
-    lucky_jump_threshold: float = 0.05
+    lucky_jump_threshold: float = 0.02
     start_prox_threshold: float = 0.12
 
 
@@ -165,13 +162,12 @@ def _calc_convergence_speed(
 
 
 def objective(
+    steps: torch.Tensor,
     criterion: Callable[[torch.Tensor], torch.Tensor],
-    optimizer_maker: Callable[[Pos2D, Dict, int], Any],
-    optimizer_conf: Dict[str, Any],
     start_pos: torch.Tensor,
     global_min_pos: torch.Tensor,
     bounds: Tuple[Tuple[int, int], Tuple[int, int]],
-    num_iters: int,
+    mode: str,
     config: ObjectiveConfig = ObjectiveConfig(),
     debug: bool = False,
     **eval_args: Any,
@@ -180,41 +176,21 @@ def objective(
     Benchmarks an optimizer trajectory and returns a weighted error score.
 
     Args:
+        cords: Tensor containing the optimization trajectory coordinates.
         criterion: The function to minimize.
-        optimizer_maker: Factory function to create the optimizer.
-        optimizer_conf: Hyperparameters for the optimizer.
         start_pos: Starting coordinates [x, y].
         global_min_pos: Tensor of known global minima locations.
         bounds: Tuple of ((min_x, max_x), (min_y, max_y)).
-        num_iters: Number of iterations to run.
+        mode: defines the metrics to use for scoring can be "train" or "eval".
         config: Dataclass containing weights and thresholds for scoring.
         debug: If True, prints debug info.
-        **eval_args: Extra args passed to the execution loop (e.g., closure required).
 
     Returns:
         Tuple[float, dict]: Total error score (lower is better) and a metrics dict.
     """
 
-    # 1. Setup Model & Optimizer
-    cords = Pos2D(criterion, start_pos)
-    optimizer = optimizer_maker(cords, optimizer_conf, num_iters)
-
-    # 2. Execute Trajectory
-    try:
-        # steps shape: [2, num_iters + 1]
-        steps = execute_steps(cords, optimizer, num_iters, **eval_args)
-    except Exception as e:
-        if debug:
-            print(f"Error during optimization execution: {e}")
-        return float("inf"), {}
-
-    # Check for NaN/Inf which implies optimizer explosion
-    if not torch.isfinite(steps).all():
-        if debug:
-            print("Optimizer generated NaN or Inf values.")
-        return float("inf"), {"exploded_penalty": 1.0}
-
-    # 3. Calculate Metrics
+    # Setup
+    is_train = mode == "train"
     error_sum = 0.0
     metrics = {}
 
@@ -237,13 +213,14 @@ def objective(
     error_sum += val_penalty
 
     # B. Final Distance to Global Minimum (Normalized)
-    min_dist = torch.min(torch.norm(global_min_pos - final_pos, dim=1)).item()
-    dist_penalty = (min_dist / diag) * config.final_dist_weight
-    metrics["dist_penalty"] = dist_penalty
-    error_sum += dist_penalty
+    if is_train:
+        min_dist = torch.min(torch.norm(global_min_pos - final_pos, dim=1)).item()
+        dist_penalty = (min_dist / diag) * config.final_dist_weight
+        metrics["dist_penalty"] = dist_penalty
+        error_sum += dist_penalty
 
     # C. Boundary Violations
-    if config.boundary_penalty:
+    if config.boundary_penalty and is_train:
         violation = _calc_boundary_violation(
             steps, bounds, config.boundary_tol * diag
         ).item()
@@ -268,7 +245,7 @@ def objective(
         error_sum += eff_penalty
 
     # F. Stagnation (Lack of movement variance)
-    if config.stagnation_weight > 0:
+    if config.stagnation_weight > 0 and is_train:
         abs_stag_thresh = config.stagnation_threshold * diag
         stag_val = _calc_stagnation(steps, abs_stag_thresh).item()
         stag_penalty = stag_val * config.stagnation_weight
@@ -276,7 +253,7 @@ def objective(
         error_sum += stag_penalty
 
     # G. Lucky Jump (Teleportation check)
-    if config.lucky_jump_weight > 0:
+    if config.lucky_jump_weight > 0 and is_train:
         abs_jump_thresh = config.lucky_jump_threshold * diag
         jump_val = _calc_lucky_jump(step_lengths, abs_jump_thresh).item()
         jump_penalty = jump_val * config.lucky_jump_weight
@@ -284,7 +261,7 @@ def objective(
         error_sum += jump_penalty
 
     # H. Start Proximity (Zero net movement check)
-    if config.start_prox_weight > 0:
+    if config.start_prox_weight > 0 and is_train:
         abs_prox_thresh = config.start_prox_threshold * diag
         prox_val = _calc_start_proximity(start_pos, final_pos, abs_prox_thresh).item()
         prox_penalty = prox_val * config.start_prox_weight

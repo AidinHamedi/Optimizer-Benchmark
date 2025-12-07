@@ -2,6 +2,7 @@ import json
 import os
 import shutil
 import time
+import warnings
 from pathlib import Path
 from typing import Callable
 
@@ -10,11 +11,11 @@ from tqdm import tqdm
 
 from .criterion import objective
 from .functions import FUNC_DICT
-from .utils.executor import execute_steps
-from .utils.model import Pos2D
+from .utils.executor import optimize
 from .visualizer import plot_function
 
 optuna.logging.set_verbosity(optuna.logging.ERROR)
+# warnings.filterwarnings("ignore")
 
 # Optuna storage can be configured here.
 # 'in-memory' is faster but not persistent across runs.
@@ -114,7 +115,8 @@ def benchmark_optimizer(
     os.makedirs(results_dir, exist_ok=True)
 
     error_rates = {}
-    run_metrics = {}
+    train_metrics = {}
+    eval_metrics = {}
     run_hyperparams = {}
 
     for func_name, consts in FUNC_DICT.items():
@@ -151,31 +153,46 @@ def benchmark_optimizer(
                 else:
                     raise ValueError("Invalid hyperparameter space")
 
-            num_iters = config["num_iters"][func_name]  # type: ignore
-
-            error, metrics = objective(
+            steps = optimize(
                 func,
                 optimizer_maker,
                 optimizer_params,
                 start_pos,
+                config["num_iters"][func_name],
+                eval_args.get(optimizer_name, {}),
+            )
+
+            error, metrics = objective(
+                steps,
+                func,
+                start_pos,
                 gm_pos,
                 eval_size,
-                num_iters,
-                **eval_args.get(optimizer_name, {}),
+                "train",
                 debug=debug,
             )
 
-            trial.set_user_attr("metrics", metrics)
+            trial.set_user_attr("train_metrics", metrics)
 
             return error
 
         # Create an Optuna study. The study name determines caching behavior.
+        sampler = optuna.samplers.TPESampler(
+            seed=config["seed"],
+            multivariate=hyper_search_spaces.__len__() > 1,
+            n_startup_trials=100,
+            n_ei_candidates=int(48 / hyper_search_spaces.__len__()),
+            consider_prior=True,
+            prior_weight=1.0,
+            consider_endpoints=True,
+        )
+
         study = optuna.create_study(
             study_name=f"{func_name}~{optimizer_name}"
             if OPTUNA_CACHE_TYPE == "opt+func"
             else (func_name if OPTUNA_CACHE_TYPE == "func" else optimizer_name),
             direction="minimize",
-            sampler=optuna.samplers.TPESampler(seed=config["seed"]),
+            sampler=sampler,
             storage=OPTUNA_STORAGE_PATH if OPTUNA_STORAGE_TYPE == "sqlite" else None,
             load_if_exists=OPTUNA_STORAGE_TYPE == "sqlite",
         )
@@ -189,44 +206,57 @@ def benchmark_optimizer(
             callbacks=[_progress_bar_callback(config["hypertune_trials"])],  # type: ignore
         )
 
-        error_rates[func_name] = study.best_value
         run_hyperparams[func_name] = study.best_params
-        run_metrics[func_name] = study.best_trial.user_attrs.get("metrics", {})
+        train_metrics[func_name] = study.best_trial.user_attrs.get("train_metrics", {})
 
-        print(" ├ Best Metrics:")
+        # Evaluate with the best hyperparameters
+        func_optim_steps = optimize(
+            func,
+            optimizer_maker,
+            study.best_params,
+            start_pos,
+            config["num_iters"][func_name],
+            eval_args.get(optimizer_name, {}),
+        )
+        error_rates[func_name], eval_metrics[func_name] = objective(
+            func_optim_steps,
+            func,
+            start_pos,
+            gm_pos,
+            eval_size,
+            "eval",
+            debug=debug,
+        )
+
+        print(" ├ Best Train Metrics:")
         if error_rates[func_name] != float("inf"):
             for i, (metric_name, metric_value) in enumerate(
-                run_metrics[func_name].items()
+                train_metrics[func_name].items()
             ):
                 print(
-                    f"{' └┬' if i == 0 else ('  └' if i == len(run_metrics[func_name]) - 1 else '  ├')} "
+                    f"{' └┬' if i == 0 else ('  └' if i == len(train_metrics[func_name]) - 1 else '  ├')} "
                     f"{metric_name}: {metric_value}, "
-                    f"contribution: {round(metric_value / sum(run_metrics[func_name].values()) * 100)}%"
+                    f"contribution: {round(metric_value / sum(train_metrics[func_name].values()) * 100)}%"
                 )
         else:
             print(" └─ No metrics available")
 
         # After finding the best parameters, run the optimizer one last time to generate the visualization.
-        pos = Pos2D(func, start_pos)
         plot_function(
             func,
             func_name,
-            execute_steps(
-                pos,
-                optimizer_maker(pos, study.best_params, config["num_iters"][func_name]),
-                config["num_iters"][func_name],
-                **eval_args.get(optimizer_name, {}),
-            ),
+            func_optim_steps,
             os.path.join(results_dir, func_name + config["img_format"]),
             optimizer_name,
             study.best_params,
-            study.best_trial.user_attrs.get("metrics", {}),
-            study.best_value,
+            eval_metrics[func_name],
+            error_rates[func_name],
             gm_pos,
             eval_size,
             debug=debug,
         )
 
+        # line sep
         print("")
 
     weights = config.get("error_weights", {})
@@ -246,7 +276,7 @@ def benchmark_optimizer(
         # "weighted_error_rates": weighted_errors,
         # "avg_error_rate": sum(error_rates.values()) / len(error_rates),
         # "weighted_avg_error_rate": sum(weighted_errors.values()) / len(weighted_errors),
-        "metrics": run_metrics,
+        "train_metrics": train_metrics,
     }
 
     with results_json_path.open("w", encoding="utf-8") as f:
