@@ -2,6 +2,7 @@ import json
 import os
 import shutil
 import time
+import warnings
 from pathlib import Path
 from typing import Any, Callable
 
@@ -14,6 +15,7 @@ from .utils.executor import optimize
 from .visualizer import plot_function
 
 optuna.logging.set_verbosity(optuna.logging.ERROR)
+warnings.filterwarnings("ignore")
 
 # Storage: "in-memory" (fast) or "sqlite" (persistent, allows resuming and monitoring)
 OPTUNA_STORAGE_TYPE = "in-memory"
@@ -168,7 +170,7 @@ def benchmark_optimizer(
         sampler = optuna.samplers.TPESampler(
             seed=config["seed"],
             multivariate=len(hyper_search_spaces) > 1,
-            n_startup_trials=100,
+            n_startup_trials=120,
             n_ei_candidates=int(48 / len(hyper_search_spaces)),
             consider_prior=True,
             prior_weight=1.0,

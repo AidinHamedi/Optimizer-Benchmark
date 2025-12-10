@@ -36,7 +36,7 @@ def compute_surface(
         return torch.load(cache_file)
 
     if res == "auto":
-        num_points = int(math.sqrt(eval_size[0][1]) * 200)
+        num_points = int(math.sqrt(eval_size[0][1]) * 350)
     else:
         num_points = int(res)
 
