@@ -1,4 +1,5 @@
 import tomllib
+import traceback
 from pathlib import Path
 
 import click
@@ -269,6 +270,8 @@ def main(**kwargs):
             )
         except Exception as e:
             print(f"Failed to benchmark {optimizer_name}: {e}")
+            if debug:
+                traceback.print_exc()
 
     print("Done!")
 
