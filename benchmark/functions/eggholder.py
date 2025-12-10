@@ -3,7 +3,7 @@ import torch
 from .norm import normalize
 
 FUNCTION_NAME = "EggHolder"
-START_POS = torch.tensor([6, -5])
+START_POS = torch.tensor([4.2, -2.2])
 EVAL_SIZE = ((-13, 13), (-13, 13))
 GLOBAL_MINIMUM_LOC = torch.tensor(
     [[10.0, 7.8], [10.4, -11.9], [-11.5, -12.0], [-11.5, 4.8]]
