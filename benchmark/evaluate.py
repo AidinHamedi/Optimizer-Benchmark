@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Any, Callable
 
 import optuna
+from optuna.samplers import CmaEsSampler, GPSampler, TPESampler
 from tqdm import tqdm
 
 from .criterion import objective
@@ -61,6 +62,47 @@ def _load_json(
     return default
 
 
+def _choose_sampler(search_space, config, debug=False):
+    """
+    Choose an Optuna sampler based on search space types and budget.
+    """
+    has_categorical = any(dist == "bool" for dist in search_space.values())
+
+    if has_categorical:
+        sampler = TPESampler(
+            seed=config["seed"],
+            multivariate=len(search_space) > 1,
+            group=len(search_space) > 1,
+            n_startup_trials=140,
+            n_ei_candidates=max(int(100 / max(len(search_space), 1)), 20),
+            consider_prior=True,
+            prior_weight=0.9,
+            consider_endpoints=True,
+        )
+        if debug:
+            print("Using TPESampler (categorical present)")
+
+        return sampler
+
+    # if config["hypertune_trials"] < 250:
+    #     sampler = GPSampler(
+    #         n_startup_trials=20,
+    #     )
+    #     if debug:
+    #         print("Using GPSampler (<250 trials, numeric)")
+
+    #     return sampler
+
+    sampler = CmaEsSampler(
+        seed=config["seed"],
+        restart_strategy="ipop",
+    )
+    if debug:
+        print("Using CmaEsSampler (numeric, large budget)")
+
+    return sampler
+
+
 def benchmark_optimizer(
     optimizer_maker: Callable[..., Any],
     optimizer_name: str,
@@ -89,19 +131,25 @@ def benchmark_optimizer(
     results_dir = output_dir.joinpath(optimizer_name)
     results_json_path = output_dir.joinpath("results.json")
 
-    num_expected_files = len(functions) if functions is not None else len(FUNC_DICT)
-
     # Skip if exist_pass enabled and complete results already exist
-    if (
-        config["exist_pass"]
-        and optimizer_name
-        in _load_json(results_json_path, {"optimizers": {}}).get("optimizers", {})
-        and results_dir.is_dir()
-        and len(list(results_dir.glob(f"*{config['img_format']}")))
-        == num_expected_files
-    ):
-        print(f"Skipping {optimizer_name}: Complete results already exist.")
-        return None
+    if config["exist_pass"]:
+        _num_expected_files = (
+            len(functions) if functions is not None else len(FUNC_DICT)
+        )
+        _results = _load_json(results_json_path, {"optimizers": {}}).get(
+            "optimizers", {}
+        )
+        _images = list(results_dir.glob(f"*{config['img_format']}"))
+
+        _results_complete = (
+            optimizer_name in _results
+            and results_dir.is_dir()
+            and len(_images) == _num_expected_files
+        )
+
+        if _results_complete:
+            print(f"Skipping {optimizer_name}: Complete results already exist.")
+            return None
 
     if results_dir.exists():
         shutil.rmtree(results_dir)
@@ -167,15 +215,7 @@ def benchmark_optimizer(
 
             return error
 
-        sampler = optuna.samplers.TPESampler(
-            seed=config["seed"],
-            multivariate=len(hyper_search_spaces) > 1,
-            n_startup_trials=120,
-            n_ei_candidates=int(48 / len(hyper_search_spaces)),
-            consider_prior=True,
-            prior_weight=1.0,
-            consider_endpoints=True,
-        )
+        sampler = _choose_sampler(hyper_search_spaces, config, debug=debug)
 
         study = optuna.create_study(
             study_name=f"{func_name}~{optimizer_name}"
