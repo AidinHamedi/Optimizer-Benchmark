@@ -194,14 +194,20 @@ def benchmark_optimizer(
                 else:
                     raise ValueError("Invalid hyperparameter space")
 
-            steps = optimize(
-                func,
-                optimizer_maker,
-                optimizer_params,
-                start_pos,
-                config["num_iters"][func_name],
-                eval_args.get(optimizer_name, {}),
-            )
+            try:
+                steps = optimize(
+                    func,
+                    optimizer_maker,
+                    optimizer_params,
+                    start_pos,
+                    config["num_iters"][func_name],
+                    eval_args.get(optimizer_name, {}),
+                )
+            except ValueError as e:
+                if debug:
+                    raise e
+
+                return float("inf")
 
             error, metrics = objective(
                 steps,
