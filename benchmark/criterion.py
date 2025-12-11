@@ -40,7 +40,7 @@ class ObjectiveConfig:
     convergence_tol: float = 0.01
     boundary_tol: float = 0.08
     stagnation_threshold: float = 0.01
-    lucky_jump_threshold: float = 0.03
+    lucky_jump_threshold: float = 0.02
     start_prox_threshold: float = 0.12
 
 
