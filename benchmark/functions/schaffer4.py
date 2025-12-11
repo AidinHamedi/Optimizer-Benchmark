@@ -4,7 +4,7 @@ from .norm import normalize
 
 FUNCTION_NAME = "Schaffer 4"
 START_POS = torch.tensor([8.2, 8.4])
-EVAL_SIZE = ((-10, 10), (-10, 10))
+EVAL_SIZE = ((-12, 12), (-12, 12))
 GLOBAL_MINIMUM_LOC = torch.tensor(
     [[0.0, 0.125], [0.0, -0.125], [0.125, 0.0], [-0.125, 0.0]]
 )
