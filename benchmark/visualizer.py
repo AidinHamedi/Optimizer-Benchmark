@@ -38,12 +38,21 @@ def plot_function(
         res: Surface plot resolution (points per axis) or "auto".
         debug: Enable debug output.
     """
-    X, Y, Z = compute_surface(
-        func, func_name, scale_eval_size(eval_size, 1.1), res, debug=debug
-    )
+    scaled_eval_size = scale_eval_size(eval_size, 1.1)
+
+    X, Y, Z = compute_surface(func, func_name, scaled_eval_size, res, debug=debug)
+    X, Y, Z = X.numpy(), Y.numpy(), Z.numpy()
 
     fig, ax = plt.subplots(figsize=(14, 14))
-    cs = ax.contour(X.numpy(), Y.numpy(), Z.numpy(), levels=25, cmap="jet")
+    ax.imshow(
+        Z,
+        extent=(*scaled_eval_size[0], *scaled_eval_size[1]),
+        origin="lower",
+        cmap="jet",
+        alpha=0.1,
+        interpolation="bilinear",
+    )
+    cs = ax.contour(X, Y, Z, levels=20, cmap="jet")
     fig.colorbar(cs, ax=ax, label="f(x, y)")
 
     xs = cords[0].numpy()
