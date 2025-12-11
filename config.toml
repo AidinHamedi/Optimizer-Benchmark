@@ -5,7 +5,7 @@
 seed = 42
 exist_pass = true
 img_format = ".jpg"
-hypertune_trials = 800
+hypertune_trials = 700
 ignore_optimizers = [
   "msvag",
   "lomo",
@@ -40,6 +40,7 @@ Ackley = { iterations = 150, error_weight = 2.0 }
 "Drop-Wave" = { iterations = 150, error_weight = 1.5 }
 EggHolder = { iterations = 150, error_weight = 0.2 }
 "Goldstein-Price" = { iterations = 150, error_weight = 1.5 }
+"GradientLabyrinth" = { iterations = 150, error_weight = 0.5 }
 "Gramacy & Lee 2D" = { iterations = 100, error_weight = 2.5 }
 Griewank = { iterations = 200, error_weight = 1.5 }
 Langermann = { iterations = 150, error_weight = 0.2 }
@@ -47,6 +48,8 @@ Langermann = { iterations = 150, error_weight = 0.2 }
 "Lévy" = { iterations = 150, error_weight = 0.2 }
 "Lévy 13" = { iterations = 150, error_weight = 1.5 }
 MixedMichalewiczSphere = { iterations = 150, error_weight = 1.5 }
+"NeuralCanyon" = { iterations = 150, error_weight = 0.5 }
+"QuantumWell" = { iterations = 150, error_weight = 0.5 }
 Rastrigin = { iterations = 150, error_weight = 2 }
 Rosenbrock = { iterations = 400, error_weight = 1.5 }
 "Schaffer 2" = { iterations = 900, error_weight = 1.0 }
@@ -79,25 +82,15 @@ tam = { lr = [0.0001, 8.0], momentum = [0.0001, 0.99] }
 asgd = { lr = [0.0001, 2.0], amplifier = [0.0001, 0.5] }
 schedulefreesgd = { lr = [0.0001, 3.0], momentum = [0.0001, 0.99] }
 adadelta = { lr = [0.0001, 600.0] }
-adafactor = { lr = [0.0001, 600.0] }
+adafactor = { lr = [0.0001, 1000.0], clip_threshold = [0.5, 10.0], ams_bound = "bool" }
 dadaptadagrad = { lr = [0.0001, 20.0] }
 adahessian = { lr = [0.0001, 100.0] }
-pid = { lr = [0.0001, 0.5], integral = [1.0, 10.0], derivative = [2.0, 14.0], momentum = [
-  0.0,
-  0.99
-] }
+pid = { lr = [0.0001, 0.5], integral = [1.0, 10.0], derivative = [2.0, 14.0], momentum = [0.0, 0.99] }
 kron = { lr = [0.0001, 2.0], momentum = [0.0001, 0.99] }
 scion = { lr = [0.0001, 1.0], scale = [1.0, 1000.0] }
 scionlight = { lr = [0.0001, 1.0], scale = [1.0, 1000.0] }
-lbfgs = { lr = [0.0001, 8.0], max_iter = [1, 40, "int"], history_size = [
-  1,
-  200,
-  "int"
-] }
-conda = { lr = [0.0001, 8.0], update_proj_gap = [10, 400, "int"], scale = [
-  0.0001,
-  12.0
-] }
+lbfgs = { lr = [0.0001, 8.0], max_iter = [1, 40, "int"], history_size = [1, 200, "int"] }
+conda = { lr = [0.0001, 8.0], update_proj_gap = [10, 400, "int"], scale = [0.0001, 12.0] }
 
 # ==============================================================================
 # Special Evaluation Arguments
