@@ -36,7 +36,7 @@ def compute_surface(
         return torch.load(cache_file)
 
     if res == "auto":
-        num_points = int(math.sqrt(eval_size[0][1]) * 350)
+        num_points = int(math.sqrt(eval_size[0][1]) * 500)
     else:
         num_points = int(res)
 
@@ -46,6 +46,7 @@ def compute_surface(
     X, Y = torch.meshgrid(x, y, indexing="xy")
     grid_points = torch.stack([X.flatten(), Y.flatten()], dim=1)
 
+    print("Computing function values...")
     with torch.no_grad():
         try:
             Z = func(grid_points).reshape(num_points, num_points)
