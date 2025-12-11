@@ -33,14 +33,14 @@ class ObjectiveConfig:
     convergence_weight: float = 0.1
     efficiency_weight: float = 0.15
     stagnation_weight: float = 0.5
-    lucky_jump_weight: float = 1.8
+    lucky_jump_weight: float = 10.0
     start_prox_weight: float = 100.0
     boundary_weight: float = 16.0
 
     convergence_tol: float = 0.01
     boundary_tol: float = 0.08
     stagnation_threshold: float = 0.01
-    lucky_jump_threshold: float = 0.02
+    lucky_jump_threshold: float = 0.03
     start_prox_threshold: float = 0.12
 
 
