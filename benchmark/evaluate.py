@@ -95,7 +95,9 @@ def _choose_sampler(search_space, config, debug=False):
 
     sampler = CmaEsSampler(
         seed=config["seed"],
-        restart_strategy="ipop",
+        with_margin=True,
+        restart_strategy="bipop",
+        n_startup_trials=140,
     )
     if debug:
         print("Using CmaEsSampler (numeric, large budget)")
