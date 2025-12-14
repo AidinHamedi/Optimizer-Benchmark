@@ -232,6 +232,9 @@ def main(**kwargs):
     funcs = normalize_multi_option(kwargs["functions"])
 
     configs = read_toml_config(config_path)
+    configs["benchmark"]["exist_pass"] = (
+        False if debug else configs["benchmark"]["exist_pass"]
+    )
     optimizers = prepare_optimizers(configs, filters, opt_range)
 
     if debug:

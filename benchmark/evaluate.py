@@ -7,7 +7,7 @@ from pathlib import Path
 from typing import Any, Callable
 
 import optuna
-from optuna.samplers import CmaEsSampler, GPSampler, TPESampler
+from optuna.samplers import CmaEsSampler, QMCSampler, TPESampler
 from tqdm import tqdm
 
 from .criterion import objective
@@ -22,7 +22,7 @@ warnings.filterwarnings("ignore")
 OPTUNA_STORAGE_TYPE = "in-memory"
 OPTUNA_STORAGE_PATH = "sqlite:///optuna_cache.db"
 # Cache type affects study naming: "opt", "func", or "opt+func"
-OPTUNA_CACHE_TYPE = "opt"
+OPTUNA_CACHE_TYPE = "opt+func"
 
 
 def _progress_bar_callback(total_trials: int):
@@ -96,9 +96,12 @@ def _choose_sampler(search_space, config, debug=False):
     sampler = CmaEsSampler(
         seed=config["seed"],
         with_margin=True,
-        restart_strategy="bipop",
-        n_startup_trials=140,
+        n_startup_trials=280,
+        independent_sampler=QMCSampler(
+            qmc_type="halton", scramble=True, seed=config["seed"]
+        ),
     )
+
     if debug:
         print("Using CmaEsSampler (numeric, large budget)")
 
