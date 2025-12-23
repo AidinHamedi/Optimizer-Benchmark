@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import torch
 from matplotlib.ticker import LogLocator, NullFormatter
+from scipy.signal import savgol_filter
 
 from .functions import scale_eval_size
 from .utils.surface import compute_surface
@@ -33,37 +34,69 @@ METRIC_COLORS = {
 
 
 def _eval_z_on_trajectory(func: Callable, pts: np.ndarray) -> np.ndarray:
-    """Evaluate function values along a trajectory."""
-    pts_tensor = torch.from_numpy(pts).float()
+    """Evaluate objective values at each trajectory point."""
+    pts_t = torch.as_tensor(pts, dtype=torch.float32)
+
     try:
-        vals = func(pts_tensor).numpy()
-        if vals.size != pts.shape[0]:
-            raise ValueError
-        return vals.ravel()
+        out = func(pts_t)
+        if isinstance(out, torch.Tensor):
+            out = out
+            if out.ndim == 0:
+                raise ValueError("Scalar output for batched input")
+            out_np = out.numpy().reshape(-1)
+            if out_np.size == pts.shape[0]:
+                return out_np
     except Exception:
-        return np.array([func(p).item() for p in pts_tensor])
+        pass
+
+    vals = np.empty(pts.shape[0], dtype=np.float64)
+    for i in range(pts.shape[0]):
+        y = func(pts_t[i])
+        if isinstance(y, torch.Tensor):
+            vals[i] = float(y.item())
+        else:
+            vals[i] = float(y)
+    return vals
 
 
 def _compute_gradient_norms(func: Callable, pts: np.ndarray) -> np.ndarray:
-    """Compute gradient norm at each point."""
-    grads = []
-    for p_np in pts:
-        p = torch.from_numpy(p_np).float().requires_grad_(True)
-        try:
-            func(p).sum().backward()
-            grads.append(p.grad.norm().item() if p.grad is not None else 0.0)
-        except Exception:
-            grads.append(0.0)
-    return np.array(grads)
+    """Compute ||grad|| at each trajectory point."""
+    pts_t = torch.as_tensor(pts, dtype=torch.float32)
+    grads = np.zeros(len(pts), dtype=np.float64)
+    for i in range(len(pts)):
+        p = pts_t[i].detach().clone().requires_grad_(True)
+        y = func(p)
+        if isinstance(y, torch.Tensor):
+            try:
+                y.sum().backward()
+                g = p.grad
+                grads[i] = float(g.norm().item()) if g is not None else 0.0
+            except Exception:
+                grads[i] = 0.0
+    return grads
 
 
-def _compute_efficiency(pts: np.ndarray) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
-    """Compute displacement, cumulative path length, and step sizes."""
-    displacement = np.linalg.norm(pts - pts[0], axis=1)
-    step_sizes = np.linalg.norm(np.diff(pts, axis=0), axis=1)
-    step_sizes = np.insert(step_sizes, 0, 0.0)
+def _compute_efficiency(
+    func: Callable, pts: np.ndarray
+) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+    """Compute path length and progress-to-best efficiency components."""
+    n = len(pts)
+    step_sizes = np.zeros(n, dtype=np.float64)
+    if n > 1:
+        step_sizes[1:] = np.linalg.norm(np.diff(pts, axis=0), axis=1)
     path_len = np.cumsum(step_sizes)
-    return displacement, path_len, step_sizes
+    displacement = np.linalg.norm(pts - pts[0], axis=1)
+
+    z_vals = _eval_z_on_trajectory(func, pts).astype(np.float64)
+    best_idx = np.zeros(n, dtype=np.int64)
+    best_i, best_z = 0, z_vals[0]
+    for i in range(n):
+        if z_vals[i] < best_z:
+            best_z, best_i = z_vals[i], i
+        best_idx[i] = best_i
+
+    progress_to_best = np.linalg.norm(pts[best_idx] - pts[0], axis=1)
+    return z_vals, displacement, path_len, step_sizes, progress_to_best
 
 
 def _style_axis(
@@ -73,19 +106,17 @@ def _style_axis(
     ylabel: str = None,
     log_scale: bool = False,
 ):
-    """Apply standard clean styling to an axis."""
+    """Apply consistent styling to an axis."""
     ax.set_title(title, fontsize=10, pad=8)
     if xlabel:
         ax.set_xlabel(xlabel, fontsize=9)
     if ylabel:
         ax.set_ylabel(ylabel, fontsize=9)
 
-    # Clean spines
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
     ax.spines["left"].set_color("black")
     ax.spines["bottom"].set_color("black")
-
     ax.tick_params(labelsize=8)
 
     if log_scale:
@@ -108,7 +139,7 @@ def _save_surface_plot(
     metrics: dict,
     img_format: str,
 ) -> str:
-    """Save the main surface contour and trajectory plot."""
+    """Save contour + trajectory plot."""
     fig, ax = plt.subplots(figsize=(14, 14))
 
     ax.imshow(
@@ -172,7 +203,6 @@ def _save_surface_plot(
     ax.set_ylabel("y", fontsize=10)
     ax.set_aspect("equal")
 
-    # Legend
     legend_props = dict(frameon=True, framealpha=0.9, fontsize=9)
     main_legend = ax.legend(
         *zip(*dict(zip(*ax.get_legend_handles_labels())).items()),
@@ -181,7 +211,6 @@ def _save_surface_plot(
     )
     ax.add_artist(main_legend)
 
-    # Metrics Legend
     active_metrics = sorted(
         [(k, v) for k, v in metrics.items() if isinstance(v, (int, float)) and v > 0],
         key=lambda item: item[1],
@@ -213,34 +242,41 @@ def _save_dynamics_plot(
     z_vals: np.ndarray,
     grad_norms: np.ndarray,
     step_sizes: np.ndarray,
-    displacement: np.ndarray,
     path_len: np.ndarray,
+    progress_to_best: np.ndarray,
     func_name: str,
     img_format: str,
 ) -> str:
-    """Save 2x2 dynamics analysis plot."""
+    """Save 2x2 plot of loss/grad/steps/efficiency."""
     fig, axs = plt.subplots(2, 2, figsize=(14, 10))
     fig.suptitle(f"Optimization Dynamics | {func_name}", fontsize=14, y=0.96)
     steps = np.arange(len(z_vals))
 
-    # 1. Objective Value
     ax = axs[0, 0]
     ax.plot(steps, z_vals, color=COLORS["loss"], linewidth=1.5)
     ax.set_yscale("symlog")
     _style_axis(ax, "Objective Value (SymLog)", ylabel="f(x)", log_scale=True)
 
-    # 2. Gradient Norm
     ax = axs[0, 1]
-    ax.plot(steps, grad_norms, color=COLORS["grad"], linewidth=1.5)
-    ax.fill_between(steps, grad_norms, color=COLORS["grad"], alpha=0.1)
+    ax.scatter(
+        steps, grad_norms, color=COLORS["grad"], s=14, alpha=0.55, edgecolors="none"
+    )
+    g = np.asarray(grad_norms, dtype=np.float64)
+    if g.size >= 7 and np.all(np.isfinite(g)):
+        win = min(51, g.size)
+        if win % 2 == 0:
+            win -= 1
+        poly = 3 if win >= 5 else 2
+        g_smooth = savgol_filter(g, window_length=win, polyorder=poly)
+    else:
+        g_smooth = g
+    ax.plot(steps, g_smooth, color=COLORS["grad"], linewidth=2.0, alpha=0.95)
     _style_axis(ax, "Gradient Norm", ylabel="||∇f(x)||")
 
-    # 3. Step Sizes
     ax = axs[1, 0]
     ax.plot(steps, step_sizes, color=COLORS["step"], linewidth=1.5)
     _style_axis(ax, "Step Sizes", xlabel="Iteration", ylabel="||Δx||")
 
-    # 4. Efficiency
     ax = axs[1, 1]
     ax.plot(
         steps,
@@ -251,18 +287,21 @@ def _save_dynamics_plot(
         linestyle="--",
     )
     ax.plot(
-        steps, displacement, color=COLORS["dist"], label="Net Displacement", linewidth=2
+        steps,
+        progress_to_best,
+        color=COLORS["dist"],
+        label="Progress to Best",
+        linewidth=2,
     )
     _style_axis(ax, "Trajectory Efficiency", xlabel="Iteration", ylabel="Distance")
     ax.legend(fontsize=8, frameon=False)
 
-    # Efficiency Annotation
-    if path_len[-1] > 0:
-        eff = displacement[-1] / path_len[-1]
+    if path_len[-1] > 1e-12:
+        eff = float(np.clip(progress_to_best[-1] / path_len[-1], 0.0, 1.0))
         ax.text(
             0.95,
             0.05,
-            f"Efficiency: {eff:.2f}\n(1.0 = Straight Line)",
+            f"Efficiency: {eff:.2f}\n(progress-to-best / path)",
             transform=ax.transAxes,
             ha="right",
             va="bottom",
@@ -283,16 +322,14 @@ def _save_phase_plot(
     func_name: str,
     img_format: str,
 ) -> str:
-    """Save a Gradient Norm vs Step Size phase portrait."""
+    """Save log-log phase portrait (step vs grad)."""
     fig, ax = plt.subplots(figsize=(9, 8))
     valid = (step_sizes > 1e-12) & (grad_norms > 1e-12)
 
     if np.any(valid):
-        g_valid, s_valid, iters = (
-            grad_norms[valid],
-            step_sizes[valid],
-            np.arange(len(grad_norms))[valid],
-        )
+        g_valid = grad_norms[valid]
+        s_valid = step_sizes[valid]
+        iters = np.arange(len(grad_norms))[valid]
         scatter = ax.scatter(
             g_valid,
             s_valid,
@@ -321,13 +358,11 @@ def _save_phase_plot(
         log_scale=True,
     )
 
-    # Annotations
     props = dict(
         boxstyle="round", facecolor="white", alpha=0.9, edgecolor="#cccccc", pad=0.5
     )
     xlim, ylim = ax.get_xlim(), ax.get_ylim()
 
-    # Stagnation (Bottom Right)
     ax.text(
         xlim[1] * 0.9,
         ylim[0] * 1.5,
@@ -338,7 +373,6 @@ def _save_phase_plot(
         color="#d62728",
         bbox=props,
     )
-    # Overshooting (Top Left)
     ax.text(
         xlim[0] * 1.2,
         ylim[1] * 0.7,
@@ -349,7 +383,6 @@ def _save_phase_plot(
         color="#ff7f0e",
         bbox=props,
     )
-    # Convergence (Bottom Left)
     ax.text(
         xlim[0] * 1.2,
         ylim[0] * 1.5,
@@ -374,10 +407,9 @@ def _save_update_ratio_plot(
     func_name: str,
     img_format: str,
 ) -> str:
-    """Save 'Update Efficiency Ratio' plot: Step Size / Gradient Norm."""
+    """Save step/grad ratio over time."""
     fig, ax = plt.subplots(figsize=(12, 8))
-    with np.errstate(divide="ignore", invalid="ignore"):
-        ratio = step_sizes / (grad_norms + 1e-10)
+    ratio = step_sizes / (grad_norms + 1e-10)
 
     ax.plot(np.arange(len(ratio)), ratio, color=COLORS["ratio"], linewidth=1.5)
     ax.set_yscale("log")
@@ -389,7 +421,6 @@ def _save_update_ratio_plot(
         log_scale=True,
     )
 
-    # Explanatory Annotations
     ax.axhline(1.0, color="#888888", linestyle="--", linewidth=1, alpha=0.5)
     ax.text(
         len(ratio) * 0.02,
@@ -419,7 +450,7 @@ def _save_penalty_donut(
     func_name: str,
     img_format: str,
 ) -> str:
-    """Save the tuning cost breakdown donut chart."""
+    """Save tuning-metric donut chart."""
     items = [
         (k, float(v))
         for k, v in metrics.items()
@@ -429,16 +460,18 @@ def _save_penalty_donut(
         return ""
 
     keys, values = zip(*items)
-    values = np.array(values)
+    values = np.asarray(values, dtype=np.float64)
     if np.all(values == 0):
         values = np.ones_like(values) * 1e-12
 
-    use_log = (values.max() / (values[values > 0].min() + 1e-30)) > 500
+    pos = values[values > 0]
+    use_log = (values.max() / (pos.min() + 1e-30)) > 500 if pos.size else False
     disp_vals = np.log1p(values) if use_log else values
     disp_vals[disp_vals <= 0] = 1e-12
 
     idx = np.argsort(disp_vals)[::-1]
-    keys_sorted, vals_sorted = [keys[i] for i in idx], values[idx]
+    keys_sorted = [keys[i] for i in idx]
+    vals_sorted = values[idx]
     colors = [METRIC_COLORS.get(k, "#bcbd22") for k in keys_sorted]
 
     fig, ax = plt.subplots(figsize=(8, 6))
@@ -452,7 +485,7 @@ def _save_penalty_donut(
     ax.text(0, 0, "Tuning\nObjectives", ha="center", va="center", fontweight="bold")
     ax.set_title(f"Tuning Cost Breakdown | {func_name}", fontsize=12, fontweight="bold")
 
-    total = vals_sorted.sum() or 1.0
+    total = float(vals_sorted.sum()) or 1.0
     labels = [
         f"{k.replace('_', ' ').title()}: {v:.4g} ({v / total * 100:.1f}%)"
         for k, v in zip(keys_sorted, vals_sorted)
@@ -499,54 +532,44 @@ def visualize_trajectory(
     img_format: str = "png",
     debug: bool = False,
 ) -> Dict[str, str]:
-    """Generates and saves a suite of visualization plots for an optimizer's trajectory.
-
-    Creates a directory for the specific function and saves the following plots:
-    1. Surface Plot: Contour map with the optimizer's path.
-    2. Dynamics Plot: 2x2 grid of Loss, Gradient Norm, Step Sizes, and Efficiency.
-    3. Phase Portrait: Step Size vs Gradient Norm (Log-Log) with regime annotations.
-    4. Update Ratio: Plot of step size / gradient norm over time.
-    5. Penalty Donut: Breakdown of the hyperparameter tuning objectives.
+    """
+    Generate and save a suite of plots that visualize an optimizer’s 2D trajectory.
 
     Args:
-        func: The objective function to evaluate.
-        func_name: Name of the objective function (used for directory naming).
-        cords: Tensor of shape [2, N] containing the optimization trajectory.
-        output_dir: Directory where the function-specific folder will be created.
-        optimizer_name: Name of the optimizer (used for titles).
-        optimizer_params: Dictionary of hyperparameters used for the run.
-        eval_metrics: Dictionary of metric values used for the final evaluation score.
-        tune_metrics: Dictionary of metric values used during hyperparameter tuning.
-        error_rate: The final weighted error score (evaluation metric).
-        global_minimums: Tensor of shape [M, 2] containing known global minima.
-        eval_size: Tuple ((min_x, max_x), (min_y, max_y)) defining the evaluation bounds.
-        res: Resolution for the surface plot grid. Defaults to "auto".
-        img_format: File format for saved images (e.g., "png", "jpg"). Defaults to "png".
-        debug: If True, enables debug logging and disables caching.
+        func: Objective function. Must accept either a tensor of shape [N, 2] and
+            return [N] values, or accept a tensor of shape [2] and return a scalar.
+        func_name: Name of the objective function (used in titles and filenames).
+        cords: Trajectory coordinates as a tensor of shape [2, N].
+        output_dir: Directory where plots will be saved.
+        optimizer_name: Optimizer name (used in the main title).
+        optimizer_params: Optimizer hyperparameters (rendered into the title).
+        eval_metrics: Metrics to display on the surface plot (legend breakdown).
+        tune_metrics: Metrics to visualize in the penalty donut chart.
+        error_rate: Final evaluation score shown in the title.
+        global_minimums: Known global minima as a tensor of shape [M, 2].
+        eval_size: Plot bounds as ((min_x, max_x), (min_y, max_y)).
+        res: Grid resolution for surface computation ("auto" or an int).
+        img_format: Output image format (e.g., "png", "jpg").
+        debug: Passed through to surface computation for optional debugging behavior.
 
     Returns:
-        A dictionary mapping plot types ('surface', 'dynamics', 'phase_portrait',
-        'update_ratio', 'penalty_donut') to their corresponding file paths.
+        Dict[str, str]: Mapping from plot key to the saved file path. Keys include:
+            "surface", "dynamics", "phase_portrait", "update_ratio", "penalty_donut".
     """
     func_dir = Path(output_dir)
     func_dir.mkdir(parents=True, exist_ok=True)
 
-    # 1. Prepare Data
-    pts = cords.t().detach().cpu().numpy()  # [N, 2]
-    gm_pts = global_minimums.detach().cpu().numpy()
+    pts = cords.numpy()
     xs, ys = pts[:, 0], pts[:, 1]
+    gm_pts = global_minimums.numpy()
 
-    # 2. Compute Surface
     scaled_eval_size = scale_eval_size(eval_size, 1.1)
     X, Y, Z = compute_surface(func, func_name, scaled_eval_size, res, debug=debug)
     X, Y, Z = X.numpy(), Y.numpy(), Z.numpy()
 
-    # 3. Compute Metrics
-    z_vals = _eval_z_on_trajectory(func, pts)
+    z_vals, _, path_len, step_sizes, progress_to_best = _compute_efficiency(func, pts)
     grad_norms = _compute_gradient_norms(func, pts)
-    displacement, path_len, step_sizes = _compute_efficiency(pts)
 
-    # 4. Generate Main Title
     iterations = max(0, len(xs) - 1)
     config_str = ", ".join(
         f"{k}={v:.4g}" if isinstance(v, float) else f"{k}={v}"
@@ -555,7 +578,6 @@ def visualize_trajectory(
     main_title = f"{func_name} | {optimizer_name}\nIters: {iterations}, Error: {error_rate:.4f}\n{config_str}"
 
     saved = {}
-
     saved["surface"] = _save_surface_plot(
         func_dir,
         X,
@@ -569,28 +591,23 @@ def visualize_trajectory(
         eval_metrics,
         img_format,
     )
-
     saved["dynamics"] = _save_dynamics_plot(
         func_dir,
         z_vals,
         grad_norms,
         step_sizes,
-        displacement,
         path_len,
+        progress_to_best,
         func_name,
         img_format,
     )
-
     saved["phase_portrait"] = _save_phase_plot(
         func_dir, grad_norms, step_sizes, func_name, img_format
     )
-
     saved["update_ratio"] = _save_update_ratio_plot(
         func_dir, grad_norms, step_sizes, func_name, img_format
     )
-
     saved["penalty_donut"] = _save_penalty_donut(
         func_dir, tune_metrics, func_name, img_format
     )
-
     return saved

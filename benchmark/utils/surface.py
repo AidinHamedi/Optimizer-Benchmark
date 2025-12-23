@@ -46,7 +46,7 @@ def compute_surface(
     X, Y = torch.meshgrid(x, y, indexing="xy")
     grid_points = torch.stack([X.flatten(), Y.flatten()], dim=1)
 
-    print("Computing function values...")
+    print("[Surface] Computing function values...")
     with torch.no_grad():
         try:
             Z = func(grid_points).reshape(num_points, num_points)
