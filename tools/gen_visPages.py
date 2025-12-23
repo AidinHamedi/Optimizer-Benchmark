@@ -40,12 +40,6 @@ def render_template(template_name: str, **kwargs) -> str:
     return template.format(**kwargs)
 
 
-def generate_image_url(optimizer: str, function_name: str) -> str:
-    """Generate the CDN URL for a visualization image."""
-    url = f"{VIS_REPO_URL}/{optimizer}/{function_name}{FILE_FORMAT}"
-    return url.replace(" ", "%20")
-
-
 def main(console: Console) -> None:
     """Generate HTML visualization pages for all optimizers."""
     console.info("Generating vis pages...")
@@ -61,33 +55,45 @@ def main(console: Console) -> None:
     DOCS_VIS_DIR.mkdir(parents=True, exist_ok=True)
     copy_static_files(console)
 
-    afr_rankings, func_rankings = get_afr_ranks(optimizers)
-    afr_rankings = ranks_to_dict(afr_rankings)
-    aer_rankings = ranks_to_dict(get_aer_ranks(optimizers, weights))
+    avg_rank_list, func_rank_dict = get_afr_ranks(optimizers)
+    avg_rank_lookup = ranks_to_dict(avg_rank_list)
+    aer_rank_lookup = ranks_to_dict(get_aer_ranks(optimizers, weights))
 
-    for _, optimizer in enumerate(func_rankings):
+    for _, optimizer in enumerate(optimizers):
         console.info(f"Generating page for {optimizer}...")
 
         cards_html = ""
-        sorted_functions = sorted(
-            func_rankings[optimizer].items(), key=lambda item: item[1]
-        )
+
+        current_func_ranks = func_rank_dict.get(optimizer, {})
+        sorted_functions = sorted(current_func_ranks.items(), key=lambda item: item[1])
 
         for function_name, rank in sorted_functions:
-            cards_html += render_template(
-                "card",
-                url=generate_image_url(optimizer, function_name),
-                name=function_name,
-                optimizer_name=optimizer,
-                function_rank=rank,
+            safe_opt = optimizer.replace(" ", "%20")
+            safe_func = function_name.replace(" ", "%20")
+
+            main_image_url = (
+                f"{VIS_REPO_URL}/{safe_opt}/{safe_func}/surface{FILE_FORMAT}"
             )
 
+            cards_html += render_template(
+                "card",
+                main_image_url=main_image_url,
+                name=function_name,
+                optimizer_id=safe_opt,
+                function_id=safe_func,
+                function_rank=rank,
+                base_url=VIS_REPO_URL,
+                ext=FILE_FORMAT,
+            )
+
+        # Calculate average error rate for display
         error_rates = optimizers[optimizer].get("error_rates", {})
         if error_rates:
             weighted_sum = sum(
                 error * weights.get(func, 1.0) for func, error in error_rates.items()
             )
-            avg_error_rate = weighted_sum / len(error_rates)
+            total_weight = sum(weights.get(f, 1.0) for f in error_rates.keys())
+            avg_error_rate = weighted_sum / total_weight if total_weight > 0 else 0.0
         else:
             avg_error_rate = 0.0
 
@@ -95,8 +101,8 @@ def main(console: Console) -> None:
             "page",
             title=optimizer,
             cards=cards_html,
-            error_rate_rank=aer_rankings.get(optimizer, "-"),
-            avg_rank=afr_rankings.get(optimizer, "-"),
+            error_rate_rank=aer_rank_lookup.get(optimizer, "-"),
+            avg_rank=avg_rank_lookup.get(optimizer, "-"),
             avg_error_rate=round(avg_error_rate, 4),
             functions_count=len(error_rates),
         )
