@@ -138,21 +138,21 @@ def benchmark_optimizer(
 
     # Skip if exist_pass enabled and complete results already exist
     if config["exist_pass"]:
-        _num_expected_files = (
-            len(functions) if functions is not None else len(FUNC_DICT)
-        )
+        # Determine exactly which functions we expect to see
+        expected_funcs = functions if functions is not None else list(FUNC_DICT.keys())
+
+        # Check if entry exists in results.json
         _results = _load_json(results_json_path, {"optimizers": {}}).get(
             "optimizers", {}
         )
-        _images = list(results_dir.glob(f"*{config['img_format']}"))
 
-        _results_complete = (
-            optimizer_name in _results
-            and results_dir.is_dir()
-            and len(_images) == _num_expected_files
+        # Check if a directory exists for every expected function
+        # The visualizer now creates: results_dir / optimizer_name / function_name /
+        _dirs_complete = results_dir.is_dir() and all(
+            (results_dir / fname).exists() for fname in expected_funcs
         )
 
-        if _results_complete:
+        if optimizer_name in _results and _dirs_complete:
             print(f"Skipping {optimizer_name}: Complete results already exist.")
             return None
 

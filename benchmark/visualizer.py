@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import Callable, Dict, Sequence, Tuple, Union
+from typing import Callable, Dict, Tuple, Union
 
 import matplotlib.patches as mpatches
 import matplotlib.pyplot as plt
@@ -11,12 +11,12 @@ from .functions import scale_eval_size
 from .utils.surface import compute_surface
 
 COLORS = {
-    "loss": "#1f77b4",  # Blue
-    "grad": "#d62728",  # Red
-    "step": "#2ca02c",  # Green
-    "dist": "#9467bd",  # Purple
-    "path": "#7f7f7f",  # Gray
-    "ratio": "#e377c2",  # Pink
+    "loss": "#1f77b4",
+    "grad": "#d62728",
+    "step": "#2ca02c",
+    "dist": "#9467bd",
+    "path": "#7f7f7f",
+    "ratio": "#e377c2",
 }
 
 METRIC_COLORS = {
@@ -33,67 +33,35 @@ METRIC_COLORS = {
 
 
 def _eval_z_on_trajectory(func: Callable, pts: np.ndarray) -> np.ndarray:
-    """Evaluate function values along a trajectory (numpy input)."""
+    """Evaluate function values along a trajectory."""
     pts_tensor = torch.from_numpy(pts).float()
-    expected_len = pts.shape[0]
-
     try:
-        vals = func(pts_tensor)
-        if isinstance(vals, torch.Tensor):
-            vals = vals.detach().numpy()
-        else:
-            vals = np.asarray(vals)
-
-        vals = vals.ravel().astype(float)
-        if vals.size != expected_len:
+        vals = func(pts_tensor).numpy()
+        if vals.size != pts.shape[0]:
             raise ValueError
-        return vals
-
+        return vals.ravel()
     except Exception:
-        z_list = []
-        for p in pts_tensor:
-            try:
-                try:
-                    zv = func(p.unsqueeze(0)).item()
-                except Exception:
-                    zv = func(p).item()
-            except Exception:
-                zv = np.nan
-            z_list.append(zv)
-        return np.array(z_list, dtype=float)
+        return np.array([func(p).item() for p in pts_tensor])
 
 
 def _compute_gradient_norms(func: Callable, pts: np.ndarray) -> np.ndarray:
     """Compute gradient norm at each point."""
     grads = []
-    pts_tensor = torch.from_numpy(pts).float()
-
-    for p in pts_tensor:
-        p.requires_grad_(True)
+    for p_np in pts:
+        p = torch.from_numpy(p_np).float().requires_grad_(True)
         try:
-            val = func(p)
-            if val.numel() > 1:
-                val = val.sum()
-            val.backward()
-            if p.grad is not None:
-                grads.append(p.grad.norm().item())
-            else:
-                grads.append(0.0)
+            func(p).sum().backward()
+            grads.append(p.grad.norm().item() if p.grad is not None else 0.0)
         except Exception:
             grads.append(0.0)
-
     return np.array(grads)
 
 
 def _compute_efficiency(pts: np.ndarray) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
-    """Compute displacement, cumulative path length, and individual step sizes."""
-    start = pts[0]
-    displacement = np.linalg.norm(pts - start, axis=1)
-
-    steps = pts[1:] - pts[:-1]
-    step_sizes = np.linalg.norm(steps, axis=1)
+    """Compute displacement, cumulative path length, and step sizes."""
+    displacement = np.linalg.norm(pts - pts[0], axis=1)
+    step_sizes = np.linalg.norm(np.diff(pts, axis=0), axis=1)
     step_sizes = np.insert(step_sizes, 0, 0.0)
-
     path_len = np.cumsum(step_sizes)
     return displacement, path_len, step_sizes
 
@@ -105,26 +73,26 @@ def _style_axis(
     ylabel: str = None,
     log_scale: bool = False,
 ):
-    """Apply unified styling to an axis."""
-    ax.set_title(title, fontsize=11, fontweight="bold", pad=8, color="#333333")
-
+    """Apply standard clean styling to an axis."""
+    ax.set_title(title, fontsize=10, pad=8)
     if xlabel:
-        ax.set_xlabel(xlabel, fontsize=9, fontweight="medium", color="#555555")
+        ax.set_xlabel(xlabel, fontsize=9)
     if ylabel:
-        ax.set_ylabel(ylabel, fontsize=9, fontweight="medium", color="#555555")
+        ax.set_ylabel(ylabel, fontsize=9)
 
+    # Clean spines
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
-    ax.spines["left"].set_color("#888888")
-    ax.spines["bottom"].set_color("#888888")
+    ax.spines["left"].set_color("black")
+    ax.spines["bottom"].set_color("black")
 
-    ax.tick_params(axis="both", which="major", labelsize=8, colors="#444444")
+    ax.tick_params(labelsize=8)
 
     if log_scale:
-        ax.grid(True, which="major", linestyle="-", alpha=0.3, color="#cccccc")
-        ax.grid(True, which="minor", linestyle=":", alpha=0.2, color="#dddddd")
+        ax.grid(True, which="major", linestyle="-", alpha=0.3)
+        ax.grid(True, which="minor", linestyle=":", alpha=0.2)
     else:
-        ax.grid(True, linestyle="--", alpha=0.3, color="#bbbbbb")
+        ax.grid(True, linestyle="--", alpha=0.3)
 
 
 def _save_surface_plot(
@@ -133,14 +101,14 @@ def _save_surface_plot(
     Y: np.ndarray,
     Z: np.ndarray,
     scaled_eval_size: Tuple,
-    xs: Sequence[float],
-    ys: Sequence[float],
+    xs: np.ndarray,
+    ys: np.ndarray,
     global_minimums: np.ndarray,
     title_text: str,
     metrics: dict,
     img_format: str,
 ) -> str:
-    """Save the main surface contour + trajectory plot (Standard Style)."""
+    """Save the main surface contour and trajectory plot."""
     fig, ax = plt.subplots(figsize=(14, 14))
 
     ax.imshow(
@@ -152,7 +120,10 @@ def _save_surface_plot(
         interpolation="bilinear",
     )
     cs = ax.contour(X, Y, Z, levels=20, cmap="jet")
-    fig.colorbar(cs, ax=ax, label="f(x, y)", shrink=0.8)
+
+    cbar = fig.colorbar(cs, ax=ax, shrink=0.8, pad=0.02)
+    cbar.set_label("f(x, y)", fontsize=10)
+    cbar.ax.tick_params(labelsize=8)
 
     ax.plot(
         xs,
@@ -196,21 +167,26 @@ def _save_surface_plot(
         label="Global Min",
     )
 
-    ax.set_title(title_text)
-    ax.set_xlabel("x")
-    ax.set_ylabel("y")
+    ax.set_title(title_text, fontsize=12, pad=15)
+    ax.set_xlabel("x", fontsize=10)
+    ax.set_ylabel("y", fontsize=10)
     ax.set_aspect("equal")
 
-    handles, labels = ax.get_legend_handles_labels()
-    by_label = dict(zip(labels, handles))
-    main_legend = ax.legend(by_label.values(), by_label.keys(), loc="upper left")
+    # Legend
+    legend_props = dict(frameon=True, framealpha=0.9, fontsize=9)
+    main_legend = ax.legend(
+        *zip(*dict(zip(*ax.get_legend_handles_labels())).items()),
+        loc="upper left",
+        **legend_props,
+    )
     ax.add_artist(main_legend)
 
-    active_metrics = [
-        (k, v) for k, v in metrics.items() if isinstance(v, (int, float)) and v > 0
-    ]
-    active_metrics.sort(key=lambda x: x[1], reverse=True)
-
+    # Metrics Legend
+    active_metrics = sorted(
+        [(k, v) for k, v in metrics.items() if isinstance(v, (int, float)) and v > 0],
+        key=lambda item: item[1],
+        reverse=True,
+    )
     if active_metrics:
         metric_handles = [
             mpatches.Patch(
@@ -219,13 +195,17 @@ def _save_surface_plot(
             for k, v in active_metrics
         ]
         ax.legend(
-            handles=metric_handles, loc="lower right", title="Evaluation Breakdown"
+            handles=metric_handles,
+            loc="lower right",
+            title="Evaluation Breakdown",
+            title_fontsize=9,
+            **legend_props,
         )
 
-    out = out_dir / f"surface.{img_format}"
-    fig.savefig(out, bbox_inches="tight", dpi=120)
+    out_path = out_dir / f"surface.{img_format}"
+    fig.savefig(out_path, bbox_inches="tight", dpi=120)
     plt.close(fig)
-    return str(out)
+    return str(out_path)
 
 
 def _save_dynamics_plot(
@@ -240,12 +220,10 @@ def _save_dynamics_plot(
 ) -> str:
     """Save 2x2 dynamics analysis plot."""
     fig, axs = plt.subplots(2, 2, figsize=(14, 10))
-    fig.suptitle(
-        f"Optimization Dynamics | {func_name}", fontsize=14, fontweight="bold", y=0.96
-    )
+    fig.suptitle(f"Optimization Dynamics | {func_name}", fontsize=14, y=0.96)
     steps = np.arange(len(z_vals))
 
-    # 1. Objective Value (Symlog)
+    # 1. Objective Value
     ax = axs[0, 0]
     ax.plot(steps, z_vals, color=COLORS["loss"], linewidth=1.5)
     ax.set_yscale("symlog")
@@ -276,13 +254,26 @@ def _save_dynamics_plot(
         steps, displacement, color=COLORS["dist"], label="Net Displacement", linewidth=2
     )
     _style_axis(ax, "Trajectory Efficiency", xlabel="Iteration", ylabel="Distance")
-    ax.legend(fontsize=8, loc="upper left")
+    ax.legend(fontsize=8, frameon=False)
 
-    plt.tight_layout(rect=[0, 0.03, 1, 0.95])
-    out = out_dir / f"dynamics.{img_format}"
-    fig.savefig(out, bbox_inches="tight", dpi=120)
+    # Efficiency Annotation
+    if path_len[-1] > 0:
+        eff = displacement[-1] / path_len[-1]
+        ax.text(
+            0.95,
+            0.05,
+            f"Efficiency: {eff:.2f}\n(1.0 = Straight Line)",
+            transform=ax.transAxes,
+            ha="right",
+            va="bottom",
+            fontsize=8,
+            bbox=dict(boxstyle="round", facecolor="white", alpha=0.9, edgecolor="#ccc"),
+        )
+
+    out_path = out_dir / f"dynamics.{img_format}"
+    fig.savefig(out_path, bbox_inches="tight", dpi=120)
     plt.close(fig)
-    return str(out)
+    return str(out_path)
 
 
 def _save_phase_plot(
@@ -294,14 +285,14 @@ def _save_phase_plot(
 ) -> str:
     """Save a Gradient Norm vs Step Size phase portrait."""
     fig, ax = plt.subplots(figsize=(9, 8))
-
     valid = (step_sizes > 1e-12) & (grad_norms > 1e-12)
-    g_valid = grad_norms[valid]
-    s_valid = step_sizes[valid]
-    iters = np.arange(len(grad_norms))[valid]
 
-    if len(g_valid) > 0:
-        # Scatter with unified colormap
+    if np.any(valid):
+        g_valid, s_valid, iters = (
+            grad_norms[valid],
+            step_sizes[valid],
+            np.arange(len(grad_norms))[valid],
+        )
         scatter = ax.scatter(
             g_valid,
             s_valid,
@@ -313,12 +304,10 @@ def _save_phase_plot(
             linewidth=0.5,
         )
         cbar = fig.colorbar(scatter, ax=ax)
-        cbar.set_label("Iteration", rotation=270, labelpad=15)
+        cbar.set_label("Iteration", rotation=270, labelpad=15, fontsize=9)
 
         ax.set_xscale("log")
         ax.set_yscale("log")
-
-        # Explicitly set minor tick locator to ensure grid lines appear
         ax.xaxis.set_minor_locator(LogLocator(base=10.0, subs="auto", numticks=10))
         ax.yaxis.set_minor_locator(LogLocator(base=10.0, subs="auto", numticks=10))
         ax.xaxis.set_minor_formatter(NullFormatter())
@@ -332,12 +321,13 @@ def _save_phase_plot(
         log_scale=True,
     )
 
-    # Annotations with background boxes for readability
-    props = dict(boxstyle="round", facecolor="white", alpha=0.85, edgecolor="#cccccc")
+    # Annotations
+    props = dict(
+        boxstyle="round", facecolor="white", alpha=0.9, edgecolor="#cccccc", pad=0.5
+    )
+    xlim, ylim = ax.get_xlim(), ax.get_ylim()
 
-    xlim = ax.get_xlim()
-    ylim = ax.get_ylim()
-
+    # Stagnation (Bottom Right)
     ax.text(
         xlim[1] * 0.9,
         ylim[0] * 1.5,
@@ -346,10 +336,9 @@ def _save_phase_plot(
         va="bottom",
         fontsize=8,
         color="#d62728",
-        fontweight="bold",
         bbox=props,
     )
-
+    # Overshooting (Top Left)
     ax.text(
         xlim[0] * 1.2,
         ylim[1] * 0.7,
@@ -358,10 +347,9 @@ def _save_phase_plot(
         va="top",
         fontsize=8,
         color="#ff7f0e",
-        fontweight="bold",
         bbox=props,
     )
-
+    # Convergence (Bottom Left)
     ax.text(
         xlim[0] * 1.2,
         ylim[0] * 1.5,
@@ -370,15 +358,13 @@ def _save_phase_plot(
         va="bottom",
         fontsize=8,
         color="#2ca02c",
-        fontweight="bold",
         bbox=props,
     )
 
-    plt.tight_layout()
-    out = out_dir / f"phase_portrait.{img_format}"
-    fig.savefig(out, bbox_inches="tight", dpi=120)
+    out_path = out_dir / f"phase_portrait.{img_format}"
+    fig.savefig(out_path, bbox_inches="tight", dpi=120)
     plt.close(fig)
-    return str(out)
+    return str(out_path)
 
 
 def _save_update_ratio_plot(
@@ -389,16 +375,12 @@ def _save_update_ratio_plot(
     img_format: str,
 ) -> str:
     """Save 'Update Efficiency Ratio' plot: Step Size / Gradient Norm."""
-    fig, ax = plt.subplots(figsize=(8, 4))
-
-    # Ratio = ||dx|| / ||grad||. High = Aggressive/Momentum. Low = Conservative.
+    fig, ax = plt.subplots(figsize=(12, 8))
     with np.errstate(divide="ignore", invalid="ignore"):
         ratio = step_sizes / (grad_norms + 1e-10)
 
-    steps = np.arange(len(ratio))
-    ax.plot(steps, ratio, color=COLORS["ratio"], linewidth=1.5)
+    ax.plot(np.arange(len(ratio)), ratio, color=COLORS["ratio"], linewidth=1.5)
     ax.set_yscale("log")
-
     _style_axis(
         ax,
         f"Effective Update Ratio (||Δx|| / ||∇f||) | {func_name}",
@@ -407,20 +389,28 @@ def _save_update_ratio_plot(
         log_scale=True,
     )
 
-    # Interpretative lines
-    ax.axhline(1.0, color="#666", linestyle="--", linewidth=1, alpha=0.5)
+    # Explanatory Annotations
+    ax.axhline(1.0, color="#888888", linestyle="--", linewidth=1, alpha=0.5)
     ax.text(
-        len(steps) * 0.02, 1.2, "Aggressive / Momentum > 1.0", fontsize=8, color="#666"
+        len(ratio) * 0.02,
+        1.3,
+        "Aggressive / Momentum > 1.0",
+        fontsize=8,
+        color="#555555",
     )
     ax.text(
-        len(steps) * 0.02, 0.8, "Conservative < 1.0", fontsize=8, color="#666", va="top"
+        len(ratio) * 0.02,
+        0.7,
+        "Conservative < 1.0",
+        fontsize=8,
+        color="#555555",
+        va="top",
     )
 
-    plt.tight_layout()
-    out = out_dir / f"update_ratio.{img_format}"
-    fig.savefig(out, bbox_inches="tight", dpi=120)
+    out_path = out_dir / f"update_ratio.{img_format}"
+    fig.savefig(out_path, bbox_inches="tight", dpi=120)
     plt.close(fig)
-    return str(out)
+    return str(out_path)
 
 
 def _save_penalty_donut(
@@ -435,33 +425,20 @@ def _save_penalty_donut(
         for k, v in metrics.items()
         if isinstance(v, (int, float)) and v >= 0
     ]
-
     if not items:
-        fig, ax = plt.subplots(figsize=(6, 6))
-        ax.text(0.5, 0.5, "No tuning metrics", ha="center")
-        ax.axis("off")
-        out = out_dir / f"penalty_donut.{img_format}"
-        fig.savefig(out)
-        plt.close(fig)
-        return str(out)
+        return ""
 
     keys, values = zip(*items)
-    values = np.array(values, dtype=float)
+    values = np.array(values)
     if np.all(values == 0):
         values = np.ones_like(values) * 1e-12
 
-    max_val = values.max()
-    min_val = values[values > 0].min() if values.max() > 0 else 0
-    use_log = (max_val / (min_val + 1e-30)) > 500
-
+    use_log = (values.max() / (values[values > 0].min() + 1e-30)) > 500
     disp_vals = np.log1p(values) if use_log else values
     disp_vals[disp_vals <= 0] = 1e-12
 
-    # Sort
     idx = np.argsort(disp_vals)[::-1]
-    keys_sorted = [keys[i] for i in idx]
-    vals_sorted = values[idx]
-
+    keys_sorted, vals_sorted = [keys[i] for i in idx], values[idx]
     colors = [METRIC_COLORS.get(k, "#bcbd22") for k in keys_sorted]
 
     fig, ax = plt.subplots(figsize=(8, 6))
@@ -472,15 +449,7 @@ def _save_penalty_donut(
         wedgeprops=dict(width=0.4, edgecolor="white", linewidth=1),
     )
 
-    ax.text(
-        0,
-        0,
-        "Tuning\nObjectives",
-        ha="center",
-        va="center",
-        fontweight="bold",
-        color="#333",
-    )
+    ax.text(0, 0, "Tuning\nObjectives", ha="center", va="center", fontweight="bold")
     ax.set_title(f"Tuning Cost Breakdown | {func_name}", fontsize=12, fontweight="bold")
 
     total = vals_sorted.sum() or 1.0
@@ -488,7 +457,6 @@ def _save_penalty_donut(
         f"{k.replace('_', ' ').title()}: {v:.4g} ({v / total * 100:.1f}%)"
         for k, v in zip(keys_sorted, vals_sorted)
     ]
-
     ax.legend(
         wedges,
         labels,
@@ -496,6 +464,7 @@ def _save_penalty_donut(
         loc="center left",
         bbox_to_anchor=(1, 0, 0.5, 1),
         fontsize=9,
+        frameon=False,
     )
 
     if use_log:
@@ -508,11 +477,10 @@ def _save_penalty_donut(
             color="#666",
         )
 
-    plt.tight_layout()
-    out = out_dir / f"penalty_donut.{img_format}"
-    fig.savefig(out, bbox_inches="tight", dpi=120)
+    out_path = out_dir / f"penalty_donut.{img_format}"
+    fig.savefig(out_path, bbox_inches="tight", dpi=120)
     plt.close(fig)
-    return str(out)
+    return str(out_path)
 
 
 def visualize_trajectory(
@@ -563,7 +531,7 @@ def visualize_trajectory(
     func_dir = Path(output_dir)
     func_dir.mkdir(parents=True, exist_ok=True)
 
-    # 1. Prepare Data (CPU/Numpy)
+    # 1. Prepare Data
     pts = cords.t().detach().cpu().numpy()  # [N, 2]
     gm_pts = global_minimums.detach().cpu().numpy()
     xs, ys = pts[:, 0], pts[:, 1]
