@@ -13,7 +13,7 @@ from tqdm import tqdm
 from .criterion import objective
 from .functions import FUNC_DICT
 from .utils.executor import optimize
-from .visualizer import plot_function
+from .visualizer import visualize_trajectory
 
 optuna.logging.set_verbosity(optuna.logging.ERROR)
 warnings.filterwarnings("ignore")
@@ -281,17 +281,19 @@ def benchmark_optimizer(
         else:
             print(" └─ No metrics available")
 
-        plot_function(
+        visualize_trajectory(
             func,
             func_name,
             func_optim_steps,
-            os.path.join(results_dir, func_name + config["img_format"]),
+            os.path.join(results_dir, func_name),
             optimizer_name,
             study.best_params,
             eval_metrics[func_name],
+            train_metrics[func_name],
             error_rates[func_name],
             gm_pos,
             eval_size,
+            img_format=config["img_format"],
             debug=debug,
         )
 
