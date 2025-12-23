@@ -8,9 +8,9 @@ EVAL_SIZE = ((-8, 8), (-8, 8))
 GLOBAL_MINIMUM_LOC = torch.tensor([[0.0, 0.0]])
 
 CANYON_WALL = torch.tensor(30.0)
-GLOBAL_BIAS = torch.tensor(0.05)
-NOISE_AMP = torch.tensor(1.2)
-NOISE_FREQ = torch.tensor(3.0)
+GLOBAL_BIAS = torch.tensor(0.01)
+NOISE_AMP = torch.tensor(1.8)
+NOISE_FREQ = torch.tensor(10.0)
 
 
 @normalize(-0.7994629144668579, 2888.94384765625)
@@ -31,8 +31,8 @@ def neural_canyon(
         x: Input tensor of shape [2] representing [x, y] coordinates.
         wall: Steepness of the valley walls (default: 30.0).
         bias: Global quadratic regularization strength (default: 0.05).
-        amp: Amplitude of the sinusoidal noise traps (default: 0.8).
-        freq: Frequency of the local traps (default: 3.0).
+        amp: Amplitude of the sinusoidal noise traps (default: 1.8).
+        freq: Frequency of the local traps (default: 5.0).
 
     Returns:
         Scalar tensor with the function value.
