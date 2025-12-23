@@ -4,7 +4,7 @@
 [benchmark]
 seed = 42
 exist_pass = true
-img_format = ".jpg"
+img_format = "jpg"
 hypertune_trials = 700
 ignore_optimizers = [
   "msvag",
@@ -45,8 +45,8 @@ Griewank = { iterations = 200, error_weight = 1.5 }
 Langermann = { iterations = 150, error_weight = 0.2 }
 "Langermann 2" = { iterations = 150, error_weight = 0.2 }
 "Lévy 13" = { iterations = 150, error_weight = 1.5 }
-MixedMichalewiczSphere = { iterations = 150, error_weight = 1.5 }
-"NeuralCanyon" = { iterations = 150, error_weight = 0.5 }
+MixedMichalewiczSphere = { iterations = 150, error_weight = 1.0 }
+"NeuralCanyon" = { iterations = 150, error_weight = 2.5 }
 "QuantumWell" = { iterations = 150, error_weight = 0.5 }
 Rastrigin = { iterations = 150, error_weight = 2 }
 Rosenbrock = { iterations = 400, error_weight = 1.5 }
