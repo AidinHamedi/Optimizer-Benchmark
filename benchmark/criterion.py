@@ -15,13 +15,14 @@ class ObjectiveConfig:
         final_dist_weight: Weight for distance to global minimum.
         convergence_weight: Weight for convergence speed.
         efficiency_weight: Weight for path efficiency.
-        stagnation_weight: Weight for penalizing lack of movement.
         lucky_jump_weight: Weight for penalizing large single steps.
         start_prox_weight: Weight for ending too close to start.
         boundary_weight: Multiplier for boundary violations.
+        terrain_violation_weight: Weight for terrain violations.
         convergence_tol: Normalized distance threshold for convergence.
         boundary_tol: Normalized distance for boundary violation.
-        stagnation_threshold: Minimum normalized std-dev for movement.
+        terrain_violation_tol: Normalized distance threshold to check for terrain violation.
+        terrain_violation_accuracy: Number of points to check for terrain violation.
         lucky_jump_threshold: Maximum allowed step size (fraction of diagonal).
         start_prox_threshold: Distance threshold for zero net movement.
     """
@@ -32,15 +33,16 @@ class ObjectiveConfig:
     final_dist_weight: float = 2.6
     convergence_weight: float = 0.1
     efficiency_weight: float = 0.15
-    stagnation_weight: float = 0.5
     lucky_jump_weight: float = 10.0
     start_prox_weight: float = 100.0
     boundary_weight: float = 16.0
+    terrain_violation_weight: float = 20.0
 
     convergence_tol: float = 0.01
     boundary_tol: float = 0.08
-    stagnation_threshold: float = 0.01
-    lucky_jump_threshold: float = 0.02
+    terrain_violation_tol: float = 0.01
+    terrain_violation_accuracy: int = 5
+    lucky_jump_threshold: float = 0.04
     start_prox_threshold: float = 0.12
 
 
@@ -91,16 +93,6 @@ def _calc_lucky_jump(step_lengths: torch.Tensor, threshold: float) -> torch.Tens
     return torch.tensor(0.0)
 
 
-def _calc_stagnation(steps: torch.Tensor, threshold: float) -> torch.Tensor:
-    """Compute penalty for insufficient movement variance."""
-    std_dev = torch.norm(torch.std(steps, dim=1))
-
-    if std_dev < threshold:
-        return (threshold - std_dev) / threshold
-
-    return torch.tensor(0.0)
-
-
 def _calc_start_proximity(
     start: torch.Tensor, final: torch.Tensor, threshold: float
 ) -> torch.Tensor:
@@ -133,6 +125,65 @@ def _calc_convergence_speed(
         return float(first_step_idx) / max(1, total_steps)
 
     return 1.0
+
+
+def _batch_evaluate(
+    criterion: Callable[[torch.Tensor], torch.Tensor], points: torch.Tensor
+) -> torch.Tensor:
+    """Evaluate criterion on multiple points, handling different input shapes."""
+    K = points.shape[1]
+
+    try:
+        return criterion(points.T)
+    except Exception:
+        results = torch.zeros(K)
+        for i in range(K):
+            results[i] = criterion(points[:, i])
+        return results
+
+
+def _calc_terrain_violation(
+    steps: torch.Tensor,
+    criterion: Callable[[torch.Tensor], torch.Tensor],
+    min_dist: float,
+    accuracy: int = 1,
+) -> torch.Tensor:
+    """Detects tunneling by checking 'accuracy' points along step paths."""
+    starts = steps[:, :-1]
+    ends = steps[:, 1:]
+
+    dists = torch.norm(ends - starts, dim=0)
+    mask = dists > min_dist
+
+    if not mask.any():
+        return torch.tensor(0.0)
+
+    sig_starts = starts[:, mask]
+    sig_ends = ends[:, mask]
+    sig_vecs = sig_ends - sig_starts
+
+    total_violation = torch.tensor(0.0)
+
+    with torch.no_grad():
+        # Get baseline elevation (ceiling) once
+        val_start = _batch_evaluate(criterion, sig_starts)
+        val_end = _batch_evaluate(criterion, sig_ends)
+        ceiling = torch.maximum(val_start, val_end)
+
+        # Iterate through 'accuracy' evenly spaced points
+        for i in range(1, accuracy + 1):
+            t = i / (accuracy + 1)
+
+            # Interpolate: P = Start + t * (End - Start)
+            check_points = sig_starts + (sig_vecs * t)
+
+            val_points = _batch_evaluate(criterion, check_points)
+
+            # Check violation: Point > Ceiling
+            violation = torch.relu(val_points - (ceiling + 1e-3))
+            total_violation += torch.sum(violation)
+
+    return total_violation / accuracy
 
 
 def objective(
@@ -210,13 +261,17 @@ def objective(
         metrics["eff_penalty"] = eff_penalty
         error_sum += eff_penalty
 
-    # Stagnation
-    if config.stagnation_weight > 0 and is_train:
-        abs_stag_thresh = config.stagnation_threshold * diag
-        stag_val = _calc_stagnation(steps, abs_stag_thresh).item()
-        stag_penalty = stag_val * config.stagnation_weight
-        metrics["stag_penalty"] = stag_penalty
-        error_sum += stag_penalty
+    # Terrain violation
+    if config.terrain_violation_weight > 0 and is_train:
+        tv_penalty = _calc_terrain_violation(
+            steps,
+            criterion,
+            config.terrain_violation_tol,
+            config.terrain_violation_accuracy,
+        ).item()
+        tv_penalty *= config.terrain_violation_weight
+        metrics["terrain_violation"] = tv_penalty
+        error_sum += tv_penalty
 
     # Lucky jump (teleportation)
     if config.lucky_jump_weight > 0 and is_train:

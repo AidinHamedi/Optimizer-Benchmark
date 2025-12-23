@@ -96,7 +96,7 @@ def _choose_sampler(search_space, config, debug=False):
     sampler = CmaEsSampler(
         seed=config["seed"],
         with_margin=True,
-        n_startup_trials=280,
+        n_startup_trials=300,
         independent_sampler=QMCSampler(
             qmc_type="halton", scramble=True, seed=config["seed"]
         ),
