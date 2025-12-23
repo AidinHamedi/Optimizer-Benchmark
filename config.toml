@@ -7,6 +7,7 @@ exist_pass = true
 img_format = "jpg"
 hypertune_trials = 700
 ignore_optimizers = [
+  # Unsupported
   "msvag",
   "lomo",
   "adalomo",
@@ -27,6 +28,16 @@ ignore_optimizers = [
   "dadaptadam",
   "dadaptsgd",
   "amos",
+  # Not working
+  "qhadam",
+  "shampoo",
+  "mars",
+  "adafactor",
+  "adamg",
+  "schedulefreeradam",
+  "srmm",
+  "adamod",
+  "adams",
 ]
 
 # ==============================================================================
@@ -79,6 +90,7 @@ asgd = { lr = [0.0001, 2.0], amplifier = [0.0001, 0.5] }
 schedulefreesgd = { lr = [0.0001, 3.0], momentum = [0.0001, 0.99] }
 adadelta = { lr = [0.0001, 600.0] }
 adafactor = { lr = [0.0001, 1000.0], clip_threshold = [0.5, 10.0], ams_bound = "bool" }
+adamod = { lr = [0.0001, 20.0] }
 dadaptadagrad = { lr = [0.0001, 20.0] }
 adahessian = { lr = [0.0001, 100.0] }
 pid = { lr = [0.0001, 0.5], integral = [1.0, 10.0], derivative = [2.0, 14.0], momentum = [0.0, 0.99] }
