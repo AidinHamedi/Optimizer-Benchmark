@@ -57,12 +57,10 @@ Langermann = { iterations = 150, error_weight = 0.2 }
 "Langermann 2" = { iterations = 150, error_weight = 0.2 }
 "Lévy 13" = { iterations = 150, error_weight = 1.5 }
 MixedMichalewiczSphere = { iterations = 150, error_weight = 1.0 }
-"NeuralCanyon" = { iterations = 150, error_weight = 2.5 }
+"NeuralCanyon" = { iterations = 150, error_weight = 2.0 }
 "QuantumWell" = { iterations = 150, error_weight = 0.5 }
 Rastrigin = { iterations = 150, error_weight = 2 }
 Rosenbrock = { iterations = 400, error_weight = 1.5 }
-"Schaffer 2" = { iterations = 1400, error_weight = 0.5 }
-"Schaffer 4" = { iterations = 1400, error_weight = 0.5 }
 "Styblinski-Tang" = { iterations = 150, error_weight = 0.5 }
 Weierstrass = { iterations = 300, error_weight = 2.5 }
 
