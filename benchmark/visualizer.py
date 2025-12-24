@@ -6,6 +6,7 @@ import matplotlib.patches as mpatches
 import matplotlib.pyplot as plt
 import numpy as np
 import torch
+from matplotlib.gridspec import GridSpec
 
 from .functions import scale_eval_size
 from .utils.surface import compute_surface
@@ -364,11 +365,20 @@ def _plot_phase_portrait(out_path: Path, data: Dict[str, np.ndarray], name: str)
     """
     c, f = VIS_SETTINGS["COLORS"], VIS_SETTINGS["FONTS"]
 
-    with PlotContext(out_path, figsize=VIS_SETTINGS["SIZES"]["PHASE"], ncols=2) as (
-        fig,
-        axs,
-    ):
-        # Exclude last point (step=0)
+    fig = plt.figure(figsize=VIS_SETTINGS["SIZES"]["PHASE"])
+    gs = GridSpec(
+        1,
+        3,
+        width_ratios=[1.0, 1.0, 0.05],
+        wspace=0.15,
+        figure=fig,
+    )
+
+    ax_left = fig.add_subplot(gs[0, 0])
+    ax_right = fig.add_subplot(gs[0, 1])
+    cax = fig.add_subplot(gs[0, 2])
+
+    try:
         x_raw, y_raw = data["grads"][:-1], data["steps"][:-1]
         iters = np.arange(len(x_raw))
 
@@ -380,7 +390,6 @@ def _plot_phase_portrait(out_path: Path, data: Dict[str, np.ndarray], name: str)
         x_sm = _ema_smooth(x_cl, alpha=0.15)
         y_sm = _ema_smooth(y_cl, alpha=0.15)
 
-        # Global Limits
         if len(x_cl) > 0:
             all_v = np.concatenate([x_cl, y_cl, x_sm, y_sm])
             l_min = (all_v.min() + epsilon) * 0.5
@@ -402,11 +411,11 @@ def _plot_phase_portrait(out_path: Path, data: Dict[str, np.ndarray], name: str)
             if len(xd) > 2:
                 points = np.array([xd, yd]).T.reshape(-1, 1, 2)
                 segs = np.concatenate([points[:-1], points[1:]], axis=1)
-                norm = plt.Normalize(0, len(xd))
+
                 lc_obj = mcoll.LineCollection(
                     segs,
                     cmap="plasma",
-                    norm=norm,
+                    norm=plt.Normalize(0, len(xd)),
                     alpha=0.9 if smooth else 0.6,
                     lw=2.0 if smooth else 1.0,
                     zorder=2,
@@ -423,6 +432,7 @@ def _plot_phase_portrait(out_path: Path, data: Dict[str, np.ndarray], name: str)
                     s=5 if smooth else 15,
                     zorder=3,
                 )
+
                 ax.scatter(
                     xd[0],
                     yd[0],
@@ -453,9 +463,13 @@ def _plot_phase_portrait(out_path: Path, data: Dict[str, np.ndarray], name: str)
             _style_axis(ax, title, "Gradient Norm (Log)", "Step Size (Log)", log=True)
 
             bbox = dict(
-                boxstyle="round", facecolor="white", alpha=0.85, edgecolor="#eeeeee"
+                boxstyle="round",
+                facecolor="white",
+                alpha=0.85,
+                edgecolor="#eeeeee",
             )
             props = {**f["ANNO"], "bbox": bbox}
+
             ax.text(
                 l_max * 0.5,
                 l_min * 2,
@@ -477,22 +491,52 @@ def _plot_phase_portrait(out_path: Path, data: Dict[str, np.ndarray], name: str)
 
             return lc_obj
 
-        draw_phase(axs[0], x_cl, y_cl, f"Raw Dynamics (Jitter) | {name}", smooth=False)
+        draw_phase(
+            ax_left,
+            x_cl,
+            y_cl,
+            f"Raw Dynamics (Jitter) | {name}",
+            smooth=False,
+        )
         lc = draw_phase(
-            axs[1], x_sm, y_sm, f"Smoothed Trend (Flow) | {name}", smooth=True
+            ax_right,
+            x_sm,
+            y_sm,
+            f"Smoothed Trend (Flow) | {name}",
+            smooth=True,
         )
 
         items = [
             mpatches.Patch(color="purple", label="Trajectory (Time)"),
-            plt.Line2D([0], [0], color="#cccccc", lw=1, ls="--", label="Ratio = 1.0"),
+            plt.Line2D(
+                [0],
+                [0],
+                color="#cccccc",
+                lw=1,
+                ls="--",
+                label="Ratio = 1.0",
+            ),
         ]
-        axs[1].legend(handles=items, loc="upper right", fontsize=f["LEGEND_SIZE"])
+        ax_right.legend(
+            handles=items,
+            loc="upper right",
+            fontsize=f["LEGEND_SIZE"],
+        )
 
         if lc:
-            # Attach to 'axs' (list of axes) to resize both equally
-            cb = fig.colorbar(lc, ax=axs, fraction=0.05, pad=0.02)
-            cb.set_label("Iteration", rotation=270, labelpad=15, size=f["LABEL_SIZE"])
+            cb = fig.colorbar(lc, cax=cax)
+            cb.set_label(
+                "Iteration",
+                rotation=270,
+                labelpad=15,
+                size=f["LABEL_SIZE"],
+            )
             cb.ax.tick_params(labelsize=f["TICK_SIZE"])
+
+        fig.savefig(out_path, dpi=VIS_SETTINGS["DPI"], bbox_inches="tight")
+
+    finally:
+        plt.close(fig)
 
 
 def _plot_update_ratio(out_path: Path, data: Dict[str, np.ndarray], name: str):
