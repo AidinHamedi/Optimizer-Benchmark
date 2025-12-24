@@ -294,7 +294,7 @@ def objective(
 
     if debug:
         print(
-            f"[Objective] Raw Total: {error_sum:.4f} | Logged Total: {logged_error:.4f} | Breakdown: {metrics}"
+            f"[Objective] Mode: {mode} | Raw Total: {error_sum:.4f} | Logged Total: {logged_error:.4f} | Breakdown: {metrics}"
         )
 
     return logged_error, metrics
