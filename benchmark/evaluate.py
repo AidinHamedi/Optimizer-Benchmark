@@ -162,7 +162,7 @@ def benchmark_optimizer(
     os.makedirs(results_dir, exist_ok=True)
 
     error_rates = {}
-    train_metrics = {}
+    hopt_metrics = {}
     eval_metrics = {}
     run_hyperparams = {}
 
@@ -222,7 +222,7 @@ def benchmark_optimizer(
                 debug=debug,
             )
 
-            trial.set_user_attr("train_metrics", metrics)
+            trial.set_user_attr("hopt_metrics", metrics)
 
             return error
 
@@ -248,7 +248,7 @@ def benchmark_optimizer(
         )
 
         run_hyperparams[func_name] = study.best_params
-        train_metrics[func_name] = study.best_trial.user_attrs.get("train_metrics", {})
+        hopt_metrics[func_name] = study.best_trial.user_attrs.get("hopt_metrics", {})
 
         func_optim_steps = optimize(
             func,
@@ -268,15 +268,15 @@ def benchmark_optimizer(
             debug=debug,
         )
 
-        print(" ├ Best Train Metrics:")
+        print(" ├ Best Optimization Metrics:")
         if error_rates[func_name] != float("inf"):
             for i, (metric_name, metric_value) in enumerate(
-                train_metrics[func_name].items()
+                hopt_metrics[func_name].items()
             ):
                 print(
-                    f"{' └┬' if i == 0 else ('  └' if i == len(train_metrics[func_name]) - 1 else '  ├')} "
+                    f"{' └┬' if i == 0 else ('  └' if i == len(hopt_metrics[func_name]) - 1 else '  ├')} "
                     f"{metric_name}: {metric_value}, "
-                    f"contribution: {round(metric_value / sum(train_metrics[func_name].values()) * 100)}%"
+                    f"contribution: {round(metric_value / sum(hopt_metrics[func_name].values()) * 100)}%"
                 )
         else:
             print(" └─ No metrics available")
@@ -289,7 +289,7 @@ def benchmark_optimizer(
             optimizer_name,
             study.best_params,
             eval_metrics[func_name],
-            train_metrics[func_name],
+            hopt_metrics[func_name],
             error_rates[func_name],
             gm_pos,
             eval_size,
@@ -308,7 +308,7 @@ def benchmark_optimizer(
     results["optimizers"][optimizer_name] = {
         "hyperparameters": run_hyperparams,
         "error_rates": error_rates,
-        "train_metrics": train_metrics,
+        "hopt_metrics": hopt_metrics,
     }
 
     with results_json_path.open("w", encoding="utf-8") as f:
