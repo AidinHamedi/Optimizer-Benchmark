@@ -4,27 +4,27 @@ const PLOT_DEFINITIONS = [
   {
     file: "surface",
     title: "Trajectory on Loss Surface",
-    desc: "The <b>Contour Plot</b> shows the path taken by the optimizer (black line) from Start (Green) to Final (Red). <br><b>Analysis:</b> Check if the path is direct or erratic. Does it get stuck in local minima (blue regions) or successfully reach the global minimum (Gold Star)?",
+    desc: "The <b>Contour Plot</b> visualizes the path taken by the optimizer (black line) from Start (Green) to Final (Red). <br><b>Analysis:</b> Observe the trajectory's smoothness. Does it head straight for the solution, or does it oscillate? Does it get trapped in local basins or successfully reach the global minimum (Gold Star)?",
   },
   {
     file: "dynamics",
     title: "Optimization Dynamics",
-    desc: "A dashboard of time-series metrics. <br><b>Loss:</b> Should decrease monotonically (or smoothly). <br><b>Gradient Norm:</b> High values indicate steep slopes; dropping to zero indicates a critical point. <br><b>Efficiency:</b> Compares displacement to path length. 1.0 is a perfect straight line.",
+    desc: "A dashboard of time-series metrics. <br><b>Loss:</b> Convergence progress over time. <br><b>Efficiency (Bottom-Right):</b> Compares <b>Net Displacement</b> (Solid Line) vs <b>Total Path</b> (Dotted Line). A large gap between these lines indicates 'wasted effort' (orbiting or zigzagging without gaining ground).",
   },
   {
     file: "phase_portrait",
-    title: "Phase Portrait (Step vs Grad)",
-    desc: "Visualizes the optimizer's regime. <br><b>Stagnation:</b> High gradient but small steps (stuck). <br><b>Overshooting:</b> Small gradient but huge steps (momentum instability). <br><b>Convergence:</b> Ideally, both step size and gradient decay toward the bottom-left corner.",
+    title: "Phase Portrait (Micro vs Macro)",
+    desc: "A side-by-side view of the optimizer's regime (Step Size vs Gradient Norm). <br><b>Left (Raw):</b> Shows high-frequency jitter and instability. <br><b>Right (Smooth):</b> Shows the overall flow/trend. <br><b>Diagonal Line:</b> The 1:1 reference. Points above are <b>Aggressive</b> (Momentum/Adaptive), points below are <b>Conservative</b> (SGD).",
   },
   {
     file: "update_ratio",
     title: "Effective Update Ratio",
-    desc: "The ratio of Step Size to Gradient Norm (log scale). <br><b>> 1.0:</b> Aggressive behavior (Momentum/Adaptive). <br><b>< 1.0:</b> Conservative behavior (Standard SGD). <br>Sudden spikes indicate instability.",
+    desc: "The ratio of Step Size to Gradient Norm (log scale). <br><b>> 1.0:</b> Aggressive behavior (Momentum or Adaptive scaling). <br><b>< 1.0:</b> Conservative behavior (Standard Gradient Descent). <br><b>Spikes:</b> Often indicate instability or escaping a local minimum.",
   },
   {
     file: "penalty_donut",
     title: "Tuning Cost Breakdown",
-    desc: "Shows which penalty terms contributed to the loss during hyperparameter tuning. <br><b>Val Penalty:</b> Final loss value. <br><b>Dist Penalty:</b> Distance from solution. <br><b>Bound Penalty:</b> Going out of bounds.",
+    desc: "Breakdown of the weighted penalty terms used to score the optimizer during tuning.<br><br><b>Val:</b> Final loss value (Log-scaled).<br><b>Dist:</b> Final distance to the global minimum.<br><b>Bound:</b> Penalties for stepping outside the search space.<br><b>Speed:</b> Penalty for slow convergence relative to total iterations.<br><b>Eff:</b> Path inefficiency (tortuosity/wasted movement).<br><b>Terrain:</b> Penalty for 'tunneling' through high-loss barriers.<br><b>Jump:</b> Penalty for unrealistically large steps (teleportation).<br><b>Prox:</b> Penalty for failing to move significantly from the start.",
   },
 ];
 
