@@ -36,12 +36,12 @@ class ObjectiveConfig:
     lucky_jump_weight: float = 10.0
     start_prox_weight: float = 100.0
     boundary_weight: float = 16.0
-    terrain_violation_weight: float = 20.0
+    terrain_violation_weight: float = 10.0
 
     convergence_tol: float = 0.01
     boundary_tol: float = 0.08
     terrain_violation_tol: float = 0.01
-    terrain_violation_accuracy: int = 5
+    terrain_violation_accuracy: int = 7
     lucky_jump_threshold: float = 0.04
     start_prox_threshold: float = 0.12
 
