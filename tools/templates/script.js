@@ -14,7 +14,7 @@ const PLOT_DEFINITIONS = [
   {
     file: "phase_portrait",
     title: "Phase Portrait (Micro vs Macro)",
-    desc: "A side-by-side view of the optimizer's regime (Step Size vs Gradient Norm). <br><i>Note:</i> This plot should be interpreted <b>with a grain of salt</b>, as it is a noisy and only weakly reliable metric, best used for qualitative intuition rather than precise conclusions. <br><b>Left (Raw):</b> Shows high-frequency jitter and instability. <br><b>Right (Smooth):</b> Shows the overall flow/trend. <br><b>Diagonal Line:</b> The 1:1 reference. Points above are <b>Aggressive</b> (Momentum/Adaptive), points below are <b>Conservative</b> (SGD).",
+    desc: "A side-by-side view of the optimizer's regime (Step Size vs Gradient Norm). <br><i>Note ⚠️:</i> This plot should be interpreted <b>with a grain of salt</b>, as it is a noisy and only weakly reliable metric, best used for qualitative intuition rather than precise conclusions. <br><b>Left (Raw):</b> Shows high-frequency jitter and instability. <br><b>Right (Smooth):</b> Shows the overall flow/trend. <br><b>Diagonal Line:</b> The 1:1 reference. Points above are <b>Aggressive</b> (Momentum/Adaptive), points below are <b>Conservative</b> (SGD).",
   },
   {
     file: "update_ratio",
@@ -24,7 +24,7 @@ const PLOT_DEFINITIONS = [
   {
     file: "penalty_donut",
     title: "Tuning Cost Breakdown",
-    desc: "Breakdown of the weighted penalty terms used to score the optimizer during tuning.<br><br><b>Val:</b> Final loss value (Log-scaled).<br><b>Dist:</b> Final distance to the global minimum.<br><b>Bound:</b> Penalties for stepping outside the search space.<br><b>Speed:</b> Penalty for slow convergence relative to total iterations.<br><b>Eff:</b> Path inefficiency (tortuosity/wasted movement).<br><b>Terrain:</b> Penalty for 'tunneling' through high-loss barriers.<br><b>Jump:</b> Penalty for unrealistically large steps (teleportation).<br><b>Prox:</b> Penalty for failing to move significantly from the start.",
+    desc: "Breakdown of the weighted penalty terms used to score the optimizer during tuning.",
   },
 ];
 
@@ -50,7 +50,7 @@ function openGallery(baseUrl, optId, funcId, funcName, ext) {
   const container = modalContent.querySelector(".gallery-scroll-container");
 
   PLOT_DEFINITIONS.forEach((plot) => {
-    const imgUrl = `${baseUrl}/${optId}/${funcId}/${plot.file}${ext}`;
+    const imgUrl = `https://picsum.photos/1200`;
 
     const item = document.createElement("div");
     item.className = "gallery-item";
