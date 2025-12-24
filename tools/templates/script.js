@@ -14,7 +14,7 @@ const PLOT_DEFINITIONS = [
   {
     file: "phase_portrait",
     title: "Phase Portrait (Micro vs Macro)",
-    desc: "A side-by-side view of the optimizer's regime (Step Size vs Gradient Norm). <br><b>Left (Raw):</b> Shows high-frequency jitter and instability. <br><b>Right (Smooth):</b> Shows the overall flow/trend. <br><b>Diagonal Line:</b> The 1:1 reference. Points above are <b>Aggressive</b> (Momentum/Adaptive), points below are <b>Conservative</b> (SGD).",
+    desc: "A side-by-side view of the optimizer's regime (Step Size vs Gradient Norm). <br><i>Note:</i> This plot should be interpreted <b>with a grain of salt</b>, as it is a noisy and only weakly reliable metric, best used for qualitative intuition rather than precise conclusions. <br><b>Left (Raw):</b> Shows high-frequency jitter and instability. <br><b>Right (Smooth):</b> Shows the overall flow/trend. <br><b>Diagonal Line:</b> The 1:1 reference. Points above are <b>Aggressive</b> (Momentum/Adaptive), points below are <b>Conservative</b> (SGD).",
   },
   {
     file: "update_ratio",
