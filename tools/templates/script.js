@@ -50,7 +50,7 @@ function openGallery(baseUrl, optId, funcId, funcName, ext) {
   const container = modalContent.querySelector(".gallery-scroll-container");
 
   PLOT_DEFINITIONS.forEach((plot) => {
-    const imgUrl = `https://picsum.photos/1200`;
+    const imgUrl = `${baseUrl}/${optId}/${funcId}/${plot.file}${ext}`;
 
     const item = document.createElement("div");
     item.className = "gallery-item";
