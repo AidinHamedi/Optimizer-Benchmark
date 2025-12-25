@@ -46,23 +46,23 @@ ignore_optimizers = [
 # Error Weight: importance multiplier for final scoring (higher = more impact)
 # ==============================================================================
 [functions]
-Ackley = { iterations = 150, error_weight = 2.0 }
-"Drop-Wave" = { iterations = 150, error_weight = 0.5 }
-EggHolder = { iterations = 150, error_weight = 0.2 }
-"Goldstein-Price" = { iterations = 150, error_weight = 1.5 }
-"GradientLabyrinth" = { iterations = 150, error_weight = 0.5 }
 "Gramacy & Lee 2D" = { iterations = 100, error_weight = 2.5 }
+Weierstrass = { iterations = 300, error_weight = 2.5 }
+Ackley = { iterations = 150, error_weight = 2.0 }
+NeuralCanyon = { iterations = 150, error_weight = 2.0 }
+Rastrigin = { iterations = 150, error_weight = 2.0 }
+Rosenbrock = { iterations = 400, error_weight = 2.0 }
 Griewank = { iterations = 200, error_weight = 1.5 }
+"Goldstein-Price" = { iterations = 150, error_weight = 1.5 }
+"Lévy 13" = { iterations = 150, error_weight = 1.0 }
+MixedMichalewiczSphere = { iterations = 150, error_weight = 1.0 }
+"Drop-Wave" = { iterations = 150, error_weight = 0.5 }
+"Styblinski-Tang" = { iterations = 150, error_weight = 0.5 }
+GradientLabyrinth = { iterations = 150, error_weight = 0.5 }
+QuantumWell = { iterations = 150, error_weight = 0.5 }
+EggHolder = { iterations = 150, error_weight = 0.2 }
 Langermann = { iterations = 150, error_weight = 0.2 }
 "Langermann 2" = { iterations = 150, error_weight = 0.2 }
-"Lévy 13" = { iterations = 150, error_weight = 1.5 }
-MixedMichalewiczSphere = { iterations = 150, error_weight = 1.0 }
-"NeuralCanyon" = { iterations = 150, error_weight = 2.0 }
-"QuantumWell" = { iterations = 150, error_weight = 0.5 }
-Rastrigin = { iterations = 150, error_weight = 2 }
-Rosenbrock = { iterations = 400, error_weight = 1.5 }
-"Styblinski-Tang" = { iterations = 150, error_weight = 0.5 }
-Weierstrass = { iterations = 300, error_weight = 2.5 }
 
 # ==============================================================================
 # Optimizer Hyperparameter Search Spaces
