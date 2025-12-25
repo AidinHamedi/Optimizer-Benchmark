@@ -297,4 +297,10 @@ def objective(
             f"[Objective] Mode: {mode} | Raw Total: {error_sum:.4f} | Logged Total: {logged_error:.4f} | Breakdown: {metrics}"
         )
 
+    if math.isnan(logged_error):
+        if debug:
+            print("[Objective] NaN logged error detected")
+
+        return float("inf"), metrics
+
     return logged_error, metrics
