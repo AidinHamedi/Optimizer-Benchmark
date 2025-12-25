@@ -47,7 +47,7 @@ ignore_optimizers = [
 # ==============================================================================
 [functions]
 Ackley = { iterations = 150, error_weight = 2.0 }
-"Drop-Wave" = { iterations = 150, error_weight = 1.5 }
+"Drop-Wave" = { iterations = 150, error_weight = 0.5 }
 EggHolder = { iterations = 150, error_weight = 0.2 }
 "Goldstein-Price" = { iterations = 150, error_weight = 1.5 }
 "GradientLabyrinth" = { iterations = 150, error_weight = 0.5 }
