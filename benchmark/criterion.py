@@ -32,7 +32,7 @@ class ObjectiveConfig:
     final_val_weight: float = 1.8
     final_dist_weight: float = 2.6
     convergence_weight: float = 0.1
-    efficiency_weight: float = 0.15
+    efficiency_weight: float = 0.1
     lucky_jump_weight: float = 10.0
     start_prox_weight: float = 100.0
     boundary_weight: float = 16.0
