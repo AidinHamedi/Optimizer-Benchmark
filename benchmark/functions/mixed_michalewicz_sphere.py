@@ -12,7 +12,7 @@ ALPHA = 0.95
 SPHERE_SCALE = 0.6
 
 
-@normalize(-1.5200809240341187, 8.869929313659668)
+@normalize(-1.5201987028121948, 8.873723983764648)
 @torch.jit.script
 def mixed_michalewicz_sphere(
     x: torch.Tensor,

@@ -13,7 +13,7 @@ QUANTUM_FREQ = torch.tensor(2.5)
 QUANTUM_DECAY = torch.tensor(0.15)
 
 
-@normalize(-4.0, 12.5)
+@normalize(-3.9932661056518555, 11.901788711547852)
 @torch.jit.script
 def quantum_well(
     x: torch.Tensor,

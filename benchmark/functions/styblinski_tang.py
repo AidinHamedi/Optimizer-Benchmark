@@ -8,7 +8,7 @@ EVAL_SIZE = ((-5, 5), (-5, 5))
 GLOBAL_MINIMUM_LOC = torch.tensor([[-2.903534, -2.903534]])
 
 
-@normalize(-156.65626525878906, 917.125)
+@normalize(-156.66366577148438, 917.125)
 @torch.jit.script
 def stybtang(x: torch.Tensor) -> torch.Tensor:
     """Compute the Styblinski-Tang function.

@@ -8,7 +8,7 @@ EVAL_SIZE = ((-5.9, 5.9), (-5.9, 5.9))
 GLOBAL_MINIMUM_LOC = torch.tensor([[0.0, 0.0]])
 
 
-@normalize(-1.0, 0.0)
+@normalize(-1.0, -0.0)
 @torch.jit.script
 def drop_wave(
     x: torch.Tensor,

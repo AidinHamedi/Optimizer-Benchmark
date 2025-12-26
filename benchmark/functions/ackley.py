@@ -12,7 +12,7 @@ ACKLEY_B = torch.tensor(0.1)
 ACKLEY_C = torch.tensor(2 * torch.pi)
 
 
-@normalize(-12.718281745910645, -3.8639559745788574)
+@normalize(-12.709281921386719, -3.8630917072296143)
 @torch.jit.script
 def ackley(
     x: torch.Tensor,

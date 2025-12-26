@@ -16,7 +16,7 @@ WEIERSTRASS_PIBK = torch.pi * torch.pow(WEIERSTRASS_B, _k)
 FUNC_SCALE = 0.07692307692
 
 
-@normalize(-3.850635290145874, 3.9265196323394775)
+@normalize(-3.7680187225341797, 4.321251392364502)
 @torch.jit.script
 def weierstrass(
     x: torch.Tensor,

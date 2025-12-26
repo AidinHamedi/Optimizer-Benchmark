@@ -9,7 +9,7 @@ ROSEN_A = torch.tensor(100.0)
 GLOBAL_MINIMUM_LOC = torch.tensor([[1.0, 1.0]])
 
 
-@normalize(0.0007723920280113816, 4025.572021484375)
+@normalize(0.0, 4025.572021484375)
 @torch.jit.script
 def rosenbrock(
     x: torch.Tensor,

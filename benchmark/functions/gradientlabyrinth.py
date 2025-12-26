@@ -14,7 +14,7 @@ TRAP_FREQ = torch.tensor(4.0)
 THETA = torch.tensor(torch.pi / 4.0)
 
 
-@normalize(-2.0, 15.0)
+@normalize(0.010224738158285618, 24200.607421875)
 @torch.jit.script
 def gradient_labyrinth(
     x: torch.Tensor,

@@ -10,7 +10,7 @@ GLOBAL_MINIMUM_LOC = torch.tensor([[0.0, 0.0]])
 FUNC_SCALE = 10
 
 
-@normalize(-0.9703284502029419, 217.95753479003906)
+@normalize(-0.9906126856803894, 217.95753479003906)
 @torch.jit.script
 def griewank(
     x: torch.Tensor,

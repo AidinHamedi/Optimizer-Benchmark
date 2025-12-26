@@ -13,7 +13,7 @@ NOISE_AMP = torch.tensor(0.8)
 NOISE_FREQ = torch.tensor(30.0)
 
 
-@normalize(-0.7994629144668579, 2888.94384765625)
+@normalize(-0.800000011920929, 2881.974365234375)
 @torch.jit.script
 def neural_canyon(
     x: torch.Tensor,

@@ -8,7 +8,7 @@ EVAL_SIZE = ((-3, 3), (-3, 3))
 GLOBAL_MINIMUM_LOC = torch.tensor([[0.0, -1.0]])
 
 
-@normalize(3.0231451988220215, 1457606.625)
+@normalize(3.0030245780944824, 9143497.0)
 @torch.jit.script
 def goldstein_price(x: torch.Tensor) -> torch.Tensor:
     """Compute the Goldstein-Price function.

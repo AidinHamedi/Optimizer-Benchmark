@@ -26,7 +26,7 @@ LANGERMANN_A = torch.tensor(
 )
 
 
-@normalize(-4.629549026489258, 5.470799446105957)
+@normalize(-4.616703033447266, 5.478215217590332)
 @torch.jit.script
 def langermann(
     x: torch.Tensor,

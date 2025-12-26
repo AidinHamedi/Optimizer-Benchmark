@@ -12,7 +12,7 @@ GLOBAL_MINIMUM_LOC = torch.tensor(
 FUNC_SCALE = 51.2
 
 
-@normalize(-1454.9971923828125, 1296.7808837890625)
+@normalize(-1456.259521484375, 1296.8603515625)
 @torch.jit.script
 def eggholder(
     x: torch.Tensor,
