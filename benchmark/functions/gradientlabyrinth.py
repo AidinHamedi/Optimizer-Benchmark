@@ -3,8 +3,8 @@ import torch
 from .norm import normalize
 
 FUNCTION_NAME = "GradientLabyrinth"
-START_POS = torch.tensor([-1.2, 6.0])
-EVAL_SIZE = ((-10, 10), (-10, 10))
+START_POS = torch.tensor([-12.2, 14.0])
+EVAL_SIZE = ((-16, 16), (-16, 16))
 GLOBAL_MINIMUM_LOC = torch.tensor([[0.0, 0.0]])
 
 WALL_STEEPNESS = torch.tensor(100.0)
