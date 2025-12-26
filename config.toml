@@ -97,6 +97,9 @@ scion = { lr = [0.0001, 1.0], scale = [1.0, 1000.0] }
 scionlight = { lr = [0.0001, 1.0], scale = [1.0, 1000.0] }
 lbfgs = { lr = [0.0001, 8.0], max_iter = [1, 40, "int"], history_size = [1, 200, "int"] }
 conda = { lr = [0.0001, 8.0], update_proj_gap = [10, 400, "int"], scale = [0.0001, 12.0] }
+emofact = { lr = [0.0001, 8.0], lr_max = [0.0001, 8.0], lr_min = [0.0001, 1.0] }
+emolynx = { lr = [0.0001, 8.0], lr_max = [0.0001, 8.0], lr_min = [0.0001, 1.0] }
+emonavi = { lr = [0.0001, 8.0], lr_max = [0.0001, 8.0], lr_min = [0.0001, 1.0] }
 
 # ==============================================================================
 # Special Evaluation Arguments
