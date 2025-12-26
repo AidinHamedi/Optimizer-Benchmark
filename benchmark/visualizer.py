@@ -2,6 +2,7 @@ from pathlib import Path
 from typing import Any, Callable, Dict, Optional, Tuple
 
 import matplotlib.collections as mcoll
+import matplotlib.colors as mcolors
 import matplotlib.patches as mpatches
 import matplotlib.pyplot as plt
 import numpy as np
@@ -198,11 +199,34 @@ def _plot_surface(
     """Draws the function surface contour and the optimizer's path."""
     c, f = VIS_SETTINGS["COLORS"], VIS_SETTINGS["FONTS"]
 
+    # Detect plateau & choose scale
+    z_min, z_max = Z.min(), Z.max()
+    z_range = z_max - z_min + 1e-12
+    low_frac = np.mean(Z < z_min + 0.15 * z_range)
+
+    use_log = low_frac > 0.3 and z_range > 1e-6
+
+    if use_log:
+        if z_min > 1e-10:
+            norm = mcolors.LogNorm(vmin=z_min, vmax=z_max)
+            levels = np.geomspace(z_min, z_max, 20)
+        else:
+            linthresh = max(abs(z_min) * 10, z_range * 0.01, 1e-8)
+            norm = mcolors.SymLogNorm(linthresh=linthresh, vmin=z_min, vmax=z_max)
+            levels = np.linspace(z_min, z_max, 25)
+    else:
+        norm, levels = None, 20
+
     with PlotContext(out_path, figsize=VIS_SETTINGS["SIZES"]["SQUARE"]) as (fig, ax):
         ax.imshow(
-            Z, extent=(*bounds[0], *bounds[1]), origin="lower", cmap="jet", alpha=0.1
+            Z,
+            extent=(*bounds[0], *bounds[1]),
+            origin="lower",
+            cmap="jet",
+            alpha=0.1,
+            norm=norm,
         )
-        cs = ax.contour(X, Y, Z, levels=20, cmap="jet")
+        cs = ax.contour(X, Y, Z, levels=levels, cmap="jet", norm=norm)
         fig.colorbar(cs, ax=ax, label="f(x, y)", shrink=0.8)
 
         ax.plot(
