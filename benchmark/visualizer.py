@@ -8,6 +8,11 @@ import matplotlib.pyplot as plt
 import numpy as np
 import torch
 from matplotlib.gridspec import GridSpec
+from matplotlib.ticker import (
+    LogLocator,
+    MaxNLocator,
+    ScalarFormatter,
+)
 
 from .functions import scale_eval_size
 from .utils.surface import compute_surface
@@ -204,7 +209,7 @@ def _plot_surface(
     z_range = z_max - z_min + 1e-12
     low_frac = np.mean(Z < z_min + 0.15 * z_range)
 
-    use_log = low_frac > 0.3 and z_range > 1e-6
+    use_log = low_frac > 0.3 and z_range > 1e-6 and z_min > 1e-12
 
     if use_log:
         norm = mcolors.LogNorm(vmin=z_min, vmax=z_max)
@@ -222,7 +227,52 @@ def _plot_surface(
             norm=norm,
         )
         cs = ax.contour(X, Y, Z, levels=levels, cmap="jet", norm=norm)
-        fig.colorbar(cs, ax=ax, label="f(x, y)", shrink=0.8)
+
+        cbar = fig.colorbar(cs, ax=ax, shrink=0.8, pad=0.02)
+
+        if use_log:
+
+            def log_fmt(x, _):
+                if x >= 1:
+                    return f"{x:.1f}"
+                if x >= 0.01:
+                    return f"{x:.2f}"
+                return f"{x:.1e}"
+
+            cbar.ax.yaxis.set_major_locator(LogLocator(base=10, numticks=8))
+            cbar.ax.yaxis.set_minor_locator(
+                LogLocator(base=10, subs="auto", numticks=12)
+            )
+            cbar.ax.yaxis.set_major_formatter(plt.FuncFormatter(log_fmt))
+        else:
+            cbar.ax.yaxis.set_major_formatter(ScalarFormatter(useMathText=True))
+            cbar.ax.yaxis.get_major_formatter().set_powerlimits((-2, 3))
+            cbar.ax.yaxis.set_major_locator(MaxNLocator(nbins=6, prune="both"))
+
+        for val, color, label in [
+            (data["z"][0], "lime", "S"),
+            (data["z"][-1], "red", "F"),
+        ]:
+            if z_min <= val <= z_max:
+                cbar.ax.axhline(val, color=color, lw=2.5, alpha=0.9)
+                cbar.ax.text(
+                    -0.2,
+                    val,
+                    label,
+                    color=color,
+                    fontsize=9,
+                    fontweight="bold",
+                    va="center",
+                    ha="right",
+                    transform=cbar.ax.get_yaxis_transform(),
+                )
+
+        scale_label = "log" if use_log else ""
+        cbar.set_label(
+            f"f(x,y) {f'[{scale_label}]' if scale_label else ''}",
+            fontsize=f["LABEL_SIZE"],
+        )
+        cbar.ax.tick_params(labelsize=f["TICK_SIZE"])
 
         ax.plot(
             data["xs"],
@@ -265,7 +315,8 @@ def _plot_surface(
 
         ax.set_title(title, color=c["TEXT"], **f["TITLE"])
         ax.set_aspect("equal")
-        ax.legend(loc="upper left", fontsize=f["LEGEND_SIZE"])
+
+        leg1 = ax.legend(loc="upper left", fontsize=f["LEGEND_SIZE"])
 
         sorted_metrics = sorted(
             [(k, v) for k, v in metrics.items() if v > 0],
@@ -285,6 +336,7 @@ def _plot_surface(
                 title="Evaluation Breakdown",
                 fontsize=f["LEGEND_SIZE"],
             )
+            ax.add_artist(leg1)
 
 
 def _plot_dynamics(out_path: Path, data: Dict[str, np.ndarray], name: str):
