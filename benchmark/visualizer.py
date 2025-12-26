@@ -260,17 +260,17 @@ def _plot_surface(
                     val,
                     label,
                     color=color,
-                    fontsize=9,
+                    fontsize=f["LABEL_SIZE"],
                     fontweight="bold",
                     va="center",
                     ha="right",
                     transform=cbar.ax.get_yaxis_transform(),
                 )
 
-        scale_label = "log" if use_log else ""
         cbar.set_label(
-            f"f(x,y) {f'[{scale_label}]' if scale_label else ''}",
+            f"f(x,y) [{'Log' if use_log else 'Linear'}]",
             fontsize=f["LABEL_SIZE"],
+            fontweight="bold",
         )
         cbar.ax.tick_params(labelsize=f["TICK_SIZE"])
 
