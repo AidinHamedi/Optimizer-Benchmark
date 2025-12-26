@@ -207,13 +207,8 @@ def _plot_surface(
     use_log = low_frac > 0.3 and z_range > 1e-6
 
     if use_log:
-        if z_min > 1e-10:
-            norm = mcolors.LogNorm(vmin=z_min, vmax=z_max)
-            levels = np.geomspace(z_min, z_max, 20)
-        else:
-            linthresh = max(abs(z_min) * 10, z_range * 0.01, 1e-8)
-            norm = mcolors.SymLogNorm(linthresh=linthresh, vmin=z_min, vmax=z_max)
-            levels = np.linspace(z_min, z_max, 25)
+        norm = mcolors.LogNorm(vmin=z_min, vmax=z_max)
+        levels = np.geomspace(z_min, z_max, 20)
     else:
         norm, levels = None, 20
 

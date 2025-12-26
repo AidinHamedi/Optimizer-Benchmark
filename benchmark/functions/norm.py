@@ -20,7 +20,7 @@ def normalize(
     """
     scale_factor = (out_max - out_min) / (max_val - min_val)
     scale_tensor = torch.tensor((out_max - out_min) / (max_val - min_val))
-    offset_tensor = torch.tensor(out_min - min_val * scale_factor)
+    offset_tensor = torch.tensor((out_min - min_val * scale_factor) + 1e-6)
 
     def decorator(func: Callable):
         @wraps(func)
