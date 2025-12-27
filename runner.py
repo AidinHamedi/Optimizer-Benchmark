@@ -261,7 +261,7 @@ def main(**kwargs):
                 functions=funcs,
                 debug=debug,
             )
-        except ZeroDivisionError as e:
+        except Exception as e:
             print(f"Failed to benchmark {optimizer_name}: {e}")
             if debug:
                 traceback.print_exc()
