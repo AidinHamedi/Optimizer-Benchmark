@@ -34,7 +34,7 @@ class ObjectiveConfig:
     convergence_weight: float = 0.1
     efficiency_weight: float = 0.1
     lucky_jump_weight: float = 10.0
-    start_prox_weight: float = 100.0
+    start_prox_weight: float = 200.0
     boundary_weight: float = 16.0
     terrain_violation_weight: float = 14.0
 
@@ -43,7 +43,7 @@ class ObjectiveConfig:
     terrain_violation_tol: float = 0.01
     terrain_violation_accuracy: int = 7
     lucky_jump_threshold: float = 0.04
-    start_prox_threshold: float = 0.12
+    start_prox_threshold: float = 0.16
 
 
 def _get_diagonal(bounds: Tuple[Tuple[float, float], Tuple[float, float]]) -> float:
@@ -186,6 +186,18 @@ def _calc_terrain_violation(
     return total_violation / accuracy
 
 
+def _root_piecewise(x, t, r=3):
+    """
+    Piecewise function: returns x^(1/r) up to transition t,
+    then continues linearly with slope equal to derivative at t.
+    """
+    if x <= t:
+        return x ** (1 / r)
+    ty = t ** (1 / r)
+    slope = (1 / r) * t ** ((1 / r) - 1)
+    return ty + slope * (x - t)
+
+
 def objective(
     steps: torch.Tensor,
     criterion: Callable[[torch.Tensor], torch.Tensor],
@@ -226,7 +238,7 @@ def objective(
     # Final function value (log-scaled)
     final_pos = steps[:, -1]
     raw_val = criterion(final_pos).item()
-    val_penalty = math.log1p(max(0, raw_val)) * config.final_val_weight
+    val_penalty = _root_piecewise(raw_val, 0.5, r=4) * config.final_val_weight
     metrics["val_penalty"] = val_penalty
     error_sum += val_penalty
 
