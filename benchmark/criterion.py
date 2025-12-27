@@ -238,7 +238,7 @@ def objective(
     # Final function value (log-scaled)
     final_pos = steps[:, -1]
     raw_val = criterion(final_pos).item()
-    val_penalty = _root_piecewise(max(raw_val, 0), 0.5, r=4) * config.final_val_weight
+    val_penalty = _root_piecewise(max(raw_val, 0), 0.5, r=5) * config.final_val_weight
     metrics["val_penalty"] = val_penalty
     error_sum += val_penalty
 
