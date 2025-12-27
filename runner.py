@@ -24,25 +24,6 @@ OPTIMIZER_PATCHES = {
     "ranger25": lambda cfg, iters: cfg.update({"orthograd": False}),
     "bsam": lambda cfg, iters: cfg.update({"num_data": 1}),
 }
-# Optimizers with non-standard signatures requiring explicit weight_decay=0.0
-SPECIAL_WEIGHT_DECAY_OPTIMIZERS = {
-    "adagc",
-    "adalite",
-    "adammini",
-    "adams",
-    "bsam",
-    "emofact",
-    "emolynx",
-    "emonavi",
-    "emoneco",
-    "emozeal",
-    "fadam",
-    "ranger21",
-    "sgdsai",
-    "soap",
-    "splus",
-    "tiger",
-}
 
 
 def read_toml_config(path: Path) -> dict:
@@ -122,18 +103,27 @@ def get_optimizer_factory(optimizer_name: str, debug: bool = False):
         if optimizer_name == "adammini":
             # AdamMini takes model directly, not model.parameters()
             return optimizer_class(model, weight_decay=0.0, **optimizer_config)  # type: ignore
-        elif optimizer_name in SPECIAL_WEIGHT_DECAY_OPTIMIZERS:
-            if debug:
-                print(f"Creating {optimizer_name} (with weight decay mod)")
-            return optimizer_class(
-                model.parameters(),
-                weight_decay=0.0,  # type: ignore
-                **optimizer_config,
-            )
         else:
             if debug:
                 print(f"Creating {optimizer_name}")
-            return optimizer_class(model.parameters(), **optimizer_config)
+            try:
+                return optimizer_class(
+                    model.parameters(),
+                    weight_decay=0.0,  # type: ignore
+                    **optimizer_config,
+                )
+            except TypeError as e:
+                if debug:
+                    print(
+                        f"Failed to create {optimizer_name} (likely due to not supporting weight_decay argument): {e}"
+                    )
+                    traceback.print_exc()
+                    print("Trying again without weight_decay")
+
+                return optimizer_class(
+                    model.parameters(),
+                    **optimizer_config,
+                )
 
     return factory
 
@@ -271,7 +261,7 @@ def main(**kwargs):
                 functions=funcs,
                 debug=debug,
             )
-        except Exception as e:
+        except ZeroDivisionError as e:
             print(f"Failed to benchmark {optimizer_name}: {e}")
             if debug:
                 traceback.print_exc()
