@@ -94,7 +94,7 @@
                 </a>
                 <a href="#functions" class="stat-item">
                     <span class="stat-label">Test Suite</span>
-                    <span class="stat-value">19 Mathematical Functions</span>
+                    <span class="stat-value">16 Functions</span>
                 </a>
                 <a
                     href="https://pytorch-optimizers.readthedocs.io/en/latest/"
@@ -104,20 +104,6 @@
                     <span class="stat-label">Library</span>
                     <span class="stat-value">pytorch_optimizer</span>
                 </a>
-            </div>
-
-            <div class="limitations-box content-max-width">
-                <span class="limitations-icon">⚠️</span>
-                <div class="limitations-content">
-                    <strong>Scope Limitation:</strong> These tests are performed
-                    exclusively on synthetic 2D mathematical functions. Results
-                    demonstrate algorithmic behavior in low-dimensional settings
-                    and
-                    <strong
-                        >do not reflect performance in high-dimensional neural
-                        network training</strong
-                    >.
-                </div>
             </div>
 
             <main>
@@ -146,14 +132,27 @@
                     </div>
                 </div>
 
+                <!-- Loading Spinner -->
+                <div id="loader-container" class="loader-container">
+                    <div class="loader"></div>
+                    <p>Loading benchmark data...</p>
+                </div>
+
                 <!-- Rankings Section -->
-                <section id="rankings">
+                <section
+                    id="rankings"
+                    style="
+                        display: none;
+                        opacity: 0;
+                        transition: opacity 0.3s ease;
+                    "
+                >
                     <div class="tabs">
                         <button
                             class="tab-link active"
-                            onclick="openTab(event, 'error-rate')"
+                            onclick="openTab(event, 'weighted-rank')"
                         >
-                            Weighted Error Rate
+                            Weighted Average Rank
                         </button>
                         <button
                             class="tab-link"
@@ -184,23 +183,23 @@
                         </div>
                     </div>
 
-                    <!-- Error Rate shown by default -->
+                    <!-- Weighted Rank shown by default -->
                     <div
-                        id="error-rate"
+                        id="weighted-rank"
                         class="tab-content"
                         style="display: block"
                     >
                         <div class="table-container">
-                            <table id="error-rate-table">
+                            <table id="weighted-rank-table">
                                 <thead>
                                     <tr>
                                         <th>Rank</th>
                                         <th>Optimizer</th>
-                                        <th>Error</th>
+                                        <th>Score</th>
                                         <th>Visuals</th>
                                     </tr>
                                 </thead>
-                                <tbody id="error-rate-table-body"></tbody>
+                                <tbody id="weighted-rank-table-body"></tbody>
                             </table>
                         </div>
                     </div>
@@ -214,12 +213,6 @@
                         target="_blank"
                         class="function-card"
                         >Ackley</a
-                    >
-                    <a
-                        href="https://www.sfu.ca/~ssurjano/crossit.html"
-                        target="_blank"
-                        class="function-card"
-                        >Cross-in-Tray</a
                     >
                     <a
                         href="https://www.sfu.ca/~ssurjano/drop.html"
@@ -252,12 +245,6 @@
                         >Langermann</a
                     >
                     <a
-                        href="https://www.sfu.ca/~ssurjano/levy.html"
-                        target="_blank"
-                        class="function-card"
-                        >Lévy</a
-                    >
-                    <a
                         href="https://www.sfu.ca/~ssurjano/levy13.html"
                         target="_blank"
                         class="function-card"
@@ -276,24 +263,6 @@
                         >Rosenbrock</a
                     >
                     <a
-                        href="https://www.sfu.ca/~ssurjano/schaffer2.html"
-                        target="_blank"
-                        class="function-card"
-                        >Schaffer N. 2</a
-                    >
-                    <a
-                        href="https://www.sfu.ca/~ssurjano/schaffer4.html"
-                        target="_blank"
-                        class="function-card"
-                        >Schaffer N. 4</a
-                    >
-                    <a
-                        href="https://www.sfu.ca/~ssurjano/shubert.html"
-                        target="_blank"
-                        class="function-card"
-                        >Shubert</a
-                    >
-                    <a
                         href="https://www.sfu.ca/~ssurjano/stybtang.html"
                         target="_blank"
                         class="function-card"
@@ -306,12 +275,6 @@
                         >Weierstrass</a
                     >
                     <a
-                        href="https://www.sfu.ca/~ssurjano/schwef.html"
-                        target="_blank"
-                        class="function-card"
-                        >Schwefel</a
-                    >
-                    <a
                         href="https://www.sfu.ca/~ssurjano/michal.html"
                         target="_blank"
                         class="function-card"
@@ -322,6 +285,23 @@
                         target="_blank"
                         class="function-card"
                         >Goldstein-Price</a
+                    >
+                    <a
+                        href="https://aidinhamedi.github.io/Optimizer-Benchmark/functions/gradient_labyrinth"
+                        target="_blank"
+                        class="function-card"
+                        >Gradient Labyrinth</a
+                    >
+                    <a
+                        href="https://aidinhamedi.github.io/Optimizer-Benchmark/functions/neural_canyon"
+                        target="_blank"
+                        class="function-card"
+                        >Neural Canyon</a
+                    ><a
+                        href="https://aidinhamedi.github.io/Optimizer-Benchmark/functions/quantum_well"
+                        target="_blank"
+                        class="function-card"
+                        >Quantum Well</a
                     >
                 </div>
 
@@ -350,9 +330,9 @@
                                 is recorded and plotted on the contour map.
                             </li>
                             <li>
-                                <strong>Scoring:</strong> Ranked by final
-                                distance from the global minimum and convergence
-                                speed.
+                                <strong>Scoring:</strong> Ranked by the weighted
+                                mean of their ranks across all functions (lower
+                                is better).
                             </li>
                         </ul>
                     </div>
@@ -365,7 +345,7 @@
                     <details>
                         <summary>What functions are used?</summary>
                         <div class="faq-content">
-                            The suite uses 19 standard optimization test
+                            The suite uses 16 standard optimization test
                             functions, including multimodal functions (e.g.,
                             Ackley) and valley-shaped functions (e.g.,
                             Rosenbrock).
@@ -388,11 +368,10 @@
                     <details>
                         <summary>How are the rankings calculated?</summary>
                         <div class="faq-content">
-                            <strong>Average Rank</strong> is the mean position
-                            across all functions.
-                            <strong>Weighted Error Rate</strong> is the
-                            aggregated distance to the global minimum, weighted
-                            by function difficulty.
+                            <strong>Score</strong> is the weighted mean of the
+                            optimizer's rank across all test functions. A score
+                            of 1.0 means the optimizer was #1 on every function
+                            (weighted).
                         </div>
                     </details>
                 </section>

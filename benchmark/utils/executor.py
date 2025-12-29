@@ -1,4 +1,5 @@
 import warnings
+from typing import Any, Callable, Dict
 
 import torch
 
@@ -14,17 +15,17 @@ def execute_steps(
     use_closure: bool = False,
     use_graph: bool = False,
 ):
-    """Executes optimization steps and records the trajectory.
+    """Execute optimization steps and record the trajectory.
 
     Args:
-        model (Pos2D): The model to be optimized.
-        optimizer (torch.optim.Optimizer): The optimizer to use.
-        num_iters (int): The number of optimization iterations.
-        use_closure (bool, optional): Whether to use a closure for the optimizer. Defaults to False.
-        use_graph (bool, optional): Whether to create a graph of the backward pass. Defaults to False.
+        model: The 2D position model to optimize.
+        optimizer: The optimizer instance to use.
+        num_iters: Number of optimization iterations.
+        use_closure: Use a closure function for the optimizer step.
+        use_graph: Create graph during backward pass (for second-order optimizers).
 
     Returns:
-        torch.Tensor: A tensor of shape (2, num_iters + 1) containing the trajectory of the model's coordinates.
+        Tensor of shape [2, num_iters + 1] containing the trajectory coordinates.
     """
     cords = torch.zeros((2, num_iters + 1), dtype=torch.float32)
     cords[:, 0] = model.cords.detach()
@@ -53,3 +54,38 @@ def execute_steps(
             cords[:, i] = model.cords.detach()
 
     return cords
+
+
+def optimize(
+    criterion: Callable[[torch.Tensor], torch.Tensor],
+    optimizer_maker: Callable[[Pos2D, Dict, int], Any],
+    optimizer_conf: Dict[str, Any],
+    start_pos: torch.Tensor,
+    num_iters: int,
+    eval_args: Dict[str, Any],
+):
+    """Run optimization and return the trajectory.
+
+    Args:
+        criterion: The objective function to minimize.
+        optimizer_maker: Factory function that creates an optimizer instance.
+        optimizer_conf: Configuration dictionary for the optimizer.
+        start_pos: Starting position as a tensor [x, y].
+        num_iters: Number of optimization iterations.
+        eval_args: Additional arguments (use_closure, use_graph) for execution.
+
+    Returns:
+        Tensor of shape [2, num_iters + 1] containing the trajectory coordinates.
+
+    Raises:
+        ValueError: If the optimizer produces NaN or Inf values.
+    """
+    cords = Pos2D(criterion, start_pos)
+    optimizer = optimizer_maker(cords, optimizer_conf, num_iters)
+
+    steps = execute_steps(cords, optimizer, num_iters, **eval_args)
+
+    if not torch.isfinite(steps).all():
+        raise ValueError("Optimizer generated NaN or Inf values.")
+
+    return steps

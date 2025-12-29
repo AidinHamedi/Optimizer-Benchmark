@@ -13,16 +13,19 @@ GLOBAL_MINIMUM_LOC = torch.tensor([[0.0, 0.0]])
 def drop_wave(
     x: torch.Tensor,
 ) -> torch.Tensor:
-    """
-    Computes the Drop-Wave function.
+    """Compute the Drop-Wave function. (Modified)
 
     Args:
-        x (torch.Tensor): A tensor with last dimension size 2, representing [x, y].
+        x: Input tensor of shape [2] representing [x, y] coordinates.
 
     Returns:
-        torch.Tensor: Scalar tensor with the Drop-Wave function value.
+        Scalar tensor with the function value.
     """
     r2 = torch.sum(x**2, dim=-1)
-    frac1 = 1 + torch.cos(12 * torch.sqrt(r2))
+    r = torch.sqrt(r2)
+
+    freq = 0.8 + 6 * torch.sqrt(r2)
+
+    frac1 = 1 + torch.cos(freq * r)
     frac2 = 0.5 * r2 + 2
     return -frac1 / frac2

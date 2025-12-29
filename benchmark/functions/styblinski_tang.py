@@ -3,22 +3,22 @@ import torch
 from .norm import normalize
 
 FUNCTION_NAME = "Styblinski-Tang"
-START_POS = torch.tensor([4.45, 4.1])
+START_POS = torch.tensor([4.65, 4.7])
 EVAL_SIZE = ((-5, 5), (-5, 5))
+CRITERION_OVERRIDES = {"val_scaler_root": 4}
 GLOBAL_MINIMUM_LOC = torch.tensor([[-2.903534, -2.903534]])
 
 
-@normalize(-156.65626525878906, 917.125)
+@normalize(-156.66366577148438, 917.125)
 @torch.jit.script
 def stybtang(x: torch.Tensor) -> torch.Tensor:
-    """
-    Computes the Styblinski–Tang function.
+    """Compute the Styblinski-Tang function.
 
     Args:
-        x (torch.Tensor): A tensor with last dimension size 2, representing [x, y].
+        x: Input tensor of shape [2] representing [x, y] coordinates.
 
     Returns:
-        torch.Tensor: Scalar tensor with the Styblinski–Tang function value.
+        Scalar tensor with the function value.
     """
     y = torch.sum(x**4 - 16 * x**2 + 5 * x)
     return y

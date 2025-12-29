@@ -1,3 +1,5 @@
+"""Generate XML sitemap for the optimizer benchmark website."""
+
 import xml.etree.ElementTree as ET
 from concurrent.futures import ThreadPoolExecutor
 from datetime import date
@@ -17,7 +19,7 @@ SITEMAP_ROOT = ET.Element("urlset", xmlns="http://www.sitemaps.org/schemas/sitem
 
 
 def is_url_accessible(url: str, timeout: int = 5) -> bool:
-    """Check if a URL is accessible (HTTP 200)."""
+    """Check if a URL returns HTTP 200."""
     try:
         response = requests.head(url, allow_redirects=True, timeout=timeout)
         return response.status_code == 200
@@ -25,8 +27,10 @@ def is_url_accessible(url: str, timeout: int = 5) -> bool:
         return False
 
 
-def add_url(loc, lastmod=None, priority=None):
-    """Add a URL to the sitemap."""
+def add_url(
+    loc: str, lastmod: str | None = None, priority: float | None = None
+) -> None:
+    """Add a URL entry to the sitemap."""
     url = ET.SubElement(SITEMAP_ROOT, "url")
     ET.SubElement(url, "loc").text = loc
     if lastmod:
@@ -35,7 +39,8 @@ def add_url(loc, lastmod=None, priority=None):
         ET.SubElement(url, "priority").text = str(priority)
 
 
-def main(console: Console):
+def main(console: Console) -> None:
+    """Generate and save the sitemap XML file."""
     console.info("Generating sitemap...")
 
     try:

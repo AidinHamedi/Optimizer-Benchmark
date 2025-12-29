@@ -6,7 +6,7 @@
         <title>dadaptadagrad - Optimizer Performance Benchmark</title>
         <meta
             name="description"
-            content="Detailed benchmark results and trajectory visualizations for the dadaptadagrad optimizer on 18 test functions."
+            content="Detailed benchmark results and trajectory visualizations for the dadaptadagrad optimizer."
         />
         <link rel="stylesheet" href="styles.css" />
     </head>
@@ -32,19 +32,19 @@
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-label">Average Rank</div>
+                    <div class="stat-value">#87</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Weighted Rank</div>
                     <div class="stat-value">#89</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-label">Error Rate Rank</div>
-                    <div class="stat-value">#82</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Weighted Avg Error</div>
-                    <div class="stat-value">3.4398</div>
+                    <div class="stat-label">Score (W. Mean)</div>
+                    <div class="stat-value">75.2407</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-label">Functions Tested</div>
-                    <div class="stat-value">20</div>
+                    <div class="stat-value">17</div>
                 </div>
             </div>
 
@@ -55,17 +55,32 @@
                 compared to all other optimizers tested.
             </p>
 
-            <div class="gallery"><div class="card" data-rank="50">
-    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/dadaptadagrad/Schaffer%202.jpg')">
+            <div class="gallery"><div
+    class="card"
+    data-rank="32"
+    onclick="
+        openGallery(
+            'https://raw.githack.com/AidinHamedi/Optimizer-Benchmark/vis-base/results',
+            'dadaptadagrad',
+            'Styblinski-Tang',
+            'Styblinski-Tang',
+            '.jpg',
+        )
+    "
+>
+    <div class="image-wrapper">
         <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/dadaptadagrad/Schaffer%202.jpg"
-            alt="dadaptadagrad benchmark visualization on Schaffer 2"
+            src="https://raw.githack.com/AidinHamedi/Optimizer-Benchmark/vis-base/results/dadaptadagrad/Styblinski-Tang/surface.jpg"
+            alt="Styblinski-Tang visualization"
             loading="lazy"
-            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
+            onerror="
+                this.parentNode.innerHTML =
+                    '<div class=&quot;fallback&quot;>Not available</div>'
+            "
         />
-        <div class="rank-badge">#50</div>
+        <div class="rank-badge">#32</div>
 
-        <button class="enlarge-btn" aria-label="Enlarge image">
+        <div class="enlarge-btn" aria-label="Open Analysis">
             <svg
                 width="20"
                 height="20"
@@ -73,289 +88,41 @@
                 stroke="currentColor"
                 stroke-width="2"
                 viewBox="0 0 24 24"
-                stroke-linecap="round"
-                stroke-linejoin="round"
             >
                 <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
             </svg>
-        </button>
-    </div>
-    <div class="card-content">
-        <h3 class="function-name">Schaffer 2</h3>
-    </div>
-</div>
-<div class="card" data-rank="52">
-    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/dadaptadagrad/Lévy.jpg')">
-        <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/dadaptadagrad/Lévy.jpg"
-            alt="dadaptadagrad benchmark visualization on Lévy"
-            loading="lazy"
-            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
-        />
-        <div class="rank-badge">#52</div>
-
-        <button class="enlarge-btn" aria-label="Enlarge image">
-            <svg
-                width="20"
-                height="20"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                viewBox="0 0 24 24"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-            >
-                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
-            </svg>
-        </button>
-    </div>
-    <div class="card-content">
-        <h3 class="function-name">Lévy</h3>
-    </div>
-</div>
-<div class="card" data-rank="65">
-    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/dadaptadagrad/Rosenbrock.jpg')">
-        <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/dadaptadagrad/Rosenbrock.jpg"
-            alt="dadaptadagrad benchmark visualization on Rosenbrock"
-            loading="lazy"
-            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
-        />
-        <div class="rank-badge">#65</div>
-
-        <button class="enlarge-btn" aria-label="Enlarge image">
-            <svg
-                width="20"
-                height="20"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                viewBox="0 0 24 24"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-            >
-                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
-            </svg>
-        </button>
-    </div>
-    <div class="card-content">
-        <h3 class="function-name">Rosenbrock</h3>
-    </div>
-</div>
-<div class="card" data-rank="68">
-    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/dadaptadagrad/EggHolder.jpg')">
-        <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/dadaptadagrad/EggHolder.jpg"
-            alt="dadaptadagrad benchmark visualization on EggHolder"
-            loading="lazy"
-            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
-        />
-        <div class="rank-badge">#68</div>
-
-        <button class="enlarge-btn" aria-label="Enlarge image">
-            <svg
-                width="20"
-                height="20"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                viewBox="0 0 24 24"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-            >
-                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
-            </svg>
-        </button>
-    </div>
-    <div class="card-content">
-        <h3 class="function-name">EggHolder</h3>
-    </div>
-</div>
-<div class="card" data-rank="69">
-    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/dadaptadagrad/Lévy%2013.jpg')">
-        <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/dadaptadagrad/Lévy%2013.jpg"
-            alt="dadaptadagrad benchmark visualization on Lévy 13"
-            loading="lazy"
-            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
-        />
-        <div class="rank-badge">#69</div>
-
-        <button class="enlarge-btn" aria-label="Enlarge image">
-            <svg
-                width="20"
-                height="20"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                viewBox="0 0 24 24"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-            >
-                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
-            </svg>
-        </button>
-    </div>
-    <div class="card-content">
-        <h3 class="function-name">Lévy 13</h3>
-    </div>
-</div>
-<div class="card" data-rank="73">
-    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/dadaptadagrad/Cross-in-Tray.jpg')">
-        <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/dadaptadagrad/Cross-in-Tray.jpg"
-            alt="dadaptadagrad benchmark visualization on Cross-in-Tray"
-            loading="lazy"
-            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
-        />
-        <div class="rank-badge">#73</div>
-
-        <button class="enlarge-btn" aria-label="Enlarge image">
-            <svg
-                width="20"
-                height="20"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                viewBox="0 0 24 24"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-            >
-                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
-            </svg>
-        </button>
-    </div>
-    <div class="card-content">
-        <h3 class="function-name">Cross-in-Tray</h3>
-    </div>
-</div>
-<div class="card" data-rank="77">
-    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/dadaptadagrad/Drop-Wave.jpg')">
-        <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/dadaptadagrad/Drop-Wave.jpg"
-            alt="dadaptadagrad benchmark visualization on Drop-Wave"
-            loading="lazy"
-            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
-        />
-        <div class="rank-badge">#77</div>
-
-        <button class="enlarge-btn" aria-label="Enlarge image">
-            <svg
-                width="20"
-                height="20"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                viewBox="0 0 24 24"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-            >
-                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
-            </svg>
-        </button>
-    </div>
-    <div class="card-content">
-        <h3 class="function-name">Drop-Wave</h3>
-    </div>
-</div>
-<div class="card" data-rank="80">
-    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/dadaptadagrad/Goldstein-Price.jpg')">
-        <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/dadaptadagrad/Goldstein-Price.jpg"
-            alt="dadaptadagrad benchmark visualization on Goldstein-Price"
-            loading="lazy"
-            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
-        />
-        <div class="rank-badge">#80</div>
-
-        <button class="enlarge-btn" aria-label="Enlarge image">
-            <svg
-                width="20"
-                height="20"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                viewBox="0 0 24 24"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-            >
-                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
-            </svg>
-        </button>
-    </div>
-    <div class="card-content">
-        <h3 class="function-name">Goldstein-Price</h3>
-    </div>
-</div>
-<div class="card" data-rank="84">
-    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/dadaptadagrad/Langermann%202.jpg')">
-        <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/dadaptadagrad/Langermann%202.jpg"
-            alt="dadaptadagrad benchmark visualization on Langermann 2"
-            loading="lazy"
-            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
-        />
-        <div class="rank-badge">#84</div>
-
-        <button class="enlarge-btn" aria-label="Enlarge image">
-            <svg
-                width="20"
-                height="20"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                viewBox="0 0 24 24"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-            >
-                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
-            </svg>
-        </button>
-    </div>
-    <div class="card-content">
-        <h3 class="function-name">Langermann 2</h3>
-    </div>
-</div>
-<div class="card" data-rank="85">
-    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/dadaptadagrad/Styblinski-Tang.jpg')">
-        <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/dadaptadagrad/Styblinski-Tang.jpg"
-            alt="dadaptadagrad benchmark visualization on Styblinski-Tang"
-            loading="lazy"
-            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
-        />
-        <div class="rank-badge">#85</div>
-
-        <button class="enlarge-btn" aria-label="Enlarge image">
-            <svg
-                width="20"
-                height="20"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                viewBox="0 0 24 24"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-            >
-                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
-            </svg>
-        </button>
+        </div>
     </div>
     <div class="card-content">
         <h3 class="function-name">Styblinski-Tang</h3>
     </div>
 </div>
-<div class="card" data-rank="85">
-    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/dadaptadagrad/Weierstrass.jpg')">
+<div
+    class="card"
+    data-rank="39"
+    onclick="
+        openGallery(
+            'https://raw.githack.com/AidinHamedi/Optimizer-Benchmark/vis-base/results',
+            'dadaptadagrad',
+            'Lévy%2013',
+            'Lévy 13',
+            '.jpg',
+        )
+    "
+>
+    <div class="image-wrapper">
         <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/dadaptadagrad/Weierstrass.jpg"
-            alt="dadaptadagrad benchmark visualization on Weierstrass"
+            src="https://raw.githack.com/AidinHamedi/Optimizer-Benchmark/vis-base/results/dadaptadagrad/Lévy%2013/surface.jpg"
+            alt="Lévy 13 visualization"
             loading="lazy"
-            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
+            onerror="
+                this.parentNode.innerHTML =
+                    '<div class=&quot;fallback&quot;>Not available</div>'
+            "
         />
-        <div class="rank-badge">#85</div>
+        <div class="rank-badge">#39</div>
 
-        <button class="enlarge-btn" aria-label="Enlarge image">
+        <div class="enlarge-btn" aria-label="Open Analysis">
             <svg
                 width="20"
                 height="20"
@@ -363,28 +130,41 @@
                 stroke="currentColor"
                 stroke-width="2"
                 viewBox="0 0 24 24"
-                stroke-linecap="round"
-                stroke-linejoin="round"
             >
                 <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
             </svg>
-        </button>
+        </div>
     </div>
     <div class="card-content">
-        <h3 class="function-name">Weierstrass</h3>
+        <h3 class="function-name">Lévy 13</h3>
     </div>
 </div>
-<div class="card" data-rank="85">
-    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/dadaptadagrad/MixedMichalewiczSphere.jpg')">
+<div
+    class="card"
+    data-rank="54"
+    onclick="
+        openGallery(
+            'https://raw.githack.com/AidinHamedi/Optimizer-Benchmark/vis-base/results',
+            'dadaptadagrad',
+            'Rosenbrock',
+            'Rosenbrock',
+            '.jpg',
+        )
+    "
+>
+    <div class="image-wrapper">
         <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/dadaptadagrad/MixedMichalewiczSphere.jpg"
-            alt="dadaptadagrad benchmark visualization on MixedMichalewiczSphere"
+            src="https://raw.githack.com/AidinHamedi/Optimizer-Benchmark/vis-base/results/dadaptadagrad/Rosenbrock/surface.jpg"
+            alt="Rosenbrock visualization"
             loading="lazy"
-            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
+            onerror="
+                this.parentNode.innerHTML =
+                    '<div class=&quot;fallback&quot;>Not available</div>'
+            "
         />
-        <div class="rank-badge">#85</div>
+        <div class="rank-badge">#54</div>
 
-        <button class="enlarge-btn" aria-label="Enlarge image">
+        <div class="enlarge-btn" aria-label="Open Analysis">
             <svg
                 width="20"
                 height="20"
@@ -392,28 +172,83 @@
                 stroke="currentColor"
                 stroke-width="2"
                 viewBox="0 0 24 24"
-                stroke-linecap="round"
-                stroke-linejoin="round"
             >
                 <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
             </svg>
-        </button>
+        </div>
+    </div>
+    <div class="card-content">
+        <h3 class="function-name">Rosenbrock</h3>
+    </div>
+</div>
+<div
+    class="card"
+    data-rank="74"
+    onclick="
+        openGallery(
+            'https://raw.githack.com/AidinHamedi/Optimizer-Benchmark/vis-base/results',
+            'dadaptadagrad',
+            'MixedMichalewiczSphere',
+            'MixedMichalewiczSphere',
+            '.jpg',
+        )
+    "
+>
+    <div class="image-wrapper">
+        <img
+            src="https://raw.githack.com/AidinHamedi/Optimizer-Benchmark/vis-base/results/dadaptadagrad/MixedMichalewiczSphere/surface.jpg"
+            alt="MixedMichalewiczSphere visualization"
+            loading="lazy"
+            onerror="
+                this.parentNode.innerHTML =
+                    '<div class=&quot;fallback&quot;>Not available</div>'
+            "
+        />
+        <div class="rank-badge">#74</div>
+
+        <div class="enlarge-btn" aria-label="Open Analysis">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </div>
     </div>
     <div class="card-content">
         <h3 class="function-name">MixedMichalewiczSphere</h3>
     </div>
 </div>
-<div class="card" data-rank="85">
-    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/dadaptadagrad/Rastrigin.jpg')">
+<div
+    class="card"
+    data-rank="76"
+    onclick="
+        openGallery(
+            'https://raw.githack.com/AidinHamedi/Optimizer-Benchmark/vis-base/results',
+            'dadaptadagrad',
+            'Rastrigin',
+            'Rastrigin',
+            '.jpg',
+        )
+    "
+>
+    <div class="image-wrapper">
         <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/dadaptadagrad/Rastrigin.jpg"
-            alt="dadaptadagrad benchmark visualization on Rastrigin"
+            src="https://raw.githack.com/AidinHamedi/Optimizer-Benchmark/vis-base/results/dadaptadagrad/Rastrigin/surface.jpg"
+            alt="Rastrigin visualization"
             loading="lazy"
-            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
+            onerror="
+                this.parentNode.innerHTML =
+                    '<div class=&quot;fallback&quot;>Not available</div>'
+            "
         />
-        <div class="rank-badge">#85</div>
+        <div class="rank-badge">#76</div>
 
-        <button class="enlarge-btn" aria-label="Enlarge image">
+        <div class="enlarge-btn" aria-label="Open Analysis">
             <svg
                 width="20"
                 height="20"
@@ -421,28 +256,41 @@
                 stroke="currentColor"
                 stroke-width="2"
                 viewBox="0 0 24 24"
-                stroke-linecap="round"
-                stroke-linejoin="round"
             >
                 <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
             </svg>
-        </button>
+        </div>
     </div>
     <div class="card-content">
         <h3 class="function-name">Rastrigin</h3>
     </div>
 </div>
-<div class="card" data-rank="86">
-    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/dadaptadagrad/Ackley.jpg')">
+<div
+    class="card"
+    data-rank="77"
+    onclick="
+        openGallery(
+            'https://raw.githack.com/AidinHamedi/Optimizer-Benchmark/vis-base/results',
+            'dadaptadagrad',
+            'QuantumWell',
+            'QuantumWell',
+            '.jpg',
+        )
+    "
+>
+    <div class="image-wrapper">
         <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/dadaptadagrad/Ackley.jpg"
-            alt="dadaptadagrad benchmark visualization on Ackley"
+            src="https://raw.githack.com/AidinHamedi/Optimizer-Benchmark/vis-base/results/dadaptadagrad/QuantumWell/surface.jpg"
+            alt="QuantumWell visualization"
             loading="lazy"
-            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
+            onerror="
+                this.parentNode.innerHTML =
+                    '<div class=&quot;fallback&quot;>Not available</div>'
+            "
         />
-        <div class="rank-badge">#86</div>
+        <div class="rank-badge">#77</div>
 
-        <button class="enlarge-btn" aria-label="Enlarge image">
+        <div class="enlarge-btn" aria-label="Open Analysis">
             <svg
                 width="20"
                 height="20"
@@ -450,28 +298,125 @@
                 stroke="currentColor"
                 stroke-width="2"
                 viewBox="0 0 24 24"
-                stroke-linecap="round"
-                stroke-linejoin="round"
             >
                 <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
             </svg>
-        </button>
+        </div>
+    </div>
+    <div class="card-content">
+        <h3 class="function-name">QuantumWell</h3>
+    </div>
+</div>
+<div
+    class="card"
+    data-rank="78"
+    onclick="
+        openGallery(
+            'https://raw.githack.com/AidinHamedi/Optimizer-Benchmark/vis-base/results',
+            'dadaptadagrad',
+            'GradientLabyrinth',
+            'GradientLabyrinth',
+            '.jpg',
+        )
+    "
+>
+    <div class="image-wrapper">
+        <img
+            src="https://raw.githack.com/AidinHamedi/Optimizer-Benchmark/vis-base/results/dadaptadagrad/GradientLabyrinth/surface.jpg"
+            alt="GradientLabyrinth visualization"
+            loading="lazy"
+            onerror="
+                this.parentNode.innerHTML =
+                    '<div class=&quot;fallback&quot;>Not available</div>'
+            "
+        />
+        <div class="rank-badge">#78</div>
+
+        <div class="enlarge-btn" aria-label="Open Analysis">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </div>
+    </div>
+    <div class="card-content">
+        <h3 class="function-name">GradientLabyrinth</h3>
+    </div>
+</div>
+<div
+    class="card"
+    data-rank="80"
+    onclick="
+        openGallery(
+            'https://raw.githack.com/AidinHamedi/Optimizer-Benchmark/vis-base/results',
+            'dadaptadagrad',
+            'Ackley',
+            'Ackley',
+            '.jpg',
+        )
+    "
+>
+    <div class="image-wrapper">
+        <img
+            src="https://raw.githack.com/AidinHamedi/Optimizer-Benchmark/vis-base/results/dadaptadagrad/Ackley/surface.jpg"
+            alt="Ackley visualization"
+            loading="lazy"
+            onerror="
+                this.parentNode.innerHTML =
+                    '<div class=&quot;fallback&quot;>Not available</div>'
+            "
+        />
+        <div class="rank-badge">#80</div>
+
+        <div class="enlarge-btn" aria-label="Open Analysis">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </div>
     </div>
     <div class="card-content">
         <h3 class="function-name">Ackley</h3>
     </div>
 </div>
-<div class="card" data-rank="87">
-    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/dadaptadagrad/Schaffer%204.jpg')">
+<div
+    class="card"
+    data-rank="80"
+    onclick="
+        openGallery(
+            'https://raw.githack.com/AidinHamedi/Optimizer-Benchmark/vis-base/results',
+            'dadaptadagrad',
+            'Weierstrass',
+            'Weierstrass',
+            '.jpg',
+        )
+    "
+>
+    <div class="image-wrapper">
         <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/dadaptadagrad/Schaffer%204.jpg"
-            alt="dadaptadagrad benchmark visualization on Schaffer 4"
+            src="https://raw.githack.com/AidinHamedi/Optimizer-Benchmark/vis-base/results/dadaptadagrad/Weierstrass/surface.jpg"
+            alt="Weierstrass visualization"
             loading="lazy"
-            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
+            onerror="
+                this.parentNode.innerHTML =
+                    '<div class=&quot;fallback&quot;>Not available</div>'
+            "
         />
-        <div class="rank-badge">#87</div>
+        <div class="rank-badge">#80</div>
 
-        <button class="enlarge-btn" aria-label="Enlarge image">
+        <div class="enlarge-btn" aria-label="Open Analysis">
             <svg
                 width="20"
                 height="20"
@@ -479,28 +424,41 @@
                 stroke="currentColor"
                 stroke-width="2"
                 viewBox="0 0 24 24"
-                stroke-linecap="round"
-                stroke-linejoin="round"
             >
                 <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
             </svg>
-        </button>
+        </div>
     </div>
     <div class="card-content">
-        <h3 class="function-name">Schaffer 4</h3>
+        <h3 class="function-name">Weierstrass</h3>
     </div>
 </div>
-<div class="card" data-rank="87">
-    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/dadaptadagrad/Griewank.jpg')">
+<div
+    class="card"
+    data-rank="81"
+    onclick="
+        openGallery(
+            'https://raw.githack.com/AidinHamedi/Optimizer-Benchmark/vis-base/results',
+            'dadaptadagrad',
+            'EggHolder',
+            'EggHolder',
+            '.jpg',
+        )
+    "
+>
+    <div class="image-wrapper">
         <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/dadaptadagrad/Griewank.jpg"
-            alt="dadaptadagrad benchmark visualization on Griewank"
+            src="https://raw.githack.com/AidinHamedi/Optimizer-Benchmark/vis-base/results/dadaptadagrad/EggHolder/surface.jpg"
+            alt="EggHolder visualization"
             loading="lazy"
-            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
+            onerror="
+                this.parentNode.innerHTML =
+                    '<div class=&quot;fallback&quot;>Not available</div>'
+            "
         />
-        <div class="rank-badge">#87</div>
+        <div class="rank-badge">#81</div>
 
-        <button class="enlarge-btn" aria-label="Enlarge image">
+        <div class="enlarge-btn" aria-label="Open Analysis">
             <svg
                 width="20"
                 height="20"
@@ -508,28 +466,41 @@
                 stroke="currentColor"
                 stroke-width="2"
                 viewBox="0 0 24 24"
-                stroke-linecap="round"
-                stroke-linejoin="round"
             >
                 <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
             </svg>
-        </button>
+        </div>
     </div>
     <div class="card-content">
-        <h3 class="function-name">Griewank</h3>
+        <h3 class="function-name">EggHolder</h3>
     </div>
 </div>
-<div class="card" data-rank="90">
-    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/dadaptadagrad/Langermann.jpg')">
+<div
+    class="card"
+    data-rank="83"
+    onclick="
+        openGallery(
+            'https://raw.githack.com/AidinHamedi/Optimizer-Benchmark/vis-base/results',
+            'dadaptadagrad',
+            'NeuralCanyon',
+            'NeuralCanyon',
+            '.jpg',
+        )
+    "
+>
+    <div class="image-wrapper">
         <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/dadaptadagrad/Langermann.jpg"
-            alt="dadaptadagrad benchmark visualization on Langermann"
+            src="https://raw.githack.com/AidinHamedi/Optimizer-Benchmark/vis-base/results/dadaptadagrad/NeuralCanyon/surface.jpg"
+            alt="NeuralCanyon visualization"
             loading="lazy"
-            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
+            onerror="
+                this.parentNode.innerHTML =
+                    '<div class=&quot;fallback&quot;>Not available</div>'
+            "
         />
-        <div class="rank-badge">#90</div>
+        <div class="rank-badge">#83</div>
 
-        <button class="enlarge-btn" aria-label="Enlarge image">
+        <div class="enlarge-btn" aria-label="Open Analysis">
             <svg
                 width="20"
                 height="20"
@@ -537,28 +508,125 @@
                 stroke="currentColor"
                 stroke-width="2"
                 viewBox="0 0 24 24"
-                stroke-linecap="round"
-                stroke-linejoin="round"
             >
                 <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
             </svg>
-        </button>
+        </div>
+    </div>
+    <div class="card-content">
+        <h3 class="function-name">NeuralCanyon</h3>
+    </div>
+</div>
+<div
+    class="card"
+    data-rank="85"
+    onclick="
+        openGallery(
+            'https://raw.githack.com/AidinHamedi/Optimizer-Benchmark/vis-base/results',
+            'dadaptadagrad',
+            'Langermann%202',
+            'Langermann 2',
+            '.jpg',
+        )
+    "
+>
+    <div class="image-wrapper">
+        <img
+            src="https://raw.githack.com/AidinHamedi/Optimizer-Benchmark/vis-base/results/dadaptadagrad/Langermann%202/surface.jpg"
+            alt="Langermann 2 visualization"
+            loading="lazy"
+            onerror="
+                this.parentNode.innerHTML =
+                    '<div class=&quot;fallback&quot;>Not available</div>'
+            "
+        />
+        <div class="rank-badge">#85</div>
+
+        <div class="enlarge-btn" aria-label="Open Analysis">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </div>
+    </div>
+    <div class="card-content">
+        <h3 class="function-name">Langermann 2</h3>
+    </div>
+</div>
+<div
+    class="card"
+    data-rank="85"
+    onclick="
+        openGallery(
+            'https://raw.githack.com/AidinHamedi/Optimizer-Benchmark/vis-base/results',
+            'dadaptadagrad',
+            'Langermann',
+            'Langermann',
+            '.jpg',
+        )
+    "
+>
+    <div class="image-wrapper">
+        <img
+            src="https://raw.githack.com/AidinHamedi/Optimizer-Benchmark/vis-base/results/dadaptadagrad/Langermann/surface.jpg"
+            alt="Langermann visualization"
+            loading="lazy"
+            onerror="
+                this.parentNode.innerHTML =
+                    '<div class=&quot;fallback&quot;>Not available</div>'
+            "
+        />
+        <div class="rank-badge">#85</div>
+
+        <div class="enlarge-btn" aria-label="Open Analysis">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </div>
     </div>
     <div class="card-content">
         <h3 class="function-name">Langermann</h3>
     </div>
 </div>
-<div class="card" data-rank="92">
-    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/dadaptadagrad/SchwefelSin.jpg')">
+<div
+    class="card"
+    data-rank="86"
+    onclick="
+        openGallery(
+            'https://raw.githack.com/AidinHamedi/Optimizer-Benchmark/vis-base/results',
+            'dadaptadagrad',
+            'Goldstein-Price',
+            'Goldstein-Price',
+            '.jpg',
+        )
+    "
+>
+    <div class="image-wrapper">
         <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/dadaptadagrad/SchwefelSin.jpg"
-            alt="dadaptadagrad benchmark visualization on SchwefelSin"
+            src="https://raw.githack.com/AidinHamedi/Optimizer-Benchmark/vis-base/results/dadaptadagrad/Goldstein-Price/surface.jpg"
+            alt="Goldstein-Price visualization"
             loading="lazy"
-            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
+            onerror="
+                this.parentNode.innerHTML =
+                    '<div class=&quot;fallback&quot;>Not available</div>'
+            "
         />
-        <div class="rank-badge">#92</div>
+        <div class="rank-badge">#86</div>
 
-        <button class="enlarge-btn" aria-label="Enlarge image">
+        <div class="enlarge-btn" aria-label="Open Analysis">
             <svg
                 width="20"
                 height="20"
@@ -566,28 +634,41 @@
                 stroke="currentColor"
                 stroke-width="2"
                 viewBox="0 0 24 24"
-                stroke-linecap="round"
-                stroke-linejoin="round"
             >
                 <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
             </svg>
-        </button>
+        </div>
     </div>
     <div class="card-content">
-        <h3 class="function-name">SchwefelSin</h3>
+        <h3 class="function-name">Goldstein-Price</h3>
     </div>
 </div>
-<div class="card" data-rank="92">
-    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/dadaptadagrad/Shubert.jpg')">
+<div
+    class="card"
+    data-rank="86"
+    onclick="
+        openGallery(
+            'https://raw.githack.com/AidinHamedi/Optimizer-Benchmark/vis-base/results',
+            'dadaptadagrad',
+            'Drop-Wave',
+            'Drop-Wave',
+            '.jpg',
+        )
+    "
+>
+    <div class="image-wrapper">
         <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/dadaptadagrad/Shubert.jpg"
-            alt="dadaptadagrad benchmark visualization on Shubert"
+            src="https://raw.githack.com/AidinHamedi/Optimizer-Benchmark/vis-base/results/dadaptadagrad/Drop-Wave/surface.jpg"
+            alt="Drop-Wave visualization"
             loading="lazy"
-            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
+            onerror="
+                this.parentNode.innerHTML =
+                    '<div class=&quot;fallback&quot;>Not available</div>'
+            "
         />
-        <div class="rank-badge">#92</div>
+        <div class="rank-badge">#86</div>
 
-        <button class="enlarge-btn" aria-label="Enlarge image">
+        <div class="enlarge-btn" aria-label="Open Analysis">
             <svg
                 width="20"
                 height="20"
@@ -595,28 +676,41 @@
                 stroke="currentColor"
                 stroke-width="2"
                 viewBox="0 0 24 24"
-                stroke-linecap="round"
-                stroke-linejoin="round"
             >
                 <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
             </svg>
-        </button>
+        </div>
     </div>
     <div class="card-content">
-        <h3 class="function-name">Shubert</h3>
+        <h3 class="function-name">Drop-Wave</h3>
     </div>
 </div>
-<div class="card" data-rank="95">
-    <div class="image-wrapper" onclick="openModal('https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/dadaptadagrad/Gramacy%20&%20Lee%202D.jpg')">
+<div
+    class="card"
+    data-rank="87"
+    onclick="
+        openGallery(
+            'https://raw.githack.com/AidinHamedi/Optimizer-Benchmark/vis-base/results',
+            'dadaptadagrad',
+            'Gramacy%20&%20Lee%202D',
+            'Gramacy & Lee 2D',
+            '.jpg',
+        )
+    "
+>
+    <div class="image-wrapper">
         <img
-            src="https://cdn.statically.io/gh/AidinHamedi/Optimizer-Benchmark@vis-base/results/dadaptadagrad/Gramacy%20&%20Lee%202D.jpg"
-            alt="dadaptadagrad benchmark visualization on Gramacy & Lee 2D"
+            src="https://raw.githack.com/AidinHamedi/Optimizer-Benchmark/vis-base/results/dadaptadagrad/Gramacy%20&%20Lee%202D/surface.jpg"
+            alt="Gramacy & Lee 2D visualization"
             loading="lazy"
-            onerror="this.parentNode.innerHTML='<div class=&quot;fallback&quot;>Not available</div>'"
+            onerror="
+                this.parentNode.innerHTML =
+                    '<div class=&quot;fallback&quot;>Not available</div>'
+            "
         />
-        <div class="rank-badge">#95</div>
+        <div class="rank-badge">#87</div>
 
-        <button class="enlarge-btn" aria-label="Enlarge image">
+        <div class="enlarge-btn" aria-label="Open Analysis">
             <svg
                 width="20"
                 height="20"
@@ -624,15 +718,55 @@
                 stroke="currentColor"
                 stroke-width="2"
                 viewBox="0 0 24 24"
-                stroke-linecap="round"
-                stroke-linejoin="round"
             >
                 <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
             </svg>
-        </button>
+        </div>
     </div>
     <div class="card-content">
         <h3 class="function-name">Gramacy & Lee 2D</h3>
+    </div>
+</div>
+<div
+    class="card"
+    data-rank="90"
+    onclick="
+        openGallery(
+            'https://raw.githack.com/AidinHamedi/Optimizer-Benchmark/vis-base/results',
+            'dadaptadagrad',
+            'Griewank',
+            'Griewank',
+            '.jpg',
+        )
+    "
+>
+    <div class="image-wrapper">
+        <img
+            src="https://raw.githack.com/AidinHamedi/Optimizer-Benchmark/vis-base/results/dadaptadagrad/Griewank/surface.jpg"
+            alt="Griewank visualization"
+            loading="lazy"
+            onerror="
+                this.parentNode.innerHTML =
+                    '<div class=&quot;fallback&quot;>Not available</div>'
+            "
+        />
+        <div class="rank-badge">#90</div>
+
+        <div class="enlarge-btn" aria-label="Open Analysis">
+            <svg
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+            >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+            </svg>
+        </div>
+    </div>
+    <div class="card-content">
+        <h3 class="function-name">Griewank</h3>
     </div>
 </div>
 </div>
@@ -640,8 +774,7 @@
 
         <div class="modal" id="imageModal">
             <div class="modal-content">
-                <button class="close-btn" onclick="closeModal()">×</button>
-                <img id="modalImage" src="" alt="Enlarged view" />
+                <!-- Content injected by JS -->
             </div>
         </div>
 

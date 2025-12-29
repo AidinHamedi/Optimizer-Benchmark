@@ -8,17 +8,16 @@ EVAL_SIZE = ((-10, 10), (-10, 10))
 GLOBAL_MINIMUM_LOC = torch.tensor([[0.0, 0.0]])
 
 
-@normalize(0.0, 261.5675964355469)
+@normalize(0.017484664916992188, 261.62060546875)
 @torch.jit.script
 def rastrigin(x: torch.Tensor) -> torch.Tensor:
-    """
-    Computes the Rastrigin function.
+    """Compute the Rastrigin function.
 
     Args:
-        x (torch.Tensor): A tensor with last dimension size 2, representing [x, y].
+        x: Input tensor of shape [2] representing [x, y] coordinates.
 
     Returns:
-        torch.Tensor: Scalar tensor with the Rastrigin function value.
+        Scalar tensor with the function value.
     """
     return 10.0 * x.shape[-1] + (x.pow(2) - 10.0 * torch.cos(2.0 * torch.pi * x)).sum(
         dim=-1

@@ -14,18 +14,19 @@ def compute_surface(
     cache_dir: str = "./cache",
     debug: bool = False,
 ) -> torch.Tensor:
-    """
-    Computes the surface of a 2D function and returns it as a tensor.
+    """Compute a 2D function surface for visualization.
 
     Args:
-        func (Callable): The function to evaluate.
-        eval_size (Tuple[Tuple[float, float], Tuple[float, float]]): The evaluation range ((x_min, x_max), (y_min, y_max)).
-        res (Union[int, str], optional): The resolution for the grid. Defaults to "auto".
-        cache (bool, optional): Whether to cache the resulting tensor. Defaults to True.
-        cache_dir (str, optional): The directory to store cached tensors. Defaults to "./cache".
-        debug (bool, optional): Whether to print debug information (disables cache loading). Defaults to False.
+        func: The objective function to evaluate.
+        func_name: Name of the function (used for cache file naming).
+        eval_size: Evaluation range as ((x_min, x_max), (y_min, y_max)).
+        res: Grid resolution (points per axis) or "auto" for automatic scaling.
+        cache: Enable caching of computed surfaces.
+        cache_dir: Directory for storing cached tensors.
+        debug: Enable debug output (disables cache loading).
+
     Returns:
-        torch.Tensor: A tensor of shape (3, res, res) containing X, Y, and Z coordinates.
+        Tensor of shape [3, res, res] containing X, Y, and Z coordinates.
     """
     cache_path = Path(cache_dir)
     cache_path.mkdir(parents=True, exist_ok=True)
@@ -34,11 +35,8 @@ def compute_surface(
     if cache and cache_file.exists() and not debug:
         return torch.load(cache_file)
 
-    # The 'auto' resolution attempts to create a reasonably detailed plot by scaling
-    # the number of points based on the evaluation size. This prevents low-resolution
-    # plots for large functions or overly dense plots for small ones.
     if res == "auto":
-        num_points = int(math.sqrt(eval_size[0][1]) * 200)
+        num_points = int(math.sqrt(eval_size[0][1]) * 500)
     else:
         num_points = int(res)
 
@@ -48,13 +46,11 @@ def compute_surface(
     X, Y = torch.meshgrid(x, y, indexing="xy")
     grid_points = torch.stack([X.flatten(), Y.flatten()], dim=1)
 
+    print("[Surface] Computing function values...")
     with torch.no_grad():
         try:
-            # Vectorized computation is much faster if the function supports it.
             Z = func(grid_points).reshape(num_points, num_points)
         except Exception:
-            # Fallback to a slower, iterative computation for functions that are not
-            # written to handle batched inputs.
             Z_vals = [func(p) for p in grid_points]
             Z = torch.stack(Z_vals).reshape(num_points, num_points)
 

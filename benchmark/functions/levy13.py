@@ -8,16 +8,16 @@ EVAL_SIZE = ((-10, 10), (-10, 10))
 GLOBAL_MINIMUM_LOC = torch.tensor([[1, 1]])
 
 
-@normalize(0.0008289171382784843, 539.6259765625)
+@normalize(0.0005293047288432717, 541.0211791992188)
 @torch.jit.script
 def levy13(x: torch.Tensor) -> torch.Tensor:
-    """Computes the Lévy Function N. 13.
+    """Compute the Lévy N.13 function.
 
     Args:
-        x (torch.Tensor): A tensor with last dimension size 2, representing [x, y].
+        x: Input tensor of shape [2] representing [x, y] coordinates.
 
     Returns:
-        torch.Tensor: Scalar (or batched) tensor with the Lévy N. 13 function value.
+        Scalar tensor with the function value.
     """
     x1, x2 = x[..., 0], x[..., 1]
 

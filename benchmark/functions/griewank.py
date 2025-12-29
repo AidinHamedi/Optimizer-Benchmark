@@ -5,25 +5,26 @@ from .norm import normalize
 FUNCTION_NAME = "Griewank"
 START_POS = torch.tensor([-57.0, -42.6])
 EVAL_SIZE = ((-60, 60), (-60, 60))
+CRITERION_OVERRIDES = {"val_scaler_root": 4}
 GLOBAL_MINIMUM_LOC = torch.tensor([[0.0, 0.0]])
 
 FUNC_SCALE = 10
 
 
-@normalize(-0.9703284502029419, 217.95753479003906)
+@normalize(-0.9906126856803894, 217.95753479003906)
 @torch.jit.script
 def griewank(
     x: torch.Tensor,
     scale: float = FUNC_SCALE,
 ) -> torch.Tensor:
-    """
-    Computes the Griewank function.
+    """Compute the Griewank function.
 
     Args:
-        x (torch.Tensor): A tensor with last dimension size 2, representing [x, y].
+        x: Input tensor of shape [2] representing [x, y] coordinates.
+        scale: Scaling factor applied to input (default: 10).
 
     Returns:
-        torch.Tensor: Scalar tensor with the Griewank function value.
+        Scalar tensor with the function value.
     """
     d = x.shape[-1]
 

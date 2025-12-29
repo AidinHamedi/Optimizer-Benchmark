@@ -2,33 +2,31 @@ import json
 import os
 import shutil
 import time
+import warnings
 from pathlib import Path
-from typing import Callable
+from typing import Any, Callable
 
 import optuna
+from optuna.samplers import CmaEsSampler, QMCSampler, TPESampler
 from tqdm import tqdm
 
 from .criterion import objective
 from .functions import FUNC_DICT
-from .utils.executor import execute_steps
-from .utils.model import Pos2D
-from .visualizer import plot_function
+from .utils.executor import optimize
+from .visualizer import visualize_trajectory
 
 optuna.logging.set_verbosity(optuna.logging.ERROR)
+warnings.filterwarnings("ignore")
 
-# Optuna storage can be configured here.
-# 'in-memory' is faster but not persistent across runs.
-# 'sqlite' is persistent, allowing studies to be resumed.
+# Storage: "in-memory" (fast) or "sqlite" (persistent, allows resuming and monitoring)
 OPTUNA_STORAGE_TYPE = "in-memory"
 OPTUNA_STORAGE_PATH = "sqlite:///optuna_cache.db"
-# Defines how Optuna studies are named, affecting caching.
-# 'opt': One study per optimizer (caches across functions).
-# 'func': One study per function (caches across optimizers).
-# 'opt+func': One study per optimizer-function pair (no caching).
-OPTUNA_CACHE_TYPE = "opt"
+# Cache type affects study naming: "opt", "func", or "opt+func"
+OPTUNA_CACHE_TYPE = "opt+func"
 
 
 def _progress_bar_callback(total_trials: int):
+    """Create a tqdm progress bar callback for Optuna optimization."""
     pbar = tqdm(total=total_trials, desc=" ├ Hyper Optimization")
 
     def callback(study: optuna.Study, trial: optuna.Trial):
@@ -46,15 +44,17 @@ def _progress_bar_callback(total_trials: int):
     return callback
 
 
-def _load_json(path, default, max_retries=5):
-    """Load JSON file safely with retries."""
+def _load_json(
+    path: Path, default: dict[str, Any], max_retries: int = 10
+) -> dict[str, Any]:
+    """Load JSON file with retry logic for concurrent access."""
     for attempt in range(max_retries + 1):
         try:
             with path.open("r", encoding="utf-8") as f:
                 return json.load(f)
         except Exception:
             if attempt < max_retries:
-                time.sleep(0.2)
+                time.sleep(0.1)
                 continue
             else:
                 break
@@ -62,63 +62,111 @@ def _load_json(path, default, max_retries=5):
     return default
 
 
+def _choose_sampler(search_space, config, debug=False):
+    """
+    Choose an Optuna sampler based on search space types and budget.
+    """
+    has_categorical = any(dist == "bool" for dist in search_space.values())
+
+    if has_categorical:
+        sampler = TPESampler(
+            seed=config["seed"],
+            multivariate=len(search_space) > 1,
+            group=len(search_space) > 1,
+            n_startup_trials=140,
+            n_ei_candidates=max(int(100 / max(len(search_space), 1)), 20),
+            consider_prior=True,
+            prior_weight=0.9,
+            consider_endpoints=True,
+        )
+        if debug:
+            print("Using TPESampler (categorical present)")
+
+        return sampler
+
+    # if config["hypertune_trials"] < 250:
+    #     sampler = GPSampler(
+    #         n_startup_trials=20,
+    #     )
+    #     if debug:
+    #         print("Using GPSampler (<250 trials, numeric)")
+
+    #     return sampler
+
+    sampler = CmaEsSampler(
+        seed=config["seed"],
+        with_margin=True,
+        n_startup_trials=300,
+        independent_sampler=QMCSampler(
+            qmc_type="halton", scramble=True, seed=config["seed"]
+        ),
+    )
+
+    if debug:
+        print("Using CmaEsSampler (numeric, large budget)")
+
+    return sampler
+
+
 def benchmark_optimizer(
-    optimizer_maker: Callable,
+    optimizer_maker: Callable[..., Any],
     optimizer_name: str,
     output_dir: Path,
-    hyper_search_spaces: dict,
-    config: dict,
-    functions: list | None = None,
-    eval_args: dict = {},
+    hyper_search_spaces: dict[str, Any],
+    config: dict[str, Any],
+    functions: list[str] | None = None,
+    eval_args: dict[str, dict[str, Any]] | None = None,
     debug: bool = False,
 ) -> None:
-    """
-    Benchmarks a given optimizer across multiple test functions with hyperparameter tuning.
+    """Benchmark an optimizer across multiple test functions with hyperparameter tuning.
 
     Args:
-        optimizer_maker (Callable): A factory function that returns an optimizer instance given a position and parameters.
-        optimizer_name (str): Name of the optimizer being benchmarked.
-        output_dir (Path): Directory where results and visualizations will be saved.
-        hyper_search_spaces (dict): Dictionary defining the hyperparameter search space for the optimizer.
-        config (dict): Configuration dictionary containing tuning parameters like number of iterations and trials.
-        functions (list | None, optional): List of functions to benchmark. If None, all functions will be used. Defaults to None.
-        eval_args (dict, optional): Additional arguments for evaluation, keyed by optimizer name. Defaults to {}.
-        debug (bool, optional): Whether to enable debug mode. Defaults to False.
-
-    Returns:
-        None
+        optimizer_maker: Factory function that creates optimizer instances.
+        optimizer_name: Name of the optimizer being benchmarked.
+        output_dir: Directory for saving results and visualizations.
+        hyper_search_spaces: Hyperparameter search space for Optuna.
+        config: Configuration with tuning parameters and settings.
+        functions: List of functions to benchmark. If None, uses all functions.
+        eval_args: Additional arguments keyed by optimizer name.
+        debug: Enable debug output.
     """
+    if eval_args is None:
+        eval_args = {}
 
     results_dir = output_dir.joinpath(optimizer_name)
     results_json_path = output_dir.joinpath("results.json")
 
-    num_expected_files = len(functions) if functions is not None else len(FUNC_DICT)
+    # Skip if exist_pass enabled and complete results already exist
+    if config["exist_pass"]:
+        # Determine exactly which functions we expect to see
+        expected_funcs = functions if functions is not None else list(FUNC_DICT.keys())
 
-    # Skip this optimizer only if exist_pass is enabled AND a full set of valid,
-    # complete results already exists.
-    if (
-        config["exist_pass"]
-        and optimizer_name
-        in _load_json(results_json_path, {"optimizers": {}}).get("optimizers", {})
-        and results_dir.is_dir()
-        and len(list(results_dir.glob(f"*{config['img_format']}")))
-        == num_expected_files
-    ):
-        print(f"Skipping {optimizer_name}: Complete results already exist.")
-        return None
+        # Check if entry exists in results.json
+        _results = _load_json(results_json_path, {"optimizers": {}}).get(
+            "optimizers", {}
+        )
 
-    # For any run that proceeds, first clear any partial or outdated artifacts.
+        # Check if a directory exists for every expected function
+        # The visualizer now creates: results_dir / optimizer_name / function_name /
+        _dirs_complete = results_dir.is_dir() and all(
+            (results_dir / fname).exists() for fname in expected_funcs
+        )
+
+        if optimizer_name in _results and _dirs_complete:
+            print(f"Skipping {optimizer_name}: Complete results already exist.")
+            return None
+
     if results_dir.exists():
         shutil.rmtree(results_dir)
 
     os.makedirs(results_dir, exist_ok=True)
 
     error_rates = {}
-    run_metrics = {}
+    hopt_metrics = {}
+    eval_metrics = {}
     run_hyperparams = {}
 
     for func_name, consts in FUNC_DICT.items():
-        # Allow running the benchmark on a specific subset of functions.
         if functions is not None and func_name not in functions:
             continue
 
@@ -127,11 +175,10 @@ def benchmark_optimizer(
         eval_size = consts["size"]
         start_pos = consts["pos"]
         gm_pos = consts["gm_pos"]
+        criterion_overrides = consts["criterion_overrides"]
 
-        # This inner function is what Optuna will optimize.
         def optuna_objective(trial: optuna.Trial) -> float:
             optimizer_params = {}
-            # Dynamically suggest hyperparameters based on the search space from config.toml.
             for name, space in hyper_search_spaces.items():
                 if isinstance(space, list) and len(space) == 2:
                     optimizer_params[name] = trial.suggest_float(
@@ -151,31 +198,44 @@ def benchmark_optimizer(
                 else:
                     raise ValueError("Invalid hyperparameter space")
 
-            num_iters = config["num_iters"][func_name]  # type: ignore
+            try:
+                steps = optimize(
+                    func,
+                    optimizer_maker,
+                    optimizer_params,
+                    start_pos,
+                    config["num_iters"][func_name],
+                    eval_args.get(optimizer_name, {}),
+                )
+            except ValueError as e:
+                if debug:
+                    raise e
+
+                return float("inf")
 
             error, metrics = objective(
+                steps,
                 func,
-                optimizer_maker,
-                optimizer_params,
                 start_pos,
                 gm_pos,
                 eval_size,
-                num_iters,
-                **eval_args.get(optimizer_name, {}),
+                "tuning",
+                overrides=criterion_overrides,
                 debug=debug,
             )
 
-            trial.set_user_attr("metrics", metrics)
+            trial.set_user_attr("hopt_metrics", metrics)
 
             return error
 
-        # Create an Optuna study. The study name determines caching behavior.
+        sampler = _choose_sampler(hyper_search_spaces, config, debug=debug)
+
         study = optuna.create_study(
             study_name=f"{func_name}~{optimizer_name}"
             if OPTUNA_CACHE_TYPE == "opt+func"
             else (func_name if OPTUNA_CACHE_TYPE == "func" else optimizer_name),
             direction="minimize",
-            sampler=optuna.samplers.TPESampler(seed=config["seed"]),
+            sampler=sampler,
             storage=OPTUNA_STORAGE_PATH if OPTUNA_STORAGE_TYPE == "sqlite" else None,
             load_if_exists=OPTUNA_STORAGE_TYPE == "sqlite",
         )
@@ -184,58 +244,82 @@ def benchmark_optimizer(
             optuna_objective,
             n_trials=config["hypertune_trials"],
             show_progress_bar=False,
-            catch=ZeroDivisionError,  # Catch errors from unstable hyperparameters.
-            n_jobs=1 if config["deterministic"] else 2,
+            catch=(ZeroDivisionError,),  # Catch errors from unstable hyperparameters
+            n_jobs=1,
             callbacks=[_progress_bar_callback(config["hypertune_trials"])],  # type: ignore
         )
 
-        error_rates[func_name] = study.best_value
         run_hyperparams[func_name] = study.best_params
-        run_metrics[func_name] = study.best_trial.user_attrs.get("metrics", {})
+        hopt_metrics[func_name] = study.best_trial.user_attrs.get("hopt_metrics", {})
 
-        print(" ├ Best Metrics:")
-        if error_rates[func_name] != float("inf"):
-            for i, (metric_name, metric_value) in enumerate(
-                run_metrics[func_name].items()
-            ):
-                print(
-                    f"{' └┬' if i == 0 else ('  └' if i == len(run_metrics[func_name]) - 1 else '  ├')} "
-                    f"{metric_name}: {metric_value}, "
-                    f"contribution: {round(metric_value / sum(run_metrics[func_name].values()) * 100)}%"
-                )
-        else:
-            print(" └─ No metrics available")
-
-        # After finding the best parameters, run the optimizer one last time to generate the visualization.
-        pos = Pos2D(func, start_pos)
-        plot_function(
+        func_optim_steps = optimize(
             func,
-            func_name,
-            execute_steps(
-                pos,
-                optimizer_maker(pos, study.best_params, config["num_iters"][func_name]),
-                config["num_iters"][func_name],
-                **eval_args.get(optimizer_name, {}),
-            ),
-            os.path.join(results_dir, func_name + config["img_format"]),
-            optimizer_name,
+            optimizer_maker,
             study.best_params,
-            study.best_trial.user_attrs.get("metrics", {}),
-            study.best_value,
+            start_pos,
+            config["num_iters"][func_name],
+            eval_args.get(optimizer_name, {}),
+        )
+        error_rates[func_name], eval_metrics[func_name] = objective(
+            func_optim_steps,
+            func,
+            start_pos,
             gm_pos,
             eval_size,
+            "eval",
+            overrides=criterion_overrides,
+            debug=debug,
+        )
+
+        has_opt = error_rates[func_name] != float("inf") and hopt_metrics.get(func_name)
+
+        print(" ├─┬ Best Optimization Metrics:")
+        if has_opt:
+            opt_items = list(hopt_metrics[func_name].items())
+            total = sum(hopt_metrics[func_name].values()) or 1.0
+            for i, (k, v) in enumerate(opt_items):
+                print(
+                    f" │ {'└' if i == len(opt_items) - 1 else '├'} {k}: {v:.6f}, "
+                    f"contribution: {round(v / total * 100)}%"
+                )
+        else:
+            print(" │ └─ No hyper-optimization metrics available")
+
+        print(" ├─┬ Evaluation Metrics:")
+        if has_opt and eval_metrics.get(func_name):
+            eval_items = list(eval_metrics[func_name].items())
+            for i, (k, v) in enumerate(eval_items):
+                print(f" │ {'└' if i == len(eval_items) - 1 else '├'} {k}: {v:.6f}")
+        else:
+            print(" │ └─ No evaluation metrics available")
+
+        print(" └─┬ Final Error:")
+        print(
+            f"   └─ error: {error_rates[func_name]:.6f}"
+            if error_rates[func_name] != float("inf")
+            else "   └─ error: inf (failed optimization)"
+        )
+
+        visualize_trajectory(
+            func,
+            func_name,
+            func_optim_steps,
+            os.path.join(results_dir, func_name),
+            optimizer_name,
+            study.best_params,
+            eval_metrics[func_name],
+            hopt_metrics[func_name],
+            error_rates[func_name],
+            gm_pos,
+            eval_size,
+            img_format=config["img_format"],
             debug=debug,
         )
 
         print("")
 
     weights = config.get("error_weights", {})
-    # weighted_errors = {
-    #     func_name: error_rate * weights.get(func_name, 1.0)
-    #     for func_name, error_rate in error_rates.items()
-    # }
 
-    # Load existing results and merge them with the new ones.
     results = _load_json(
         results_json_path, {"optimizers": {}, "functions": {"weights": weights}}
     )
@@ -243,10 +327,7 @@ def benchmark_optimizer(
     results["optimizers"][optimizer_name] = {
         "hyperparameters": run_hyperparams,
         "error_rates": error_rates,
-        # "weighted_error_rates": weighted_errors,
-        # "avg_error_rate": sum(error_rates.values()) / len(error_rates),
-        # "weighted_avg_error_rate": sum(weighted_errors.values()) / len(weighted_errors),
-        "metrics": run_metrics,
+        "hopt_metrics": hopt_metrics,
     }
 
     with results_json_path.open("w", encoding="utf-8") as f:

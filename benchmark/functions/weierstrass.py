@@ -5,18 +5,18 @@ from .norm import normalize
 FUNCTION_NAME = "Weierstrass"
 START_POS = torch.tensor([-12, -11])
 EVAL_SIZE = ((-13, 13), (-13, 13))
-GLOBAL_MINIMUM_LOC = torch.tensor([[0.0, 0.0]])
+GLOBAL_MINIMUM_LOC = torch.tensor([[1.2642141580581665, 1.2642141580581665]])
 
 WEIERSTRASS_A = 0.55
-WEIERSTRASS_B = 3.0
-WEIERSTRASS_KMAX = 10
+WEIERSTRASS_B = 2.5
+WEIERSTRASS_KMAX = 5.0
 _k = torch.arange(WEIERSTRASS_KMAX + 1)
 WEIERSTRASS_AK = torch.pow(WEIERSTRASS_A, _k)
 WEIERSTRASS_PIBK = torch.pi * torch.pow(WEIERSTRASS_B, _k)
 FUNC_SCALE = 0.07692307692
 
 
-@normalize(-3.850635290145874, 3.9265196323394775)
+@normalize(-3.7680187225341797, 4.321251392364502)
 @torch.jit.script
 def weierstrass(
     x: torch.Tensor,
@@ -24,16 +24,16 @@ def weierstrass(
     pibk: torch.Tensor = WEIERSTRASS_PIBK,
     scale: float = FUNC_SCALE,
 ) -> torch.Tensor:
-    """
-    Computes the Weierstrass function.
+    """Compute the Weierstrass function.
 
     Args:
-        x (torch.Tensor): A 1D tensor representing the input vector.
-        ak (torch.Tensor): Precomputed a^k coefficients.
-        pibk (torch.Tensor): Precomputed π*b^k coefficients.
+        x: Input tensor of shape [2] representing [x, y] coordinates.
+        ak: Precomputed a^k coefficients.
+        pibk: Precomputed π*b^k coefficients.
+        scale: Scaling factor applied to input.
 
     Returns:
-        torch.Tensor: Scalar tensor with the Weierstrass function value.
+        Scalar tensor with the function value.
     """
     x = x * scale + 1.0
 

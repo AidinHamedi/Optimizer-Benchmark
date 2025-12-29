@@ -12,7 +12,7 @@ ACKLEY_B = torch.tensor(0.1)
 ACKLEY_C = torch.tensor(2 * torch.pi)
 
 
-@normalize(-12.718281745910645, -3.8639559745788574)
+@normalize(-12.709281921386719, -3.8630917072296143)
 @torch.jit.script
 def ackley(
     x: torch.Tensor,
@@ -20,15 +20,16 @@ def ackley(
     b: torch.Tensor = ACKLEY_B,
     c: torch.Tensor = ACKLEY_C,
 ) -> torch.Tensor:
-    """
-    Computes the Ackley function.
+    """Compute the Ackley function.
 
     Args:
-        x (torch.Tensor): A tensor with last dimension size 2, representing [x, y].
-        a, b, c (torch.Tensor): Constants for the Ackley function.
+        x: Input tensor of shape [2] representing [x, y] coordinates.
+        a: Amplitude parameter (default: 10.0).
+        b: Exponential decay parameter (default: 0.1).
+        c: Cosine frequency parameter (default: 2π).
 
     Returns:
-        torch.Tensor: Scalar tensor with the Ackley function value.
+        Scalar tensor with the function value.
     """
     d = x.numel()
     sum1 = torch.sum(x**2)

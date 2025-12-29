@@ -21,18 +21,16 @@ This project provides a framework to evaluate and compare the performance of var
 
 The optimizers are evaluated on the following standard 2D test functions. Click on a function's name to learn more about it.
 
-| Function                                                                 | Function                                                                       |
-| :----------------------------------------------------------------------- | :----------------------------------------------------------------------------- |
-| [Ackley](https://www.sfu.ca/~ssurjano/ackley.html)                       | [Cross-in-Tray](https://www.sfu.ca/~ssurjano/crossit.html)                     |
-| [Drop-Wave](https://www.sfu.ca/~ssurjano/drop.html)                      | [Eggholder](https://www.sfu.ca/~ssurjano/egg.html)                             |
-| [Gramacy & Lee](https://www.sfu.ca/~ssurjano/grlee12.html)               | [Griewank](https://www.sfu.ca/~ssurjano/griewank.html)                         |
-| [Michalewicz](https://www.sfu.ca/~ssurjano/michal.html)                  | [Langermann](https://www.sfu.ca/~ssurjano/langer.html)                         |
-| [Lévy](https://www.sfu.ca/~ssurjano/levy.html)                           | [Lévy N. 13](https://www.sfu.ca/~ssurjano/levy13.html)                         |
-| [Rastrigin](https://www.sfu.ca/~ssurjano/rastr.html)                     | [Rosenbrock](https://www.sfu.ca/~ssurjano/rosen.html)                          |
-| [Schaffer N. 2](https://www.sfu.ca/~ssurjano/schaffer2.html)             | [Schaffer N. 4](https://www.sfu.ca/~ssurjano/schaffer4.html)                   |
-| [Shubert](https://www.sfu.ca/~ssurjano/shubert.html)                     | [Styblinski–Tang](https://www.sfu.ca/~ssurjano/stybtang.html)                  |
-| [Weierstrass](https://en.wikipedia.org/wiki/Weierstrass_function)        | [Schwefel](https://www.sfu.ca/~ssurjano/schwef.html)                           |
-| [Goldstein-Price](https://www.sfu.ca/~ssurjano/goldpr.html)              |
+| Function                                                                                   | Function                                                                                             |
+| :----------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------- |
+| [Ackley](https://www.sfu.ca/~ssurjano/ackley.html)                                         | [Lévy N. 13](https://www.sfu.ca/~ssurjano/levy13.html)                                               |
+| [Drop-Wave](https://www.sfu.ca/~ssurjano/drop.html)                                        | [Eggholder](https://www.sfu.ca/~ssurjano/egg.html)                                                   |
+| [Gramacy & Lee](https://www.sfu.ca/~ssurjano/grlee12.html)                                 | [Griewank](https://www.sfu.ca/~ssurjano/griewank.html)                                               |
+| [Michalewicz](https://www.sfu.ca/~ssurjano/michal.html)                                    | [Langermann](https://www.sfu.ca/~ssurjano/langer.html)                                               |
+| [Rastrigin](https://www.sfu.ca/~ssurjano/rastr.html)                                       | [Rosenbrock](https://www.sfu.ca/~ssurjano/rosen.html)                                                |
+| [Weierstrass](https://en.wikipedia.org/wiki/Weierstrass_function)                          | [Styblinski–Tang](https://www.sfu.ca/~ssurjano/stybtang.html)                                        |
+| [Goldstein-Price](https://www.sfu.ca/~ssurjano/goldpr.html)                                | [Gradient Labyrinth](https://aidinhamedi.github.io/Optimizer-Benchmark/functions/gradient_labyrinth) |
+| [Neural Canyon](https://aidinhamedi.github.io/Optimizer-Benchmark/functions/neural_canyon) | [Quantum Well](https://aidinhamedi.github.io/Optimizer-Benchmark/functions/quantum_well)             |
 
 
 ## 📊 Results & Visualizations
