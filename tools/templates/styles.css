@@ -5,24 +5,19 @@
         "Helvetica Neue", sans-serif;
     --font-mono:
         "Geist Mono", Menlo, Monaco, Lucida Console, Liberation Mono, monospace;
-
     --bg: #ffffff;
     --fg: #000000;
-
     --accents-1: #fafafa;
     --accents-2: #eaeaea;
     --accents-3: #999999;
     --accents-4: #888888;
     --accents-5: #444444;
     --accents-6: #333333;
-
     --success: #0070f3;
-
     --radius: 8px;
     --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.02);
     --shadow-md: 0 5px 10px rgba(0, 0, 0, 0.08);
     --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.12);
-
     --max-width: 1200px;
 }
 
@@ -42,7 +37,6 @@ body {
     padding: 2rem 1.5rem;
 }
 
-/* --- Navigation --- */
 .nav-header {
     display: flex;
     justify-content: space-between;
@@ -70,11 +64,11 @@ h1 {
     font-weight: 500;
     transition: color 0.15s ease;
 }
+
 .back-link:hover {
     color: var(--fg);
 }
 
-/* --- Stats Grid --- */
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -109,7 +103,6 @@ h1 {
     letter-spacing: -0.02em;
 }
 
-/* --- Gallery Intro --- */
 .gallery-intro {
     color: var(--accents-5);
     font-size: 0.95rem;
@@ -118,14 +111,12 @@ h1 {
     max-width: 800px;
 }
 
-/* --- Gallery Layout --- */
 .gallery {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
     gap: 2rem;
 }
 
-/* --- Card Design --- */
 .card {
     border: 1px solid var(--accents-2);
     border-radius: var(--radius);
@@ -178,7 +169,6 @@ h1 {
     background: var(--accents-1);
 }
 
-/* --- Rank Badge --- */
 .rank-badge {
     position: absolute;
     top: 12px;
@@ -198,7 +188,6 @@ h1 {
     pointer-events: none;
 }
 
-/* --- Enlarge Button --- */
 .enlarge-btn {
     position: absolute;
     top: 12px;
@@ -241,7 +230,6 @@ h1 {
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
 }
 
-/* --- Card Content --- */
 .card-content {
     padding: 1.25rem;
     border-top: 1px solid var(--accents-2);
@@ -255,7 +243,6 @@ h1 {
     color: var(--fg);
 }
 
-/* --- Updated Modal & Gallery Styles --- */
 .modal {
     display: none;
     position: fixed;
@@ -335,14 +322,15 @@ h1 {
     background: var(--accents-1);
 }
 
-/* Scrollbar styling for the gallery */
 .gallery-scroll-container::-webkit-scrollbar {
     height: 10px;
 }
+
 .gallery-scroll-container::-webkit-scrollbar-track {
     background: var(--accents-2);
     border-radius: 4px;
 }
+
 .gallery-scroll-container::-webkit-scrollbar-thumb {
     background: var(--accents-4);
     border-radius: 4px;
@@ -350,7 +338,7 @@ h1 {
 }
 
 .gallery-item {
-    flex: 0 0 550px; /* Fixed width per plot */
+    flex: 0 0 550px;
     background: #fff;
     border: 1px solid var(--accents-2);
     border-radius: var(--radius);
@@ -368,19 +356,58 @@ h1 {
 
 .gallery-img-container {
     width: 100%;
-    aspect-ratio: 1; /* Keep plots square */
+    aspect-ratio: 1;
     background: #fff;
     border-bottom: 1px solid var(--accents-2);
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 10px;
+    position: relative;
+    cursor: pointer;
 }
 
 .gallery-img-container img {
     width: 100%;
     height: 100%;
     object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+.gallery-img-container:hover img {
+    transform: scale(1.02);
+}
+
+.gallery-open-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -40%) scale(0.9);
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--fg);
+    opacity: 0;
+    transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    z-index: 20;
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.gallery-img-container:hover .gallery-open-btn {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.gallery-open-btn:hover {
+    background: #fff;
+    transform: translate(-50%, -50%) scale(1.1);
+    color: var(--success);
 }
 
 .gallery-text {
@@ -427,7 +454,6 @@ h1 {
     color: var(--fg);
 }
 
-/* --- Footer --- */
 footer {
     margin-top: 5rem;
     text-align: center;
@@ -443,11 +469,11 @@ footer a {
     text-decoration: none;
     font-weight: 500;
 }
+
 footer a:hover {
     text-decoration: underline;
 }
 
-/* --- Responsive --- */
 @media (max-width: 1024px) {
     .gallery {
         grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -465,13 +491,11 @@ footer a:hover {
         gap: 1rem;
     }
 
-    /* Stack Stats Grid */
     .stats-grid {
         grid-template-columns: 1fr 1fr;
         gap: 1rem;
     }
 
-    /* Single column gallery on mobile */
     .gallery {
         grid-template-columns: 1fr;
         gap: 1.5rem;
@@ -481,7 +505,6 @@ footer a:hover {
         font-size: 1.5rem;
     }
 
-    /* Stack gallery modal items vertically on mobile */
     .gallery-scroll-container {
         flex-direction: column;
         overflow-y: auto;
