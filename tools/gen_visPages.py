@@ -9,7 +9,12 @@ from .core import (
     Console,
     load_results,
 )
-from .misc import get_aer_ranks, get_afr_ranks, ranks_to_dict
+from .misc import (
+    get_avg_ranks,
+    get_function_ranks,
+    get_weighted_avg_ranks,
+    ranks_to_dict,
+)
 
 TOOL_NAME = "VIS-PAGE-GEN"
 
@@ -55,16 +60,24 @@ def main(console: Console) -> None:
     DOCS_VIS_DIR.mkdir(parents=True, exist_ok=True)
     copy_static_files(console)
 
-    avg_rank_list, func_rank_dict = get_afr_ranks(optimizers)
+    # Compute rankings
+    func_ranks = get_function_ranks(optimizers)
+    avg_rank_list = get_avg_ranks(func_ranks)
+    weighted_rank_list = get_weighted_avg_ranks(func_ranks, weights)
+
+    # Create lookups
     avg_rank_lookup = ranks_to_dict(avg_rank_list)
-    aer_rank_lookup = ranks_to_dict(get_aer_ranks(optimizers, weights))
+    weighted_rank_pos_lookup = ranks_to_dict(weighted_rank_list)
+
+    # Create lookup for the actual weighted rank score
+    weighted_score_lookup = {opt: score for opt, score in weighted_rank_list}
 
     for _, optimizer in enumerate(optimizers):
         console.info(f"Generating page for {optimizer}...")
 
         cards_html = ""
 
-        current_func_ranks = func_rank_dict.get(optimizer, {})
+        current_func_ranks = func_ranks.get(optimizer, {})
         sorted_functions = sorted(current_func_ranks.items(), key=lambda item: item[1])
 
         for function_name, rank in sorted_functions:
@@ -86,25 +99,14 @@ def main(console: Console) -> None:
                 ext=FILE_FORMAT,
             )
 
-        # Calculate average error rate for display
-        error_rates = optimizers[optimizer].get("error_rates", {})
-        if error_rates:
-            weighted_sum = sum(
-                error * weights.get(func, 1.0) for func, error in error_rates.items()
-            )
-            total_weight = sum(weights.get(f, 1.0) for f in error_rates.keys())
-            avg_error_rate = weighted_sum / total_weight if total_weight > 0 else 0.0
-        else:
-            avg_error_rate = 0.0
-
         page_html = render_template(
             "page",
             title=optimizer,
             cards=cards_html,
-            error_rate_rank=aer_rank_lookup.get(optimizer, "-"),
+            weighted_rank_pos=weighted_rank_pos_lookup.get(optimizer, "-"),
             avg_rank=avg_rank_lookup.get(optimizer, "-"),
-            avg_error_rate=round(avg_error_rate, 4),
-            functions_count=len(error_rates),
+            weighted_rank_score=round(weighted_score_lookup.get(optimizer, 0.0), 4),
+            functions_count=len(current_func_ranks),
         )
 
         output_file = DOCS_VIS_DIR / f"{optimizer}.html"

@@ -3,14 +3,14 @@
 import json
 
 from .core import RANKS_FILE, VIS_WEBPAGE_BASE_URL, Console, load_results
-from .misc import get_aer_ranks, get_afr_ranks
+from .misc import get_avg_ranks, get_function_ranks, get_weighted_avg_ranks
 
 TOOL_NAME = "COMP-GEN"
 
 
 def get_ranks_json(
-    afr_rankings: list[tuple[str, float]],
-    aer_rankings: list[tuple[str, float]],
+    avg_rankings: list[tuple[str, float]],
+    weighted_rankings: list[tuple[str, float]],
     console: Console,
 ) -> str:
     """Generate JSON string containing both ranking systems."""
@@ -38,8 +38,8 @@ def get_ranks_json(
 
     return json.dumps(
         {
-            "rankingByAvgRank": _create_list(afr_rankings),
-            "rankingByErrorRate": _create_list(aer_rankings),
+            "rankingByAvgRank": _create_list(avg_rankings),
+            "rankingByWeightedRank": _create_list(weighted_rankings),
         }
     )
 
@@ -56,9 +56,14 @@ def main(console: Console) -> None:
         console.error(f"Failed to load results: {e}")
         return None
 
-    json_data = get_ranks_json(
-        get_afr_ranks(optimizers)[0], get_aer_ranks(optimizers, weights), console
-    )
+    # Calculate raw ranks first
+    function_ranks = get_function_ranks(optimizers)
+
+    # Calculate aggregated metrics
+    avg_ranks = get_avg_ranks(function_ranks)
+    weighted_ranks = get_weighted_avg_ranks(function_ranks, weights)
+
+    json_data = get_ranks_json(avg_ranks, weighted_ranks, console)
 
     RANKS_FILE.write_text(json_data, encoding="utf-8")
 
