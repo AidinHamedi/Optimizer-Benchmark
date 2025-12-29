@@ -271,18 +271,34 @@ def benchmark_optimizer(
             debug=debug,
         )
 
-        print(" ├ Best Optimization Metrics:")
-        if error_rates[func_name] != float("inf"):
-            for i, (metric_name, metric_value) in enumerate(
-                hopt_metrics[func_name].items()
-            ):
+        has_opt = error_rates[func_name] != float("inf") and hopt_metrics.get(func_name)
+
+        print(" ├─┬ Best Optimization Metrics:")
+        if has_opt:
+            opt_items = list(hopt_metrics[func_name].items())
+            total = sum(hopt_metrics[func_name].values()) or 1.0
+            for i, (k, v) in enumerate(opt_items):
                 print(
-                    f"{' └┬' if i == 0 else ('  └' if i == len(hopt_metrics[func_name]) - 1 else '  ├')} "
-                    f"{metric_name}: {metric_value}, "
-                    f"contribution: {round(metric_value / sum(hopt_metrics[func_name].values()) * 100)}%"
+                    f" │ {'└' if i == len(opt_items) - 1 else '├'} {k}: {v:.6f}, "
+                    f"contribution: {round(v / total * 100)}%"
                 )
         else:
-            print(" └─ No metrics available")
+            print(" │ └─ No hyper-optimization metrics available")
+
+        print(" ├─┬ Evaluation Metrics:")
+        if has_opt and eval_metrics.get(func_name):
+            eval_items = list(eval_metrics[func_name].items())
+            for i, (k, v) in enumerate(eval_items):
+                print(f" │ {'└' if i == len(eval_items) - 1 else '├'} {k}: {v:.6f}")
+        else:
+            print(" │ └─ No evaluation metrics available")
+
+        print(" └─┬ Final Error:")
+        print(
+            f"   └─ error: {error_rates[func_name]:.6f}"
+            if error_rates[func_name] != float("inf")
+            else "   └─ error: inf (failed optimization)"
+        )
 
         visualize_trajectory(
             func,
