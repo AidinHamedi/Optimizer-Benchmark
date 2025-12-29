@@ -5,6 +5,7 @@ from .norm import normalize
 FUNCTION_NAME = "Griewank"
 START_POS = torch.tensor([-57.0, -42.6])
 EVAL_SIZE = ((-60, 60), (-60, 60))
+CRITERION_OVERRIDES = {"val_scaler_root": 4}
 GLOBAL_MINIMUM_LOC = torch.tensor([[0.0, 0.0]])
 
 FUNC_SCALE = 10

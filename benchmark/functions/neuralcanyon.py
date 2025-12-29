@@ -5,6 +5,7 @@ from .norm import normalize
 FUNCTION_NAME = "NeuralCanyon"
 START_POS = torch.tensor([-4.5, 3.5])
 EVAL_SIZE = ((-8, 8), (-8, 8))
+CRITERION_OVERRIDES = {"val_scaler_root": 5}
 GLOBAL_MINIMUM_LOC = torch.tensor([[0.0, 0.0]])
 
 CANYON_WALL = torch.tensor(30.0)

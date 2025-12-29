@@ -5,8 +5,10 @@ from .norm import normalize
 FUNCTION_NAME = "Rosenbrock"
 START_POS = torch.tensor([-2.0, 2.0])
 EVAL_SIZE = ((-2.1, 2.1), (-1.1, 3.1))
-ROSEN_A = torch.tensor(100.0)
+CRITERION_OVERRIDES = {"val_scaler_root": 5}
 GLOBAL_MINIMUM_LOC = torch.tensor([[1.0, 1.0]])
+
+ROSEN_A = torch.tensor(100.0)
 
 
 @normalize(0.0, 4025.572021484375)

@@ -1,6 +1,6 @@
 import math
 from dataclasses import dataclass
-from typing import Callable, Dict, Tuple
+from typing import Any, Callable, Dict, Optional, Tuple
 
 import torch
 
@@ -32,7 +32,7 @@ class ObjectiveConfig:
     final_val_weight: float = 1.8
     final_dist_weight: float = 2.6
     convergence_weight: float = 0.1
-    efficiency_weight: float = 0.06
+    efficiency_weight: float = 0.1
     lucky_jump_weight: float = 10.0
     start_prox_weight: float = 200.0
     boundary_weight: float = 16.0
@@ -206,6 +206,7 @@ def objective(
     bounds: Tuple[Tuple[float, float], Tuple[float, float]],
     mode: str,
     config: ObjectiveConfig = ObjectiveConfig(),
+    overrides: Optional[Dict[str, Any]] = None,
     debug: bool = False,
 ) -> Tuple[float, Dict[str, float]]:
     """Compute a weighted error score for an optimizer trajectory.
@@ -216,14 +217,17 @@ def objective(
         start_pos: Starting coordinates [x, y].
         global_min_pos: Tensor of known global minima locations.
         bounds: Search space bounds as ((min_x, max_x), (min_y, max_y)).
-        mode: Scoring mode, either "train" or "eval".
+        mode: Scoring mode, either "tuning" or "eval".
         config: Scoring configuration with weights and thresholds.
+        overrides: Optional dictionary of parameter overrides.
         debug: Enable debug output.
 
     Returns:
         Tuple of (total error score, metrics breakdown dictionary).
     """
-    is_train = mode == "train"
+    if overrides is None:
+        overrides = {}
+    is_tuning = mode == "tuning"
     error_sum = 0.0
     metrics = {}
 
@@ -238,19 +242,22 @@ def objective(
     # Final function value (log-scaled)
     final_pos = steps[:, -1]
     raw_val = criterion(final_pos).item()
-    val_penalty = _root_piecewise(max(raw_val, 0), 0.5, r=4) * config.final_val_weight
+    n_root = overrides.get("val_scaler_root", 2.5 if is_tuning else 1.5)
+    val_penalty = (
+        _root_piecewise(max(raw_val, 0), 0.5, r=n_root) * config.final_val_weight
+    )
     metrics["val_penalty"] = val_penalty
     error_sum += val_penalty
 
     # Distance to global minimum (normalized)
-    if is_train:
+    if is_tuning:
         min_dist = torch.min(torch.norm(global_min_pos - final_pos, dim=1)).item()
         dist_penalty = (min_dist / diag) * config.final_dist_weight
         metrics["dist_penalty"] = dist_penalty
         error_sum += dist_penalty
 
     # Boundary violations
-    if config.boundary_penalty and is_train:
+    if config.boundary_penalty and is_tuning:
         violation = _calc_boundary_violation(
             steps, bounds, config.boundary_tol * diag
         ).item()
@@ -274,7 +281,7 @@ def objective(
         error_sum += eff_penalty
 
     # Terrain violation
-    if config.terrain_violation_weight > 0 and is_train:
+    if config.terrain_violation_weight > 0 and is_tuning:
         tv_penalty = _calc_terrain_violation(
             steps,
             criterion,
@@ -286,7 +293,7 @@ def objective(
         error_sum += tv_penalty
 
     # Lucky jump (teleportation)
-    if config.lucky_jump_weight > 0 and is_train:
+    if config.lucky_jump_weight > 0 and is_tuning:
         abs_jump_thresh = config.lucky_jump_threshold * diag
         jump_val = _calc_lucky_jump(step_lengths, abs_jump_thresh).item()
         jump_penalty = jump_val * config.lucky_jump_weight
@@ -294,7 +301,7 @@ def objective(
         error_sum += jump_penalty
 
     # Start proximity (zero net movement)
-    if config.start_prox_weight > 0 and is_train:
+    if config.start_prox_weight > 0 and is_tuning:
         abs_prox_thresh = config.start_prox_threshold * diag
         prox_val = _calc_start_proximity(start_pos, final_pos, abs_prox_thresh).item()
         prox_penalty = prox_val * config.start_prox_weight

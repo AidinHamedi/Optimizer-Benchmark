@@ -73,6 +73,7 @@ def load_functions() -> Dict[str, Dict[str, Any]]:
             "size": getattr(module, "EVAL_SIZE", None),
             "pos": getattr(module, "START_POS", None),
             "gm_pos": getattr(module, "GLOBAL_MINIMUM_LOC", None),
+            "criterion_overrides": getattr(module, "CRITERION_OVERRIDES", None),
         }
 
         if DEBUG:
@@ -81,6 +82,9 @@ def load_functions() -> Dict[str, Dict[str, Any]]:
             print(f"   ├─ Func   : {func.__name__}()")
             print(f"   ├─ Size   : {func_dict[name]['size']}")
             print(f"   ├─ Start  : {func_dict[name]['pos']}")
+            print(
+                f"   ├─ Criterion Overrides: {func_dict[name]['criterion_overrides']}"
+            )
             print(f"   └─ GM Pos : {func_dict[name]['gm_pos']}\n")
 
     return func_dict

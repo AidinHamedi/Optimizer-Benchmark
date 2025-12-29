@@ -175,6 +175,7 @@ def benchmark_optimizer(
         eval_size = consts["size"]
         start_pos = consts["pos"]
         gm_pos = consts["gm_pos"]
+        criterion_overrides = consts["criterion_overrides"]
 
         def optuna_objective(trial: optuna.Trial) -> float:
             optimizer_params = {}
@@ -218,7 +219,8 @@ def benchmark_optimizer(
                 start_pos,
                 gm_pos,
                 eval_size,
-                "train",
+                "tuning",
+                overrides=criterion_overrides,
                 debug=debug,
             )
 
@@ -265,6 +267,7 @@ def benchmark_optimizer(
             gm_pos,
             eval_size,
             "eval",
+            overrides=criterion_overrides,
             debug=debug,
         )
 

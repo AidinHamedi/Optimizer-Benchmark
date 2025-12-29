@@ -5,6 +5,7 @@ from .norm import normalize
 FUNCTION_NAME = "Goldstein-Price"
 START_POS = torch.tensor([-1.8, 1.8])
 EVAL_SIZE = ((-3, 3), (-3, 3))
+CRITERION_OVERRIDES = {"val_scaler_root": 5}
 GLOBAL_MINIMUM_LOC = torch.tensor([[0.0, -1.0]])
 
 
