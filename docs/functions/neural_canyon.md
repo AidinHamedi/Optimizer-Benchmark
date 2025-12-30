@@ -23,3 +23,5 @@ The function combines three terms:
 *   **Manifold Navigation:** The optimizer must follow the curved $\tanh$ path.
 *   **Vanishing Gradients:** Far from the center, the $\tanh$ curve is flat, providing very little gradient information about direction.
 *   **Noise Tolerance:** The landscape is "rough." Algorithms without adaptive learning rates or momentum may settle in local minima surrounding the global solution.
+
+{% include mathjax.html %}

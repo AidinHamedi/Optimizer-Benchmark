@@ -25,3 +25,5 @@ The function is composed of four distinct layers:
 *   **Ill-Conditioning:** The ratio between the steepness of the walls and the slope of the floor is massive.
 *   **Parameter Coupling:** Due to rotation, movement in $x$ requires a precise compensatory movement in $y$ to stay in the valley.
 *   **Local Traps:** The floor is not smooth; optimizers must have enough energy (momentum) to hop over ridges but enough damping to stop at the global minimum.
+
+{% include mathjax.html %}
