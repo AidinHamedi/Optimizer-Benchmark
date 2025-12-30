@@ -84,7 +84,7 @@ h1 {
     box-shadow: var(--shadow-sm);
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
 }
 
 .stat-label {
@@ -114,7 +114,7 @@ h1 {
 .gallery {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-    gap: 2rem;
+    gap: 4rem;
 }
 
 .card {
@@ -312,14 +312,15 @@ h1 {
 
 .gallery-scroll-container {
     display: flex;
-    gap: 2rem;
-    padding: 2rem;
+    gap: 4rem;
+    padding: 3rem 4rem;
     overflow-x: auto;
     overflow-y: hidden;
     height: 100%;
-    align-items: flex-start;
+    align-items: center;
     scroll-behavior: smooth;
     background: var(--accents-1);
+    box-sizing: border-box;
 }
 
 .gallery-scroll-container::-webkit-scrollbar {
@@ -338,7 +339,10 @@ h1 {
 }
 
 .gallery-item {
-    flex: 0 0 550px;
+    flex: 0 0 60vh;
+    width: 60vh;
+    height: 75vh;
+    max-width: 1000px;
     background: #fff;
     border: 1px solid var(--accents-2);
     border-radius: var(--radius);
@@ -356,7 +360,8 @@ h1 {
 
 .gallery-img-container {
     width: 100%;
-    aspect-ratio: 1;
+    height: 60vh;
+    flex-shrink: 0;
     background: #fff;
     border-bottom: 1px solid var(--accents-2);
     display: flex;
@@ -412,6 +417,10 @@ h1 {
 
 .gallery-text {
     padding: 1.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .gallery-text h3 {
@@ -487,7 +496,7 @@ footer a:hover {
 
     .nav-header {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
         gap: 1rem;
     }
 
@@ -506,17 +515,32 @@ footer a:hover {
     }
 
     .gallery-scroll-container {
-        flex-direction: column;
-        overflow-y: auto;
-        overflow-x: hidden;
-        align-items: center;
-    }
+    display: flex;
+    gap: 4rem;
+    padding: 3rem 4rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    height: 100%;
+    align-items: center;
+    scroll-behavior: smooth;
+    background: var(--accents-1);
+    box-sizing: border-box;
+}
 
     .gallery-item {
-        flex: 0 0 auto;
-        width: 100%;
-        max-width: 500px;
-    }
+    flex: 0 0 60vh;
+    width: 60vh;
+    height: 75vh;
+    max-width: 1000px;
+    background: #fff;
+    border: 1px solid var(--accents-2);
+    border-radius: var(--radius);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s;
+}
 
     .modal-content {
         width: 100vw;
@@ -537,5 +561,43 @@ footer a:hover {
 
     .nav-header {
         margin-bottom: 2rem;
+    }
+}
+
+/* Mobile Adaptation */
+@media (max-width: 768px) {
+    .gallery-scroll-container {
+        flex-direction: column;
+        overflow-y: auto;
+        overflow-x: hidden;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 2rem 1rem !important; /* Override desktop padding */
+        gap: 2rem;
+    }
+
+    .gallery-item {
+        flex: 0 0 auto;
+        width: 90vw;       /* Responsive width */
+        max-width: 500px;  /* Cap width on larger phones/tablets */
+        height: auto;      /* Let content define height */
+        min-height: auto;
+    }
+
+    .gallery-img-container {
+        height: auto;
+        width: 100%;
+        aspect-ratio: 1 / 1; /* Force square aspect ratio */
+    }
+
+    .modal-content {
+        width: 100vw;
+        height: 100vh;
+        max-width: none;
+        border-radius: 0;
+    }
+
+    .gallery-text {
+        flex: 0 0 auto; /* Allow text to take natural height */
     }
 }
