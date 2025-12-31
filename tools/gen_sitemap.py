@@ -49,7 +49,7 @@ def main(console: Console) -> None:
         console.error("Failed to load optimizer results.")
         return None
 
-    add_url(WEBSITE_URL, lastmod=str(date.today()), priority=1.0)
+    add_url(WEBSITE_URL[0:-1], lastmod=str(date.today()), priority=None)
 
     with ThreadPoolExecutor(max_workers=32) as executor:
         executor.map(
@@ -57,7 +57,7 @@ def main(console: Console) -> None:
                 add_url(
                     f"{VIS_WEBPAGE_BASE_URL}{name}",
                     lastmod=str(date.today()),
-                    priority=0.8,
+                    priority=None,
                 )
                 if is_url_accessible(f"{VIS_WEBPAGE_BASE_URL}{name}")
                 else console.warn(

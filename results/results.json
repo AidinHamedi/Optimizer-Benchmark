@@ -177,7 +177,7 @@
                 "MixedMichalewiczSphere": {
                     "val_penalty": 2.1568168454416057,
                     "dist_penalty": 0.9289925606078265,
-                    "bound_penalty": 6.719129594297862e-5,
+                    "bound_penalty": 6.719129594297862e-05,
                     "speed_penalty": 0.1,
                     "eff_penalty": 0.42268071174621585,
                     "terrain_violation": 1.969112604856491,
@@ -332,7 +332,7 @@
                 },
                 "Drop-Wave": {
                     "val_penalty": 0.007031249999999998,
-                    "dist_penalty": 1.935065630072598e-5,
+                    "dist_penalty": 1.935065630072598e-05,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.018666666666666668,
                     "eff_penalty": 0.0965665340423584,
@@ -578,7 +578,7 @@
                 },
                 "Drop-Wave": {
                     "val_penalty": 0.007031249999999998,
-                    "dist_penalty": 4.5705961261499125e-8,
+                    "dist_penalty": 4.5705961261499125e-08,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.006666666666666667,
                     "eff_penalty": 0.03961416482925415,
@@ -681,7 +681,7 @@
                     "dist_penalty": 0.5285501991891864,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.1,
-                    "eff_penalty": 9.167194366455079e-6,
+                    "eff_penalty": 9.167194366455079e-06,
                     "terrain_violation": 0.0,
                     "jump_penalty": 0.0,
                     "prox_penalty": 0.0
@@ -721,7 +721,7 @@
                     "dist_penalty": 1.4690910384358464,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.1,
-                    "eff_penalty": 9.787082672119142e-6,
+                    "eff_penalty": 9.787082672119142e-06,
                     "terrain_violation": 0.0,
                     "jump_penalty": 0.0,
                     "prox_penalty": 0.0
@@ -967,7 +967,7 @@
                     "dist_penalty": 1.4687903459598304,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.1,
-                    "eff_penalty": 7.930994033813477e-5,
+                    "eff_penalty": 7.930994033813477e-05,
                     "terrain_violation": 0.0,
                     "jump_penalty": 0.0,
                     "prox_penalty": 0.0
@@ -1213,7 +1213,7 @@
                     "dist_penalty": 1.4687922745996183,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.1,
-                    "eff_penalty": 7.742643356323242e-5,
+                    "eff_penalty": 7.742643356323242e-05,
                     "terrain_violation": 0.0,
                     "jump_penalty": 0.0,
                     "prox_penalty": 0.0
@@ -1436,7 +1436,7 @@
                     "dist_penalty": 0.5285460350805536,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.1,
-                    "eff_penalty": 9.98973846435547e-6,
+                    "eff_penalty": 9.98973846435547e-06,
                     "terrain_violation": 0.0,
                     "jump_penalty": 0.0,
                     "prox_penalty": 0.0
@@ -1476,7 +1476,7 @@
                     "dist_penalty": 1.4659828600868228,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.1,
-                    "eff_penalty": 1.1324882507324219e-6,
+                    "eff_penalty": 1.1324882507324219e-06,
                     "terrain_violation": 0.0,
                     "jump_penalty": 0.0,
                     "prox_penalty": 0.0
@@ -1596,7 +1596,7 @@
                 },
                 "Drop-Wave": {
                     "val_penalty": 0.007031249999999998,
-                    "dist_penalty": 3.907725640700377e-5,
+                    "dist_penalty": 3.907725640700377e-05,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.007333333333333334,
                     "eff_penalty": 0.05359398126602173,
@@ -2191,7 +2191,7 @@
                     "dist_penalty": 0.5292997935340072,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.1,
-                    "eff_penalty": 3.206729888916016e-6,
+                    "eff_penalty": 3.206729888916016e-06,
                     "terrain_violation": 0.0,
                     "jump_penalty": 0.0,
                     "prox_penalty": 0.0
@@ -2231,7 +2231,7 @@
                     "dist_penalty": 1.4690531669636486,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.1,
-                    "eff_penalty": 1.437664031982422e-5,
+                    "eff_penalty": 1.437664031982422e-05,
                     "terrain_violation": 0.0,
                     "jump_penalty": 0.0,
                     "prox_penalty": 0.0
@@ -2437,7 +2437,7 @@
                     "dist_penalty": 0.5285355700180684,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.1,
-                    "eff_penalty": 1.0848045349121093e-6,
+                    "eff_penalty": 1.0848045349121093e-06,
                     "terrain_violation": 0.0,
                     "jump_penalty": 0.0,
                     "prox_penalty": 0.0
@@ -2464,7 +2464,7 @@
                 },
                 "Rosenbrock": {
                     "val_penalty": 0.11357232194908627,
-                    "dist_penalty": 3.152576189929922e-7,
+                    "dist_penalty": 3.152576189929922e-07,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.0125,
                     "eff_penalty": 0.1553123474121094,
@@ -2479,7 +2479,7 @@
                     "speed_penalty": 0.043333333333333335,
                     "eff_penalty": 0.05434808731079102,
                     "terrain_violation": 0.0,
-                    "jump_penalty": 8.575387255405076e-5,
+                    "jump_penalty": 8.575387255405076e-05,
                     "prox_penalty": 0.0
                 },
                 "Weierstrass": {
@@ -2588,7 +2588,7 @@
                 "Ackley": {
                     "val_penalty": 2.771638253102143,
                     "dist_penalty": 1.0619738519586792,
-                    "bound_penalty": 1.933965552287766e-6,
+                    "bound_penalty": 1.933965552287766e-06,
                     "speed_penalty": 0.1,
                     "eff_penalty": 1.0,
                     "terrain_violation": 0.0,
@@ -2688,7 +2688,7 @@
                 "MixedMichalewiczSphere": {
                     "val_penalty": 3.0367648307148523,
                     "dist_penalty": 1.2569664354122119,
-                    "bound_penalty": 4.088429938983708e-7,
+                    "bound_penalty": 4.088429938983708e-07,
                     "speed_penalty": 0.1,
                     "eff_penalty": 1.0,
                     "terrain_violation": 0.049092089757323265,
@@ -2946,7 +2946,7 @@
                     "dist_penalty": 0.5279444309649091,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.1,
-                    "eff_penalty": 1.1920928955078126e-8,
+                    "eff_penalty": 1.1920928955078126e-08,
                     "terrain_violation": 0.0,
                     "jump_penalty": 0.0,
                     "prox_penalty": 0.0
@@ -3232,7 +3232,7 @@
                     "dist_penalty": 1.468792537595953,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.1,
-                    "eff_penalty": 7.716417312622071e-5,
+                    "eff_penalty": 7.716417312622071e-05,
                     "terrain_violation": 0.0,
                     "jump_penalty": 0.0,
                     "prox_penalty": 0.0
@@ -3438,7 +3438,7 @@
                     "dist_penalty": 0.527802632107779,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.1,
-                    "eff_penalty": 8.511543273925781e-5,
+                    "eff_penalty": 8.511543273925781e-05,
                     "terrain_violation": 0.0,
                     "jump_penalty": 0.0,
                     "prox_penalty": 0.0
@@ -4862,7 +4862,7 @@
                 },
                 "Drop-Wave": {
                     "val_penalty": 0.007986447094438439,
-                    "dist_penalty": 8.731574660714946e-5,
+                    "dist_penalty": 8.731574660714946e-05,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.020000000000000004,
                     "eff_penalty": 0.07277476787567139,
@@ -5005,7 +5005,7 @@
                     "dist_penalty": 1.4687931512540673,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.1,
-                    "eff_penalty": 7.654428482055664e-5,
+                    "eff_penalty": 7.654428482055664e-05,
                     "terrain_violation": 0.0,
                     "jump_penalty": 0.0,
                     "prox_penalty": 0.0
@@ -5354,7 +5354,7 @@
                 },
                 "Drop-Wave": {
                     "val_penalty": 0.007031249999999998,
-                    "dist_penalty": 1.792058254068561e-8,
+                    "dist_penalty": 1.792058254068561e-08,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.008,
                     "eff_penalty": 0.01638895273208618,
@@ -5445,7 +5445,7 @@
                 "MixedMichalewiczSphere": {
                     "val_penalty": 2.3216534504895447,
                     "dist_penalty": 1.07201487668694,
-                    "bound_penalty": 3.273412778119759e-5,
+                    "bound_penalty": 3.273412778119759e-05,
                     "speed_penalty": 0.1,
                     "eff_penalty": 0.5808877468109132,
                     "terrain_violation": 8.297854661941528,
@@ -5497,7 +5497,7 @@
                     "dist_penalty": 1.4690245003631655,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.1,
-                    "eff_penalty": 3.8504600524902344e-5,
+                    "eff_penalty": 3.8504600524902344e-05,
                     "terrain_violation": 0.0,
                     "jump_penalty": 0.0,
                     "prox_penalty": 0.0
@@ -5743,7 +5743,7 @@
                     "dist_penalty": 1.46908770714894,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.1,
-                    "eff_penalty": 1.4829635620117188e-5,
+                    "eff_penalty": 1.4829635620117188e-05,
                     "terrain_violation": 0.0,
                     "jump_penalty": 0.0,
                     "prox_penalty": 0.0
@@ -5846,7 +5846,7 @@
                 },
                 "Drop-Wave": {
                     "val_penalty": 0.007031249999999998,
-                    "dist_penalty": 1.0477843114544539e-5,
+                    "dist_penalty": 1.0477843114544539e-05,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.013333333333333334,
                     "eff_penalty": 0.05634666681289673,
@@ -6455,7 +6455,7 @@
                 },
                 "NeuralCanyon": {
                     "val_penalty": 0.1135783536444194,
-                    "dist_penalty": 3.587221521620894e-6,
+                    "dist_penalty": 3.587221521620894e-06,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.02266666666666667,
                     "eff_penalty": 0.03502401113510132,
@@ -6498,7 +6498,7 @@
                     "dist_penalty": 1.4227419670540307,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.1,
-                    "eff_penalty": 3.843307495117188e-5,
+                    "eff_penalty": 3.843307495117188e-05,
                     "terrain_violation": 0.0,
                     "jump_penalty": 0.0,
                     "prox_penalty": 0.0
@@ -6704,7 +6704,7 @@
                     "dist_penalty": 0.5286968744366892,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.1,
-                    "eff_penalty": 1.633167266845703e-5,
+                    "eff_penalty": 1.633167266845703e-05,
                     "terrain_violation": 0.0,
                     "jump_penalty": 0.0,
                     "prox_penalty": 0.0
@@ -6744,7 +6744,7 @@
                     "dist_penalty": 1.46908788247983,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.1,
-                    "eff_penalty": 1.6212463378906252e-6,
+                    "eff_penalty": 1.6212463378906252e-06,
                     "terrain_violation": 0.0,
                     "jump_penalty": 0.0,
                     "prox_penalty": 0.0
@@ -6967,7 +6967,7 @@
                 },
                 "Rastrigin": {
                     "val_penalty": 0.0,
-                    "dist_penalty": 6.851278712388782e-5,
+                    "dist_penalty": 6.851278712388782e-05,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.018666666666666668,
                     "eff_penalty": 0.0928071141242981,
@@ -6990,7 +6990,7 @@
                     "dist_penalty": 1.4687749168415276,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.1,
-                    "eff_penalty": 3.4248828887939454e-5,
+                    "eff_penalty": 3.4248828887939454e-05,
                     "terrain_violation": 0.0,
                     "jump_penalty": 0.0,
                     "prox_penalty": 0.0
@@ -7093,7 +7093,7 @@
                 },
                 "Drop-Wave": {
                     "val_penalty": 0.007687702082413672,
-                    "dist_penalty": 8.263962017740512e-5,
+                    "dist_penalty": 8.263962017740512e-05,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.013333333333333334,
                     "eff_penalty": 0.11008806228637696,
@@ -7236,7 +7236,7 @@
                     "dist_penalty": 1.4686342138024588,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.1,
-                    "eff_penalty": 3.685951232910157e-5,
+                    "eff_penalty": 3.685951232910157e-05,
                     "terrain_violation": 0.0,
                     "jump_penalty": 0.0,
                     "prox_penalty": 0.0
@@ -7974,7 +7974,7 @@
                     "dist_penalty": 1.4687901706289406,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.1,
-                    "eff_penalty": 6.400346755981445e-5,
+                    "eff_penalty": 6.400346755981445e-05,
                     "terrain_violation": 0.0,
                     "jump_penalty": 0.0,
                     "prox_penalty": 0.0
@@ -8733,7 +8733,7 @@
                 },
                 "Rosenbrock": {
                     "val_penalty": 0.1135791410785745,
-                    "dist_penalty": 2.4520789117456877e-5,
+                    "dist_penalty": 2.4520789117456877e-05,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.09825,
                     "eff_penalty": 0.07437276840209961,
@@ -8949,7 +8949,7 @@
                 },
                 "NeuralCanyon": {
                     "val_penalty": 0.11517795117015904,
-                    "dist_penalty": 5.850576909730546e-5,
+                    "dist_penalty": 5.850576909730546e-05,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.014000000000000002,
                     "eff_penalty": 0.076132071018219,
@@ -8992,7 +8992,7 @@
                     "dist_penalty": 1.4688140156299543,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.1,
-                    "eff_penalty": 5.270242691040039e-5,
+                    "eff_penalty": 5.270242691040039e-05,
                     "terrain_violation": 0.0,
                     "jump_penalty": 0.0,
                     "prox_penalty": 0.0
@@ -9095,7 +9095,7 @@
                 },
                 "Drop-Wave": {
                     "val_penalty": 0.007031249999999998,
-                    "dist_penalty": 2.4267278599085213e-7,
+                    "dist_penalty": 2.4267278599085213e-07,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.010000000000000002,
                     "eff_penalty": 0.048506772518157965,
@@ -9238,7 +9238,7 @@
                     "dist_penalty": 1.4691282085844852,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.1,
-                    "eff_penalty": 1.562833786010742e-5,
+                    "eff_penalty": 1.562833786010742e-05,
                     "terrain_violation": 0.0,
                     "jump_penalty": 0.0,
                     "prox_penalty": 0.0
@@ -9484,7 +9484,7 @@
                     "dist_penalty": 1.4690875318180503,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.1,
-                    "eff_penalty": 2.263784408569336e-5,
+                    "eff_penalty": 2.263784408569336e-05,
                     "terrain_violation": 0.0,
                     "jump_penalty": 0.0,
                     "prox_penalty": 0.0
@@ -9730,7 +9730,7 @@
                     "dist_penalty": 1.468792537595953,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.1,
-                    "eff_penalty": 7.717609405517579e-5,
+                    "eff_penalty": 7.717609405517579e-05,
                     "terrain_violation": 0.0,
                     "jump_penalty": 0.0,
                     "prox_penalty": 0.0
@@ -9853,7 +9853,7 @@
                 },
                 "Goldstein-Price": {
                     "val_penalty": 0.11355735336895857,
-                    "dist_penalty": 8.327645635400056e-5,
+                    "dist_penalty": 8.327645635400056e-05,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.038000000000000006,
                     "eff_penalty": 0.09074891805648805,
@@ -9976,7 +9976,7 @@
                     "dist_penalty": 1.4687891186436017,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.1,
-                    "eff_penalty": 5.747079849243164e-5,
+                    "eff_penalty": 5.747079849243164e-05,
                     "terrain_violation": 0.0,
                     "jump_penalty": 0.0,
                     "prox_penalty": 0.0
@@ -10080,7 +10080,7 @@
                 "Drop-Wave": {
                     "val_penalty": 2.9828921024045063,
                     "dist_penalty": 1.4883019043614456,
-                    "bound_penalty": 2.059218661022864e-5,
+                    "bound_penalty": 2.059218661022864e-05,
                     "speed_penalty": 0.1,
                     "eff_penalty": 1.0,
                     "terrain_violation": 0.4248775914311409,
@@ -10325,7 +10325,7 @@
                 },
                 "Drop-Wave": {
                     "val_penalty": 0.007031249999999998,
-                    "dist_penalty": 4.867625242974689e-5,
+                    "dist_penalty": 4.867625242974689e-05,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.03133333333333334,
                     "eff_penalty": 0.29201412200927734,
@@ -10396,7 +10396,7 @@
                 "Langermann 2": {
                     "val_penalty": 1.81663898476327,
                     "dist_penalty": 1.637889664857769,
-                    "bound_penalty": 2.249468791728216e-9,
+                    "bound_penalty": 2.249468791728216e-09,
                     "speed_penalty": 0.1,
                     "eff_penalty": 0.5484877109527588,
                     "terrain_violation": 3.061995506286621,
@@ -11257,7 +11257,7 @@
                     "dist_penalty": 1.468792537595953,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.1,
-                    "eff_penalty": 7.717609405517579e-5,
+                    "eff_penalty": 7.717609405517579e-05,
                     "terrain_violation": 0.0,
                     "jump_penalty": 0.0,
                     "prox_penalty": 0.0
@@ -11377,7 +11377,7 @@
                 },
                 "Drop-Wave": {
                     "val_penalty": 0.007031249999999998,
-                    "dist_penalty": 8.378206845681439e-6,
+                    "dist_penalty": 8.378206845681439e-06,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.016,
                     "eff_penalty": 0.05350717306137085,
@@ -11422,7 +11422,7 @@
                     "speed_penalty": 0.1,
                     "eff_penalty": 0.023464763164520265,
                     "terrain_violation": 0.0,
-                    "jump_penalty": 7.965431905176956e-5,
+                    "jump_penalty": 7.965431905176956e-05,
                     "prox_penalty": 0.0
                 },
                 "Griewank": {
@@ -11520,7 +11520,7 @@
                     "dist_penalty": 1.4166738526233136,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.1,
-                    "eff_penalty": 2.348423004150391e-6,
+                    "eff_penalty": 2.348423004150391e-06,
                     "terrain_violation": 0.0,
                     "jump_penalty": 0.0,
                     "prox_penalty": 0.0
@@ -11623,7 +11623,7 @@
                 },
                 "Drop-Wave": {
                     "val_penalty": 0.007031249999999998,
-                    "dist_penalty": 7.509074401549902e-5,
+                    "dist_penalty": 7.509074401549902e-05,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.006,
                     "eff_penalty": 0.08881032466888428,
@@ -11726,7 +11726,7 @@
                     "dist_penalty": 0.5284369463925529,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.1,
-                    "eff_penalty": 2.2649765014648438e-6,
+                    "eff_penalty": 2.2649765014648438e-06,
                     "terrain_violation": 0.0,
                     "jump_penalty": 0.0,
                     "prox_penalty": 0.0
@@ -12309,7 +12309,7 @@
                     "dist_penalty": 1.4691282085844852,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.1,
-                    "eff_penalty": 1.562833786010742e-5,
+                    "eff_penalty": 1.562833786010742e-05,
                     "terrain_violation": 0.0,
                     "jump_penalty": 1.7408297026122455e-10,
                     "prox_penalty": 0.0
@@ -12555,7 +12555,7 @@
                     "dist_penalty": 1.4687903459598304,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.1,
-                    "eff_penalty": 7.930994033813477e-5,
+                    "eff_penalty": 7.930994033813477e-05,
                     "terrain_violation": 0.0,
                     "jump_penalty": 0.0,
                     "prox_penalty": 0.0
@@ -12801,7 +12801,7 @@
                     "dist_penalty": 1.4687922745996183,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.1,
-                    "eff_penalty": 7.742643356323242e-5,
+                    "eff_penalty": 7.742643356323242e-05,
                     "terrain_violation": 0.0,
                     "jump_penalty": 0.0,
                     "prox_penalty": 0.0
@@ -13047,7 +13047,7 @@
                     "dist_penalty": 1.4687876283310384,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.1,
-                    "eff_penalty": 6.681680679321289e-5,
+                    "eff_penalty": 6.681680679321289e-05,
                     "terrain_violation": 0.0,
                     "jump_penalty": 0.0,
                     "prox_penalty": 0.0
@@ -13250,7 +13250,7 @@
                 },
                 "NeuralCanyon": {
                     "val_penalty": 0.11517795117015904,
-                    "dist_penalty": 6.196675233144813e-5,
+                    "dist_penalty": 6.196675233144813e-05,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.07333333333333333,
                     "eff_penalty": 0.02252800464630127,
@@ -13293,7 +13293,7 @@
                     "dist_penalty": 1.4690190651055814,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.1,
-                    "eff_penalty": 3.459453582763672e-5,
+                    "eff_penalty": 3.459453582763672e-05,
                     "terrain_violation": 0.0,
                     "jump_penalty": 0.0,
                     "prox_penalty": 0.0
@@ -13438,7 +13438,7 @@
                     "speed_penalty": 0.1,
                     "eff_penalty": 0.014013946056365967,
                     "terrain_violation": 0.0,
-                    "jump_penalty": 9.977689785500843e-7,
+                    "jump_penalty": 9.977689785500843e-07,
                     "prox_penalty": 0.0
                 },
                 "GradientLabyrinth": {
@@ -13516,7 +13516,7 @@
                     "dist_penalty": 0.5285212695923686,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.1,
-                    "eff_penalty": 1.4555454254150392e-5,
+                    "eff_penalty": 1.4555454254150392e-05,
                     "terrain_violation": 0.0,
                     "jump_penalty": 0.0,
                     "prox_penalty": 0.0
@@ -13556,7 +13556,7 @@
                     "dist_penalty": 1.4690875318180503,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.1,
-                    "eff_penalty": 1.1205673217773438e-6,
+                    "eff_penalty": 1.1205673217773438e-06,
                     "terrain_violation": 0.0,
                     "jump_penalty": 0.0,
                     "prox_penalty": 0.0
@@ -13802,7 +13802,7 @@
                     "dist_penalty": 1.4686051965401958,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.1,
-                    "eff_penalty": 6.303787231445313e-5,
+                    "eff_penalty": 6.303787231445313e-05,
                     "terrain_violation": 0.0,
                     "jump_penalty": 0.0,
                     "prox_penalty": 0.0
@@ -14294,7 +14294,7 @@
                     "dist_penalty": 1.4690875318180503,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.1,
-                    "eff_penalty": 1.7714500427246093e-5,
+                    "eff_penalty": 1.7714500427246093e-05,
                     "terrain_violation": 0.0,
                     "jump_penalty": 0.0,
                     "prox_penalty": 0.0
@@ -14400,7 +14400,7 @@
                     "dist_penalty": 0.6260360293823731,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.1,
-                    "eff_penalty": 4.76837158203125e-8,
+                    "eff_penalty": 4.76837158203125e-08,
                     "terrain_violation": 1.2932117283344269,
                     "jump_penalty": 0.0,
                     "prox_penalty": 0.0
@@ -15032,7 +15032,7 @@
                     "dist_penalty": 1.4687922745996183,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.1,
-                    "eff_penalty": 7.742643356323242e-5,
+                    "eff_penalty": 7.742643356323242e-05,
                     "terrain_violation": 0.0,
                     "jump_penalty": 0.0,
                     "prox_penalty": 0.0
@@ -15524,7 +15524,7 @@
                     "dist_penalty": 1.4603666610245787,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.1,
-                    "eff_penalty": 6.966590881347656e-5,
+                    "eff_penalty": 6.966590881347656e-05,
                     "terrain_violation": 0.0,
                     "jump_penalty": 0.0,
                     "prox_penalty": 0.0
@@ -15976,7 +15976,7 @@
                     "dist_penalty": 0.5280119333574841,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.1,
-                    "eff_penalty": 2.741813659667969e-7,
+                    "eff_penalty": 2.741813659667969e-07,
                     "terrain_violation": 0.0,
                     "jump_penalty": 0.0,
                     "prox_penalty": 0.0
@@ -16169,7 +16169,7 @@
                     "dist_penalty": 1.0586036415948412,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.1,
-                    "eff_penalty": 2.455711364746094e-6,
+                    "eff_penalty": 2.455711364746094e-06,
                     "terrain_violation": 0.0,
                     "jump_penalty": 0.0,
                     "prox_penalty": 194.52810287475586
@@ -16279,7 +16279,7 @@
                     "dist_penalty": 0.22936534966177757,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.1,
-                    "eff_penalty": 3.354549407958985e-5,
+                    "eff_penalty": 3.354549407958985e-05,
                     "terrain_violation": 0.0,
                     "jump_penalty": 0.0,
                     "prox_penalty": 0.0
@@ -16525,7 +16525,7 @@
                     "dist_penalty": 1.4689813689642732,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.1,
-                    "eff_penalty": 4.6145915985107425e-5,
+                    "eff_penalty": 4.6145915985107425e-05,
                     "terrain_violation": 0.0,
                     "jump_penalty": 0.0,
                     "prox_penalty": 0.0
@@ -16678,7 +16678,7 @@
                     "dist_penalty": 0.7991655925045585,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.1,
-                    "eff_penalty": 3.483295440673828e-5,
+                    "eff_penalty": 3.483295440673828e-05,
                     "terrain_violation": 0.0,
                     "jump_penalty": 0.0,
                     "prox_penalty": 0.0
@@ -16698,7 +16698,7 @@
                     "dist_penalty": 1.3072366068136336,
                     "bound_penalty": 5.767628771672117,
                     "speed_penalty": 0.1,
-                    "eff_penalty": 1.965761184692383e-5,
+                    "eff_penalty": 1.965761184692383e-05,
                     "terrain_violation": 0.0035684448084793985,
                     "jump_penalty": 0.0,
                     "prox_penalty": 23.07010293006897
@@ -17034,7 +17034,7 @@
                     "dist_penalty": 1.4690875318180503,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.1,
-                    "eff_penalty": 1.3530254364013672e-5,
+                    "eff_penalty": 1.3530254364013672e-05,
                     "terrain_violation": 0.0,
                     "jump_penalty": 0.0,
                     "prox_penalty": 0.0
@@ -17053,118 +17053,14 @@
         },
         "soap": {
             "hyperparameters": {
-                "Ackley": {
-                    "lr": 1.1274797073756038
-                },
-                "Drop-Wave": {
-                    "lr": 0.42713859983999286
-                },
-                "EggHolder": {
-                    "lr": 1.5223142650254322
-                },
-                "Goldstein-Price": {
-                    "lr": 0.2034504720400871
-                },
                 "GradientLabyrinth": {
                     "lr": 1.5679433010669197
-                },
-                "Gramacy & Lee 2D": {
-                    "lr": 0.1943220234897007
-                },
-                "Griewank": {
-                    "lr": 2.352398606056483
-                },
-                "Langermann": {
-                    "lr": 0.44841691632377106
-                },
-                "Langermann 2": {
-                    "lr": 0.6172300310444437
-                },
-                "Lévy 13": {
-                    "lr": 0.7092623441418144
-                },
-                "MixedMichalewiczSphere": {
-                    "lr": 1.0266661507488832
-                },
-                "NeuralCanyon": {
-                    "lr": 0.34940286186523
-                },
-                "QuantumWell": {
-                    "lr": 1.0165713951638131
-                },
-                "Rastrigin": {
-                    "lr": 0.889848134414462
-                },
-                "Rosenbrock": {
-                    "lr": 0.07884644852263502
-                },
-                "Styblinski-Tang": {
-                    "lr": 0.5268779993965615
-                },
-                "Weierstrass": {
-                    "lr": 0.9920049589120428
                 }
             },
             "error_rates": {
-                "Ackley": 2.243657141168779,
-                "Drop-Wave": 5.31683315327142,
-                "EggHolder": 2.2843438992504037,
-                "Goldstein-Price": 1.004052771214741,
-                "GradientLabyrinth": 2.0184881031252315,
-                "Gramacy & Lee 2D": 2.604442587588543,
-                "Griewank": 2.243807241820216,
-                "Langermann": 3.2397050197373227,
-                "Langermann 2": 3.412044368159977,
-                "Lévy 13": 0.8191075665964428,
-                "MixedMichalewiczSphere": 1.04518646732512,
-                "NeuralCanyon": 1.716915594630891,
-                "QuantumWell": 2.1930887044204277,
-                "Rastrigin": 0.9856924836707424,
-                "Rosenbrock": 1.2381519891453925,
-                "Styblinski-Tang": 1.4652320869704083,
-                "Weierstrass": 1.7251900542649052
+                "GradientLabyrinth": 2.0184881031252315
             },
             "hopt_metrics": {
-                "Ackley": {
-                    "val_penalty": 0.8610484976361631,
-                    "dist_penalty": 0.09278933674269146,
-                    "bound_penalty": 0.0,
-                    "speed_penalty": 0.1,
-                    "eff_penalty": 0.08592684268951417,
-                    "terrain_violation": 0.0,
-                    "jump_penalty": 0.001096665218938142,
-                    "prox_penalty": 0.0
-                },
-                "Drop-Wave": {
-                    "val_penalty": 2.290880780031883,
-                    "dist_penalty": 0.4391738275449829,
-                    "bound_penalty": 0.0,
-                    "speed_penalty": 0.1,
-                    "eff_penalty": 0.06059280633926392,
-                    "terrain_violation": 2.582375407218933,
-                    "jump_penalty": 0.0,
-                    "prox_penalty": 0.0
-                },
-                "EggHolder": {
-                    "val_penalty": 0.8830341018596302,
-                    "dist_penalty": 0.11876124643471228,
-                    "bound_penalty": 0.0,
-                    "speed_penalty": 0.1,
-                    "eff_penalty": 0.08011432886123658,
-                    "terrain_violation": 0.5481719970703125,
-                    "jump_penalty": 0.050303214229643345,
-                    "prox_penalty": 0.0
-                },
-                "Goldstein-Price": {
-                    "val_penalty": 0.17866036134062466,
-                    "dist_penalty": 0.07177006514653267,
-                    "bound_penalty": 0.0,
-                    "speed_penalty": 0.04733333333333334,
-                    "eff_penalty": 0.0462236762046814,
-                    "terrain_violation": 0.0,
-                    "jump_penalty": 0.0,
-                    "prox_penalty": 0.0
-                },
                 "GradientLabyrinth": {
                     "val_penalty": 0.30709703453331144,
                     "dist_penalty": 0.321079595741815,
@@ -17172,126 +17068,6 @@
                     "speed_penalty": 0.1,
                     "eff_penalty": 0.21547458171844483,
                     "terrain_violation": 0.0,
-                    "jump_penalty": 0.0,
-                    "prox_penalty": 0.0
-                },
-                "Gramacy & Lee 2D": {
-                    "val_penalty": 1.0075091573961585,
-                    "dist_penalty": 0.5562657059703606,
-                    "bound_penalty": 0.0,
-                    "speed_penalty": 0.1,
-                    "eff_penalty": 0.0830665946006775,
-                    "terrain_violation": 0.0029136452940292656,
-                    "jump_penalty": 0.0031643389957025647,
-                    "prox_penalty": 0.0
-                },
-                "Griewank": {
-                    "val_penalty": 0.5900646607787845,
-                    "dist_penalty": 0.10722383943496268,
-                    "bound_penalty": 0.0,
-                    "speed_penalty": 0.1,
-                    "eff_penalty": 0.022584652900695803,
-                    "terrain_violation": 0.21705657243728638,
-                    "jump_penalty": 0.0,
-                    "prox_penalty": 0.0
-                },
-                "Langermann": {
-                    "val_penalty": 1.2329641091824248,
-                    "dist_penalty": 0.3701730792033283,
-                    "bound_penalty": 0.0,
-                    "speed_penalty": 0.1,
-                    "eff_penalty": 0.1165242910385132,
-                    "terrain_violation": 0.6452027708292007,
-                    "jump_penalty": 0.0,
-                    "prox_penalty": 0.0
-                },
-                "Langermann 2": {
-                    "val_penalty": 1.2992427867272147,
-                    "dist_penalty": 0.4473394469818148,
-                    "bound_penalty": 0.0,
-                    "speed_penalty": 0.1,
-                    "eff_penalty": 0.12090690135955812,
-                    "terrain_violation": 0.1205297838896513,
-                    "jump_penalty": 0.0,
-                    "prox_penalty": 0.0
-                },
-                "Lévy 13": {
-                    "val_penalty": 0.09211931984891977,
-                    "dist_penalty": 0.024348647213124644,
-                    "bound_penalty": 0.0,
-                    "speed_penalty": 0.09266666666666667,
-                    "eff_penalty": 0.11166524887084961,
-                    "terrain_violation": 0.09572709910571575,
-                    "jump_penalty": 0.0,
-                    "prox_penalty": 0.0
-                },
-                "MixedMichalewiczSphere": {
-                    "val_penalty": 0.13951685015385773,
-                    "dist_penalty": 0.005634906046322666,
-                    "bound_penalty": 0.0,
-                    "speed_penalty": 0.05466666666666667,
-                    "eff_penalty": 0.2047984838485718,
-                    "terrain_violation": 1.553415060043335,
-                    "jump_penalty": 0.0,
-                    "prox_penalty": 0.0
-                },
-                "NeuralCanyon": {
-                    "val_penalty": 0.2802323730304629,
-                    "dist_penalty": 0.08388838605789138,
-                    "bound_penalty": 0.0,
-                    "speed_penalty": 0.04066666666666667,
-                    "eff_penalty": 0.1884800672531128,
-                    "terrain_violation": 0.0,
-                    "jump_penalty": 0.0,
-                    "prox_penalty": 0.0
-                },
-                "QuantumWell": {
-                    "val_penalty": 0.8095292667616643,
-                    "dist_penalty": 0.16040479582530254,
-                    "bound_penalty": 0.0,
-                    "speed_penalty": 0.1,
-                    "eff_penalty": 0.11675081253051758,
-                    "terrain_violation": 0.0,
-                    "jump_penalty": 0.0,
-                    "prox_penalty": 0.0
-                },
-                "Rastrigin": {
-                    "val_penalty": 0.25829619931800174,
-                    "dist_penalty": 0.09089844788704415,
-                    "bound_penalty": 0.0,
-                    "speed_penalty": 0.1,
-                    "eff_penalty": 0.09583158493041993,
-                    "terrain_violation": 0.014413510216400027,
-                    "jump_penalty": 0.0,
-                    "prox_penalty": 0.0
-                },
-                "Rosenbrock": {
-                    "val_penalty": 0.1142351391509993,
-                    "dist_penalty": 0.0003414292678420812,
-                    "bound_penalty": 0.0,
-                    "speed_penalty": 0.073,
-                    "eff_penalty": 0.15844004154205324,
-                    "terrain_violation": 0.0,
-                    "jump_penalty": 0.0,
-                    "prox_penalty": 0.0
-                },
-                "Styblinski-Tang": {
-                    "val_penalty": 0.2402919747700317,
-                    "dist_penalty": 0.013042773117855061,
-                    "bound_penalty": 0.0,
-                    "speed_penalty": 0.074,
-                    "eff_penalty": 0.10668878555297852,
-                    "terrain_violation": 0.0,
-                    "jump_penalty": 0.029180110432207584,
-                    "prox_penalty": 0.0
-                },
-                "Weierstrass": {
-                    "val_penalty": 0.6208479773766716,
-                    "dist_penalty": 0.09426658546887225,
-                    "bound_penalty": 0.0,
-                    "speed_penalty": 0.1,
-                    "eff_penalty": 0.10702979564666748,
-                    "terrain_violation": 1.027316376566887,
                     "jump_penalty": 0.0,
                     "prox_penalty": 0.0
                 }
@@ -17374,7 +17150,7 @@
                 "Ackley": {
                     "val_penalty": 2.281768926481301,
                     "dist_penalty": 1.159222357305428,
-                    "bound_penalty": 2.4107661327562064e-7,
+                    "bound_penalty": 2.4107661327562064e-07,
                     "speed_penalty": 0.1,
                     "eff_penalty": 0.16443307399749757,
                     "terrain_violation": 0.0,
@@ -17514,7 +17290,7 @@
                 "Rosenbrock": {
                     "val_penalty": 0.540013798088001,
                     "dist_penalty": 0.989237439915713,
-                    "bound_penalty": 3.382147114620294e-8,
+                    "bound_penalty": 3.382147114620294e-08,
                     "speed_penalty": 0.1,
                     "eff_penalty": 0.40100855827331544,
                     "terrain_violation": 0.0,
@@ -17526,7 +17302,7 @@
                     "dist_penalty": 1.4946567368019195,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.1,
-                    "eff_penalty": 5.674362182617188e-6,
+                    "eff_penalty": 5.674362182617188e-06,
                     "terrain_violation": 0.0,
                     "jump_penalty": 0.0014003428805153817,
                     "prox_penalty": 0.0
@@ -17534,7 +17310,7 @@
                 "Weierstrass": {
                     "val_penalty": 1.7514647089697808,
                     "dist_penalty": 1.332869200657663,
-                    "bound_penalty": 1.782549901575978e-8,
+                    "bound_penalty": 1.782549901575978e-08,
                     "speed_penalty": 0.1,
                     "eff_penalty": 0.38450202941894535,
                     "terrain_violation": 1.3411055505275726,
@@ -17772,7 +17548,7 @@
                     "dist_penalty": 1.46908770714894,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.1,
-                    "eff_penalty": 1.4746189117431641e-5,
+                    "eff_penalty": 1.4746189117431641e-05,
                     "terrain_violation": 0.0,
                     "jump_penalty": 0.0,
                     "prox_penalty": 0.0
@@ -18018,7 +17794,7 @@
                     "dist_penalty": 1.46908770714894,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.1,
-                    "eff_penalty": 1.3756752014160157e-5,
+                    "eff_penalty": 1.3756752014160157e-05,
                     "terrain_violation": 0.0,
                     "jump_penalty": 0.0,
                     "prox_penalty": 0.0
@@ -18368,7 +18144,7 @@
                 "Drop-Wave": {
                     "val_penalty": 2.9267360768116615,
                     "dist_penalty": 1.544607339425426,
-                    "bound_penalty": 3.8067738169784114e-7,
+                    "bound_penalty": 3.8067738169784114e-07,
                     "speed_penalty": 0.1,
                     "eff_penalty": 1.0,
                     "terrain_violation": 29.24485683441162,
@@ -18510,7 +18286,7 @@
                     "dist_penalty": 1.4690875318180503,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.1,
-                    "eff_penalty": 1.1456012725830079e-5,
+                    "eff_penalty": 1.1456012725830079e-05,
                     "terrain_violation": 0.0,
                     "jump_penalty": 0.0,
                     "prox_penalty": 0.0
@@ -19002,7 +18778,7 @@
                     "dist_penalty": 1.4688136649681747,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.1,
-                    "eff_penalty": 7.950067520141603e-5,
+                    "eff_penalty": 7.950067520141603e-05,
                     "terrain_violation": 0.0,
                     "jump_penalty": 0.0,
                     "prox_penalty": 0.0
@@ -19248,7 +19024,7 @@
                     "dist_penalty": 1.4688993141078444,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.1,
-                    "eff_penalty": 6.330013275146484e-5,
+                    "eff_penalty": 6.330013275146484e-05,
                     "terrain_violation": 0.0,
                     "jump_penalty": 0.0,
                     "prox_penalty": 0.0
@@ -19740,7 +19516,7 @@
                     "dist_penalty": 1.4564133001212483,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.1,
-                    "eff_penalty": 2.9599666595458986e-5,
+                    "eff_penalty": 2.9599666595458986e-05,
                     "terrain_violation": 0.0,
                     "jump_penalty": 0.0,
                     "prox_penalty": 0.0
@@ -20369,7 +20145,7 @@
                 },
                 "Drop-Wave": {
                     "val_penalty": 0.007031249999999998,
-                    "dist_penalty": 9.812753399449604e-8,
+                    "dist_penalty": 9.812753399449604e-08,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.018666666666666668,
                     "eff_penalty": 0.08209444284439088,
@@ -20460,7 +20236,7 @@
                 "MixedMichalewiczSphere": {
                     "val_penalty": 3.0301867073149142,
                     "dist_penalty": 1.3541913587542818,
-                    "bound_penalty": 1.5674651670999655e-7,
+                    "bound_penalty": 1.5674651670999655e-07,
                     "speed_penalty": 0.1,
                     "eff_penalty": 0.2877619504928589,
                     "terrain_violation": 2.4818573892116547,
@@ -20512,7 +20288,7 @@
                     "dist_penalty": 1.4690880578107197,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.1,
-                    "eff_penalty": 1.6009807586669923e-5,
+                    "eff_penalty": 1.6009807586669923e-05,
                     "terrain_violation": 0.0,
                     "jump_penalty": 0.0,
                     "prox_penalty": 0.0
@@ -20520,7 +20296,7 @@
                 "Weierstrass": {
                     "val_penalty": 1.8223059878556476,
                     "dist_penalty": 1.294229914032282,
-                    "bound_penalty": 1.8235688718376661e-7,
+                    "bound_penalty": 1.8235688718376661e-07,
                     "speed_penalty": 0.1,
                     "eff_penalty": 0.9636836051940918,
                     "terrain_violation": 0.4749194160103798,
@@ -20758,7 +20534,7 @@
                     "dist_penalty": 1.4687922745996183,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.1,
-                    "eff_penalty": 7.742643356323242e-5,
+                    "eff_penalty": 7.742643356323242e-05,
                     "terrain_violation": 0.0,
                     "jump_penalty": 0.0,
                     "prox_penalty": 0.0
@@ -20961,7 +20737,7 @@
                 },
                 "NeuralCanyon": {
                     "val_penalty": 0.11358680257658404,
-                    "dist_penalty": 5.7899506785090825e-6,
+                    "dist_penalty": 5.7899506785090825e-06,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.027333333333333334,
                     "eff_penalty": 0.1008488416671753,
@@ -20971,7 +20747,7 @@
                 },
                 "QuantumWell": {
                     "val_penalty": 0.0,
-                    "dist_penalty": 3.7469443277881384e-6,
+                    "dist_penalty": 3.7469443277881384e-06,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.02266666666666667,
                     "eff_penalty": 0.06732344627380371,
@@ -21004,7 +20780,7 @@
                     "dist_penalty": 1.4604921979416794,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.1,
-                    "eff_penalty": 3.1006336212158206e-5,
+                    "eff_penalty": 3.1006336212158206e-05,
                     "terrain_violation": 0.0,
                     "jump_penalty": 0.0,
                     "prox_penalty": 0.0
@@ -21250,7 +21026,7 @@
                     "dist_penalty": 1.4690108245537605,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.1,
-                    "eff_penalty": 9.826421737670899e-5,
+                    "eff_penalty": 9.826421737670899e-05,
                     "terrain_violation": 0.0,
                     "jump_penalty": 0.0,
                     "prox_penalty": 0.0
@@ -21383,7 +21159,7 @@
                 },
                 "GradientLabyrinth": {
                     "val_penalty": 0.08168595360087809,
-                    "dist_penalty": 8.38919689227938e-5,
+                    "dist_penalty": 8.38919689227938e-05,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.010685714285714286,
                     "eff_penalty": 0.15938849449157716,
@@ -21483,7 +21259,7 @@
                 },
                 "Rosenbrock": {
                     "val_penalty": 0.11357353045644336,
-                    "dist_penalty": 9.778069528261566e-6,
+                    "dist_penalty": 9.778069528261566e-06,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.0665357142857143,
                     "eff_penalty": 0.07667373418807984,
@@ -21742,7 +21518,7 @@
                     "dist_penalty": 1.4687903459598304,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.1,
-                    "eff_penalty": 7.930994033813477e-5,
+                    "eff_penalty": 7.930994033813477e-05,
                     "terrain_violation": 0.0,
                     "jump_penalty": 0.0,
                     "prox_penalty": 0.0
@@ -21928,7 +21704,7 @@
                     "dist_penalty": 0.808301789301437,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.1,
-                    "eff_penalty": 1.1849403381347657e-5,
+                    "eff_penalty": 1.1849403381347657e-05,
                     "terrain_violation": 0.0,
                     "jump_penalty": 0.0,
                     "prox_penalty": 0.0
@@ -21948,7 +21724,7 @@
                     "dist_penalty": 0.4484327490926459,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.1,
-                    "eff_penalty": 8.392333984375e-6,
+                    "eff_penalty": 8.392333984375e-06,
                     "terrain_violation": 0.0,
                     "jump_penalty": 6.426143050193787,
                     "prox_penalty": 49.27206337451935
@@ -21990,7 +21766,7 @@
                     "speed_penalty": 0.1,
                     "eff_penalty": 0.00011650323867797852,
                     "terrain_violation": 0.0,
-                    "jump_penalty": 7.924941769488214e-7,
+                    "jump_penalty": 7.924941769488214e-07,
                     "prox_penalty": 0.0
                 },
                 "Weierstrass": {
@@ -22234,7 +22010,7 @@
                     "dist_penalty": 1.468779913771887,
                     "bound_penalty": 0.0,
                     "speed_penalty": 0.1,
-                    "eff_penalty": 2.4390220642089846e-5,
+                    "eff_penalty": 2.4390220642089846e-05,
                     "terrain_violation": 0.0,
                     "jump_penalty": 0.0,
                     "prox_penalty": 0.0
