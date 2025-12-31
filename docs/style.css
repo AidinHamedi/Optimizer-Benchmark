@@ -634,7 +634,6 @@ footer {
         font-size: 1rem;
         font-family: var(--font-mono);
         color: var(--fg);
-        margin: 0;
     }
 
     .visit-btn {
@@ -650,18 +649,31 @@ footer {
         font-size: 1rem;
     }
 
-    html,
-    body {
-        overflow-y: scroll;
-        -webkit-overflow-scrolling: touch;
-    }
-
     .table-container {
         max-height: 65vh;
-        overflow-y: scroll;
+        overflow-y: auto;
+        overflow-x: auto;
         background: transparent;
         border: none;
         box-shadow: none;
+        scrollbar-width: thick;
+        scrollbar-color: var(--accents-4) var(--accents-1);
+    }
+
+    .table-container::-webkit-scrollbar {
+        height: 10px;
+        width: 10px;
+    }
+
+    .table-container::-webkit-scrollbar-track {
+        background: var(--accents-1);
+        border-radius: 10px;
+    }
+
+    .table-container::-webkit-scrollbar-thumb {
+        background-color: var(--accents-4);
+        border-radius: 10px;
+        border: 2px solid var(--accents-1);
     }
 
     table,
@@ -697,10 +709,6 @@ footer {
         box-shadow: var(--shadow-sm);
     }
 
-    tbody tr:last-child {
-        margin-bottom: 2px;
-    }
-
     tbody td {
         padding: 0;
         border: none;
@@ -729,8 +737,8 @@ footer {
 
     .score-cell {
         grid-area: score;
-        font-size: 0.9rem;
         color: var(--accents-5);
+        font-size: 0.9rem;
     }
 
     .score-cell::before {
@@ -748,6 +756,7 @@ footer {
     .vis-link a {
         display: flex;
         justify-content: center;
+        align-items: center;
         width: 100%;
         padding: 12px;
         background: var(--fg);
