@@ -23,3 +23,5 @@ The function creates a "Cluster" of minima:
 *   **Deceptive Gradient:** At the start (far from center), the gradient looks like a simple convex problem.
 *   **Precision Docking:** As the optimizer nears $(0,0)$, it enters a field of deep local minima. It must find the specific hole at the origin, which is surrounded by nearly identical (but suboptimal) neighbors.
 *   **Barrier Crossing:** Escaping a local minimum near the center requires climbing high barriers relative to the local gradient.
+
+{% include mathjax.html %}
