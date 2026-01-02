@@ -1,0 +1,93 @@
+name: Deploy Benchmark Site
+
+on:
+  # Runs on pushes targeting the default branch
+  push:
+    branches: ["main"]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  # Build job
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Checkout the main source code (HTML, CSS, JS, etc.)
+      - name: Checkout Source (Main)
+        uses: actions/checkout@v4
+
+      # 2. Checkout the visual assets from 'vis-base' branch
+      # We use sparse-checkout to ONLY fetch the 'results' folder.
+      # This prevents downloading unnecessary history/files from the asset branch.
+      - name: Checkout Visual Assets (vis-base)
+        uses: actions/checkout@v4
+        with:
+          ref: vis-base           # The branch with the images
+          path: temp_vis_assets   # Download to a temporary subfolder
+          sparse-checkout: |
+            results
+          sparse-checkout-cone-mode: false
+
+      # 3. Move the assets into the project root
+      - name: Inject Visual Assets
+        run: |
+          echo "Preparing to merge visual assets..."
+          
+          # Remove existing results folder if it exists (empty) in main to avoid conflicts
+          rm -rf ./results
+          
+          # Move the results folder from the temp checkout to the root
+          mv temp_vis_assets/results ./results
+          
+          # Clean up temp folder
+          rm -rf temp_vis_assets
+          
+          # Verification: Count files to ensure sparse checkout worked
+          FILE_COUNT=$(find ./results -type f | wc -l)
+          echo "✅ Verification successful: Found $FILE_COUNT files in ./results"
+
+      # 4. Setup Ruby environment
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.1'
+          bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+          cache-version: 1    # Increment if you need to force re-download gems
+
+      - name: Setup Pages
+        id: pages
+        uses: actions/configure-pages@v5
+
+      # 5. Build the site
+      # Added --verbose and --trace for deep debugging info in logs
+      - name: Build with Jekyll
+        run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}" --verbose --trace
+        env:
+          JEKYLL_ENV: production
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+
+  # Deployment job
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
