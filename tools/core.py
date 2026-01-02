@@ -12,19 +12,10 @@ SITEMAP_FILE = Path("./docs/sitemap.xml")
 WEBSITE_URL = "https://aidinhamedi.github.io/Optimizer-Benchmark/"
 VIS_WEBPAGE_BASE_URL = WEBSITE_URL + "vis/"
 USE_DEV_CDN = False
-VIS_COMMIT_HASH = "440cf6256dd518ba3848a3e0897caf63e879292d"
 TEMPLATES_PATH = Path("./tools/templates")
 VIS_PAGE_STATIC_FILES = ("styles.css", "script.js")
 FILE_FORMAT = ".jpg"
-
-if USE_DEV_CDN:
-    # Development URL: Points to the 'vis-base' branch
-    VIS_REPO_URL = (
-        "https://raw.githack.com/AidinHamedi/Optimizer-Benchmark/vis-base/results"
-    )
-else:
-    # Production URL: Points to the specific commit hash via rawcdn
-    VIS_REPO_URL = f"https://rawcdn.githack.com/AidinHamedi/Optimizer-Benchmark/{VIS_COMMIT_HASH}/results"
+VIS_REPO_URL = WEBSITE_URL + "results"
 
 
 def load_json(json_path: Path) -> dict[str, Any]:
