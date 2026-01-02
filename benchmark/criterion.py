@@ -33,7 +33,7 @@ class ObjectiveConfig:
     final_dist_weight: float = 2.6
     convergence_weight: float = 0.1
     efficiency_weight: float = 0.1
-    lucky_jump_weight: float = 20.0
+    lucky_jump_weight: float = 10.0
     start_prox_weight: float = 200.0
     boundary_weight: float = 16.0
     terrain_violation_weight: float = 20.0
@@ -42,7 +42,7 @@ class ObjectiveConfig:
     boundary_tol: float = 0.08
     terrain_violation_tol: float = 0.01
     terrain_violation_accuracy: int = 7
-    lucky_jump_threshold: float = 0.035
+    lucky_jump_threshold: float = 0.04
     start_prox_threshold: float = 0.16
 
 
@@ -84,13 +84,10 @@ def _calc_path_inefficiency(
 
 
 def _calc_lucky_jump(step_lengths: torch.Tensor, threshold: float) -> torch.Tensor:
-    """Compute penalty for steps exceeding the threshold."""
-    max_step = torch.max(step_lengths)
-
-    if max_step > threshold:
-        return (max_step - threshold) ** 2
-
-    return torch.tensor(0.0)
+    """Compute cumulative penalty for steps exceeding the threshold."""
+    excess = step_lengths - threshold
+    penalty = torch.clamp(excess, min=0.0)
+    return torch.sum(penalty**2)
 
 
 def _calc_start_proximity(
