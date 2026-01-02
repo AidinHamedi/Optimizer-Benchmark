@@ -1,4 +1,5 @@
 # Optimizer Benchmark
+[![Deploy Benchmark Site](https://github.com/AidinHamedi/Optimizer-Benchmark/actions/workflows/deploy.yml/badge.svg)](https://github.com/AidinHamedi/Optimizer-Benchmark/actions/workflows/deploy.yml)
 
 A benchmarking suite for evaluating and comparing PyTorch optimization algorithms on 2D mathematical functions.
 
