@@ -1,5 +1,6 @@
+from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Any, Callable, Dict, Optional, Tuple
+from typing import Any, Callable, Dict, List, Optional, Tuple
 
 import matplotlib.collections as mcoll
 import matplotlib.colors as mcolors
@@ -8,115 +9,158 @@ import matplotlib.pyplot as plt
 import numpy as np
 import torch
 from matplotlib.gridspec import GridSpec
-from matplotlib.ticker import (
-    LogLocator,
-    MaxNLocator,
-    ScalarFormatter,
-)
+from matplotlib.ticker import LogLocator, MaxNLocator, ScalarFormatter
 
 from .functions import scale_eval_size
 from .utils.surface import compute_surface
 
-VIS_SETTINGS = {
-    "DPI": 120,
-    "SIZES": {
-        "SQUARE": (14, 14),
-        "DYNAMICS": (14, 10),
-        "PHASE": (18, 9),
-        "WIDE": (8, 4),
-        "DONUT": (8, 6),
-    },
-    "FONTS": {
-        "TITLE": {"fontsize": 12, "fontweight": "bold"},
-        "AXIS": {"fontsize": 10, "fontweight": "bold"},
-        "LABEL_SIZE": 9,
-        "TICK_SIZE": 8,
-        "LEGEND_SIZE": 9,
-        "ANNO": {"fontsize": 8, "fontweight": "medium"},
-    },
-    "COLORS": {
-        "TEXT": "#222222",
-        "TEXT_SEC": "#555555",
-        "SPINE": "#888888",
-        "GRID": "#dddddd",
-        "LOSS": "#1f77b4",
-        "GRAD": "#d62728",
-        "STEP": "#2ca02c",
-        "DIST": "#9467bd",
-        "PATH": "#7f7f7f",
-        "RATIO": "#e377c2",
-        "EFF_FILL": "#9467bd",
-    },
-}
 
-METRIC_COLORS = {
-    "val_penalty": "#1f77b4",
-    "dist_penalty": "#ff7f0e",
-    "speed_penalty": "#2ca02c",
-    "eff_penalty": "#d62728",
-    "bound_penalty": "#9467bd",
-    "terrain_violation": "#8c564b",
-    "jump_penalty": "#e377c2",
-    "prox_penalty": "#7f7f7f",
-    "start_prox_penalty": "#7f7f7f",
-}
+@dataclass(frozen=True)
+class PlotSizes:
+    square: Tuple[int, int] = (14, 14)
+    dynamics: Tuple[int, int] = (14, 10)
+    phase: Tuple[int, int] = (18, 9)
+    wide: Tuple[int, int] = (8, 4)
+    donut: Tuple[int, int] = (8, 6)
 
 
-class PlotContext:
-    """Context manager for creating, laying out, and saving matplotlib figures."""
+@dataclass(frozen=True)
+class FontStyles:
+    title: Dict[str, Any] = field(
+        default_factory=lambda: {"fontsize": 12, "fontweight": "bold"}
+    )
+    axis: Dict[str, Any] = field(
+        default_factory=lambda: {"fontsize": 10, "fontweight": "bold"}
+    )
+    annotation: Dict[str, Any] = field(
+        default_factory=lambda: {"fontsize": 8, "fontweight": "medium"}
+    )
+    label_size: int = 9
+    tick_size: int = 8
+    legend_size: int = 9
+
+
+@dataclass(frozen=True)
+class PlotColors:
+    text_primary: str = "#222222"
+    text_secondary: str = "#555555"
+    spine: str = "#888888"
+    grid: str = "#dddddd"
+    loss_curve: str = "#1f77b4"
+    gradient_curve: str = "#d62728"
+    step_curve: str = "#2ca02c"
+    displacement_curve: str = "#9467bd"
+    path_curve: str = "#7f7f7f"
+    ratio_curve: str = "#e377c2"
+    efficiency_fill: str = "#9467bd"
+    start_point: str = "lime"
+    end_point: str = "red"
+    global_min: str = "gold"
+    phase_background: str = "#cccccc"
+
+    # Metric specific colors for donut chart
+    metric_val_penalty: str = "#1f77b4"
+    metric_dist_penalty: str = "#ff7f0e"
+    metric_speed_penalty: str = "#2ca02c"
+    metric_eff_penalty: str = "#d62728"
+    metric_bound_penalty: str = "#9467bd"
+    metric_terrain_violation: str = "#8c564b"
+    metric_jump_penalty: str = "#e377c2"
+    metric_prox_penalty: str = "#7f7f7f"
+    metric_start_prox_penalty: str = "#7f7f7f"
+
+    def get_metric_color(self, key: str) -> str:
+        """Dynamically retrieve color for a tuning metric based on its key."""
+        attr_name = f"metric_{key}"
+        if hasattr(self, attr_name):
+            return getattr(self, attr_name)
+        return "#bcbd22"  # Fallback color
+
+
+@dataclass(frozen=True)
+class MarkerStyles:
+    start_size: int = 80
+    end_size: int = 110
+    global_min_size: int = 140
+    path_width: int = 2
+    path_dot_size: int = 5
+
+
+@dataclass(frozen=True)
+class CalculationParams:
+    efficiency_threshold: float = 5.0
+    ema_smoothing_factor: float = 0.15
+    surface_log_threshold: float = 0.3
+    surface_padding_factor: float = 1.1
+
+
+@dataclass(frozen=True)
+class VisualizationSettings:
+    dpi: int = 120
+    sizes: PlotSizes = field(default_factory=PlotSizes)
+    fonts: FontStyles = field(default_factory=FontStyles)
+    colors: PlotColors = field(default_factory=PlotColors)
+    markers: MarkerStyles = field(default_factory=MarkerStyles)
+    params: CalculationParams = field(default_factory=CalculationParams)
+
+
+# Global Configuration Instance
+VIS_CONFIG = VisualizationSettings()
+
+
+@dataclass
+class TrajectoryData:
+    loss_values: np.ndarray
+    gradient_norms: np.ndarray
+    step_sizes: np.ndarray
+    efficiency_scores: np.ndarray
+    cumulative_path: np.ndarray
+    displacement: np.ndarray
+    xs: np.ndarray
+    ys: np.ndarray
+
+
+class FigureContext:
+    """
+    Context manager for handling matplotlib figure lifecycles.
+    Ensures figures are closed properly to prevent memory leaks and handles layout.
+    """
 
     def __init__(
         self,
-        path: Path,
+        output_path: Path,
         figsize: Tuple[int, int],
-        layout_rect: Optional[list] = None,
-        **kwargs,
+        layout_rect: Optional[List[float]] = None,
+        dpi: int = 120,
+        **subplots_kwargs,
     ):
-        self.path = path
+        self.output_path = output_path
         self.layout_rect = layout_rect
-        self.fig, self.axs = plt.subplots(figsize=figsize, **kwargs)
+        self.dpi = dpi
+        self.fig, self.axs = plt.subplots(figsize=figsize, **subplots_kwargs)
+        # Standardize access to axes (single vs array)
         self.ax = self.axs if not isinstance(self.axs, np.ndarray) else self.axs
 
     def __enter__(self):
         return self.fig, self.ax
 
     def __exit__(self, exc_type, exc_val, exc_tb):
+        if exc_type is not None:
+            plt.close(self.fig)
+            return False  # Propagate exception
+
         if self.layout_rect:
             plt.tight_layout(rect=self.layout_rect)
         else:
             plt.tight_layout()
-        self.fig.savefig(self.path, bbox_inches="tight", dpi=VIS_SETTINGS["DPI"])
+
+        self.fig.savefig(self.output_path, bbox_inches="tight", dpi=self.dpi)
         plt.close(self.fig)
+        return True
 
 
-def _style_axis(
-    ax: plt.Axes, title: str, xlabel: str = None, ylabel: str = None, log: bool = False
-):
-    """Applies standardized styling to a matplotlib axis."""
-    c, f = VIS_SETTINGS["COLORS"], VIS_SETTINGS["FONTS"]
-
-    ax.set_title(title, pad=8, color=c["TEXT"], **f["TITLE"])
-    if xlabel:
-        ax.set_xlabel(xlabel, fontsize=f["LABEL_SIZE"], color=c["TEXT_SEC"])
-    if ylabel:
-        ax.set_ylabel(ylabel, fontsize=f["LABEL_SIZE"], color=c["TEXT_SEC"])
-
-    for spine in ["top", "right"]:
-        ax.spines[spine].set_visible(False)
-    for spine in ["left", "bottom"]:
-        ax.spines[spine].set_color(c["SPINE"])
-
-    ax.tick_params(axis="both", colors=c["TEXT_SEC"], labelsize=f["TICK_SIZE"])
-
-    if log:
-        ax.grid(True, which="major", ls="-", alpha=0.5, color=c["GRID"])
-        ax.grid(True, which="minor", ls=":", alpha=0.3, color=c["GRID"])
-    else:
-        ax.grid(True, ls="--", alpha=0.5, color=c["GRID"])
-
-
-def _ema_smooth(data: np.ndarray, alpha: float = 0.2) -> np.ndarray:
-    """Computes Exponential Moving Average for a sequence."""
+def compute_ema(data: np.ndarray, alpha: float) -> np.ndarray:
+    """Computes Exponential Moving Average (EMA) for smoothing noisy series."""
     if len(data) < 2:
         return data
     smoothed = np.empty_like(data)
@@ -126,353 +170,516 @@ def _ema_smooth(data: np.ndarray, alpha: float = 0.2) -> np.ndarray:
     return smoothed
 
 
-def _compute_trajectory_data(
-    func: Callable, pts: np.ndarray, debug: bool = False
-) -> Dict[str, np.ndarray]:
-    """Calculates loss, gradients, steps, and efficiency metrics from trajectory points."""
-    pts_tensor = torch.from_numpy(pts).float()
+def compute_spatial_efficiency(
+    points: np.ndarray, path_lengths: np.ndarray, threshold: float
+) -> np.ndarray:
+    """
+    Computes a spatial efficiency score based on the Radius of Gyration (Rg).
 
-    if pts.size == 0:
-        raise ValueError("Trajectory is empty.")
+    The score compares the dispersion of points (Rg) to the length of the path traveled.
+    High score = effective exploration; Low score = redundant movement (back-and-forth).
+    """
+    n_points = len(points)
+    efficiency = np.ones(n_points, dtype=float)
 
-    try:
-        z_vals = func(pts_tensor).detach().numpy().ravel()
-        if z_vals.size != pts.shape[0]:
-            raise RuntimeError("Batch eval size mismatch")
-    except Exception:
-        z_list = []
-        for p in pts_tensor:
-            try:
-                z_list.append(func(p).item())
-            except Exception:
-                z_list.append(func(p.unsqueeze(0)).item())
-        z_vals = np.array(z_list)
+    if n_points < 3:
+        return efficiency
 
-    grad_norms = []
-    for p in pts_tensor:
-        p = p.detach().requires_grad_(True)
+    for i in range(2, n_points):
+        current_path_len = path_lengths[i]
+
+        # Avoid division by zero for stationary points
+        if current_path_len <= 1e-9:
+            efficiency[i] = efficiency[i - 1]
+            continue
+
+        current_segment = points[: i + 1]
+
+        # Radius of Gyration calculation
+        center_mass = np.mean(current_segment, axis=0)
+        sq_distances = np.sum((current_segment - center_mass) ** 2, axis=1)
+        rg = np.sqrt(np.mean(sq_distances))
+
+        # Normalize score
+        val = (threshold * rg) / current_path_len
+        efficiency[i] = min(1.0, val)
+
+    return efficiency
+
+
+class OptimizerVisualizer:
+    """
+    Handles the generation of all visualization plots for a specific optimizer run.
+    Encapsulates styling, data computation, and plotting logic.
+    """
+
+    def __init__(
+        self,
+        output_dir: Path,
+        config: VisualizationSettings = VIS_CONFIG,
+        debug: bool = False,
+    ):
+        self.output_dir = output_dir
+        self.config = config
+        self.debug = debug
+
+    def compute_metrics(self, func: Callable, points: np.ndarray) -> TrajectoryData:
+        """Derives physical and gradient-based metrics from coordinate trajectory."""
+        points_tensor = torch.from_numpy(points).float()
+
+        if points.size == 0:
+            raise ValueError("Trajectory is empty.")
+
+        # 1. Compute Loss Values (Forward Pass)
         try:
-            val = func(p)
-            if val.numel() > 1:
-                val = val.sum()
-            val.backward()
-            grad_norms.append(p.grad.norm().item() if p.grad is not None else 0.0)
+            z_vals = func(points_tensor).detach().numpy().ravel()
+            if z_vals.size != points.shape[0]:
+                raise RuntimeError("Batch eval size mismatch")
         except Exception:
-            grad_norms.append(0.0)
-    grad_norms = np.array(grad_norms)
+            # Fallback for functions that don't support batch processing
+            z_list = []
+            for p in points_tensor:
+                try:
+                    z_list.append(func(p).item())
+                except Exception:
+                    z_list.append(func(p.unsqueeze(0)).item())
+            z_vals = np.array(z_list)
 
-    # Calculate steps. Append 0.0 for the final point (stop state)
-    step_sizes = np.linalg.norm(pts[1:] - pts[:-1], axis=1)
-    step_sizes = np.append(step_sizes, 0.0)
+        # 2. Compute Gradients (Backward Pass)
+        grad_norms = []
+        for p in points_tensor:
+            p = p.detach().requires_grad_(True)
+            try:
+                val = func(p)
+                if val.numel() > 1:
+                    val = val.sum()
+                val.backward()
+                norm = p.grad.norm().item() if p.grad is not None else 0.0
+                grad_norms.append(norm)
+            except Exception:
+                grad_norms.append(0.0)
+        grad_norms = np.array(grad_norms)
 
-    path_len = np.cumsum(step_sizes)
-    displacement = np.linalg.norm(pts - pts[0], axis=1)
+        # 3. Kinematics (Step sizes, Path length)
+        diffs = points[1:] - points[:-1]
+        step_sizes = np.linalg.norm(diffs, axis=1)
+        step_sizes = np.append(step_sizes, 0.0)  # Append 0 to match length
 
-    with np.errstate(divide="ignore", invalid="ignore"):
-        eff_index = displacement / (path_len + 1e-12)
-        eff_index[0] = 1.0
+        cumulative_path = np.cumsum(step_sizes)
+        displacement = np.linalg.norm(points - points[0], axis=1)
 
-    if debug:
-        print(f"[Vis] Trajectory: {len(pts)} points")
-        print(f"[Vis] Z Range: [{z_vals.min():.2e}, {z_vals.max():.2e}]")
-        print(f"[Vis] Grad Range: [{grad_norms.min():.2e}, {grad_norms.max():.2e}]")
-        print(f"[Vis] Step Range: [{step_sizes.min():.2e}, {step_sizes.max():.2e}]")
-
-    return {
-        "z": z_vals,
-        "grads": grad_norms,
-        "steps": step_sizes,
-        "path_eff": eff_index,
-        "path": path_len,
-        "dist": displacement,
-        "xs": pts[:, 0],
-        "ys": pts[:, 1],
-    }
-
-
-def _plot_surface(
-    out_path: Path,
-    X: np.ndarray,
-    Y: np.ndarray,
-    Z: np.ndarray,
-    data: Dict[str, np.ndarray],
-    bounds: Tuple,
-    gm: np.ndarray,
-    title: str,
-    metrics: Dict,
-):
-    """Draws the function surface contour and the optimizer's path."""
-    c, f = VIS_SETTINGS["COLORS"], VIS_SETTINGS["FONTS"]
-
-    # Detect plateau & choose scale
-    z_min, z_max = Z.min(), Z.max()
-    z_range = z_max - z_min + 1e-12
-    low_frac = np.mean(Z < z_min + 0.15 * z_range)
-
-    use_log = low_frac > 0.3 and z_range > 1e-6 and z_min > 1e-12
-
-    if use_log:
-        norm = mcolors.LogNorm(vmin=z_min, vmax=z_max)
-        levels = np.geomspace(z_min, z_max, 20)
-    else:
-        norm, levels = None, 20
-
-    with PlotContext(out_path, figsize=VIS_SETTINGS["SIZES"]["SQUARE"]) as (fig, ax):
-        ax.imshow(
-            Z,
-            extent=(*bounds[0], *bounds[1]),
-            origin="lower",
-            cmap="jet",
-            alpha=0.1,
-            norm=norm,
+        # 4. Efficiency
+        efficiency = compute_spatial_efficiency(
+            points, cumulative_path, self.config.params.efficiency_threshold
         )
-        cs = ax.contour(X, Y, Z, levels=levels, cmap="jet", norm=norm)
 
-        cbar = fig.colorbar(cs, ax=ax, shrink=0.8, pad=0.02)
+        if self.debug:
+            print(f"[Vis] Trajectory: {len(points)} points")
+            print(f"[Vis] Z Range: [{z_vals.min():.2e}, {z_vals.max():.2e}]")
 
-        if use_log:
+        return TrajectoryData(
+            loss_values=z_vals,
+            gradient_norms=grad_norms,
+            step_sizes=step_sizes,
+            efficiency_scores=efficiency,
+            cumulative_path=cumulative_path,
+            displacement=displacement,
+            xs=points[:, 0],
+            ys=points[:, 1],
+        )
 
-            def log_fmt(x, _):
-                if x >= 1:
-                    return f"{x:.1f}"
-                if x >= 0.01:
-                    return f"{x:.2f}"
-                return f"{x:.1e}"
+    def style_axis(
+        self,
+        ax: plt.Axes,
+        title: str,
+        xlabel: Optional[str] = None,
+        ylabel: Optional[str] = None,
+        log_grid: bool = False,
+    ):
+        """Applies consistent styling to a matplotlib axis."""
+        ax.set_title(
+            title,
+            pad=8,
+            color=self.config.colors.text_primary,
+            **self.config.fonts.title,
+        )
 
-            cbar.ax.yaxis.set_major_locator(LogLocator(base=10, numticks=8))
-            cbar.ax.yaxis.set_minor_locator(
-                LogLocator(base=10, subs="auto", numticks=12)
+        if xlabel:
+            ax.set_xlabel(
+                xlabel,
+                fontsize=self.config.fonts.label_size,
+                color=self.config.colors.text_secondary,
             )
-            cbar.ax.yaxis.set_major_formatter(plt.FuncFormatter(log_fmt))
+        if ylabel:
+            ax.set_ylabel(
+                ylabel,
+                fontsize=self.config.fonts.label_size,
+                color=self.config.colors.text_secondary,
+            )
+
+        # Spine visibility
+        for spine in ["top", "right"]:
+            ax.spines[spine].set_visible(False)
+        for spine in ["left", "bottom"]:
+            ax.spines[spine].set_color(self.config.colors.spine)
+
+        ax.tick_params(
+            axis="both",
+            colors=self.config.colors.text_secondary,
+            labelsize=self.config.fonts.tick_size,
+        )
+
+        # Grid styling
+        grid_color = self.config.colors.grid
+        if log_grid:
+            ax.grid(True, which="major", ls="-", alpha=0.5, color=grid_color)
+            ax.grid(True, which="minor", ls=":", alpha=0.3, color=grid_color)
         else:
-            cbar.ax.yaxis.set_major_formatter(ScalarFormatter(useMathText=True))
-            cbar.ax.yaxis.get_major_formatter().set_powerlimits((-2, 3))
-            cbar.ax.yaxis.set_major_locator(MaxNLocator(nbins=6, prune="both"))
+            ax.grid(True, ls="--", alpha=0.5, color=grid_color)
 
-        for val, color, label in [
-            (data["z"][0], "lime", "S"),
-            (data["z"][-1], "red", "F"),
-        ]:
-            if z_min <= val <= z_max:
-                cbar.ax.axhline(val, color=color, lw=2.5, alpha=0.9)
-                cbar.ax.text(
-                    -0.2,
-                    val,
-                    label,
-                    color=color,
-                    fontsize=f["LABEL_SIZE"],
-                    fontweight="bold",
-                    va="center",
-                    ha="right",
-                    transform=cbar.ax.get_yaxis_transform(),
-                )
-
-        cbar.set_label(
-            f"f(x,y) [{'Log' if use_log else 'Linear'}]",
-            fontsize=f["LABEL_SIZE"],
-            fontweight="bold",
-        )
-        cbar.ax.tick_params(labelsize=f["TICK_SIZE"])
-
-        ax.plot(
-            data["xs"],
-            data["ys"],
-            color="black",
-            lw=2,
-            marker="o",
-            ms=5,
-            mfc="white",
-            label="Path",
-        )
+    def add_trajectory_markers(
+        self,
+        ax: plt.Axes,
+        xs: np.ndarray,
+        ys: np.ndarray,
+        gm: Optional[np.ndarray] = None,
+    ):
+        """Adds Start (Green), End (Red), and Global Minimum (Gold Star) markers."""
         ax.scatter(
-            data["xs"][0],
-            data["ys"][0],
-            s=80,
-            c="lime",
+            xs[0],
+            ys[0],
+            s=self.config.markers.start_size,
+            c=self.config.colors.start_point,
             ec="black",
             zorder=5,
             label="Start",
         )
         ax.scatter(
-            data["xs"][-1],
-            data["ys"][-1],
-            s=110,
-            c="red",
+            xs[-1],
+            ys[-1],
+            s=self.config.markers.end_size,
+            c=self.config.colors.end_point,
             ec="black",
             zorder=6,
-            label="Final",
+            label="End",
         )
-        ax.scatter(
-            gm[:, 0],
-            gm[:, 1],
-            s=140,
-            marker="*",
-            c="gold",
-            ec="black",
-            zorder=7,
-            label="Global Min",
-        )
-
-        ax.set_title(title, color=c["TEXT"], **f["TITLE"])
-        ax.set_aspect("equal")
-
-        leg1 = ax.legend(loc="upper left", fontsize=f["LEGEND_SIZE"])
-
-        sorted_metrics = sorted(
-            [(k, v) for k, v in metrics.items() if v > 0],
-            key=lambda x: x[1],
-            reverse=True,
-        )
-        if sorted_metrics:
-            patches = [
-                mpatches.Patch(
-                    color="none", label=f"{k.replace('_', ' ').title()}: {v:.4f}"
-                )
-                for k, v in sorted_metrics
-            ]
-            ax.legend(
-                handles=patches,
-                loc="lower right",
-                title="Evaluation Breakdown",
-                fontsize=f["LEGEND_SIZE"],
+        if gm is not None:
+            ax.scatter(
+                gm[:, 0],
+                gm[:, 1],
+                s=self.config.markers.global_min_size,
+                marker="*",
+                c=self.config.colors.global_min,
+                ec="black",
+                zorder=7,
+                label="Global Min",
             )
-            ax.add_artist(leg1)
 
+    def plot_surface(
+        self,
+        filename: str,
+        X: np.ndarray,
+        Y: np.ndarray,
+        Z: np.ndarray,
+        data: TrajectoryData,
+        bounds: Tuple,
+        gm: np.ndarray,
+        title: str,
+        eval_metrics: Dict,
+    ):
+        """Generates the 2D Contour/Surface plot with the optimization path overlay."""
+        path = self.output_dir / filename
 
-def _plot_dynamics(out_path: Path, data: Dict[str, np.ndarray], name: str):
-    """Draws time-series metrics: Loss, Gradients, Steps, and Efficiency."""
-    c, f = VIS_SETTINGS["COLORS"], VIS_SETTINGS["FONTS"]
+        # Determine if Log scale is needed for the contour map
+        z_min, z_max = Z.min(), Z.max()
+        z_range = z_max - z_min + 1e-12
 
-    with PlotContext(
-        out_path,
-        figsize=VIS_SETTINGS["SIZES"]["DYNAMICS"],
-        layout_rect=[0, 0.03, 1, 0.95],
-        nrows=2,
-        ncols=2,
-    ) as (fig, axs):
-        fig.suptitle(
-            f"Optimization Dynamics | {name}",
-            y=0.98,
-            color=c["TEXT"],
-            **f["TITLE"],
+        low_val_fraction = np.mean(Z < z_min + 0.15 * z_range)
+        use_log_scale = (
+            low_val_fraction > self.config.params.surface_log_threshold
+            and z_range > 1e-6
         )
-        steps = np.arange(len(data["z"]))
 
-        # Objective
-        ax = axs[0, 0]
-        ax.plot(steps, data["z"], color=c["LOSS"])
-        ax.set_yscale("symlog")
-        _style_axis(ax, "Objective Value (SymLog)", ylabel="f(x)", log=True)
+        if use_log_scale:
+            norm = mcolors.LogNorm(vmin=z_min, vmax=z_max)
+            levels = np.geomspace(z_min, z_max, 20)
+        else:
+            norm, levels = None, 20
 
-        # Gradients
-        ax = axs[0, 1]
-        ax.plot(steps, data["grads"], color=c["GRAD"], alpha=0.8, lw=1.5)
-        ax.fill_between(steps, data["grads"], color=c["GRAD"], alpha=0.1)
-        _style_axis(ax, "Gradient Norm", ylabel="||∇f(x)||")
-
-        # Steps
-        ax = axs[1, 0]
-        ax.plot(steps, data["steps"], color=c["STEP"], alpha=0.8, lw=1.5)
-        _style_axis(ax, "Step Sizes", xlabel="Iteration", ylabel="||Δx||")
-
-        # Efficiency
-        ax = axs[1, 1]
-        ax.fill_between(
-            steps,
-            0,
-            data["path_eff"],
-            color=c["EFF_FILL"],
-            alpha=0.15,
-            label="Efficiency Ratio",
-        )
-        _style_axis(
+        with FigureContext(path, self.config.sizes.square, dpi=self.config.dpi) as (
+            fig,
             ax,
-            "Trajectory Efficiency (Disp / Path)",
-            xlabel="Iteration",
-            ylabel="Efficiency (0-1)",
-        )
-        ax.set_ylim(-0.05, 1.05)
-        ax.yaxis.label.set_color(c["EFF_FILL"])
-        ax.tick_params(axis="y", colors=c["EFF_FILL"])
+        ):
+            # Background heatmap
+            ax.imshow(
+                Z,
+                extent=(*bounds[0], *bounds[1]),
+                origin="lower",
+                cmap="jet",
+                alpha=0.1,
+                norm=norm,
+            )
+            # Contour lines
+            cs = ax.contour(X, Y, Z, levels=levels, cmap="jet", norm=norm)
 
-        ax2 = ax.twinx()
-        ax2.plot(
-            steps,
-            data["path"],
-            color=c["PATH"],
-            ls=":",
-            alpha=0.8,
-            lw=2,
-            label="Total Path (Cost)",
-        )
-        ax2.plot(
-            steps,
-            data["dist"],
-            color=c["DIST"],
-            ls="-",
-            alpha=0.9,
-            lw=2.5,
-            label="Net Displacement (Gain)",
-        )
+            # Colorbar configuration
+            cbar = fig.colorbar(cs, ax=ax, shrink=0.8, pad=0.02)
 
-        ax2.set_ylabel("Distance", color=c["TEXT_SEC"], fontsize=f["LABEL_SIZE"])
-        ax2.tick_params(axis="y", labelcolor=c["TEXT_SEC"], labelsize=f["TICK_SIZE"])
-        ax2.spines["top"].set_visible(False)
-        ax2.spines["right"].set_visible(True)
-        ax2.spines["right"].set_color(c["SPINE"])
+            if use_log_scale:
+                cbar.ax.yaxis.set_major_locator(LogLocator(base=10, numticks=8))
+                cbar.ax.yaxis.set_minor_locator(
+                    LogLocator(base=10, subs="auto", numticks=12)
+                )
+                cbar.ax.yaxis.set_major_formatter(
+                    plt.FuncFormatter(
+                        lambda x, _: f"{x:.1f}"
+                        if x >= 1
+                        else (f"{x:.2f}" if x >= 0.01 else f"{x:.1e}")
+                    )
+                )
+            else:
+                cbar.ax.yaxis.set_major_formatter(ScalarFormatter(useMathText=True))
+                cbar.ax.yaxis.get_major_formatter().set_powerlimits((-2, 3))
+                cbar.ax.yaxis.set_major_locator(MaxNLocator(nbins=6, prune="both"))
 
-        ax.legend(
-            ax.get_legend_handles_labels()[0] + ax2.get_legend_handles_labels()[0],
-            ax.get_legend_handles_labels()[1] + ax2.get_legend_handles_labels()[1],
-            loc="lower right",
-            fontsize=f["LEGEND_SIZE"],
-        )
+            # Add markers to colorbar for Start/End values
+            for val, color, label in [
+                (data.loss_values[0], self.config.colors.start_point, "S"),
+                (data.loss_values[-1], self.config.colors.end_point, "F"),
+            ]:
+                if z_min <= val <= z_max:
+                    cbar.ax.axhline(val, color=color, lw=2.5, alpha=0.9)
+                    cbar.ax.text(
+                        -0.2,
+                        val,
+                        label,
+                        color=color,
+                        fontsize=self.config.fonts.label_size,
+                        fontweight="bold",
+                        va="center",
+                        ha="right",
+                        transform=cbar.ax.get_yaxis_transform(),
+                    )
 
+            cbar.set_label(
+                f"f(x,y) [{'Log' if use_log_scale else 'Linear'}]",
+                **self.config.fonts.axis,
+            )
+            cbar.ax.tick_params(labelsize=self.config.fonts.tick_size)
 
-def _plot_phase_portrait(out_path: Path, data: Dict[str, np.ndarray], name: str):
-    """
-    Draws Side-by-Side Phase Portrait (Step vs Grad).
-    Left: Raw Jitter. Right: Smoothed Trend.
-    """
-    c, f = VIS_SETTINGS["COLORS"], VIS_SETTINGS["FONTS"]
+            # Plot Trajectory Path
+            ax.plot(
+                data.xs,
+                data.ys,
+                color="black",
+                lw=self.config.markers.path_width,
+                marker="o",
+                ms=self.config.markers.path_dot_size,
+                mfc="white",
+                label="Path",
+            )
+            self.add_trajectory_markers(ax, data.xs, data.ys, gm)
 
-    fig = plt.figure(figsize=VIS_SETTINGS["SIZES"]["PHASE"])
-    gs = GridSpec(
-        1,
-        3,
-        width_ratios=[1.0, 1.0, 0.05],
-        wspace=0.15,
-        figure=fig,
-    )
+            ax.set_title(
+                title, color=self.config.colors.text_primary, **self.config.fonts.title
+            )
+            ax.set_aspect("equal")
 
-    ax_left = fig.add_subplot(gs[0, 0])
-    ax_right = fig.add_subplot(gs[0, 1])
-    cax = fig.add_subplot(gs[0, 2])
+            # Main Legend
+            leg1 = ax.legend(loc="upper left", fontsize=self.config.fonts.legend_size)
 
-    try:
-        x_raw, y_raw = data["grads"][:-1], data["steps"][:-1]
+            # Secondary Legend: Metrics Breakdown
+            valid_metrics = sorted(
+                [(k, v) for k, v in eval_metrics.items() if v > 0],
+                key=lambda x: x[1],
+                reverse=True,
+            )
+            if valid_metrics:
+                patches = [
+                    mpatches.Patch(
+                        color="none", label=f"{k.replace('_', ' ').title()}: {v:.4f}"
+                    )
+                    for k, v in valid_metrics
+                ]
+                ax.legend(
+                    handles=patches,
+                    loc="lower right",
+                    title="Evaluation Breakdown",
+                    fontsize=self.config.fonts.legend_size,
+                )
+                ax.add_artist(leg1)
+
+    def plot_dynamics(self, filename: str, data: TrajectoryData, func_name: str):
+        """Plots optimization metrics (Loss, Gradient, Step Size, Efficiency) over time."""
+        path = self.output_dir / filename
+
+        with FigureContext(
+            path,
+            self.config.sizes.dynamics,
+            layout_rect=[0, 0.03, 1, 0.95],
+            dpi=self.config.dpi,
+            nrows=2,
+            ncols=2,
+        ) as (fig, axs):
+            fig.suptitle(
+                f"Optimization Dynamics: {func_name}",
+                y=0.98,
+                color=self.config.colors.text_primary,
+                **self.config.fonts.title,
+            )
+            steps = np.arange(len(data.loss_values))
+
+            # 1. Loss Function
+            ax = axs[0, 0]
+            ax.plot(steps, data.loss_values, color=self.config.colors.loss_curve)
+            ax.set_yscale("symlog")
+            self.style_axis(ax, "Loss Function", ylabel=r"$f(x)$", log_grid=True)
+
+            # 2. Gradient Magnitude
+            ax = axs[0, 1]
+            ax.plot(
+                steps,
+                data.gradient_norms,
+                color=self.config.colors.gradient_curve,
+                alpha=0.8,
+                lw=1.5,
+            )
+            ax.fill_between(
+                steps,
+                data.gradient_norms,
+                color=self.config.colors.gradient_curve,
+                alpha=0.1,
+            )
+            self.style_axis(ax, "Gradient Magnitude", ylabel=r"$||\nabla f||$")
+
+            # 3. Step Sizes
+            ax = axs[1, 0]
+            ax.plot(
+                steps,
+                data.step_sizes,
+                color=self.config.colors.step_curve,
+                alpha=0.8,
+                lw=1.5,
+            )
+            self.style_axis(
+                ax, "Step Sizes", xlabel="Iteration", ylabel=r"$||x_{t+1} - x_t||$"
+            )
+
+            # 4. Exploration Efficiency
+            ax = axs[1, 1]
+
+            # Left Axis: Physical Movement
+            ln1 = ax.plot(
+                steps,
+                data.cumulative_path,
+                color=self.config.colors.path_curve,
+                alpha=0.7,
+                lw=1.5,
+                label="Total Path",
+            )
+            ln2 = ax.plot(
+                steps,
+                data.displacement,
+                color=self.config.colors.displacement_curve,
+                alpha=0.9,
+                lw=2.0,
+                label="Displacement",
+            )
+            ax.fill_between(
+                steps,
+                data.displacement,
+                data.cumulative_path,
+                color=self.config.colors.path_curve,
+                alpha=0.1,
+                label="Redundant Motion",
+            )
+            self.style_axis(
+                ax,
+                "Exploration Efficiency",
+                xlabel="Iteration",
+                ylabel="Cumulative Distance",
+            )
+
+            # Right Axis: Efficiency Score
+            ax2 = ax.twinx()
+            score_label = "Eff. Score (0-1)"
+            ln3 = ax2.plot(
+                steps,
+                data.efficiency_scores,
+                color=self.config.colors.efficiency_fill,
+                lw=1.5,
+                ls="--",
+                label=score_label,
+            )
+            ax2.fill_between(
+                steps,
+                0,
+                data.efficiency_scores,
+                color=self.config.colors.efficiency_fill,
+                alpha=0.1,
+            )
+
+            ax2.set_ylim(-0.05, 1.05)
+            ax2.set_ylabel(
+                score_label,
+                color=self.config.colors.efficiency_fill,
+                fontsize=self.config.fonts.label_size,
+                fontweight="bold",
+            )
+            ax2.tick_params(
+                axis="y",
+                labelcolor=self.config.colors.efficiency_fill,
+                labelsize=self.config.fonts.tick_size,
+            )
+            ax2.spines["right"].set_visible(True)
+            ax2.spines["right"].set_color(self.config.colors.efficiency_fill)
+            ax2.spines["top"].set_visible(False)
+
+            # Unified Legend
+            lines = ln1 + ln2 + ln3
+            labels = [l.get_label() for l in lines]
+            ax.legend(
+                lines,
+                labels,
+                loc="lower right",
+                fontsize=self.config.fonts.legend_size,
+                framealpha=0.9,
+                edgecolor=self.config.colors.grid,
+            )
+
+    def plot_phase_portrait(self, filename: str, data: TrajectoryData, func_name: str):
+        """
+        Plots Step Size vs Gradient Norm.
+        Helps diagnose if optimizer is unstable (high step, low grad) or stagnating (low step, high grad).
+        """
+        path = self.output_dir / filename
+
+        # Prepare Data
+        x_raw, y_raw = data.gradient_norms[:-1], data.step_sizes[:-1]
         iters = np.arange(len(x_raw))
 
-        epsilon = 1e-14
-        mask = (x_raw > epsilon) & (y_raw > epsilon)
-        x_cl, y_cl = x_raw[mask], y_raw[mask]
-        iters_cl = iters[mask]
+        # Filter practically zero values to avoid log-scale issues
+        mask = (x_raw > 1e-14) & (y_raw > 1e-14)
+        x_cl, y_cl, iters_cl = x_raw[mask], y_raw[mask], iters[mask]
 
-        x_sm = _ema_smooth(x_cl, alpha=0.15)
-        y_sm = _ema_smooth(y_cl, alpha=0.15)
+        # Compute Smoothed Data
+        alpha_val = self.config.params.ema_smoothing_factor
+        x_sm = compute_ema(x_cl, alpha_val)
+        y_sm = compute_ema(y_cl, alpha_val)
 
+        # Determine shared limits
         if len(x_cl) > 0:
             all_v = np.concatenate([x_cl, y_cl, x_sm, y_sm])
-            l_min = (all_v.min() + epsilon) * 0.5
-            l_max = all_v.max() * 2.0
+            l_min, l_max = all_v.min() * 0.5, all_v.max() * 2.0
         else:
             l_min, l_max = 1e-5, 1.0
 
-        def draw_phase(ax, xd, yd, title, smooth=False):
+        def draw_phase_subplot(ax, xd, yd, title, smooth=False):
+            # Diagonal reference line (Ratio = 1)
             ax.plot(
                 [l_min, l_max],
                 [l_min, l_max],
-                color="#cccccc",
+                color=self.config.colors.phase_background,
                 ls="--",
                 lw=1,
                 zorder=0,
@@ -480,9 +687,9 @@ def _plot_phase_portrait(out_path: Path, data: Dict[str, np.ndarray], name: str)
 
             lc_obj = None
             if len(xd) > 2:
+                # Color code lines by iteration
                 points = np.array([xd, yd]).T.reshape(-1, 1, 2)
                 segs = np.concatenate([points[:-1], points[1:]], axis=1)
-
                 lc_obj = mcoll.LineCollection(
                     segs,
                     cmap="plasma",
@@ -503,25 +710,7 @@ def _plot_phase_portrait(out_path: Path, data: Dict[str, np.ndarray], name: str)
                     s=5 if smooth else 15,
                     zorder=3,
                 )
-
-                ax.scatter(
-                    xd[0],
-                    yd[0],
-                    c="lime",
-                    s=100,
-                    ec="black",
-                    zorder=10,
-                    label="Start",
-                )
-                ax.scatter(
-                    xd[-1],
-                    yd[-1],
-                    c="red",
-                    s=100,
-                    ec="black",
-                    zorder=10,
-                    label="End",
-                )
+                self.add_trajectory_markers(ax, xd, yd)
             else:
                 ax.scatter(xd, yd, alpha=0.5)
 
@@ -530,25 +719,23 @@ def _plot_phase_portrait(out_path: Path, data: Dict[str, np.ndarray], name: str)
             ax.set_xlim(l_min, l_max)
             ax.set_ylim(l_min, l_max)
             ax.set_aspect("equal", adjustable="box")
-
-            _style_axis(ax, title, "Gradient Norm (Log)", "Step Size (Log)", log=True)
-
-            bbox = dict(
-                boxstyle="round",
-                facecolor="white",
-                alpha=0.85,
-                edgecolor="#eeeeee",
+            self.style_axis(
+                ax, title, "Gradient Norm (Log)", "Step Size (Log)", log_grid=True
             )
-            props = {**f["ANNO"], "bbox": bbox}
 
+            # Annotations for zones
+            bbox_style = dict(
+                boxstyle="round", facecolor="white", alpha=0.85, edgecolor="#eeeeee"
+            )
             ax.text(
                 l_max * 0.5,
                 l_min * 2,
                 "STAGNATION",
                 ha="right",
                 va="bottom",
-                color=c["GRAD"],
-                **props,
+                color=self.config.colors.gradient_curve,
+                bbox=bbox_style,
+                **self.config.fonts.annotation,
             )
             ax.text(
                 l_min * 2,
@@ -556,145 +743,163 @@ def _plot_phase_portrait(out_path: Path, data: Dict[str, np.ndarray], name: str)
                 "INSTABILITY",
                 ha="left",
                 va="top",
-                color=c["DIST"],
-                **props,
+                color=self.config.colors.displacement_curve,
+                bbox=bbox_style,
+                **self.config.fonts.annotation,
             )
-
             return lc_obj
 
-        draw_phase(
-            ax_left,
-            x_cl,
-            y_cl,
-            f"Raw Dynamics (Jitter) | {name}",
-            smooth=False,
-        )
-        lc = draw_phase(
-            ax_right,
-            x_sm,
-            y_sm,
-            f"Smoothed Trend (Flow) | {name}",
-            smooth=True,
-        )
+        # Create Layout
+        fig = plt.figure(figsize=self.config.sizes.phase)
+        gs = GridSpec(1, 3, width_ratios=[1.0, 1.0, 0.05], wspace=0.15, figure=fig)
+        ax_left = fig.add_subplot(gs[0, 0])
+        ax_right = fig.add_subplot(gs[0, 1])
+        cax = fig.add_subplot(gs[0, 2])
 
-        items = [
-            mpatches.Patch(color="purple", label="Trajectory (Time)"),
-            plt.Line2D(
-                [0],
-                [0],
-                color="#cccccc",
-                lw=1,
-                ls="--",
-                label="Ratio = 1.0",
-            ),
-        ]
-        ax_right.legend(
-            handles=items,
-            loc="upper right",
-            fontsize=f["LEGEND_SIZE"],
-        )
-
-        if lc:
-            cb = fig.colorbar(lc, cax=cax)
-            cb.set_label(
-                "Iteration",
-                rotation=270,
-                labelpad=15,
-                size=f["LABEL_SIZE"],
+        try:
+            draw_phase_subplot(
+                ax_left, x_cl, y_cl, f"Raw Dynamics (Jitter) | {func_name}", False
             )
-            cb.ax.tick_params(labelsize=f["TICK_SIZE"])
+            lc = draw_phase_subplot(
+                ax_right, x_sm, y_sm, f"Smoothed Trend (Flow) | {func_name}", True
+            )
 
-        fig.savefig(out_path, dpi=VIS_SETTINGS["DPI"], bbox_inches="tight")
+            legend_handles = [
+                mpatches.Patch(color="purple", label="Trajectory"),
+                plt.Line2D(
+                    [0],
+                    [0],
+                    color=self.config.colors.phase_background,
+                    lw=1,
+                    ls="--",
+                    label="Ratio = 1.0",
+                ),
+            ]
+            ax_right.legend(
+                handles=legend_handles,
+                loc="upper right",
+                fontsize=self.config.fonts.legend_size,
+            )
 
-    finally:
-        plt.close(fig)
+            if lc:
+                cb = fig.colorbar(lc, cax=cax)
+                cb.set_label(
+                    "Iteration",
+                    rotation=270,
+                    labelpad=15,
+                    size=self.config.fonts.label_size,
+                )
+                cb.ax.tick_params(labelsize=self.config.fonts.tick_size)
 
+            fig.savefig(path, bbox_inches="tight", dpi=self.config.dpi)
+        finally:
+            plt.close(fig)
 
-def _plot_update_ratio(out_path: Path, data: Dict[str, np.ndarray], name: str):
-    """Draws Step/Gradient ratio over time."""
-    c, f = VIS_SETTINGS["COLORS"], VIS_SETTINGS["FONTS"]
+    def plot_update_ratio(self, filename: str, data: TrajectoryData, func_name: str):
+        """Plots the ratio between Step Size and Gradient Norm."""
+        path = self.output_dir / filename
 
-    with PlotContext(out_path, figsize=VIS_SETTINGS["SIZES"]["WIDE"]) as (fig, ax):
-        with np.errstate(divide="ignore", invalid="ignore"):
-            ratio = data["steps"] / (data["grads"] + 1e-10)
-
-        ax.plot(ratio, color=c["RATIO"], lw=1)
-        ax.set_yscale("log")
-        _style_axis(
+        with FigureContext(path, self.config.sizes.wide, dpi=self.config.dpi) as (
+            fig,
             ax,
-            f"Effective Update Ratio (||Δx|| / ||∇f||) | {name}",
-            "Iteration",
-            "Ratio (Log Scale)",
-            log=True,
-        )
+        ):
+            with np.errstate(divide="ignore", invalid="ignore"):
+                ratio = data.step_sizes / (data.gradient_norms + 1e-10)
 
-        ax.axhline(1.0, c=c["TEXT_SEC"], ls="--", alpha=0.5)
-        ax.text(
-            len(ratio) * 0.02,
-            1.2,
-            "Aggressive > 1.0",
-            color=c["TEXT_SEC"],
-            **f["ANNO"],
-        )
+            ax.plot(ratio, color=self.config.colors.ratio_curve, lw=1)
+            ax.set_yscale("log")
+            self.style_axis(
+                ax,
+                f"Update Ratio (Step/Grad) | {func_name}",
+                "Iteration",
+                "Ratio (Log Scale)",
+                log_grid=True,
+            )
 
-
-def _plot_penalty_donut(out_path: Path, metrics: Dict, name: str):
-    """Draws a donut chart of tuning penalties."""
-    c, f = VIS_SETTINGS["COLORS"], VIS_SETTINGS["FONTS"]
-
-    with PlotContext(out_path, figsize=VIS_SETTINGS["SIZES"]["DONUT"]) as (fig, ax):
-        valid = [(k, float(v)) for k, v in metrics.items() if v > 0]
-        if not valid:
+            ax.axhline(1.0, c=self.config.colors.text_secondary, ls="--", alpha=0.5)
             ax.text(
-                0.5, 0.5, "No tuning metrics", ha="center", fontsize=f["LABEL_SIZE"]
+                len(ratio) * 0.02,
+                1.2,
+                "Aggressive (> 1.0)",
+                color=self.config.colors.text_secondary,
+                **self.config.fonts.annotation,
             )
-            ax.axis("off")
-            return
 
-        keys, vals = zip(*sorted(valid, key=lambda x: x[1], reverse=True))
-        vals = np.array(vals)
-        disp_vals = np.log1p(vals) if (vals.max() / (vals.min() + 1e-9) > 500) else vals
+    def plot_penalty_distribution(self, filename: str, metrics: Dict, func_name: str):
+        """Plots a donut chart of the Optuna tuning penalties."""
+        path = self.output_dir / filename
 
-        wedges, _ = ax.pie(
-            disp_vals,
-            startangle=90,
-            colors=[METRIC_COLORS.get(k, "#bcbd22") for k in keys],
-            wedgeprops=dict(width=0.4, edgecolor="white"),
-        )
+        with FigureContext(path, self.config.sizes.donut, dpi=self.config.dpi) as (
+            fig,
+            ax,
+        ):
+            valid = sorted(
+                [(k, float(v)) for k, v in metrics.items() if v > 0],
+                key=lambda x: x[1],
+                reverse=True,
+            )
 
-        ax.text(
-            0,
-            0,
-            "Tuning\nObjectives",
-            ha="center",
-            va="center",
-            color=c["TEXT"],
-            **f["AXIS"],
-        )
-        ax.set_title(f"Tuning Cost Breakdown | {name}", color=c["TEXT"], **f["TITLE"])
+            if not valid:
+                ax.text(
+                    0.5,
+                    0.5,
+                    "No tuning metrics",
+                    ha="center",
+                    fontsize=self.config.fonts.label_size,
+                )
+                ax.axis("off")
+                return
 
-        labels = [
-            f"{k.replace('_', ' ').title()}: {v:.4g} ({v / vals.sum() * 100:.1f}%)"
-            for k, v in zip(keys, vals)
-        ]
-        ax.legend(
-            wedges,
-            labels,
-            title="Metrics",
-            loc="center left",
-            bbox_to_anchor=(1, 0, 0.5, 1),
-            fontsize=f["LEGEND_SIZE"],
-        )
+            keys, vals = zip(*valid)
+            vals = np.array(vals)
 
-        if vals.max() / (vals.min() + 1e-9) > 500:
-            plt.figtext(
-                0.5,
-                0.02,
-                "Log-scaled for visibility.",
+            is_skewed = vals.max() / (vals.min() + 1e-9) > 500
+            disp_vals = np.log1p(vals) if is_skewed else vals
+
+            wedges, _ = ax.pie(
+                disp_vals,
+                startangle=90,
+                colors=[self.config.colors.get_metric_color(k) for k in keys],
+                wedgeprops=dict(width=0.4, edgecolor="white"),
+            )
+
+            ax.text(
+                0,
+                0,
+                "Tuning\nObjectives",
                 ha="center",
-                fontsize=f["ANNO"]["fontsize"],
-                color=c["TEXT_SEC"],
+                va="center",
+                color=self.config.colors.text_primary,
+                **self.config.fonts.axis,
             )
+            ax.set_title(
+                f"Tuning Penalty Distribution | {func_name}",
+                color=self.config.colors.text_primary,
+                **self.config.fonts.title,
+            )
+
+            legend_labels = [
+                f"{k.replace('_', ' ').title()}: {v:.4g} ({v / vals.sum() * 100:.1f}%)"
+                for k, v in zip(keys, vals)
+            ]
+            ax.legend(
+                wedges,
+                legend_labels,
+                title="Metrics",
+                loc="center left",
+                bbox_to_anchor=(1, 0, 0.5, 1),
+                fontsize=self.config.fonts.legend_size,
+            )
+
+            if is_skewed:
+                plt.figtext(
+                    0.5,
+                    0.02,
+                    "Log-scaled for visibility",
+                    ha="center",
+                    color=self.config.colors.text_secondary,
+                    **self.config.fonts.annotation,
+                )
 
 
 def visualize_trajectory(
@@ -714,26 +919,26 @@ def visualize_trajectory(
     debug: bool = False,
 ) -> Dict[str, str]:
     """
-    Generates and saves a suite of visualization plots for an optimizer's trajectory.
+    Main function to generate visualization assets for a benchmark run.
 
     Args:
-        func: Objective function.
+        func: The objective function being minimized.
         func_name: Name of the function.
-        cords: Tensor of trajectory points [2, N].
-        output_dir: Root directory for output.
+        cords: Tensor of shape (2, N) containing trajectory coordinates.
+        output_dir: Directory to save images.
         optimizer_name: Name of the optimizer.
-        optimizer_params: Hyperparameters used.
-        eval_metrics: Final evaluation metrics.
-        tune_metrics: Tuning cost breakdown.
-        error_rate: Final error score.
-        global_minimums: Coordinates of global minima.
-        eval_size: Bounds for the surface plot.
-        res: Resolution for surface plot.
-        img_format: Image file extension.
-        debug: Enable debug output.
+        optimizer_params: Dictionary of best hyperparameters found.
+        eval_metrics: Dictionary of evaluation scores (e.g., final distance).
+        tune_metrics: Dictionary of penalty scores from hyperparameter tuning.
+        error_rate: Final calculated error/score.
+        global_minimums: Tensor of global minimum coordinates.
+        eval_size: Tuple of (x_range, y_range) defining the plot bounds.
+        res: Resolution for surface plot ("auto" or int).
+        img_format: Output image format (e.g., "png", "jpg").
+        debug: Enable debug print statements.
 
     Returns:
-        Dictionary mapping plot types to file paths.
+        Dictionary mapping plot types to their file paths.
     """
     if debug:
         print(
@@ -743,46 +948,50 @@ def visualize_trajectory(
     func_dir = Path(output_dir)
     func_dir.mkdir(parents=True, exist_ok=True)
 
-    # 1. Prepare Data
-    pts = cords.t().detach().cpu().numpy()
-    gm_pts = global_minimums.detach().cpu().numpy()
-    traj_data = _compute_trajectory_data(func, pts, debug=debug)
+    pts_np = cords.t().detach().cpu().numpy()
+    gm_np = global_minimums.detach().cpu().numpy()
 
-    # 2. Compute Surface
-    scaled_bounds = scale_eval_size(eval_size, 1.1)
-    X, Y, Z = compute_surface(func, func_name, scaled_bounds, res, debug=debug)
-    X, Y, Z = X.numpy(), Y.numpy(), Z.numpy()
+    vis = OptimizerVisualizer(func_dir, debug=debug)
 
-    # 3. Generate Title
+    traj_data = vis.compute_metrics(func, pts_np)
+
+    scaled_bounds = scale_eval_size(eval_size, vis.config.params.surface_padding_factor)
+    X_tens, Y_tens, Z_tens = compute_surface(
+        func, func_name, scaled_bounds, res, debug=debug
+    )
+    X, Y, Z = X_tens.numpy(), Y_tens.numpy(), Z_tens.numpy()
+
     param_str = ", ".join(
         f"{k}={v:.4g}" if isinstance(v, float) else f"{k}={v}"
         for k, v in optimizer_params.items()
     )
-    title = f"{func_name} | {optimizer_name}\nIters: {len(pts) - 1}, Error: {error_rate:.4f}\n{param_str}"
+    main_title = (
+        f"{func_name} Landscape - {optimizer_name}\n"
+        f"Iters: {len(pts_np) - 1}, Error: {error_rate:.4f}\n{param_str}"
+    )
 
-    # 4. Generate Plots
     files = {}
 
-    f_surf = func_dir / f"surface.{img_format}"
-    _plot_surface(
-        f_surf, X, Y, Z, traj_data, scaled_bounds, gm_pts, title, eval_metrics
+    f_surf = f"surface.{img_format}"
+    vis.plot_surface(
+        f_surf, X, Y, Z, traj_data, scaled_bounds, gm_np, main_title, eval_metrics
     )
-    files["surface"] = str(f_surf)
+    files["surface"] = str(func_dir / f_surf)
 
-    f_dyn = func_dir / f"dynamics.{img_format}"
-    _plot_dynamics(f_dyn, traj_data, func_name)
-    files["dynamics"] = str(f_dyn)
+    f_dyn = f"dynamics.{img_format}"
+    vis.plot_dynamics(f_dyn, traj_data, func_name)
+    files["dynamics"] = str(func_dir / f_dyn)
 
-    f_phase = func_dir / f"phase_portrait.{img_format}"
-    _plot_phase_portrait(f_phase, traj_data, func_name)
-    files["phase_portrait"] = str(f_phase)
+    f_phase = f"phase_portrait.{img_format}"
+    vis.plot_phase_portrait(f_phase, traj_data, func_name)
+    files["phase_portrait"] = str(func_dir / f_phase)
 
-    f_ratio = func_dir / f"update_ratio.{img_format}"
-    _plot_update_ratio(f_ratio, traj_data, func_name)
-    files["update_ratio"] = str(f_ratio)
+    f_ratio = f"update_ratio.{img_format}"
+    vis.plot_update_ratio(f_ratio, traj_data, func_name)
+    files["update_ratio"] = str(func_dir / f_ratio)
 
-    f_donut = func_dir / f"penalty_donut.{img_format}"
-    _plot_penalty_donut(f_donut, tune_metrics, func_name)
-    files["penalty_donut"] = str(f_donut)
+    f_donut = f"penalty_donut.{img_format}"
+    vis.plot_penalty_distribution(f_donut, tune_metrics, func_name)
+    files["penalty_donut"] = str(func_dir / f_donut)
 
     return files
