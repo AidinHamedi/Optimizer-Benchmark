@@ -5,7 +5,7 @@
 seed = 42
 exist_pass = true
 img_format = "jpg"
-hypertune_trials = 700
+hypertune_trials = 800
 ignore_optimizers = [
   # Unsupported
   "msvag",
@@ -97,10 +97,6 @@ scion = { lr = [0.0001, 4.0], scale = [1.0, 1000.0] }
 scionlight = { lr = [0.0001, 4.0], scale = [1.0, 1000.0] }
 
 conda = { lr = [0.0001, 6.0], update_proj_gap = [10, 400, "int"], scale = [0.0001, 12.0] }
-
-emofact = { lr = [0.0001, 6.0], lr_max = [0.0001, 6.0], lr_min = [0.0001, 1.5] }
-emolynx = { lr = [0.0001, 6.0], lr_max = [0.0001, 6.0], lr_min = [0.0001, 1.5] }
-emonavi = { lr = [0.0001, 6.0], lr_max = [0.0001, 6.0], lr_min = [0.0001, 1.5] }
 
 grokfastadamw = { lr = [0.0001, 4.0], _iter_scale = 7 }
 
