@@ -1,6 +1,6 @@
 [project]
 name = "Optimizer-Benchmark"
-version = "0.1.0"
+version = "1.8.0"
 description = "A benchmarking suite for evaluating PyTorch optimization algorithms on 2D mathematical functions"
 readme = "README.md"
 requires-python = ">=3.12"
