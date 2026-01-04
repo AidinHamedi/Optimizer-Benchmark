@@ -179,7 +179,6 @@ def compute_spatial_efficiency(
     n_points = len(points)
     efficiency = np.ones(n_points, dtype=float)
 
-    # Use tensors for vectorized logic consistent with criterion.py
     points_t = torch.from_numpy(points).float().T  # [2, N]
     steps_t = torch.from_numpy(step_sizes).float()  # [N]
 
@@ -199,8 +198,11 @@ def compute_spatial_efficiency(
         significant_effort = torch.sum(sub_steps[active_mask])
 
         # 3. Compute Efficiency Ratio
-        raw_eff = (span * threshold) / (significant_effort + 1e-12)
-        efficiency[i] = torch.clamp(raw_eff, max=1.0).item()
+        if abs(span.item()) < 1e-10 and abs(significant_effort.item()) < 1e-10:
+            efficiency[i] = 1.0  # Perfect efficiency when no movement has occurred
+        else:
+            raw_eff = (span * threshold) / (significant_effort + 1e-12)
+            efficiency[i] = torch.clamp(raw_eff, max=1.0).item()
 
     return efficiency
 
