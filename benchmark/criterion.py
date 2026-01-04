@@ -21,6 +21,7 @@ class ObjectiveConfig:
         terrain_violation_weight: Weight for terrain violations.
         convergence_tol: Normalized distance threshold for convergence.
         boundary_tol: Normalized distance for boundary violation.
+        efficiency_threshold: Minimum efficiency threshold for path efficiency.
         terrain_violation_tol: Normalized distance threshold to check for terrain violation.
         terrain_violation_accuracy: Number of points to check for terrain violation.
         lucky_jump_threshold: Maximum allowed step size (fraction of diagonal).
@@ -32,7 +33,7 @@ class ObjectiveConfig:
     final_val_weight: float = 1.8
     final_dist_weight: float = 2.6
     convergence_weight: float = 0.1
-    efficiency_weight: float = 0.1
+    efficiency_weight: float = 1.2
     lucky_jump_weight: float = 10.0
     start_prox_weight: float = 200.0
     boundary_weight: float = 16.0
@@ -40,6 +41,7 @@ class ObjectiveConfig:
 
     convergence_tol: float = 0.01
     boundary_tol: float = 0.08
+    efficiency_threshold: float = 5.0
     terrain_violation_tol: float = 0.01
     terrain_violation_accuracy: int = 7
     lucky_jump_threshold: float = 0.04
@@ -71,16 +73,21 @@ def _calc_boundary_violation(
 
 
 def _calc_path_inefficiency(
-    steps: torch.Tensor, step_lengths: torch.Tensor
+    steps: torch.Tensor, step_lengths: torch.Tensor, threshold: float
 ) -> torch.Tensor:
-    """Compute path inefficiency as (total length / displacement) - 1."""
+    """Compute path inefficiency based on the Radius of Gyration (Rg)."""
     path_len = torch.sum(step_lengths)
-    displacement = torch.norm(steps[:, -1] - steps[:, 0])
-
-    if displacement < 1e-6:
+    if path_len <= 1e-9:
         return torch.tensor(0.0)
 
-    return torch.relu((path_len / displacement) - 1.0)
+    mu = torch.mean(steps, dim=1, keepdim=True)
+
+    sq_errors = torch.sum((steps - mu) ** 2, dim=0)
+    rg = torch.sqrt(torch.mean(sq_errors))
+
+    efficiency_score = torch.clamp((threshold * rg) / path_len, max=1.0)
+
+    return 1.0 - efficiency_score
 
 
 def _calc_lucky_jump(step_lengths: torch.Tensor, threshold: float) -> torch.Tensor:
@@ -272,8 +279,12 @@ def objective(
 
     # Path inefficiency
     if config.efficiency_weight > 0:
-        inefficiency = _calc_path_inefficiency(steps, step_lengths).item()
-        eff_penalty = min(inefficiency, 10.0) * config.efficiency_weight
+        inefficiency = _calc_path_inefficiency(
+            steps,
+            step_lengths,
+            config.efficiency_threshold,
+        ).item()
+        eff_penalty = inefficiency * config.efficiency_weight
         metrics["eff_penalty"] = eff_penalty
         error_sum += eff_penalty
 
