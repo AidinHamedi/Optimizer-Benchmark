@@ -22,7 +22,6 @@ class ObjectiveConfig:
         convergence_tol: Normalized distance threshold for convergence.
         boundary_tol: Normalized distance for boundary violation.
         efficiency_threshold: Minimum efficiency threshold for path efficiency.
-        efficiency_movement_tol: Threshold for considering a step as 'noise' vs 'movement'.
         terrain_violation_tol: Normalized distance threshold to check for terrain violation.
         terrain_violation_accuracy: Number of points to check for terrain violation.
         lucky_jump_threshold: Maximum allowed step size (fraction of diagonal).
@@ -34,7 +33,7 @@ class ObjectiveConfig:
     final_val_weight: float = 1.8
     final_dist_weight: float = 2.6
     convergence_weight: float = 0.1
-    efficiency_weight: float = 1.2
+    efficiency_weight: float = 0.8
     lucky_jump_weight: float = 10.0
     start_prox_weight: float = 200.0
     boundary_weight: float = 16.0
@@ -42,8 +41,7 @@ class ObjectiveConfig:
 
     convergence_tol: float = 0.01
     boundary_tol: float = 0.08
-    efficiency_threshold: float = 4.0
-    efficiency_movement_tol: float = 0.05
+    efficiency_threshold: float = 1.4
     terrain_violation_tol: float = 0.01
     terrain_violation_accuracy: int = 7
     lucky_jump_threshold: float = 0.04
@@ -78,23 +76,24 @@ def _calc_path_inefficiency(
     steps: torch.Tensor,
     step_lengths: torch.Tensor,
     threshold: float,
-    min_movement_eps: float = 1e-4,
 ) -> torch.Tensor:
-    """Compute path inefficiency based on the Radius of Gyration (Rg)."""
-    active_mask = step_lengths > min_movement_eps
+    """Calculates path inefficiency by comparing the spatial footprint against significant movement effort."""
+    # Footprint: The diagonal of the bounding box touched by the optimizer
+    bbox_max = torch.max(steps, dim=1).values
+    bbox_min = torch.min(steps, dim=1).values
+    span = torch.norm(bbox_max - bbox_min)
 
-    effective_path_len = torch.sum(step_lengths[active_mask])
+    # Jitter Filter: Ignore steps that are mathematically insignificant
+    # relative to the optimizer's largest movement (active phase).
+    max_s = torch.max(step_lengths)
+    active_mask = step_lengths > (max_s * 0.01)  # Ignore steps < 1% of peak velocity
+    significant_effort = torch.sum(step_lengths[active_mask])
 
-    if effective_path_len <= 1e-9:
-        return torch.tensor(0.0)
+    # Raw Efficiency: Ratio of ground covered to significant energy spent.
+    # threshold acts as a 'Curvature Buffer' (e.g., 1.5 allows a path 50% longer than a straight line).
+    raw_efficiency = (span * threshold) / (significant_effort + 1e-12)
 
-    mu = torch.mean(steps, dim=1, keepdim=True)
-    sq_errors = torch.sum((steps - mu) ** 2, dim=0)
-    rg = torch.sqrt(torch.mean(sq_errors))
-
-    efficiency_score = torch.clamp((threshold * rg) / effective_path_len, max=1.0)
-
-    return 1.0 - efficiency_score
+    return 1.0 - torch.clamp(raw_efficiency, max=1.0)
 
 
 def _calc_lucky_jump(step_lengths: torch.Tensor, threshold: float) -> torch.Tensor:
@@ -290,7 +289,6 @@ def objective(
             steps,
             step_lengths,
             config.efficiency_threshold,
-            config.efficiency_movement_tol,
         ).item()
         eff_penalty = inefficiency * config.efficiency_weight
         metrics["eff_penalty"] = eff_penalty

@@ -88,8 +88,7 @@ class MarkerStyles:
 
 @dataclass(frozen=True)
 class CalculationParams:
-    efficiency_threshold: float = 4.0
-    efficiency_movement_tol: float = 0.05
+    efficiency_threshold: float = 1.4
     ema_smoothing_factor: float = 0.15
     surface_log_threshold: float = 0.3
     surface_padding_factor: float = 1.1
@@ -175,33 +174,33 @@ def compute_spatial_efficiency(
     points: np.ndarray,
     step_sizes: np.ndarray,
     threshold: float,
-    movement_tol: float = 1e-4,
 ) -> np.ndarray:
-    """Computes a spatial efficiency score based on the Radius of Gyration (Rg)."""
+    """Computes a spatial efficiency score based on the Relative Scale Gate model."""
     n_points = len(points)
     efficiency = np.ones(n_points, dtype=float)
 
+    # Use tensors for vectorized logic consistent with criterion.py
+    points_t = torch.from_numpy(points).float().T  # [2, N]
+    steps_t = torch.from_numpy(step_sizes).float()  # [N]
+
     for i in range(1, n_points):
-        # Consider steps taken so far (indices 0 to i-1)
-        current_steps = step_sizes[:i]
+        # Subset of trajectory up to current point
+        sub_points = points_t[:, : i + 1]
+        sub_steps = steps_t[:i]
 
-        # Filter out "noise" steps
-        active_mask = current_steps > movement_tol
-        effective_path_len = np.sum(current_steps[active_mask])
+        # 1. Calculate Footprint (Span)
+        bbox_max = torch.max(sub_points, dim=1).values
+        bbox_min = torch.min(sub_points, dim=1).values
+        span = torch.norm(bbox_max - bbox_min)
 
-        if effective_path_len <= 1e-9:
-            efficiency[i] = 1.0
-            continue
+        # 2. Filter Jitter (1% of peak velocity in current window)
+        max_s = torch.max(sub_steps)
+        active_mask = sub_steps > (max_s * 0.01)
+        significant_effort = torch.sum(sub_steps[active_mask])
 
-        # Radius of Gyration calculation (using all points for global context)
-        current_segment = points[: i + 1]
-        center_mass = np.mean(current_segment, axis=0)
-        sq_distances = np.sum((current_segment - center_mass) ** 2, axis=1)
-        rg = np.sqrt(np.mean(sq_distances))
-
-        # Normalize score
-        val = (threshold * rg) / effective_path_len
-        efficiency[i] = min(1.0, val)
+        # 3. Compute Efficiency Ratio
+        raw_eff = (span * threshold) / (significant_effort + 1e-12)
+        efficiency[i] = torch.clamp(raw_eff, max=1.0).item()
 
     return efficiency
 
@@ -272,7 +271,6 @@ class OptimizerVisualizer:
             points,
             step_sizes,
             self.config.params.efficiency_threshold,
-            self.config.params.efficiency_movement_tol,
         )
 
         if self.debug:
