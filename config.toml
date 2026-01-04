@@ -5,7 +5,7 @@
 seed = 42
 exist_pass = true
 img_format = "jpg"
-hypertune_trials = 800
+hypertune_trials = 750
 ignore_optimizers = [
   # Unsupported
   "msvag",
@@ -58,13 +58,12 @@ GradientLabyrinth = { iterations = 250, error_weight = 2.0 }
 Rastrigin = { iterations = 150, error_weight = 1.5 }
 Griewank = { iterations = 200, error_weight = 1.5 }
 "Lévy 13" = { iterations = 150, error_weight = 1.5 }
-MixedMichalewiczSphere = { iterations = 150, error_weight = 1.0 }
+Beale = { iterations = 150, error_weight = 1.0 }
 "Langermann 2" = { iterations = 150, error_weight = 0.5 }
 "Styblinski-Tang" = { iterations = 150, error_weight = 0.5 }
 Langermann = { iterations = 150, error_weight = 0.2 }
 QuantumWell = { iterations = 150, error_weight = 0.5 }
 EggHolder = { iterations = 150, error_weight = 0.2 }
-"Drop-Wave" = { iterations = 150, error_weight = 0.2 }
 
 # ==============================================================================
 # Optimizer Hyperparameter Search Spaces
