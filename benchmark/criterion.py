@@ -22,6 +22,7 @@ class ObjectiveConfig:
         convergence_tol: Normalized distance threshold for convergence.
         boundary_tol: Normalized distance for boundary violation.
         efficiency_threshold: Minimum efficiency threshold for path efficiency.
+        efficiency_movement_tol: Threshold for considering a step as 'noise' vs 'movement'.
         terrain_violation_tol: Normalized distance threshold to check for terrain violation.
         terrain_violation_accuracy: Number of points to check for terrain violation.
         lucky_jump_threshold: Maximum allowed step size (fraction of diagonal).
@@ -41,7 +42,8 @@ class ObjectiveConfig:
 
     convergence_tol: float = 0.01
     boundary_tol: float = 0.08
-    efficiency_threshold: float = 5.0
+    efficiency_threshold: float = 4.0
+    efficiency_movement_tol: float = 0.05
     terrain_violation_tol: float = 0.01
     terrain_violation_accuracy: int = 7
     lucky_jump_threshold: float = 0.04
@@ -73,19 +75,24 @@ def _calc_boundary_violation(
 
 
 def _calc_path_inefficiency(
-    steps: torch.Tensor, step_lengths: torch.Tensor, threshold: float
+    steps: torch.Tensor,
+    step_lengths: torch.Tensor,
+    threshold: float,
+    min_movement_eps: float = 1e-4,
 ) -> torch.Tensor:
     """Compute path inefficiency based on the Radius of Gyration (Rg)."""
-    path_len = torch.sum(step_lengths)
-    if path_len <= 1e-9:
+    active_mask = step_lengths > min_movement_eps
+
+    effective_path_len = torch.sum(step_lengths[active_mask])
+
+    if effective_path_len <= 1e-9:
         return torch.tensor(0.0)
 
     mu = torch.mean(steps, dim=1, keepdim=True)
-
     sq_errors = torch.sum((steps - mu) ** 2, dim=0)
     rg = torch.sqrt(torch.mean(sq_errors))
 
-    efficiency_score = torch.clamp((threshold * rg) / path_len, max=1.0)
+    efficiency_score = torch.clamp((threshold * rg) / effective_path_len, max=1.0)
 
     return 1.0 - efficiency_score
 
@@ -283,6 +290,7 @@ def objective(
             steps,
             step_lengths,
             config.efficiency_threshold,
+            config.efficiency_movement_tol,
         ).item()
         eff_penalty = inefficiency * config.efficiency_weight
         metrics["eff_penalty"] = eff_penalty

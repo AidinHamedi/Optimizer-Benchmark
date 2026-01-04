@@ -88,7 +88,8 @@ class MarkerStyles:
 
 @dataclass(frozen=True)
 class CalculationParams:
-    efficiency_threshold: float = 5.0
+    efficiency_threshold: float = 4.0
+    efficiency_movement_tol: float = 0.05
     ema_smoothing_factor: float = 0.15
     surface_log_threshold: float = 0.3
     surface_padding_factor: float = 1.1
@@ -171,37 +172,35 @@ def compute_ema(data: np.ndarray, alpha: float) -> np.ndarray:
 
 
 def compute_spatial_efficiency(
-    points: np.ndarray, path_lengths: np.ndarray, threshold: float
+    points: np.ndarray,
+    step_sizes: np.ndarray,
+    threshold: float,
+    movement_tol: float = 1e-4,
 ) -> np.ndarray:
-    """
-    Computes a spatial efficiency score based on the Radius of Gyration (Rg).
-
-    The score compares the dispersion of points (Rg) to the length of the path traveled.
-    High score = effective exploration; Low score = redundant movement (back-and-forth).
-    """
+    """Computes a spatial efficiency score based on the Radius of Gyration (Rg)."""
     n_points = len(points)
     efficiency = np.ones(n_points, dtype=float)
 
-    if n_points < 3:
-        return efficiency
+    for i in range(1, n_points):
+        # Consider steps taken so far (indices 0 to i-1)
+        current_steps = step_sizes[:i]
 
-    for i in range(2, n_points):
-        current_path_len = path_lengths[i]
+        # Filter out "noise" steps
+        active_mask = current_steps > movement_tol
+        effective_path_len = np.sum(current_steps[active_mask])
 
-        # Avoid division by zero for stationary points
-        if current_path_len <= 1e-9:
-            efficiency[i] = efficiency[i - 1]
+        if effective_path_len <= 1e-9:
+            efficiency[i] = 1.0
             continue
 
+        # Radius of Gyration calculation (using all points for global context)
         current_segment = points[: i + 1]
-
-        # Radius of Gyration calculation
         center_mass = np.mean(current_segment, axis=0)
         sq_distances = np.sum((current_segment - center_mass) ** 2, axis=1)
         rg = np.sqrt(np.mean(sq_distances))
 
         # Normalize score
-        val = (threshold * rg) / current_path_len
+        val = (threshold * rg) / effective_path_len
         efficiency[i] = min(1.0, val)
 
     return efficiency
@@ -270,7 +269,10 @@ class OptimizerVisualizer:
 
         # 4. Efficiency
         efficiency = compute_spatial_efficiency(
-            points, cumulative_path, self.config.params.efficiency_threshold
+            points,
+            step_sizes,
+            self.config.params.efficiency_threshold,
+            self.config.params.efficiency_movement_tol,
         )
 
         if self.debug:
