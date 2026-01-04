@@ -632,7 +632,7 @@ requires-dist = [
     { name = "matplotlib", specifier = ">=3.10.5" },
     { name = "numpy", specifier = ">=2.3.2" },
     { name = "optuna", specifier = ">=4.4.0" },
-    { name = "pytorch-optimizer", git = "https://github.com/kozistr/pytorch_optimizer.git?rev=0a35f232cf2a46a186f813262f3578e364239177" },
+    { name = "pytorch-optimizer", git = "https://github.com/kozistr/pytorch_optimizer.git?rev=da46eff6f1294cd83eb07370b59e953d53a049df" },
     { name = "requests", specifier = ">=2.32.5" },
     { name = "tabulate", specifier = ">=0.9.0" },
     { name = "torch", specifier = ">=2.7.0", index = "https://download.pytorch.org/whl/cpu" },
@@ -759,7 +759,7 @@ wheels = [
 [[package]]
 name = "pytorch-optimizer"
 version = "3.9.0"
-source = { git = "https://github.com/kozistr/pytorch_optimizer.git?rev=0a35f232cf2a46a186f813262f3578e364239177#0a35f232cf2a46a186f813262f3578e364239177" }
+source = { git = "https://github.com/kozistr/pytorch_optimizer.git?rev=da46eff6f1294cd83eb07370b59e953d53a049df#da46eff6f1294cd83eb07370b59e953d53a049df" }
 dependencies = [
     { name = "numpy" },
     { name = "torch", version = "2.7.0", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "sys_platform == 'darwin'" },

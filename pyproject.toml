@@ -35,4 +35,4 @@ torch = [
   { index = "pytorch-cpu" },
 ]
 
-pytorch-optimizer = { git = "https://github.com/kozistr/pytorch_optimizer.git", rev = "0a35f232cf2a46a186f813262f3578e364239177" }
+pytorch-optimizer = { git = "https://github.com/kozistr/pytorch_optimizer.git", rev = "da46eff6f1294cd83eb07370b59e953d53a049df" }
