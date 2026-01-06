@@ -3,7 +3,7 @@ import torch
 from .norm import normalize
 
 FUNCTION_NAME = "Beale"
-START_POS = torch.tensor([1.0, 1.0])
+START_POS = torch.tensor([1, 1])
 EVAL_SIZE = ((-4.5, 4.5), (-4.5, 4.5))
 CRITERION_OVERRIDES = {"val_scaler_root": 5}
 GLOBAL_MINIMUM_LOC = torch.tensor([[3.0, 0.5]])

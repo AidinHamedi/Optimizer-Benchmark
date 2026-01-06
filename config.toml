@@ -59,9 +59,7 @@ Rastrigin = { iterations = 150, error_weight = 1.5 }
 Griewank = { iterations = 200, error_weight = 1.5 }
 "Lévy 13" = { iterations = 150, error_weight = 1.5 }
 Beale = { iterations = 150, error_weight = 1.0 }
-"Langermann 2" = { iterations = 150, error_weight = 0.5 }
 "Styblinski-Tang" = { iterations = 150, error_weight = 0.5 }
-Langermann = { iterations = 150, error_weight = 0.2 }
 QuantumWell = { iterations = 150, error_weight = 0.5 }
 EggHolder = { iterations = 150, error_weight = 0.2 }
 
@@ -80,20 +78,20 @@ adadelta = { lr = [0.0001, 500.0] }
 dadaptadagrad = { lr = [0.0001, 20.0] }
 adahessian = { lr = [0.0001, 50.0] }
 
-sgd = { lr = [0.0001, 4.0], momentum = [0.0001, 0.99] }
-sgdp = { lr = [0.0001, 4.0], momentum = [0.0001, 0.99] }
-sgdsai = { lr = [0.0001, 4.0], momentum = [0.0001, 0.99] }
-accsgd = { lr = [0.0001, 4.0], momentum = [0.0001, 0.99] }
-signsgd = { lr = [0.0001, 4.0], momentum = [0.0001, 0.99] }
-tam = { lr = [0.0001, 6.0], momentum = [0.0001, 0.99] }
-schedulefreesgd = { lr = [0.0001, 6.0], momentum = [0.0001, 0.99] }
-kron = { lr = [0.0001, 4.0], momentum = [0.0001, 0.99] }
-pid = { lr = [0.0001, 4.0], momentum = [0.0, 0.99], integral = [1.0, 10.0], derivative = [2.0, 14.0] }
+sgd = { lr = [0.0001, 8.0], momentum = [0.0001, 0.99] }
+sgdp = { lr = [0.0001, 8.0], momentum = [0.0001, 0.99] }
+sgdsai = { lr = [0.0001, 8.0], momentum = [0.0001, 0.99] }
+accsgd = { lr = [0.0001, 8.0], momentum = [0.0001, 0.99] }
+signsgd = { lr = [0.0001, 8.0], momentum = [0.0001, 0.99] }
+tam = { lr = [0.0001, 8.0], momentum = [0.0001, 0.99] }
+schedulefreesgd = { lr = [0.0001, 8.0], momentum = [0.0001, 0.99] }
+kron = { lr = [0.0001, 8.0], momentum = [0.0001, 0.99] }
+pid = { lr = [0.0001, 8.0], momentum = [0.0, 0.99], integral = [1.0, 10.0], derivative = [2.0, 14.0] }
 
-asgd = { lr = [0.0001, 6.0], amplifier = [0.0001, 0.5] }
+asgd = { lr = [0.0001, 8.0], amplifier = [0.0001, 0.5] }
 
-scion = { lr = [0.0001, 4.0], scale = [1.0, 1000.0] }
-scionlight = { lr = [0.0001, 4.0], scale = [1.0, 1000.0] }
+scion = { lr = [0.0001, 8.0], scale = [1.0, 1000.0] }
+scionlight = { lr = [0.0001, 8.0], scale = [1.0, 1000.0] }
 
 conda = { lr = [0.0001, 6.0], update_proj_gap = [10, 400, "int"], scale = [0.0001, 12.0] }
 
