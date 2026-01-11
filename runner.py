@@ -11,6 +11,7 @@ from pytorch_optimizer import (
 )
 
 from benchmark.evaluate import benchmark_optimizer
+from benchmark.functions import FUNC_DICT
 
 torch.use_deterministic_algorithms(True)
 
@@ -174,7 +175,13 @@ def prepare_eval_configs(configs: dict, optimizer_name: str) -> dict:
 
 @click.command()
 @click.option("--debug", is_flag=True, help="Enable debug mode")
-@click.option("--get_num", is_flag=True, help="Get the number of optimizers")
+@click.option("--list_o", is_flag=True, help="Lists available optimizers")
+@click.option("--list_f", is_flag=True, help="Lists available test functions")
+@click.option(
+    "--get_num",
+    is_flag=True,
+    help="Get the number of optimizers (for parallel execution)",
+)
 @click.option(
     "--opt_range",
     nargs=2,
@@ -213,6 +220,8 @@ def main(**kwargs):
     hyperparameter tuning. Results are saved as JSON and visualizations.
     """
     debug: bool = kwargs["debug"]
+    list_o: bool = kwargs["list_o"]
+    list_f: bool = kwargs["list_f"]
     get_num: bool = kwargs["get_num"]
     opt_range: list[int] = kwargs["opt_range"]
     results_dir: Path = kwargs["results_dir"]
@@ -227,12 +236,24 @@ def main(**kwargs):
     )
     optimizers = prepare_optimizers(configs, filters, opt_range)
 
-    if debug:
-        print(f"Optimizers: {optimizers}")
-
     # --get_num flag for scripts to query optimizer count for parallel execution
     if get_num:
         print(len(optimizers))
+        return
+
+    if list_o or debug:
+        print(f"Optimizers: {optimizers}")
+        print("")
+
+    if list_f or debug:
+        print("Functions:")
+        for i, (func_name, func_meta) in enumerate(FUNC_DICT.items(), start=1):
+            print(
+                f" ({i}) {func_name}: {[f'{key}: {value}' for (key, value) in func_meta.items() if key != 'func']}"
+            )
+        print("")
+
+    if list_o or list_f:
         return
 
     eval_args = configs.get("optimizer_eval_args", {})

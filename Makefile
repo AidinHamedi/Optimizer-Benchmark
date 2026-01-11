@@ -1,4 +1,4 @@
-.PHONY: all clear run gen_docs comp_vis
+.PHONY: all clear run gen_docs comp_vis dcomp_vis
 
 PYTHON := python
 SCRIPT := runner.py
@@ -42,4 +42,7 @@ gen_docs:
 	@python -m tools.gen_sitemap
 
 comp_vis:
-	@tar -czf results.tar.gz results/
+	@tar -cvzf results.tar.gz results/ --totals
+
+dcomp_vis:
+	@tar -xf results.tar.gz results/
