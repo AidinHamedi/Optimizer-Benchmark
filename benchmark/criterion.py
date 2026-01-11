@@ -30,7 +30,7 @@ class ObjectiveConfig:
 
     boundary_penalty: bool = True
 
-    final_val_weight: float = 2.0
+    final_val_weight: float = 1.2
     final_dist_weight: float = 2.4
     convergence_weight: float = 0.2
     efficiency_weight: Tuple[float, float] = (0.6, 1.0)  # eval, tuning
