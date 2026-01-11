@@ -106,7 +106,9 @@ def scale_eval_size(
         Scaled bounds in the same format.
     """
 
-    def adjust_pair(first: float, second: float, factor: float) -> Tuple[float, float]:
+    def adjust_pair(
+        first: float, second: float, factor: float
+    ) -> Tuple[float, float]:  # needs improving
         """Adjust a min/max pair based on symmetry."""
         # Symmetric bounds: scale both ends equally
         if first == -second:
@@ -118,9 +120,12 @@ def scale_eval_size(
         abs_second_scaled = abs(second * factor)
 
         if factor > 1:
-            new_mag = abs_first / factor
+            new_mag = (abs_first / factor) if sign == 1 else (abs_first * factor)
         else:
-            new_mag = min(abs_first / factor, abs_second_scaled)
+            new_mag = min(
+                (abs_first / factor) if sign == 1 else (abs_first * factor),
+                abs_second_scaled,
+            )
 
         return sign * new_mag, second * factor
 
