@@ -2,8 +2,8 @@ import torch
 
 from .norm import normalize
 
-FUNCTION_NAME = "Lévy 13"
-START_POS = torch.tensor([-9.5, -7.7])
+FUNCTION_NAME = "Levy 13"
+START_POS = torch.tensor([-9.5, -7.81])
 EVAL_SIZE = ((-10, 10), (-10, 10))
 GLOBAL_MINIMUM_LOC = torch.tensor([[1, 1]])
 

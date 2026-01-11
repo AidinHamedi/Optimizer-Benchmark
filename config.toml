@@ -60,7 +60,7 @@ Griewank = { iterations = 200, error_weight = 1.5 }
 Beale = { iterations = 150, error_weight = 1.0 }
 QuantumWell = { iterations = 150, error_weight = 1.0 }
 "Styblinski-Tang" = { iterations = 150, error_weight = 0.5 }
-"Lévy 13" = { iterations = 150, error_weight = 0.5 }
+"Levy 13" = { iterations = 150, error_weight = 0.5 }
 EggHolder = { iterations = 150, error_weight = 0.2 }
 
 # ==============================================================================
