@@ -30,21 +30,21 @@ class ObjectiveConfig:
 
     boundary_penalty: bool = True
 
-    final_val_weight: float = 1.8
-    final_dist_weight: float = 2.6
+    final_val_weight: float = 2.0
+    final_dist_weight: float = 2.4
     convergence_weight: float = 0.2
-    efficiency_weight: float = 0.8
+    efficiency_weight: Tuple[float, float] = (0.6, 1.0)  # eval, tuning
     lucky_jump_weight: float = 10.0
     start_prox_weight: float = 200.0
     boundary_weight: float = 16.0
-    terrain_violation_weight: float = 20.0
+    terrain_violation_weight: float = 25.0
 
     convergence_tol: float = 0.01
     boundary_tol: float = 0.08
-    efficiency_threshold: float = 1.4
-    terrain_violation_tol: float = 0.01
+    efficiency_threshold: float = 1.3
+    terrain_violation_tol: float = 0.005
     terrain_violation_accuracy: int = 7
-    lucky_jump_threshold: float = 0.04
+    lucky_jump_threshold: float = 0.03
     start_prox_threshold: float = 0.16
 
 
@@ -237,6 +237,13 @@ def objective(
     """
     if overrides is None:
         overrides = {}
+
+    if mode not in ["tuning", "eval"]:
+        raise ValueError("Invalid scoring mode.")
+
+    if debug:
+        print(f"[Objective] Overrides: {overrides}")
+
     is_tuning = mode == "tuning"
     error_sum = 0.0
     metrics = {}
@@ -284,13 +291,17 @@ def objective(
         error_sum += speed_penalty
 
     # Path inefficiency
-    if config.efficiency_weight > 0:
+    eff_weight = overrides.get(
+        "efficiency_weight",
+        config.efficiency_weight,
+    )[is_tuning]  #  eval: idx 0, tuning: idx 1
+    if eff_weight > 0:
         inefficiency = _calc_path_inefficiency(
             steps,
             step_lengths,
             config.efficiency_threshold,
         ).item()
-        eff_penalty = inefficiency * config.efficiency_weight
+        eff_penalty = inefficiency * eff_weight
         metrics["eff_penalty"] = eff_penalty
         error_sum += eff_penalty
 
