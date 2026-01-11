@@ -3,8 +3,8 @@ import torch
 from .norm import normalize
 
 FUNCTION_NAME = "Gramacy & Lee 2D"
-START_POS = torch.tensor([1.8, 2.48])
-EVAL_SIZE = ((-0.8, 2.5), (-0.8, 2.5))
+START_POS = torch.tensor([2.8, 3.48])
+EVAL_SIZE = ((-0.8, 3.5), (-0.8, 3.5))
 GLOBAL_MINIMUM_LOC = torch.tensor(
     [
         [0.14166, 0.14166],
