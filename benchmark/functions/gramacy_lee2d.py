@@ -25,7 +25,7 @@ def _gramacy_lee_1d(val: torch.Tensor) -> torch.Tensor:
     return term1 + term2
 
 
-@normalize(-5.737674236297607, 33.41902160644531)
+@normalize(-5.729866027832031, 132.20973205566406)
 @torch.jit.script
 def gl2d(x: torch.Tensor) -> torch.Tensor:
     """Compute the Gramacy & Lee 2D function as f(x) + f(y).
