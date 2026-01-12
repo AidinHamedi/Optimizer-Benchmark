@@ -31,7 +31,7 @@ def griewank(
     x = x * scale
 
     sum_term = torch.sum(x**2, dim=-1) / 4000.0
-    i = torch.arange(1, d + 1, dtype=x.dtype, device=x.device)
+    i = torch.arange(1, d + 1, dtype=x.dtype)
     prod_term = torch.prod(torch.cos(x / torch.sqrt(i)), dim=-1)
 
     return sum_term - prod_term

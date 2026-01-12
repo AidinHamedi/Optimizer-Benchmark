@@ -1,8 +1,9 @@
-import math
 from pathlib import Path
 from typing import Callable, Tuple, Union
 
 import torch
+
+from .misc import format_large_num
 
 
 def compute_surface(
@@ -36,7 +37,7 @@ def compute_surface(
         return torch.load(cache_file)
 
     if res == "auto":
-        num_points = int(math.sqrt(eval_size[0][1]) * 500)
+        num_points = int(4000)  # TODO
     else:
         num_points = int(res)
 
@@ -46,11 +47,16 @@ def compute_surface(
     X, Y = torch.meshgrid(x, y, indexing="xy")
     grid_points = torch.stack([X.flatten(), Y.flatten()], dim=1)
 
-    print("[Surface] Computing function values...")
+    print(
+        f"[Surface] Computing function values... ({format_large_num(num_points**2)} Points)"
+    )
     with torch.no_grad():
         try:
             Z = func(grid_points).reshape(num_points, num_points)
         except Exception:
+            if debug:
+                print("[Surface] Batch Computing failed, Seq...")
+
             Z_vals = [func(p) for p in grid_points]
             Z = torch.stack(Z_vals).reshape(num_points, num_points)
 
