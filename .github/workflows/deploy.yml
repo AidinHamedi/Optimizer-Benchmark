@@ -1,0 +1,83 @@
+name: Deploy Benchmark Site
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+# Grant GITHUB_TOKEN the necessary permissions to deploy
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Ensure only one deployment runs at a time
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Checkout the source code (HTML/JS/CSS in 'docs/')
+      - name: Checkout Source
+        uses: actions/checkout@v4
+
+      # 2. Fetch Visual Assets from 'vis-base' branch
+      # Uses sparse-checkout to download ONLY the 'results' folder (saves time/bandwidth)
+      - name: Checkout Visual Assets
+        uses: actions/checkout@v4
+        with:
+          ref: vis-base
+          path: temp_assets
+          sparse-checkout: |
+            results
+          sparse-checkout-cone-mode: false
+
+      # 3. Merge Assets into Site Source
+      # Moves the downloaded images into 'docs/results' so Jekyll processes them
+      - name: Inject Assets
+        run: |
+          mkdir -p docs/results
+          
+          # Move assets and clean up temp folder
+          if [ -d "temp_assets/results" ]; then
+            cp -r temp_assets/results/* docs/results/
+            rm -rf temp_assets
+            echo "✅ Assets successfully merged into docs/results"
+            echo "   File count: $(find docs/results -type f | wc -l)"
+          else
+            echo "⚠️ No results folder found in vis-base branch!"
+            exit 1
+          fi
+
+      # 4. Configure GitHub Pages (extracts base_url, etc.)
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      # 5. Build with Jekyll (Official Action)
+      # Automatically handles Ruby, Gemfiles, and GitHub metadata tokens
+      - name: Build with Jekyll
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./docs          # Your site root is in the 'docs' folder
+          destination: ./_site    # Output the build to a distinct folder in root
+          verbose: true           # Enable verbose logging as requested
+
+      # 6. Upload the built artifact
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./_site
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,55 @@
+[project]
+name = "optimizer-vis"
+version = "2.0.0"
+description = "A PyTorch optimizer visualization and trajectory scoring library."
+readme = "README.md"
+authors = [
+    { name = "AidinHamedi", email = "aidin.hamediasl@gmail.com" }
+]
+requires-python = ">=3.12"
+
+# 1. Standard Dependencies
+dependencies = [
+    # Fallback: install cpu version if no specific torch is found
+    "torch>=2.0.0; extra != 'cuda'",
+    "numpy>=1.26.0",
+]
+
+# 2. Optional Dev Tools (Accessible via: uv sync --extra dev)
+[project.optional-dependencies]
+dev = [
+    "ruff>=0.3.0",
+    "basedpyright>=1.0.0",
+    "pytest>=8.0.0",
+]
+
+# 3. UV Specific Index for PyTorch CPU
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[tool.uv.sources]
+# Forces torch to use the CPU index if the 'cpu' marker is met
+torch = [
+  { index = "pytorch-cpu", marker = "extra == 'cpu'" }
+]
+
+# 4. Ruff Configuration (Fastest Linter/Formatter)
+[tool.ruff]
+line-length = 88
+target-version = "py312"
+
+[tool.ruff.lint]
+# E/F = Defaults, I = Import Sorting, UP = Path/Type upgrades
+select = ["E", "F", "I", "UP", "N"]
+ignore = ["E501"] # Line length is handled by formatter
+
+# 5. Basedpyright Configuration
+[tool.basedpyright]
+typeCheckingMode = "standard"
+pythonVersion = "3.12"
+
+[build-system]
+requires = ["uv_build>=0.9.27,<0.10.0"]
+build-backend = "uv_build"
