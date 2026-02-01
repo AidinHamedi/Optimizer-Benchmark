@@ -33,12 +33,13 @@ This helps us maintain a clean history and automate changelog generation.
 Based on our `src/optimizer_vis` structure, please use one of the following scopes:
 
 * **core**: Changes to the main engine or top-level `__init__.py`.
-* **tuning**: Anything related to hyperparameter optimization or LR finders.
+* **tuning**: Anything related to hyperparameter optimization.
 * **scoring**: Changes to path scoring, metrics, or trajectory analysis.
 * **plotting**: Visualization, landscape plots, or matplotlib/plotly logic.
 * **io**: Saving/loading logic and result handlers.
 * **types**: Changes specifically to `_types.py` files across the library.
 * **deps**: Used with `chore` for updating `pyproject.toml` or `uv.lock`.
+* **root**: Changes to the git repo top level files.
 
 ## How to Document Changes
 
