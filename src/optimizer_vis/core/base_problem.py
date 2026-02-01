@@ -6,9 +6,7 @@ from .types import HeightZ, LearnablePos2D
 
 
 class OptimizationProblem2d(nn.Module):
-    """Base class for 2D optimization problems using PyTorch.
-
-    ~~~
+    """Base class for 2D optimization problems.
 
     Attributes:
         conf: The configuration object for this problem.
@@ -33,8 +31,6 @@ class OptimizationProblem2d(nn.Module):
 
     def func(self, pos: LearnablePos2D) -> HeightZ:
         """The objective function to be minimized.
-
-        ~~~
 
         Args:
             pos: The current 2D position.

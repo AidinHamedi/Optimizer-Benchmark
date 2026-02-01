@@ -5,8 +5,6 @@ from torch import nn
 class HeightZ(torch.Tensor):
     """1D tensor for vertical Z-axis values.
 
-    ~~~
-
     Args:
         data: The tensor data representing a single Z-axis value.
         *args: Additional positional arguments for torch.Tensor.
@@ -30,9 +28,7 @@ class HeightZ(torch.Tensor):
 
 
 class Pos2D(torch.Tensor):
-    """2D position tensor (x, y) with attribute access.
-
-    ~~~
+    """2D position tensor (x, y).
 
     Args:
         data: The tensor data representing (x, y) coordinates.

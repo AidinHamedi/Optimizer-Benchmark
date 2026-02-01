@@ -10,8 +10,6 @@ from .types import Minimum, Pos2D
 class ProblemBounds:
     """Defines the spatial boundaries for an optimization problem.
 
-    ~~~
-
     Attributes:
         x_range: A tuple containing (min, max) for the X axis.
         y_range: A tuple containing (min, max) for the Y axis.
