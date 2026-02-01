@@ -10,12 +10,11 @@ requires-python = ">=3.12"
 
 # 1. Standard Dependencies
 dependencies = [
-    # Fallback: install cpu version if no specific torch is found
-    "torch>=2.0.0; extra != 'cuda'",
+    "torch>=2.0.0",
     "numpy>=1.26.0",
 ]
 
-# 2. Optional Dev Tools (Accessible via: uv sync --extra dev)
+# 2. Optional Dev Tools
 [project.optional-dependencies]
 dev = [
     "ruff>=0.3.0",
@@ -30,20 +29,18 @@ url = "https://download.pytorch.org/whl/cpu"
 explicit = true
 
 [tool.uv.sources]
-# Forces torch to use the CPU index if the 'cpu' marker is met
 torch = [
-  { index = "pytorch-cpu", marker = "extra == 'cpu'" }
+  { index = "pytorch-cpu" }
 ]
 
-# 4. Ruff Configuration (Fastest Linter/Formatter)
+# 4. Ruff Configuration
 [tool.ruff]
 line-length = 88
 target-version = "py312"
 
 [tool.ruff.lint]
-# E/F = Defaults, I = Import Sorting, UP = Path/Type upgrades
 select = ["E", "F", "I", "UP", "N"]
-ignore = ["E501"] # Line length is handled by formatter
+ignore = ["E501"]
 
 # 5. Basedpyright Configuration
 [tool.basedpyright]
