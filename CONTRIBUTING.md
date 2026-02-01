@@ -54,7 +54,6 @@ When submitting a Pull Request, you must update the `CHANGELOG.md` file:
     * `Deprecated` (for soon-to-be removed features)
     * `Removed` (for now removed features)
     * `Fixed` (for any bug fixes)
-    * `Security` (in case of vulnerabilities)
 
 ### 2. Pull Request Descriptions
 
