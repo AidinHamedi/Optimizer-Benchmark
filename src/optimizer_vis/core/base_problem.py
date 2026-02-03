@@ -5,12 +5,12 @@ from .schema import OptimizationProblemConf
 from .types import HeightZ, LearnablePos2D
 
 
-class OptimizationProblem2d(nn.Module):
+class OptimizationProblem2D(nn.Module):
     """Base class for 2D optimization problems.
 
     Attributes:
-        conf: The configuration object for this problem.
-        pos: A learnable 2D position wrapper.
+        conf (OptimizationProblemConf): The configuration object for this problem.
+        pos (LearnablePos2D): A learnable 2D position wrapper.
     """
 
     def __init__(self, conf: OptimizationProblemConf) -> None:
@@ -29,6 +29,8 @@ class OptimizationProblem2d(nn.Module):
 
         self.pos = LearnablePos2D(self._raw_pos)
 
+        self.func_init()
+
     def func(self, pos: LearnablePos2D) -> HeightZ:
         """The objective function to be minimized.
 
@@ -43,10 +45,10 @@ class OptimizationProblem2d(nn.Module):
         """
         raise NotImplementedError("Implement objective logic in subclass.")
 
-    def forward(self) -> HeightZ:
-        """Standard PyTorch forward pass.
+    def func_init(self) -> None:
+        """For initialization of the objective function."""
+        pass
 
-        Returns:
-            HeightZ: Evaluation of the objective function at current position.
-        """
+    def forward(self) -> HeightZ:
+        """Standard PyTorch forward pass returning evaluation at current position."""
         return self.func(self.pos)
