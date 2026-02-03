@@ -72,6 +72,19 @@ class Pos2D(torch.Tensor):
         """Returns the Y coordinate value at index 1."""
         return self[1]
 
+    @classmethod
+    def __torch_function__(cls, func, types, args=(), kwargs=None):
+        """Standard PyTorch internal method to handle subclass dispatch.
+
+        Ensures operations involving Pos2D return base Tensors or correctly
+        handled subclasses to prevent recursive dispatch errors.
+        """
+        if kwargs is None:
+            kwargs = {}
+        if not all(issubclass(t, (torch.Tensor, Pos2D)) for t in types):
+            return NotImplemented
+        return super().__torch_function__(func, types, args, kwargs)
+
 
 class LearnablePos2D(Pos2D):
     """Subclass of Pos2D used to wrap learnable nn.Parameter objects."""
@@ -85,80 +98,85 @@ class LearnablePos2D(Pos2D):
         return self.detach().as_subclass(Pos2D)
 
 
-class Trajectory(torch.Tensor):
+class Trajectory:
     """A fixed-capacity buffer for tracking 2D positions (N, 2).
 
     Attributes:
-        _count: The number of steps currently recorded.
         capacity: The total allocated size of the buffer.
+        _count: The number of steps currently recorded.
+        _data: Internal tensor storage for the coordinates.
     """
 
-    _count: int
-    capacity: int
-
-    @staticmethod
-    def __new__(cls, capacity: int, *args, **kwargs):
-        """Initializes the trajectory buffer.
+    def __init__(self, capacity: int):
+        """Initializes the trajectory buffer with a fixed capacity.
 
         Args:
             capacity: Maximum number of 2D coordinates to store.
 
-        Returns:
-            Trajectory: A float32 tensor instance of shape (capacity, 2).
+        Raises:
+            ValueError: If capacity is less than or equal to 0.
         """
         if capacity <= 0:
             raise ValueError(f"Capacity must be > 0, got {capacity}")
 
-        instance = torch.zeros((capacity, 2), dtype=torch.float32).as_subclass(cls)
-        instance.capacity = capacity
-        instance._count = 0
-        return instance
+        self.capacity = capacity
+        self._count = 0
+
+        self._data = torch.zeros((capacity, 2), dtype=torch.float32)
 
     def append(self, pos: Pos2D) -> None:
-        """Appends a position in-place using fast data assignment.
+        """Appends a position in-place to the buffer.
 
         Args:
             pos: The 2D position to record.
 
         Raises:
-            ValueError: If capacity is exceeded.
+            ValueError: If the buffer capacity has been reached.
         """
         if self._count >= self.capacity:
             raise ValueError(f"Trajectory capacity ({self.capacity}) reached.")
 
-        self.data[self._count] = pos.data
+        self._data[self._count] = pos
         self._count += 1
 
     def get_step(self, index: int) -> Pos2D:
         """Returns the position at a specific index.
 
+        Args:
+            index: The integer index of the step to retrieve.
+
+        Returns:
+            Pos2D: The recorded position at the given index.
+
         Raises:
-            IndexError: If the index has not been populated yet.
+            IndexError: If the index is outside the range of recorded steps.
         """
         if not 0 <= index < self._count:
-            raise IndexError(
-                f"Index {index} out of recorded range (0-{self._count - 1})."
-            )
+            raise IndexError(f"Index {index} out of recorded range.")
 
-        return Pos2D(self[index])
-
-    def reset(self) -> None:
-        """Resets the record count without reallocating memory."""
-        self._count = 0
+        return Pos2D(self._data[index])
 
     @property
     def path(self) -> torch.Tensor:
-        """torch.Tensor: Returns the active slice of the trajectory (steps, 2)."""
-        return self[: self._count]
+        """Returns the active slice of the trajectory.
+
+        Returns:
+            torch.Tensor: A tensor of shape (steps, 2) containing recorded positions.
+        """
+        return self._data[: self._count]
+
+    def reset(self) -> None:
+        """Resets the record count to zero without reallocating memory."""
+        self._count = 0
 
     @property
     def steps(self) -> int:
-        """int: The number of positions currently in the trajectory."""
+        """The number of positions currently in the trajectory."""
         return self._count
 
     @property
     def is_full(self) -> bool:
-        """bool: True if no more steps can be added."""
+        """True if no more steps can be added."""
         return self._count == self.capacity
 
 
@@ -182,22 +200,15 @@ class ProblemBounds:
     @classmethod
     def from_pair(cls, bounds_tuple: Pair[Pair[float]]) -> "ProblemBounds":
         """Creates ProblemBounds from a nested tuple structure."""
-        if not isinstance(bounds_tuple, tuple):
-            raise TypeError(f"Expected tuple, got {type(bounds_tuple).__name__}")
 
-        if len(bounds_tuple) != 2:
-            raise ValueError(
-                f"Expected tuple with 2 elements (x_range, y_range), got {len(bounds_tuple)}"
-            )
+        def validate_pair(val, name):
+            if not isinstance(val, tuple) or len(val) != 2:
+                raise ValueError(f"{name} must be a tuple of length 2, got {val}")
+            return val
 
-        x_range, y_range = bounds_tuple
-
-        # Validate inner tuples
-        for name, rng in [("x_range", x_range), ("y_range", y_range)]:
-            if not isinstance(rng, tuple):
-                raise TypeError(f"{name} must be a tuple, got {type(rng).__name__}")
-            if len(rng) != 2:
-                raise ValueError(f"{name} must have exactly 2 elements, got {len(rng)}")
+        validate_pair(bounds_tuple, "bounds_tuple")
+        x_range = validate_pair(bounds_tuple[0], "x_range")
+        y_range = validate_pair(bounds_tuple[1], "y_range")
 
         return cls(x_range, y_range)
 
@@ -230,7 +241,7 @@ class ProblemBounds:
     def scale(self, ratio: float) -> "ProblemBounds":
         """Scales boundaries from the center by a given ratio."""
 
-        def _scale(r: tuple[float, float]) -> tuple[float, float]:
+        def _scale(r: Pair[float]) -> Pair[float]:
             center = (r[0] + r[1]) / 2
 
             half_width = abs(r[1] - r[0]) * ratio / 2
