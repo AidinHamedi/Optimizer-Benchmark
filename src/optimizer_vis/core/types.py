@@ -257,12 +257,13 @@ class GlobalMinima:
     points: list[Pos2D] = field(default_factory=list)
 
     @classmethod
-    def from_list(cls, raw_list: list) -> "GlobalMinima":
-        if not raw_list:
+    def from_list(cls, raw_tuple: tuple) -> "GlobalMinima":
+        if not raw_tuple:
             return cls(points=[])
 
         points = [
-            Pos2D.from_pair(p) if not isinstance(p, Pos2D) else p for p in raw_list
+            Pos2D.from_pair(tuple(p)) if not isinstance(p, Pos2D) else p
+            for p in raw_tuple
         ]
         return cls(points=points)
 

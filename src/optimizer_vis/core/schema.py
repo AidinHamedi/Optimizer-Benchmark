@@ -8,6 +8,7 @@ from .types import (
     Pos2D,
     ProblemBounds,
 )
+from .utils import to_tuple
 
 
 @dataclass(frozen=True)
@@ -49,9 +50,9 @@ class OptimizationProblemConf:
 
         return cls(
             func_name=data["name"],
-            start_pos=Pos2D.from_pair(domain["start"]),
-            bounds=ProblemBounds.from_pair(domain["bounds"]),
-            global_minima=GlobalMinima.from_list(domain["global_min"]),
+            start_pos=Pos2D.from_pair(to_tuple(domain["start"])),
+            bounds=ProblemBounds.from_pair(to_tuple(domain["bounds"])),
+            global_minima=GlobalMinima.from_list(to_tuple(domain["global_min"])),
             constants=FuncConstants(internal),
             norm=NormParams.from_pair(evaluation["norm"]),
             vectorized=evaluation["vectorized"],
