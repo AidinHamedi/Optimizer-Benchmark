@@ -1,6 +1,6 @@
 from collections.abc import Iterable
 from dataclasses import dataclass, field
-from typing import Any
+from typing import Any, overload
 
 import torch
 from torch import nn
@@ -39,6 +39,8 @@ class Pos2D(torch.Tensor):
         ValueError: If data shape is not (2,).
     """
 
+    _SAFE_OPS = {torch.add, torch.sub, torch.nextafter}
+
     @staticmethod
     def __new__(cls, data, *args, **kwargs):
         if not isinstance(data, torch.Tensor):
@@ -47,20 +49,35 @@ class Pos2D(torch.Tensor):
             raise ValueError(f"Pos2D must be shape (2,), got {data.shape}")
         return torch.as_tensor(data, dtype=torch.float32).as_subclass(cls)
 
+    @overload
     @classmethod
-    def from_pair(cls, data: Pair[float]) -> "Pos2D":
-        """Creates a Pos2D instance from a tuple of coordinates."""
-        if not isinstance(data, tuple):
-            raise TypeError(f"Expected tuple, got {type(data).__name__}")
+    def from_pair(cls, data: Pair[float], /) -> "Pos2D": ...
 
-        if len(data) != 2:
-            raise ValueError(f"Tuple must have exactly 2 elements, got {len(data)}")
+    @overload
+    @classmethod
+    def from_pair(cls, x: float, y: float, /) -> "Pos2D": ...
+
+    @classmethod
+    def from_pair(cls, *args: Any) -> "Pos2D":
+        """
+        Creates a Pos2D instance from either from_pair((x, y)) or from_pair(x, y).
+        """
+        if len(args) == 1:
+            # Case: from_pair((x, y))
+            data = args[0]
+        elif len(args) == 2:
+            # Case: from_pair(x, y)
+            data = args
+        else:
+            raise ValueError("Expected from_pair((x, y)) or from_pair(x, y)")
+
+        if not isinstance(data, (tuple, list)) or len(data) != 2:
+            raise ValueError(f"Expected 2 elements, got {data}")
 
         if not all(isinstance(val, (int, float)) for val in data):
-            raise TypeError("All tuple elements must be numeric (int or float)")
+            raise TypeError("All elements must be numeric")
 
-        tensor = torch.tensor([*data], dtype=torch.float32)
-        return cls(tensor)
+        return cls(torch.tensor(data, dtype=torch.float32))
 
     @property
     def x(self) -> torch.Tensor:
@@ -74,16 +91,26 @@ class Pos2D(torch.Tensor):
 
     @classmethod
     def __torch_function__(cls, func, types, args=(), kwargs=None):
-        """Standard PyTorch internal method to handle subclass dispatch.
+        """Handles dispatch for Pos2D to ensure semantic integrity.
 
-        Ensures operations involving Pos2D return base Tensors or correctly
-        handled subclasses to prevent recursive dispatch errors.
+        Ensures only spatial operations return Pos2D instances,
+        while others decay to base Tensors to prevent recursive errors.
         """
-        if kwargs is None:
-            kwargs = {}
-        if not all(issubclass(t, (torch.Tensor, Pos2D)) for t in types):
+        if not all(issubclass(t, (torch.Tensor, cls)) for t in types):
             return NotImplemented
-        return super().__torch_function__(func, types, args, kwargs)
+
+        ret = super().__torch_function__(func, types, args, kwargs or {})
+
+        # Promotion check: Operation must be in the safe set and maintain (2,) shape
+        if (
+            func in cls._SAFE_OPS
+            and isinstance(ret, torch.Tensor)
+            and ret.shape == (2,)
+        ):
+            return ret.as_subclass(cls)
+
+        # Explicit decay to standard Tensor for non-spatial or shape-changing ops
+        return ret.as_subclass(torch.Tensor) if isinstance(ret, cls) else ret
 
 
 class LearnablePos2D(Pos2D):
