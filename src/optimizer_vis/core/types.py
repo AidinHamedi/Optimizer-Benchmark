@@ -326,6 +326,14 @@ class FuncConstants:
     def from_dict(cls, data: Any) -> "FuncConstants":
         return cls(data if data is not None else {})
 
+    def __getattr__(self, name: str) -> Any:
+        """Fallback to allow IDEs to accept dynamic attribute access."""
+        # This will only be called if the attribute doesn't exist
+        # We raise AttributeError to keep standard Python behavior
+        raise AttributeError(
+            f"'{self.__class__.__name__}' object has no attribute '{name}'"
+        )
+
 
 @dataclass(frozen=True)
 class NormParams:
